@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-50 text-ink-900 font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent-500/20 text-primary-900;
+  }
+}
+
+@layer components {
+  .container-8xl {
+    @apply mx-auto max-w-8xl px-6 lg:px-8;
+  }
+
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_rgba(10,37,64,0.08)];
+  }
+
+  .glass-card-dark {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)];
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-500 via-accent-400 to-primary-400 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-light {
+    @apply bg-gradient-to-r from-accent-300 via-accent-400 to-primary-300 bg-clip-text text-transparent;
+  }
+
+  .section-pad {
+    @apply py-20 lg:py-28;
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(rgba(10, 37, 64, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 37, 64, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .grid-bg-dark {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .mesh-gradient {
+    background: radial-gradient(ellipse at 20% 20%, rgba(0, 212, 184, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(51, 102, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(0, 212, 184, 0.08) 0%, transparent 50%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+  }
+}
