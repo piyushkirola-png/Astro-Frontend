@@ -11,7 +11,6 @@ import {
   Globe2,
   Hash,
   Pencil,
-  X,
   Check,
   Camera,
   Loader2,
@@ -59,7 +58,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 3000);
+    const t = setTimeout(() => setToast(null), 1000);
     return () => clearTimeout(t);
   }, [toast]);
 
@@ -135,12 +134,6 @@ export default function UserProfile() {
               <CheckCircle className="h-3.5 w-3.5 text-success-600" />
             </div>
             <span className="text-xs font-medium text-ink-900">{toast}</span>
-            <button
-              onClick={() => setToast(null)}
-              className="ml-1 p-0.5 rounded hover:bg-ink-100 text-ink-400"
-            >
-              <X className="h-3 w-3" />
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './lib/AuthContext';
 
-// Public layout (Navbar + Footer + ChatBot)
+// Public layout
 import Navbar from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
@@ -65,9 +65,7 @@ import UserProfile from './pages/user/profile/profile';
 import UserPayments from './pages/user/payments/payments';
 import UserConsultations from './pages/user/consultations/MyConsultations';
 
-// ============================================================
 // React Query client (must be created outside App())
-// ============================================================
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -78,9 +76,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// ============================================================
-// Public layout — Navbar + Footer + ChatBot
-// ============================================================
+// Public layout
 function PublicLayout() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -94,9 +90,7 @@ function PublicLayout() {
   );
 }
 
-// ============================================================
 // Root App
-// ============================================================
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
