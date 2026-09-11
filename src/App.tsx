@@ -60,6 +60,8 @@ import UserDashboard from './pages/user/dashboard/Dashboard';
 import UserChat from './pages/user/chat/Chat';
 import UserPayments from './pages/user/payments/payments';
 import UserProfile from './pages/user/profile/profile';
+import UserKundali from './pages/user/kundali/Kundali';
+import UserHoroscope from './pages/user/horoscope/Horoscope';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -175,6 +177,8 @@ function App() {
               <Route path="chat" element={<UserChat />} />
               <Route path="payments" element={<UserPayments />} />
               <Route path="profile" element={<UserProfile />} />
+              <Route path="kundali" element={<UserKundali />} />
+              <Route path="horoscope" element={<UserHoroscope />} />
             </Route>
 
             <Route path="*" element={<Home />} />

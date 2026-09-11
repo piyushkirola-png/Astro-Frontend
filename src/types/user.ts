@@ -13,6 +13,10 @@ export interface UserProfile {
   timeOfBirth: string | null;
 
   placeOfBirth: string | null;
+  birthLat: number | null;
+  birthLng: number | null;
+  birthTimezone: string | null;
+
   currentAddress: string | null;
   city: string | null;
   state: string | null;
@@ -33,6 +37,9 @@ export interface UpdateProfileRequest {
   dateOfBirth?: string;
   timeOfBirth?: string;
   placeOfBirth?: string;
+  birthLat?: number;
+  birthLng?: number;
+  birthTimezone?: string;
   currentAddress?: string;
   city?: string;
   state?: string;

@@ -3,6 +3,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
+  Calendar,
+  Sparkles,
   MessageSquare,
   CreditCard,
   User,
@@ -16,6 +18,8 @@ import Button from '../ui/Button';
 
 const navItems = [
   { label: 'Dashboard', href: '/user/dashboard', icon: LayoutDashboard },
+  { label: 'Horoscope', href: '/user/horoscope', icon: Calendar },
+  { label: 'Kundali', href: '/user/kundali', icon: Sparkles },
   { label: 'Chat', href: '/user/chat', icon: MessageSquare },
   { label: 'Payments', href: '/user/payments', icon: CreditCard },
   { label: 'Profile', href: '/user/profile', icon: User },
@@ -70,10 +74,9 @@ export default function UserSidebar() {
             to={item.href}
             onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
-              `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                isActive
-                  ? 'bg-gradient-to-r from-primary-600/20 to-accent-500/20 text-white border border-accent-500/30'
-                  : 'text-ink-300 hover:text-white hover:bg-white/5'
+              `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive
+                ? 'bg-gradient-to-r from-primary-600/20 to-accent-500/20 text-white border border-accent-500/30'
+                : 'text-ink-300 hover:text-white hover:bg-white/5'
               }`
             }
           >
@@ -146,7 +149,7 @@ export default function UserSidebar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
             onClick={() => setConfirmOpen(false)}
           >
             <motion.div
