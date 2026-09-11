@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Users,
   CreditCard,
+  User as UserIcon,
   LogOut,
   Menu,
   X,
@@ -17,6 +18,7 @@ const navItems = [
   { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
   { label: 'Users', href: '/admin/users', icon: Users },
   { label: 'Payments', href: '/admin/payments', icon: CreditCard },
+  { label: 'Profile', href: '/admin/profile', icon: UserIcon },
 ];
 
 export default function AdminSidebar() {
@@ -38,7 +40,6 @@ export default function AdminSidebar() {
 
   const SidebarContent = (
     <div className="flex h-full flex-col bg-ink-950 text-ink-300">
-      {/* Brand — links to HOME now, not /admin/dashboard */}
       <div className="flex items-center justify-between h-16 lg:h-20 px-5 border-b border-white/10 shrink-0">
         <Link to="/" className="flex items-center gap-2.5">
           <img
@@ -62,7 +63,6 @@ export default function AdminSidebar() {
         </button>
       </div>
 
-      {/* Nav links */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
         {navItems.map((item) => (
           <NavLink
@@ -70,9 +70,10 @@ export default function AdminSidebar() {
             to={item.href}
             onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
-              `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive
-                ? 'bg-gradient-to-r from-primary-600/20 to-accent-500/20 text-white border border-accent-500/30'
-                : 'text-ink-300 hover:text-white hover:bg-white/5'
+              `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? 'bg-gradient-to-r from-primary-600/20 to-accent-500/20 text-white border border-accent-500/30'
+                  : 'text-ink-300 hover:text-white hover:bg-white/5'
               }`
             }
           >
@@ -82,7 +83,6 @@ export default function AdminSidebar() {
         ))}
       </nav>
 
-      {/* Logout at bottom */}
       <div className="p-3 border-t border-white/10 shrink-0">
         <button
           onClick={() => setConfirmOpen(true)}
@@ -97,7 +97,6 @@ export default function AdminSidebar() {
 
   return (
     <>
-      {/* Mobile top bar with hamburger */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-30 h-14 bg-ink-950 text-white flex items-center justify-between px-4 border-b border-white/10">
         <Link to="/" className="flex items-center gap-2">
           <img src="/assets/logo.png" alt="Jyotish AI" className="h-7 w-9 rounded" />
@@ -114,12 +113,10 @@ export default function AdminSidebar() {
         </button>
       </div>
 
-      {/* Desktop sidebar */}
       <aside className="hidden lg:block fixed top-0 left-0 bottom-0 w-64 z-20">
         {SidebarContent}
       </aside>
 
-      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -143,14 +140,13 @@ export default function AdminSidebar() {
         )}
       </AnimatePresence>
 
-      {/* Logout confirm modal */}
       <AnimatePresence>
         {confirmOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
             onClick={() => setConfirmOpen(false)}
           >
             <motion.div

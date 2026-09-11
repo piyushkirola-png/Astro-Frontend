@@ -11,6 +11,8 @@ import {
 import { navLinks } from '../../lib/navigation';
 import { useAuth } from '../../lib/AuthContext';
 import { useLogout } from '../../api/mutations/authMutations';
+import { useGetMe } from '../../api/queries/useUser';
+import userService from '../../api/services/userService';
 import Button from '../ui/Button';
 
 export default function Navbar() {
@@ -19,11 +21,24 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   const { user, clearUser } = useAuth();
   const logoutMutation = useLogout();
+
+  // Fetch full profile (cached by React Query — no extra network if already loaded)
+  const { data: me } = useGetMe({ enabled: !!user });
+
+  const avatarSrc =
+    user && me ? userService.absoluteAvatarUrl(me.avatarUrl) : null;
+  const showAvatarImg = avatarSrc && !imgFailed;
+
+  const initial =
+    user?.name?.[0]?.toUpperCase() ||
+    user?.email?.[0]?.toUpperCase() ||
+    'U';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -50,6 +65,25 @@ export default function Navbar() {
   const dashboardHref =
     user?.role === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard';
 
+  // Small reusable avatar renderer
+  const AvatarCircle = ({ size = 40 }: { size?: number }) => (
+    <div
+      className="rounded-full overflow-hidden bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white font-bold shrink-0"
+      style={{ width: size, height: size }}
+    >
+      {showAvatarImg ? (
+        <img
+          src={avatarSrc}
+          alt={user?.name || 'avatar'}
+          className="h-full w-full object-cover"
+          onError={() => setImgFailed(true)}
+        />
+      ) : (
+        initial
+      )}
+    </div>
+  );
+
   return (
     <>
       <motion.header
@@ -57,8 +91,8 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-            ? 'bg-white/80 backdrop-blur-xl border-b border-ink-200/60 shadow-sm'
-            : 'bg-transparent'
+          ? 'bg-white/80 backdrop-blur-xl border-b border-ink-200/60 shadow-sm'
+          : 'bg-transparent'
           }`}
       >
         <nav className="container-8xl flex items-center justify-between h-16 lg:h-20">
@@ -79,7 +113,9 @@ export default function Navbar() {
               <div
                 key={link.label}
                 className="relative"
-                onMouseEnter={() => link.children && setOpenDropdown(link.label)}
+                onMouseEnter={() =>
+                  link.children && setOpenDropdown(link.label)
+                }
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <Link
@@ -126,12 +162,10 @@ export default function Navbar() {
                 onMouseLeave={() => setUserMenuOpen(false)}
               >
                 <button
-                  className="h-10 w-10 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white font-bold hover:ring-2 hover:ring-accent-400/40 transition-all"
+                  className="rounded-full hover:ring-2 hover:ring-accent-400/40 transition-all"
                   aria-label="Account menu"
                 >
-                  {user.name?.[0]?.toUpperCase() ||
-                    user.email?.[0]?.toUpperCase() ||
-                    'U'}
+                  <AvatarCircle size={40} />
                 </button>
 
                 <AnimatePresence>
@@ -146,20 +180,14 @@ export default function Navbar() {
                       <div className="glass-card rounded-2xl p-2">
                         {/* Avatar + Full Name */}
                         <div className="flex items-center gap-3 px-3 py-2.5">
-                          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
-                            {user.name?.[0]?.toUpperCase() ||
-                              user.email?.[0]?.toUpperCase() ||
-                              'U'}
-                          </div>
+                          <AvatarCircle size={36} />
                           <div className="text-sm font-semibold text-ink-900 truncate">
                             {user.name || 'User'}
                           </div>
                         </div>
 
-                        {/* Divider */}
                         <div className="my-1 h-px bg-ink-100" />
 
-                        {/* Dashboard */}
                         <Link
                           to={dashboardHref}
                           className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-ink-600 hover:text-primary-700 hover:bg-primary-50 rounded-xl transition-colors"
@@ -168,7 +196,6 @@ export default function Navbar() {
                           Dashboard
                         </Link>
 
-                        {/* Logout — always red */}
                         <button
                           onClick={() => {
                             setUserMenuOpen(false);
@@ -253,13 +280,8 @@ export default function Navbar() {
                 <div className="pt-6 space-y-3">
                   {user ? (
                     <>
-                      {/* Avatar + name */}
                       <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-ink-50">
-                        <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
-                          {user.name?.[0]?.toUpperCase() ||
-                            user.email?.[0]?.toUpperCase() ||
-                            'U'}
-                        </div>
+                        <AvatarCircle size={36} />
                         <div className="text-sm font-semibold text-ink-900 truncate">
                           {user.name || 'User'}
                         </div>
@@ -286,10 +308,20 @@ export default function Navbar() {
                     </>
                   ) : (
                     <>
-                      <Button to="/login" variant="outline" size="md" className="w-full">
+                      <Button
+                        to="/login"
+                        variant="outline"
+                        size="md"
+                        className="w-full"
+                      >
                         Sign In
                       </Button>
-                      <Button to="/signup" variant="primary" size="md" className="w-full">
+                      <Button
+                        to="/signup"
+                        variant="primary"
+                        size="md"
+                        className="w-full"
+                      >
                         Get Started
                       </Button>
                     </>

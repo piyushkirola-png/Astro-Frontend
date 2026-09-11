@@ -1,0 +1,513 @@
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    User,
+    Mail,
+    Phone,
+    ShieldCheck,
+    Pencil,
+    Check,
+    Camera,
+    Loader2,
+    AlertCircle,
+    CheckCircle,
+    AlertTriangle,
+} from 'lucide-react';
+import { useGetMe } from '../../../api/queries/useUser';
+import {
+    useUpdateProfile,
+    useUploadAvatar,
+} from '../../../api/mutations/userMutations';
+import userService from '../../../api/services/userService';
+import type { UpdateProfileRequest, UserProfile } from '../../../types/user';
+import Button from '../../../components/ui/Button';
+
+export default function AdminProfile() {
+    const { data, isLoading, isError, refetch } = useGetMe();
+    const [editOpen, setEditOpen] = useState(false);
+    const [toast, setToast] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!toast) return;
+        const t = setTimeout(() => setToast(null), 1500);
+        return () => clearTimeout(t);
+    }, [toast]);
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center py-24">
+                <Loader2 className="h-6 w-6 animate-spin text-primary-500" />
+            </div>
+        );
+    }
+
+    if (isError || !data) {
+        return (
+            <div className="bg-white rounded-2xl border border-ink-100 p-10 text-center">
+                <AlertCircle className="h-7 w-7 text-danger-500 mx-auto mb-3" />
+                <h2 className="text-base font-bold text-ink-900 mb-1">
+                    Couldn't load your profile
+                </h2>
+                <p className="text-xs text-ink-500 mb-4">
+                    Please try again in a moment.
+                </p>
+                <Button variant="outline" size="sm" onClick={() => refetch()}>
+                    Retry
+                </Button>
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-5">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                    <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">
+                        My Profile
+                    </h1>
+                    <p className="text-ink-500 mt-1 text-sm">Your account information</p>
+                </div>
+                <button
+                    onClick={() => setEditOpen(true)}
+                    className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-xs font-semibold hover:shadow-md transition-all"
+                >
+                    <Pencil className="h-3.5 w-3.5" />
+                    Edit Profile
+                </button>
+            </div>
+
+            <ViewMode profile={data} />
+
+            <EditAdminModal
+                open={editOpen}
+                profile={data}
+                onClose={() => setEditOpen(false)}
+                onSuccess={() => {
+                    setEditOpen(false);
+                    refetch();
+                    setToast('Profile updated successfully!');
+                }}
+            />
+
+            {/* Toast — PORTAL */}
+            {createPortal(
+                <AnimatePresence>
+                    {toast && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20, x: 20 }}
+                            animate={{ opacity: 1, y: 0, x: 0 }}
+                            exit={{ opacity: 0, y: -20, x: 20 }}
+                            className="fixed top-6 right-6 z-[9999] flex items-center gap-3 bg-white border border-success-200 shadow-xl rounded-lg px-3.5 py-2.5 max-w-xs"
+                        >
+                            <div className="p-1 rounded bg-success-100">
+                                <CheckCircle className="h-3.5 w-3.5 text-success-600" />
+                            </div>
+                            <span className="text-xs font-medium text-ink-900">{toast}</span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
+        </div>
+    );
+}
+
+// ============================================================
+// VIEW MODE
+// ============================================================
+function ViewMode({ profile }: { profile: UserProfile }) {
+    const avatarSrc = userService.absoluteAvatarUrl(profile.avatarUrl);
+    const [imgFailed, setImgFailed] = useState(false);
+    const showImage = avatarSrc && !imgFailed;
+
+    const fields = [
+        { icon: User, label: 'Full Name', value: profile.name },
+        { icon: Mail, label: 'Email', value: profile.email },
+        { icon: ShieldCheck, label: 'Role', value: profile.role },
+        { icon: Phone, label: 'Phone', value: profile.phone || '—' },
+    ];
+
+    return (
+        <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
+            {/* Banner */}
+            <div className="relative h-24 bg-gradient-to-br from-primary-600 to-accent-500">
+                <div className="absolute inset-0 grid-bg-dark opacity-20" />
+            </div>
+
+            <div className="px-5 lg:px-6 pb-6">
+                {/* Avatar + name */}
+                <div className="flex flex-col sm:flex-row sm:items-end gap-4 -mt-10 mb-6">
+                    <div className="relative h-24 w-24 rounded-2xl bg-white shadow-lg border-4 border-white overflow-hidden shrink-0">
+                        {showImage ? (
+                            <img
+                                src={avatarSrc}
+                                alt={profile.name}
+                                className="h-full w-full object-cover"
+                                onError={() => setImgFailed(true)}
+                            />
+                        ) : (
+                            <div className="h-full w-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-3xl font-bold">
+                                {profile.name?.[0]?.toUpperCase() || 'A'}
+                            </div>
+                        )}
+                    </div>
+                    <div className="pb-1">
+                        <h2 className="text-lg lg:text-xl font-bold text-ink-900">
+                            {profile.name}
+                        </h2>
+                        <p className="text-xs text-ink-500">{profile.email}</p>
+                    </div>
+                </div>
+
+                {/* Fields — 2 columns */}
+                <div className="grid sm:grid-cols-2 gap-3">
+                    {fields.map((f) => (
+                        <div
+                            key={f.label}
+                            className="bg-ink-50 rounded-lg p-3 border border-ink-100"
+                        >
+                            <div className="flex items-center gap-1.5 mb-1">
+                                <f.icon className="h-3 w-3 text-ink-400" />
+                                <span className="text-[11px] text-ink-500 uppercase tracking-wide">
+                                    {f.label}
+                                </span>
+                            </div>
+                            <div className="text-xs font-semibold text-ink-900 truncate">
+                                {f.value}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ============================================================
+// EDIT MODAL — with portal
+// ============================================================
+function EditAdminModal({
+    open,
+    profile,
+    onClose,
+    onSuccess,
+}: {
+    open: boolean;
+    profile: UserProfile;
+    onClose: () => void;
+    onSuccess: () => void;
+}) {
+    const updateMutation = useUpdateProfile();
+    const uploadMutation = useUploadAvatar();
+
+    const [form, setForm] = useState<UpdateProfileRequest>({});
+    const [pendingAvatarFile, setPendingAvatarFile] = useState<File | null>(null);
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Reset form when modal opens
+    useEffect(() => {
+        if (open) {
+            setForm({
+                name: profile.name,
+                email: profile.email,
+                phone: profile.phone || '',
+            });
+            setPendingAvatarFile(null);
+            setAvatarPreview(userService.absoluteAvatarUrl(profile.avatarUrl));
+            setError(null);
+            setConfirmOpen(false);
+        }
+    }, [open, profile]);
+
+    // Hide header while modal open (kept from your original — harmless)
+    useEffect(() => {
+        const header = document.querySelector('header');
+        if (!header) return;
+        if (open) {
+            header.style.visibility = 'hidden';
+            header.style.pointerEvents = 'none';
+        } else {
+            header.style.visibility = '';
+            header.style.pointerEvents = '';
+        }
+        return () => {
+            header.style.visibility = '';
+            header.style.pointerEvents = '';
+        };
+    }, [open]);
+
+    const onField =
+        (key: keyof UpdateProfileRequest) =>
+            (e: React.ChangeEvent<HTMLInputElement>) => {
+                setForm((f) => ({ ...f, [key]: e.target.value }));
+            };
+
+    const handlePickFile = () => fileInputRef.current?.click();
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!/^image\/(png|jpe?g|webp)$/i.test(file.type)) {
+            setError('Only PNG, JPG, or WEBP images allowed');
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            setError('Image must be under 5 MB');
+            return;
+        }
+
+        setError(null);
+        setPendingAvatarFile(file);
+        setAvatarPreview(URL.createObjectURL(file));
+    };
+
+    const handleRequestSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setError(null);
+        setConfirmOpen(true);
+    };
+
+    const handleConfirmSave = async () => {
+        try {
+            if (pendingAvatarFile) {
+                await uploadMutation.mutateAsync(pendingAvatarFile);
+                setPendingAvatarFile(null);
+            }
+            await updateMutation.mutateAsync(form);
+            setConfirmOpen(false);
+            onSuccess();
+        } catch (err: any) {
+            setConfirmOpen(false);
+            setError(err?.response?.data?.message || 'Update failed');
+        }
+    };
+
+    const saving = updateMutation.isPending || uploadMutation.isPending;
+
+    return (
+        <>
+            {createPortal(
+                <AnimatePresence>
+                    {open && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-[9998] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+                            onClick={onClose}
+                        >
+                            <motion.div
+                                initial={{ scale: 0.96, opacity: 0, y: 12 }}
+                                animate={{ scale: 1, opacity: 1, y: 0 }}
+                                exit={{ scale: 0.96, opacity: 0, y: 12 }}
+                                transition={{ duration: 0.2 }}
+                                onClick={(e) => e.stopPropagation()}
+                                className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-hidden flex flex-col"
+                            >
+                                {/* Header */}
+                                <div className="px-5 py-3.5 border-b border-ink-100 shrink-0">
+                                    <h2 className="text-base font-bold text-ink-900">
+                                        Edit Admin Profile
+                                    </h2>
+                                    <p className="text-[11px] text-ink-500 mt-0.5">
+                                        Update your name, phone, or avatar
+                                    </p>
+                                </div>
+
+                                {/* Body */}
+                                <form
+                                    onSubmit={handleRequestSubmit}
+                                    className="flex-1 overflow-y-auto px-5 py-5 space-y-4"
+                                    id="admin-edit-form"
+                                >
+                                    {error && (
+                                        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-danger-50 border border-danger-200 text-danger-600 text-xs">
+                                            <AlertCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+                                            {error}
+                                        </div>
+                                    )}
+
+                                    {/* Avatar */}
+                                    <div className="flex items-center gap-3">
+                                        <div className="relative">
+                                            <div className="h-16 w-16 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-xl font-bold overflow-hidden">
+                                                {avatarPreview ? (
+                                                    <img
+                                                        src={avatarPreview}
+                                                        alt="avatar"
+                                                        className="h-full w-full object-cover"
+                                                    />
+                                                ) : (
+                                                    form.name?.[0]?.toUpperCase() || 'A'
+                                                )}
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={handlePickFile}
+                                                className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full bg-white border border-ink-200 flex items-center justify-center shadow-sm hover:bg-ink-50 transition"
+                                                aria-label="Change avatar"
+                                            >
+                                                <Camera className="h-3 w-3 text-ink-700" />
+                                            </button>
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept="image/png,image/jpeg,image/webp"
+                                                className="hidden"
+                                                onChange={handleFileChange}
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-semibold text-ink-900">
+                                                Profile picture
+                                            </div>
+                                            <div className="text-[11px] text-ink-500 mt-0.5">
+                                                PNG, JPG or WEBP. Max 5 MB.
+                                                {pendingAvatarFile && (
+                                                    <span className="block text-primary-600 font-medium mt-0.5">
+                                                        Will upload on save
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Full Name */}
+                                    <div>
+                                        <label className="block text-xs font-medium text-ink-700 mb-1">
+                                            Full Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={form.name ?? ''}
+                                            onChange={onField('name')}
+                                            className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
+                                            required
+                                        />
+                                    </div>
+
+                                    {/* Email — readonly */}
+                                    <div>
+                                        <label className="block text-xs font-medium text-ink-700 mb-1">
+                                            Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            value={form.email ?? ''}
+                                            readOnly
+                                            className="w-full px-3 py-2 rounded-lg bg-ink-50 border border-ink-200 text-sm text-ink-500 cursor-not-allowed"
+                                        />
+                                        <p className="text-[10px] text-ink-400 mt-1">
+                                            Email cannot be changed
+                                        </p>
+                                    </div>
+
+                                    {/* Phone */}
+                                    <div>
+                                        <label className="block text-xs font-medium text-ink-700 mb-1">
+                                            Phone Number
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            value={form.phone ?? ''}
+                                            onChange={onField('phone')}
+                                            placeholder="+91 98765 43210"
+                                            className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
+                                        />
+                                    </div>
+                                </form>
+
+                                {/* Footer */}
+                                <div className="flex gap-2.5 px-5 py-3.5 border-t border-ink-100 shrink-0">
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="flex-1 inline-flex items-center justify-center rounded-lg px-4 py-2.5 border border-ink-200 text-ink-700 text-xs font-semibold hover:border-ink-300 hover:bg-ink-50 transition"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        form="admin-edit-form"
+                                        disabled={saving}
+                                        className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-xs font-semibold hover:shadow-lg disabled:opacity-60 transition"
+                                    >
+                                        <Check className="h-3.5 w-3.5" />
+                                        Update Profile
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
+
+            {/* Nested Confirm — PORTAL */}
+            {createPortal(
+                <AnimatePresence>
+                    {confirmOpen && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+                            onClick={() => setConfirmOpen(false)}
+                        >
+                            <motion.div
+                                initial={{ scale: 0.95, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.95, opacity: 0 }}
+                                onClick={(e) => e.stopPropagation()}
+                                className="bg-white rounded-xl p-5 w-full max-w-sm shadow-2xl"
+                            >
+                                <div className="flex items-center gap-2.5 mb-2">
+                                    <div className="p-1.5 rounded-lg bg-primary-50">
+                                        <AlertTriangle className="h-4 w-4 text-primary-600" />
+                                    </div>
+                                    <h3 className="text-sm font-bold text-ink-900">
+                                        Save changes?
+                                    </h3>
+                                </div>
+                                <p className="text-xs text-ink-500 mb-5">
+                                    Your profile will be updated with the new information.
+                                </p>
+                                <div className="flex gap-2.5">
+                                    <button
+                                        onClick={() => setConfirmOpen(false)}
+                                        disabled={saving}
+                                        className="flex-1 inline-flex items-center justify-center rounded-lg px-4 py-2 border border-ink-200 text-ink-700 text-xs font-semibold hover:border-ink-300 hover:bg-ink-50 disabled:opacity-60 transition"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleConfirmSave}
+                                        disabled={saving}
+                                        className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-xs font-semibold hover:shadow-lg disabled:opacity-60 transition"
+                                    >
+                                        {saving ? (
+                                            <>
+                                                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                                Saving...
+                                            </>
+                                        ) : (
+                                            'Confirm'
+                                        )}
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
+        </>
+    );
+}

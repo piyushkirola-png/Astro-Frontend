@@ -20,6 +20,12 @@ interface AuthContextValue {
   user: AuthUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+
+  // Global toast
+  toast: string | null;
+  showToast: (message: string) => void;
+  dismissToast: () => void;
+
   setSession: (auth: AuthResponse) => void;
   clearUser: () => void;
 }
@@ -29,31 +35,40 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [toast, setToast] = useState<string | null>(null);
 
   // Hydrate on mount
   useEffect(() => {
     const token = getToken();
     const storedUser = getStoredUser();
-    if (token && storedUser) {
-      setUser(storedUser);
-    } else {
-      setUser(null);
-    }
+    if (token && storedUser) setUser(storedUser);
     setIsLoading(false);
   }, []);
 
-  // Listen for 401 events from api-client
+  // Listen for 401 events
   useEffect(() => {
-    const handleUnauthorized = () => {
+    const onUnauthorized = () => {
       clearSession();
       setUser(null);
     };
-    window.addEventListener('auth:unauthorized', handleUnauthorized);
+    window.addEventListener('auth:unauthorized', onUnauthorized);
     return () =>
-      window.removeEventListener('auth:unauthorized', handleUnauthorized);
+      window.removeEventListener('auth:unauthorized', onUnauthorized);
   }, []);
 
-  // Save a full session (called after login/register)
+  // Auto-dismiss toast after 1s
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 1000);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  const showToast = useCallback((message: string) => {
+    setToast(message);
+  }, []);
+
+  const dismissToast = useCallback(() => setToast(null), []);
+
   const setSession = useCallback((auth: AuthResponse) => {
     const authUser: AuthUser = {
       userId: auth.userId,
@@ -66,7 +81,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(authUser);
   }, []);
 
-  // Clear session (logout)
   const clearUser = useCallback(() => {
     clearSession();
     setUser(null);
@@ -77,10 +91,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       isAuthenticated: !!user,
       isLoading,
+      toast,
+      showToast,
+      dismissToast,
       setSession,
       clearUser,
     }),
-    [user, isLoading, setSession, clearUser]
+    [user, isLoading, toast, showToast, dismissToast, setSession, clearUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

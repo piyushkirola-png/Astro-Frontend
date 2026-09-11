@@ -7,6 +7,8 @@ export interface UserProfile {
   role: 'ADMIN' | 'USER';
 
   gender: UserGender | null;
+  phone: string | null;
+
   dateOfBirth: string | null;
   timeOfBirth: string | null;
 
@@ -19,12 +21,14 @@ export interface UserProfile {
 
   avatarUrl: string | null;
   zodiacSign: string | null;
+  isActive: boolean;
   createdAt: string;
 }
 
 export interface UpdateProfileRequest {
   name?: string;
   email?: string;
+  phone?: string;
   gender?: UserGender | '';
   dateOfBirth?: string;
   timeOfBirth?: string;

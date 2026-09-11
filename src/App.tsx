@@ -1,21 +1,18 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider } from './lib/AuthContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle } from 'lucide-react';
+import { AuthProvider, useAuth } from './lib/AuthContext';
 
-// Public layout
 import Navbar from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
 import ChatBot from './components/ui/ChatBot';
 
-// Auth guard
 import ProtectedRoute from './lib/ProtectedRoute';
-
-// Dashboard layout
 import AdminLayout from './components/layout/AdminLayout';
 import UserLayout from './components/layout/UserLayout';
 
-// ─── Public Pages ───
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
@@ -27,11 +24,9 @@ import About from './pages/legal/About';
 import Privacy from './pages/legal/Privacy';
 import Terms from './pages/legal/Terms';
 
-// Auth pages
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
 
-// Public feature modules
 import Consultations from './pages/consultations/Consultations';
 import ChatWithAstrologer from './pages/consultations/ChatWithAstrologer';
 import Horoscope from './pages/horoscope/Horoscope';
@@ -54,29 +49,45 @@ import TomorrowPanchang from './pages/panchang/TomorrowPanchang';
 import RahuKaal from './pages/panchang/RahuKaal';
 import SubhMuhurat from './pages/panchang/SubhMuhurat';
 
-// ─── Admin Dashboard Pages ───
+// Admin
 import AdminDashboard from './pages/admin/dashboard/Dashboard';
 import AdminUsers from './pages/admin/users/Users';
 import AdminPayments from './pages/admin/payments/payments';
+import AdminProfile from './pages/admin/profile/Profile';
 
-// ─── User Dashboard Pages ───
+// User
 import UserDashboard from './pages/user/dashboard/Dashboard';
-import UserProfile from './pages/user/profile/profile';
+import UserChat from './pages/user/chat/Chat';
 import UserPayments from './pages/user/payments/payments';
-import UserConsultations from './pages/user/consultations/MyConsultations';
+import UserProfile from './pages/user/profile/profile';
 
-// React Query client (must be created outside App())
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000,
-    },
+    queries: { retry: 1, refetchOnWindowFocus: false, staleTime: 5 * 60 * 1000 },
   },
 });
 
-// Public layout
+function GlobalToast() {
+  const { toast } = useAuth();
+  return (
+    <AnimatePresence>
+      {toast && (
+        <motion.div
+          initial={{ opacity: 0, y: -20, x: 20 }}
+          animate={{ opacity: 1, y: 0, x: 0 }}
+          exit={{ opacity: 0, y: -20, x: 20 }}
+          className="fixed top-6 right-6 z-[9999] flex items-center gap-3 bg-white border border-success-200 shadow-xl rounded-lg px-3.5 py-2.5 max-w-xs"
+        >
+          <div className="p-1 rounded bg-success-100">
+            <CheckCircle className="h-3.5 w-3.5 text-success-600" />
+          </div>
+          <span className="text-xs font-medium text-ink-900">{toast}</span>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function PublicLayout() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -90,15 +101,14 @@ function PublicLayout() {
   );
 }
 
-// Root App
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
           <ScrollToTop />
+          <GlobalToast />
           <Routes>
-            {/* ================= PUBLIC ROUTES ================= */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -116,14 +126,11 @@ function App() {
 
               <Route path="/consultations" element={<Consultations />} />
               <Route path="/chat-with-astrologer" element={<ChatWithAstrologer />} />
-
               <Route path="/horoscope" element={<Horoscope />} />
-
               <Route path="/free-services" element={<FreeServices />} />
               <Route path="/free-kundali" element={<FreeKundali />} />
               <Route path="/kundali-matching" element={<KundaliMatching />} />
               <Route path="/compatibility" element={<Compatibility />} />
-
               <Route path="/calculators" element={<Calculators />} />
               <Route path="/love-calculator" element={<LoveCalculator />} />
               <Route path="/numerology-calculator" element={<NumerologyCalculator />} />
@@ -133,7 +140,6 @@ function App() {
               <Route path="/age-calculator" element={<AgeCalculator />} />
               <Route path="/sade-sati" element={<SadeSati />} />
               <Route path="/kaal-sarp-dosh" element={<KaalSarpDosh />} />
-
               <Route path="/panchang" element={<Panchang />} />
               <Route path="/today-panchang" element={<TodayPanchang />} />
               <Route path="/tomorrow-panchang" element={<TomorrowPanchang />} />
@@ -141,7 +147,7 @@ function App() {
               <Route path="/subh-muhurat" element={<SubhMuhurat />} />
             </Route>
 
-            {/* ================= ADMIN DASHBOARD ================= */}
+            {/* Admin */}
             <Route
               path="/admin"
               element={
@@ -153,9 +159,10 @@ function App() {
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="users" element={<AdminUsers />} />
               <Route path="payments" element={<AdminPayments />} />
+              <Route path="profile" element={<AdminProfile />} />
             </Route>
 
-            {/* ================= USER DASHBOARD ================= */}
+            {/* User */}
             <Route
               path="/user"
               element={
@@ -165,12 +172,11 @@ function App() {
               }
             >
               <Route path="dashboard" element={<UserDashboard />} />
-              <Route path="consultations" element={<UserConsultations />} />
+              <Route path="chat" element={<UserChat />} />
               <Route path="payments" element={<UserPayments />} />
               <Route path="profile" element={<UserProfile />} />
             </Route>
 
-            {/* ================= 404 FALLBACK ================= */}
             <Route path="*" element={<Home />} />
           </Routes>
         </AuthProvider>
