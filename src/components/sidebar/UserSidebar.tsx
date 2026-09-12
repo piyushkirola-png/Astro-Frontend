@@ -11,6 +11,7 @@ import {
   LogOut,
   Menu,
   X,
+  FileText,
 } from 'lucide-react';
 import { useAuth } from '../../lib/AuthContext';
 import { useLogout } from '../../api/mutations/authMutations';
@@ -21,6 +22,7 @@ const navItems = [
   { label: 'Horoscope', href: '/user/horoscope', icon: Calendar },
   { label: 'Kundali', href: '/user/kundali', icon: Sparkles },
   { label: 'Chat', href: '/user/chat', icon: MessageSquare },
+  { label: 'Report', href: '/user/report', icon: FileText },
   { label: 'Payments', href: '/user/payments', icon: CreditCard },
   { label: 'Profile', href: '/user/profile', icon: User },
 ];

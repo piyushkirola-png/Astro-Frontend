@@ -4,6 +4,7 @@ import type {
   ChatMessage,
   ChatSessionDetail,
   ChatSessionSummary,
+  HeartbeatResponse,
   SendMessageRequest,
 } from '../../types/chat';
 
@@ -44,9 +45,16 @@ export const chatService = {
     await apiClient.delete(`/chat/sessions/${id}`);
   },
 
-  // ---- NEW: rename ----
   renameSession: async (id: number, title: string): Promise<void> => {
     await apiClient.patch(`/chat/sessions/${id}`, { title });
+  },
+
+  heartbeat: async (seconds: number = 10): Promise<HeartbeatResponse> => {
+    const res = await apiClient.post<ApiResponse<HeartbeatResponse>>(
+      '/chat/heartbeat',
+      { seconds }
+    );
+    return res.data.data;
   },
 };
 

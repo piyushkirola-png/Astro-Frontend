@@ -61,6 +61,7 @@ import UserChat from './pages/user/chat/Chat';
 import UserPayments from './pages/user/payments/payments';
 import UserProfile from './pages/user/profile/profile';
 import UserKundali from './pages/user/kundali/Kundali';
+import UserReport from './pages/user/kundali/Report';
 import UserHoroscope from './pages/user/horoscope/Horoscope';
 
 const queryClient = new QueryClient({
@@ -178,6 +179,7 @@ function App() {
               <Route path="payments" element={<UserPayments />} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="kundali" element={<UserKundali />} />
+              <Route path="report" element={<UserReport />} />
               <Route path="horoscope" element={<UserHoroscope />} />
             </Route>
 

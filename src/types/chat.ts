@@ -1,4 +1,4 @@
-export type ChatRole = "USER" | "ASSISTANT" | "SYSTEM";
+export type ChatRole = 'USER' | 'ASSISTANT' | 'SYSTEM';
 
 export interface ChatMessage {
   id: number;
@@ -21,10 +21,13 @@ export interface ChatSessionDetail {
   createdAt: string;
   updatedAt: string;
   messages: ChatMessage[];
-  freeMessagesUsed: number;
-  freeMessagesLimit: number;
+  chatSecondsBalance: number;
 }
 
 export interface SendMessageRequest {
   content: string;
+}
+
+export interface HeartbeatResponse {
+  chatSecondsBalance: number;
 }

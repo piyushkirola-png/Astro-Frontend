@@ -12,6 +12,7 @@ import {
   useDeleteSession,
   useRenameSession,
 } from '../../../api/mutations/chatMutations';
+import chatService from '../../../api/services/chatService';
 import SessionSidebar from '../../../components/chat/SessionSidebar';
 import ChatHeader from '../../../components/chat/ChatHeader';
 import MessageBubble from '../../../components/chat/MessageBubble';
@@ -27,12 +28,13 @@ export default function Chat() {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [paywallOpen, setPaywallOpen] = useState(false);
-  const [paywallLimit, setPaywallLimit] = useState(3);
   const [isTyping, setIsTyping] = useState(false);
   const [hideLastGreeting, setHideLastGreeting] = useState(false);
   const [optimisticUserMsgs, setOptimisticUserMsgs] = useState<ChatMessage[]>([]);
+  const [secondsBalance, setSecondsBalance] = useState<number | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const heartbeatRef = useRef<number | null>(null);
 
   const sessionsQuery = useChatSessions();
   const sessionQuery = useChatSession(activeId);
@@ -41,19 +43,16 @@ export default function Chat() {
   const renameMutation = useRenameSession();
   const sendMutation = useSendMessage(activeId ?? 0);
 
-  // Reset optimistic queue when session changes
   useEffect(() => {
     setOptimisticUserMsgs([]);
   }, [activeId]);
 
-  // Auto-select first session (only if active one is not set)
   useEffect(() => {
     if (!activeId && sessionsQuery.data && sessionsQuery.data.length > 0) {
       setActiveId(sessionsQuery.data[0].id);
     }
   }, [sessionsQuery.data, activeId]);
 
-  // Greeting delay for fresh sessions
   useEffect(() => {
     if (!activeId) return;
     const msgs = sessionQuery.data?.messages ?? [];
@@ -76,12 +75,51 @@ export default function Chat() {
     sessionQuery.data?.messages.length,
   ]);
 
-  // Scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [sessionQuery.data?.messages.length, optimisticUserMsgs.length, isTyping]);
 
-  // ---------------- Handlers ----------------
+  useEffect(() => {
+    if (sessionQuery.data?.chatSecondsBalance !== undefined) {
+      setSecondsBalance(sessionQuery.data.chatSecondsBalance);
+    }
+  }, [sessionQuery.data?.chatSecondsBalance]);
+
+  useEffect(() => {
+    if (!activeId) return;
+
+    const tick = () => {
+      chatService
+        .heartbeat(10)
+        .then((res) => {
+          setSecondsBalance(res.chatSecondsBalance);
+          if (res.chatSecondsBalance <= 0) {
+            setPaywallOpen(true);
+            if (heartbeatRef.current) {
+              clearInterval(heartbeatRef.current);
+              heartbeatRef.current = null;
+            }
+          }
+        })
+        .catch(() => {});
+    };
+
+    heartbeatRef.current = window.setInterval(tick, 10_000);
+
+    return () => {
+      if (heartbeatRef.current) {
+        clearInterval(heartbeatRef.current);
+        heartbeatRef.current = null;
+      }
+    };
+  }, [activeId, paywallOpen]);
+
+  useEffect(() => {
+    if (paywallOpen || !activeId) return;
+    if (secondsBalance !== null && secondsBalance <= 0) {
+      setPaywallOpen(true);
+    }
+  }, [secondsBalance, paywallOpen, activeId]);
 
   const handleNewChat = () => {
     createMutation.mutate(undefined, {
@@ -102,21 +140,17 @@ export default function Chat() {
   };
 
   const handleDelete = (id: number) => {
-    // 1. If deleting the active session, clear it first
     if (activeId === id) {
       setActiveId(null);
     }
 
-    // 2. Optimistically remove from sessions list cache
     queryClient.setQueryData<ChatSessionSummary[]>(
       ['chat', 'sessions'],
       (old) => (old ?? []).filter((s) => s.id !== id)
     );
 
-    // 3. Wipe the session detail cache so stale messages don't linger
     queryClient.removeQueries({ queryKey: ['chat', 'session', id] });
 
-    // 4. Call backend
     deleteMutation.mutate(id, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['chat', 'sessions'] });
@@ -131,7 +165,11 @@ export default function Chat() {
   const handleSend = (text: string) => {
     if (!activeId) return;
 
-    // 1. Show user's message INSTANTLY
+    if (secondsBalance !== null && secondsBalance <= 0) {
+      setPaywallOpen(true);
+      return;
+    }
+
     const tempId = -Date.now();
     const optimistic: ChatMessage = {
       id: tempId,
@@ -140,11 +178,8 @@ export default function Chat() {
       createdAt: new Date().toISOString(),
     };
     setOptimisticUserMsgs((prev) => [...prev, optimistic]);
-
-    // 2. Show typing indicator
     setIsTyping(true);
 
-    // 3. Call backend
     sendMutation.mutate(
       { content: text },
       {
@@ -156,17 +191,13 @@ export default function Chat() {
           setOptimisticUserMsgs([]);
           setIsTyping(false);
           const status = err?.response?.status;
-          const limit = sessionQuery.data?.freeMessagesLimit ?? 3;
           if (status === 402) {
-            setPaywallLimit(limit);
             setPaywallOpen(true);
           }
         },
       }
     );
   };
-
-  // ---------------- Derived state ----------------
 
   const session = sessionQuery.data;
   const allMessages = session?.messages ?? [];
@@ -178,19 +209,36 @@ export default function Chat() {
   const displayMessages: ChatMessage[] = [...messages, ...optimisticUserMsgs];
   const hasSession = !!activeId;
 
-  // ---------------- Render ----------------
+  const formatTime = (secs: number | null): string => {
+    if (secs === null) return '--:--';
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  };
 
   return (
     <div className="flex flex-col h-[calc(100dvh-7rem)] lg:h-[calc(100dvh-5rem)] overflow-hidden">
-      {/* Page header */}
-      <div className="shrink-0">
-        <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">Chat</h1>
-        <p className="text-ink-500 mt-1 text-sm">Talk with Jyotish AI</p>
+      <div className="shrink-0 flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">Chat</h1>
+          <p className="text-ink-500 mt-1 text-sm">Talk with Jyotish AI</p>
+        </div>
+
+        {hasSession && (
+          <div
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
+              secondsBalance !== null && secondsBalance <= 30
+                ? 'bg-danger-50 border-danger-200 text-danger-700'
+                : 'bg-white border-ink-200 text-ink-700'
+            }`}
+          >
+            <span className="text-ink-500 font-normal">Time left</span>
+            <span className="font-mono">{formatTime(secondsBalance)}</span>
+          </div>
+        )}
       </div>
 
-      {/* Chat card */}
       <div className="flex flex-1 min-h-0 mt-6 overflow-hidden rounded-2xl border border-ink-100 bg-white">
-        {/* Sidebar — desktop */}
         <div className="hidden lg:block w-72 shrink-0 border-r border-ink-100">
           <SessionSidebar
             sessions={sessionsQuery.data ?? []}
@@ -204,7 +252,6 @@ export default function Chat() {
           />
         </div>
 
-        {/* Sidebar — mobile drawer */}
         {sidebarOpen && (
           <div
             className="lg:hidden fixed inset-0 z-[80] bg-black/50 backdrop-blur-sm"
@@ -228,11 +275,9 @@ export default function Chat() {
           </div>
         )}
 
-        {/* Chat column */}
         <div className="relative flex-1 flex flex-col min-w-0 bg-ink-50">
           <ChatHeader onOpenSidebar={() => setSidebarOpen(true)} />
 
-          {/* Scrollable messages — ONLY this scrolls */}
           <div className="flex-1 min-h-0 overflow-y-auto px-3 lg:px-4 py-3">
             {!hasSession && !sessionsQuery.isLoading && (
               <div className="h-full flex items-center justify-center">
@@ -290,7 +335,6 @@ export default function Chat() {
 
           <PaywallOverlay
             open={paywallOpen}
-            freeLimit={paywallLimit}
             onClose={() => setPaywallOpen(false)}
           />
         </div>
