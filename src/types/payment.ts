@@ -12,6 +12,7 @@ export interface WalletBalance {
   minutes: number;
   remainingSeconds: number;
   formatted: string;
+  valueRupees: number;
 }
 
 export interface PaymentCategory {

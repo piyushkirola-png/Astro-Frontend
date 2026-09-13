@@ -53,12 +53,13 @@ export default function Wallet() {
               <Loader2 className="h-6 w-6 animate-spin text-white/80" />
             </div>
           ) : (
-            <div className="flex items-baseline gap-3 mb-6">
+            <div className="mb-6">
               <div className="text-5xl lg:text-6xl font-bold tracking-tight">
-                {balance?.formatted ?? "0:00"}
+                ₹{Number(balance?.valueRupees ?? 0).toFixed(2)}
               </div>
-              <div className="text-white/70 text-sm">
+              <div className="text-white/70 text-sm mt-1">
                 {balance?.minutes ?? 0} min {balance?.remainingSeconds ?? 0}s
+                remaining
               </div>
             </div>
           )}

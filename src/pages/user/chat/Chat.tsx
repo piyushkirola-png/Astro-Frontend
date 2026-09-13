@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { Sparkles, Loader2 } from "lucide-react";
+import { Sparkles, Loader2, Play, Pause, LogOut, X } from "lucide-react";
 import { useChatSessions, useChatSession } from "../../../api/queries/useChat";
 import {
   useCreateSession,
@@ -31,9 +31,13 @@ export default function Chat() {
     [],
   );
   const [secondsBalance, setSecondsBalance] = useState<number | null>(null);
+  const [displaySeconds, setDisplaySeconds] = useState<number | null>(null);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [confirmEndOpen, setConfirmEndOpen] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const heartbeatRef = useRef<number | null>(null);
+  const tickerRef = useRef<number | null>(null);
 
   const sessionsQuery = useChatSessions();
   const sessionQuery = useChatSession(activeId);
@@ -44,6 +48,7 @@ export default function Chat() {
 
   useEffect(() => {
     setOptimisticUserMsgs([]);
+    setTimerRunning(false);
   }, [activeId]);
 
   useEffect(() => {
@@ -81,19 +86,24 @@ export default function Chat() {
   useEffect(() => {
     if (sessionQuery.data?.chatSecondsBalance !== undefined) {
       setSecondsBalance(sessionQuery.data.chatSecondsBalance);
+      setDisplaySeconds(sessionQuery.data.chatSecondsBalance);
     }
   }, [sessionQuery.data?.chatSecondsBalance]);
 
   useEffect(() => {
     if (!activeId) return;
+    if (!timerRunning) return;
+    if (paywallOpen) return;
 
     const tick = () => {
       chatService
         .heartbeat(10)
         .then((res) => {
           setSecondsBalance(res.chatSecondsBalance);
+          setDisplaySeconds(res.chatSecondsBalance);
           if (res.chatSecondsBalance <= 0) {
             setPaywallOpen(true);
+            setTimerRunning(false);
             if (heartbeatRef.current) {
               clearInterval(heartbeatRef.current);
               heartbeatRef.current = null;
@@ -111,12 +121,33 @@ export default function Chat() {
         heartbeatRef.current = null;
       }
     };
-  }, [activeId, paywallOpen]);
+  }, [activeId, timerRunning, paywallOpen]);
+
+  useEffect(() => {
+    if (!activeId) return;
+    if (!timerRunning) return;
+
+    tickerRef.current = window.setInterval(() => {
+      setDisplaySeconds((prev) => {
+        if (prev === null) return prev;
+        if (prev <= 0) return 0;
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (tickerRef.current) {
+        clearInterval(tickerRef.current);
+        tickerRef.current = null;
+      }
+    };
+  }, [activeId, timerRunning]);
 
   useEffect(() => {
     if (paywallOpen || !activeId) return;
     if (secondsBalance !== null && secondsBalance <= 0) {
       setPaywallOpen(true);
+      setTimerRunning(false);
     }
   }, [secondsBalance, paywallOpen, activeId]);
 
@@ -127,6 +158,7 @@ export default function Chat() {
         setSidebarOpen(false);
         setPaywallOpen(false);
         setOptimisticUserMsgs([]);
+        setTimerRunning(false);
       },
     });
   };
@@ -136,6 +168,7 @@ export default function Chat() {
     setSidebarOpen(false);
     setPaywallOpen(false);
     setOptimisticUserMsgs([]);
+    setTimerRunning(false);
   };
 
   const handleDelete = (id: number) => {
@@ -169,6 +202,10 @@ export default function Chat() {
       return;
     }
 
+    if (!timerRunning) {
+      setTimerRunning(true);
+    }
+
     const tempId = -Date.now();
     const optimistic: ChatMessage = {
       id: tempId,
@@ -192,10 +229,28 @@ export default function Chat() {
           const status = err?.response?.status;
           if (status === 402) {
             setPaywallOpen(true);
+            setTimerRunning(false);
           }
         },
       },
     );
+  };
+
+  const handleToggleTimer = () => {
+    if (secondsBalance !== null && secondsBalance <= 0) {
+      setPaywallOpen(true);
+      return;
+    }
+    setTimerRunning((r) => !r);
+  };
+
+  const handleEndSession = () => {
+    setTimerRunning(false);
+    setConfirmEndOpen(false);
+    setActiveId(null);
+    setSecondsBalance(null);
+    setDisplaySeconds(null);
+    queryClient.invalidateQueries({ queryKey: ["chat", "sessions"] });
   };
 
   const session = sessionQuery.data;
@@ -215,6 +270,8 @@ export default function Chat() {
     return `${m}:${s.toString().padStart(2, "0")}`;
   };
 
+  const isLow = displaySeconds !== null && displaySeconds <= 30;
+
   return (
     <div className="flex flex-col h-[calc(100dvh-7rem)] lg:h-[calc(100dvh-5rem)] overflow-hidden">
       <div className="shrink-0 flex items-end justify-between gap-4 flex-wrap">
@@ -224,15 +281,46 @@ export default function Chat() {
         </div>
 
         {hasSession && (
-          <div
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
-              secondsBalance !== null && secondsBalance <= 30
-                ? "bg-danger-50 border-danger-200 text-danger-700"
-                : "bg-white border-ink-200 text-ink-700"
-            }`}
-          >
-            <span className="text-ink-500 font-normal">Time left</span>
-            <span className="font-mono">{formatTime(secondsBalance)}</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <div
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
+                isLow
+                  ? "bg-danger-50 border-danger-200 text-danger-700"
+                  : "bg-white border-ink-200 text-ink-700"
+              }`}
+            >
+              <span className="text-ink-500 font-normal">Time left</span>
+              <span className="font-mono">{formatTime(displaySeconds)}</span>
+            </div>
+
+            <button
+              onClick={handleToggleTimer}
+              className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
+                timerRunning
+                  ? "bg-amber-100 text-amber-700 hover:bg-amber-200"
+                  : "bg-green-100 text-green-700 hover:bg-green-200"
+              }`}
+            >
+              {timerRunning ? (
+                <>
+                  <Pause className="h-3.5 w-3.5" />
+                  Pause
+                </>
+              ) : (
+                <>
+                  <Play className="h-3.5 w-3.5" />
+                  Start
+                </>
+              )}
+            </button>
+
+            <button
+              onClick={() => setConfirmEndOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold bg-red-100 text-red-700 hover:bg-red-200 transition"
+            >
+              <LogOut className="h-3.5 w-3.5" />
+              End
+            </button>
           </div>
         )}
       </div>
@@ -338,6 +426,50 @@ export default function Chat() {
           />
         </div>
       </div>
+
+      {confirmEndOpen && (
+        <div
+          className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          onClick={() => setConfirmEndOpen(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-ink-100">
+              <h3 className="text-base font-bold text-ink-900">
+                End this chat?
+              </h3>
+              <button
+                onClick={() => setConfirmEndOpen(false)}
+                className="p-1.5 rounded-lg hover:bg-ink-100 text-ink-500"
+              ></button>
+            </div>
+
+            <div className="p-5">
+              <p className="text-sm text-ink-600 leading-relaxed">
+                Your chat will close and the timer will stop. Your remaining
+                time stays safe in your wallet.
+              </p>
+            </div>
+
+            <div className="flex gap-2 px-5 pb-5">
+              <button
+                onClick={() => setConfirmEndOpen(false)}
+                className="flex-1 rounded-xl px-4 py-2.5 border border-ink-200 text-sm font-semibold text-ink-700 hover:bg-ink-50 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleEndSession}
+                className="flex-1 rounded-xl px-4 py-2.5 bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition"
+              >
+                End Chat
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

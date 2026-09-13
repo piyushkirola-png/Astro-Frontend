@@ -24,7 +24,7 @@ import {
 } from "../../../api/mutations/paymentMutations";
 import paymentService from "../../../api/services/paymentService";
 import GatewayPickerModal from "../../../components/payment/GatewayPickerModal";
-import { useAuth } from '../../../lib/AuthContext';
+import { useAuth } from "../../../lib/AuthContext";
 import PaymentSuccessModal from "../../../components/payment/PaymentSuccessModal";
 import type { PaymentRecord } from "../../../types/payment";
 
@@ -111,8 +111,8 @@ export default function UserPayments() {
                 ? "Kundali Report"
                 : latest.secondsCredited
                   ? `Chat Recharge · ${Math.round(
-                    latest.secondsCredited / 60,
-                  )} min`
+                      latest.secondsCredited / 60,
+                    )} min`
                   : "Chat Recharge",
             secondsCredited: latest.secondsCredited,
             orderId: latest.gatewayOrderId,
@@ -290,10 +290,11 @@ function TabButton({
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${active
+      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
+        active
           ? "bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md"
           : "text-ink-600 hover:bg-ink-50"
-        }`}
+      }`}
     >
       {icon}
       {label}
@@ -491,10 +492,10 @@ function HistoryTab({
     setDownloading(orderId);
     try {
       await paymentService.downloadInvoice(orderId);
-      showToast('Invoice downloaded successfully');
+      showToast("Invoice downloaded successfully");
     } catch (e) {
-      console.error('Download failed', e);
-      showToast('Failed to download invoice');
+      console.error("Download failed", e);
+      showToast("Failed to download invoice");
     } finally {
       setDownloading(null);
     }

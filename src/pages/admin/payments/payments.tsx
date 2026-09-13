@@ -14,7 +14,7 @@ import {
   Download,
 } from "lucide-react";
 import adminService from "../../../api/services/adminService";
-import { useAuth } from '../../../lib/AuthContext';
+import { useAuth } from "../../../lib/AuthContext";
 import type { AdminPaymentRecord } from "../../../types/admin";
 
 const PAGE_SIZE = 10;
@@ -45,10 +45,10 @@ export default function AdminPayments() {
     setDownloading(orderId);
     try {
       await adminService.downloadInvoice(orderId);
-      showToast('Invoice downloaded successfully');
+      showToast("Invoice downloaded successfully");
     } catch (e) {
-      console.error('Download failed', e);
-      showToast('Failed to download invoice');
+      console.error("Download failed", e);
+      showToast("Failed to download invoice");
     } finally {
       setDownloading(null);
     }
@@ -95,19 +95,19 @@ export default function AdminPayments() {
     setGatewayFilter(draftGateway);
     setPage(1);
     setFilterOpen(false);
-    showToast('Filter applied successfully');
+    showToast("Filter applied successfully");
   };
 
   const clearFilter = () => {
-    setDraftOrderId('');
-    setDraftStatus('ALL');
-    setDraftGateway('ALL');
-    setOrderIdFilter('');
-    setStatusFilter('ALL');
-    setGatewayFilter('ALL');
+    setDraftOrderId("");
+    setDraftStatus("ALL");
+    setDraftGateway("ALL");
+    setOrderIdFilter("");
+    setStatusFilter("ALL");
+    setGatewayFilter("ALL");
     setPage(1);
     setFilterOpen(false);
-    showToast('Filter cleared successfully');
+    showToast("Filter cleared successfully");
   };
 
   const filtered = useMemo(() => {
@@ -178,10 +178,11 @@ export default function AdminPayments() {
           <div ref={filterRef} className="relative">
             <button
               onClick={() => (filterOpen ? setFilterOpen(false) : openFilter())}
-              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 border text-sm font-semibold transition ${hasFilters
-                ? "border-primary-300 bg-primary-50 text-primary-700 hover:bg-primary-100"
-                : "border-ink-200 text-ink-700 hover:bg-ink-50"
-                }`}
+              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 border text-sm font-semibold transition ${
+                hasFilters
+                  ? "border-primary-300 bg-primary-50 text-primary-700 hover:bg-primary-100"
+                  : "border-ink-200 text-ink-700 hover:bg-ink-50"
+              }`}
             >
               <Filter className="h-4 w-4" />
               Filter
@@ -273,13 +274,13 @@ export default function AdminPayments() {
           <button
             onClick={async () => {
               await refetch();
-              showToast('Refreshed successfully');
+              showToast("Refreshed successfully");
             }}
             disabled={isRefetching}
             className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 border border-ink-200 text-sm font-semibold text-ink-700 hover:bg-ink-50 disabled:opacity-60 transition"
           >
             <RefreshCw
-              className={`h-4 w-4 ${isRefetching ? 'animate-spin' : ''}`}
+              className={`h-4 w-4 ${isRefetching ? "animate-spin" : ""}`}
             />
             Refresh
           </button>

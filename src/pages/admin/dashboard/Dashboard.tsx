@@ -8,7 +8,7 @@ import {
   Loader2,
   AlertCircle,
   Calendar,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -23,31 +23,31 @@ import {
   PieChart,
   Pie,
   Legend,
-} from 'recharts';
-import { useAuth } from '../../../lib/AuthContext';
-import { useGetMe } from '../../../api/queries/useUser';
-import { useAdminStats } from '../../../api/queries/useAdmin';
-import userService from '../../../api/services/userService';
+} from "recharts";
+import { useAuth } from "../../../lib/AuthContext";
+import { useGetMe } from "../../../api/queries/useUser";
+import { useAdminStats } from "../../../api/queries/useAdmin";
+import userService from "../../../api/services/userService";
 
-const BAR_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
+const BAR_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
 
 const PIE_COLORS: Record<string, string> = {
-  SUCCESS: '#22c55e',
-  PENDING: '#eab308',
-  FAILED: '#ef4444',
+  SUCCESS: "#22c55e",
+  PENDING: "#eab308",
+  FAILED: "#ef4444",
 };
 
 function fmtDay(iso: string) {
-  const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
 }
 
 function fmtCurrency(n: number) {
-  return `₹${n.toLocaleString('en-IN')}`;
+  return `₹${n.toLocaleString("en-IN")}`;
 }
 
 function fmtStatusLabel(s: string) {
-  if (!s) return 'Unknown';
+  if (!s) return "Unknown";
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 }
 
@@ -110,10 +110,10 @@ export default function AdminDashboard() {
   const maxDuration = Math.max(...durationData.map((d) => d.value), 100);
 
   const avatarSrc = userService.absoluteAvatarUrl(me?.avatarUrl);
-  const today = new Date().toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
+  const today = new Date().toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   });
 
   return (
@@ -121,7 +121,7 @@ export default function AdminDashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">
-            Welcome back, {user?.name || 'Admin'}
+            Welcome back, {user?.name || "Admin"}
           </h1>
           <p className="text-ink-500 mt-1 text-sm">
             Here's an overview of your platform
@@ -131,9 +131,7 @@ export default function AdminDashboard() {
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50">
             <Calendar className="h-4 w-4 text-amber-600" />
-            <span className="text-sm font-semibold text-ink-900">
-              {today}
-            </span>
+            <span className="text-sm font-semibold text-ink-900">{today}</span>
           </div>
           <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-300 bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
             {avatarSrc ? (
@@ -144,7 +142,7 @@ export default function AdminDashboard() {
               />
             ) : (
               <span className="text-sm font-bold text-white">
-                {user?.name?.[0]?.toUpperCase() || 'A'}
+                {user?.name?.[0]?.toUpperCase() || "A"}
               </span>
             )}
           </div>
@@ -154,7 +152,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label="Total Users"
-          value={data.totalUsers.toLocaleString('en-IN')}
+          value={data.totalUsers.toLocaleString("en-IN")}
           icon={<Users className="h-4 w-4 text-white" />}
           gradient="from-blue-500 to-cyan-500"
           hint="Registered users"
@@ -165,12 +163,14 @@ export default function AdminDashboard() {
           value={fmtCurrency(data.totalRevenue)}
           icon={<IndianRupee className="h-4 w-4 text-white" />}
           gradient="from-green-500 to-emerald-500"
-          hint={data.totalRevenue === 0 ? 'No payments yet' : 'Lifetime earnings'}
+          hint={
+            data.totalRevenue === 0 ? "No payments yet" : "Lifetime earnings"
+          }
         />
 
         <StatCard
           label="Total Messages"
-          value={data.totalMessages.toLocaleString('en-IN')}
+          value={data.totalMessages.toLocaleString("en-IN")}
           icon={<MessageSquare className="h-4 w-4 text-white" />}
           gradient="from-purple-500 to-indigo-500"
           hint="All-time chat messages"
@@ -178,7 +178,7 @@ export default function AdminDashboard() {
 
         <StatCard
           label="Total Payments"
-          value={data.totalPayments.toLocaleString('en-IN')}
+          value={data.totalPayments.toLocaleString("en-IN")}
           icon={<CreditCard className="h-4 w-4 text-white" />}
           gradient="from-amber-500 to-orange-500"
           hint="All payment attempts"
@@ -193,13 +193,11 @@ export default function AdminDashboard() {
                 <TrendingUp className="h-4 w-4 text-primary-500" />
                 Revenue Overview
               </h2>
-              <p className="text-[11px] text-ink-500 mt-0.5">
-                Last 7 days
-              </p>
+              <p className="text-[11px] text-ink-500 mt-0.5">Last 7 days</p>
             </div>
           </div>
 
-          <div style={{ width: '100%', height: 240 }}>
+          <div style={{ width: "100%", height: 240 }}>
             <ResponsiveContainer>
               <LineChart
                 data={revenueData}
@@ -208,42 +206,46 @@ export default function AdminDashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
                 <XAxis
                   dataKey="day"
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
+                  tick={{ fontSize: 11, fill: "#6b7280" }}
                   axisLine={false}
                   tickLine={false}
                   label={{
-                    value: 'Date',
-                    position: 'insideBottom',
+                    value: "Date",
+                    position: "insideBottom",
                     offset: -10,
-                    style: { fontSize: 11, fill: '#6b7280' },
+                    style: { fontSize: 11, fill: "#6b7280" },
                   }}
                 />
                 <YAxis
                   domain={[0, maxRev]}
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
+                  tick={{ fontSize: 11, fill: "#6b7280" }}
                   axisLine={false}
                   tickLine={false}
                   label={{
-                    value: 'Revenue (₹)',
+                    value: "Revenue (₹)",
                     angle: -90,
-                    position: 'insideLeft',
-                    style: { fontSize: 11, fill: '#6b7280', textAnchor: 'middle' },
+                    position: "insideLeft",
+                    style: {
+                      fontSize: 11,
+                      fill: "#6b7280",
+                      textAnchor: "middle",
+                    },
                   }}
                 />
                 <Tooltip
                   contentStyle={{
                     fontSize: 12,
                     borderRadius: 8,
-                    border: '1px solid #e5e5e5',
+                    border: "1px solid #e5e5e5",
                   }}
-                  formatter={(v: any) => [`₹${v}`, 'Revenue']}
+                  formatter={(v: any) => [`₹${v}`, "Revenue"]}
                 />
                 <Line
                   type="monotone"
                   dataKey="value"
                   stroke="#b8862a"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#b8862a' }}
+                  dot={{ r: 3, fill: "#b8862a" }}
                   activeDot={{ r: 5 }}
                 />
               </LineChart>
@@ -264,7 +266,7 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div style={{ width: '100%', height: 240 }}>
+          <div style={{ width: "100%", height: 240 }}>
             <ResponsiveContainer>
               <BarChart
                 data={aiUsageData}
@@ -273,36 +275,40 @@ export default function AdminDashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
                 <XAxis
                   dataKey="day"
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
+                  tick={{ fontSize: 11, fill: "#6b7280" }}
                   axisLine={false}
                   tickLine={false}
                   label={{
-                    value: 'Date',
-                    position: 'insideBottom',
+                    value: "Date",
+                    position: "insideBottom",
                     offset: -10,
-                    style: { fontSize: 11, fill: '#6b7280' },
+                    style: { fontSize: 11, fill: "#6b7280" },
                   }}
                 />
                 <YAxis
                   domain={[0, maxAi]}
                   allowDecimals={false}
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
+                  tick={{ fontSize: 11, fill: "#6b7280" }}
                   axisLine={false}
                   tickLine={false}
                   label={{
-                    value: 'Messages',
+                    value: "Messages",
                     angle: -90,
-                    position: 'insideLeft',
-                    style: { fontSize: 11, fill: '#6b7280', textAnchor: 'middle' },
+                    position: "insideLeft",
+                    style: {
+                      fontSize: 11,
+                      fill: "#6b7280",
+                      textAnchor: "middle",
+                    },
                   }}
                 />
                 <Tooltip
                   contentStyle={{
                     fontSize: 12,
                     borderRadius: 8,
-                    border: '1px solid #e5e5e5',
+                    border: "1px solid #e5e5e5",
                   }}
-                  formatter={(v: any) => [v, 'Messages']}
+                  formatter={(v: any) => [v, "Messages"]}
                 />
                 <Bar
                   dataKey="value"
@@ -328,20 +334,19 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {durationData.length === 0 || durationData.every((d) => d.value === 0) ? (
+          {durationData.length === 0 ||
+          durationData.every((d) => d.value === 0) ? (
             <div className="h-[260px] flex items-center justify-center text-center">
               <div>
                 <BarChart3 className="h-8 w-8 text-ink-300 mx-auto mb-2" />
-                <p className="text-sm text-ink-500">
-                  No wallet recharges yet
-                </p>
+                <p className="text-sm text-ink-500">No wallet recharges yet</p>
                 <p className="text-[11px] text-ink-400 mt-1">
                   Data will appear once users start buying
                 </p>
               </div>
             </div>
           ) : (
-            <div style={{ width: '100%', height: 260 }}>
+            <div style={{ width: "100%", height: 260 }}>
               <ResponsiveContainer>
                 <BarChart
                   data={durationData}
@@ -350,35 +355,39 @@ export default function AdminDashboard() {
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
                   <XAxis
                     dataKey="label"
-                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                    tick={{ fontSize: 11, fill: "#6b7280" }}
                     axisLine={false}
                     tickLine={false}
                     label={{
-                      value: 'Duration Slab',
-                      position: 'insideBottom',
+                      value: "Duration Slab",
+                      position: "insideBottom",
                       offset: -10,
-                      style: { fontSize: 11, fill: '#6b7280' },
+                      style: { fontSize: 11, fill: "#6b7280" },
                     }}
                   />
                   <YAxis
                     domain={[0, maxDuration]}
-                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                    tick={{ fontSize: 11, fill: "#6b7280" }}
                     axisLine={false}
                     tickLine={false}
                     label={{
-                      value: 'Revenue (₹)',
+                      value: "Revenue (₹)",
                       angle: -90,
-                      position: 'insideLeft',
-                      style: { fontSize: 11, fill: '#6b7280', textAnchor: 'middle' },
+                      position: "insideLeft",
+                      style: {
+                        fontSize: 11,
+                        fill: "#6b7280",
+                        textAnchor: "middle",
+                      },
                     }}
                   />
                   <Tooltip
                     contentStyle={{
                       fontSize: 12,
                       borderRadius: 8,
-                      border: '1px solid #e5e5e5',
+                      border: "1px solid #e5e5e5",
                     }}
-                    formatter={(v: any) => [`₹${v}`, 'Revenue']}
+                    formatter={(v: any) => [`₹${v}`, "Revenue"]}
                   />
                   <Bar dataKey="value" radius={[4, 4, 0, 0]} maxBarSize={60}>
                     {durationData.map((_, idx) => (
@@ -409,16 +418,14 @@ export default function AdminDashboard() {
             <div className="h-[260px] flex items-center justify-center text-center">
               <div>
                 <CreditCard className="h-8 w-8 text-ink-300 mx-auto mb-2" />
-                <p className="text-sm text-ink-500">
-                  No payments yet
-                </p>
+                <p className="text-sm text-ink-500">No payments yet</p>
                 <p className="text-[11px] text-ink-400 mt-1">
                   Data will appear once payments are made
                 </p>
               </div>
             </div>
           ) : (
-            <div style={{ width: '100%', height: 260 }}>
+            <div style={{ width: "100%", height: 260 }}>
               <ResponsiveContainer>
                 <PieChart>
                   <Pie
@@ -436,7 +443,7 @@ export default function AdminDashboard() {
                     {statusData.map((entry, idx) => (
                       <Cell
                         key={idx}
-                        fill={PIE_COLORS[entry.status] || '#94a3b8'}
+                        fill={PIE_COLORS[entry.status] || "#94a3b8"}
                       />
                     ))}
                   </Pie>
@@ -444,9 +451,9 @@ export default function AdminDashboard() {
                     contentStyle={{
                       fontSize: 12,
                       borderRadius: 8,
-                      border: '1px solid #e5e5e5',
+                      border: "1px solid #e5e5e5",
                     }}
-                    formatter={(v: any) => [v, 'Payments']}
+                    formatter={(v: any) => [v, "Payments"]}
                   />
                   <Legend
                     verticalAlign="bottom"

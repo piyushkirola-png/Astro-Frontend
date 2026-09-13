@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { createPortal } from "react-dom";
 import adminService from "../../../api/services/adminService";
-import { useAuth } from '../../../lib/AuthContext';
+import { useAuth } from "../../../lib/AuthContext";
 import type { AdminWalletPackage } from "../../../types/admin";
 
 export default function WalletSlabs() {
@@ -29,17 +29,17 @@ export default function WalletSlabs() {
       adminService.togglePackageActive(id, active),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['admin', 'payments', 'wallet', 'packages'],
+        queryKey: ["admin", "payments", "wallet", "packages"],
       });
-      queryClient.invalidateQueries({ queryKey: ['payments'] });
+      queryClient.invalidateQueries({ queryKey: ["payments"] });
       showToast(
         variables.active
-          ? 'Slab activated successfully'
-          : 'Slab deactivated successfully'
+          ? "Slab activated successfully"
+          : "Slab deactivated successfully",
       );
     },
     onError: () => {
-      showToast('Failed to update slab status');
+      showToast("Failed to update slab status");
     },
   });
 
@@ -175,22 +175,22 @@ function EditPriceDialog({
 }) {
   const queryClient = useQueryClient();
   const { showToast } = useAuth();
-  const [draft, setDraft] = useState('');
+  const [draft, setDraft] = useState("");
 
   const priceMutation = useMutation({
     mutationFn: ({ id, amount }: { id: number; amount: number }) =>
       adminService.updatePackagePrice(id, amount),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['admin', 'payments', 'wallet', 'packages'],
+        queryKey: ["admin", "payments", "wallet", "packages"],
       });
-      queryClient.invalidateQueries({ queryKey: ['payments'] });
-      setDraft('');
+      queryClient.invalidateQueries({ queryKey: ["payments"] });
+      setDraft("");
       onClose();
-      showToast('Price updated successfully');
+      showToast("Price updated successfully");
     },
     onError: () => {
-      showToast('Failed to update price');
+      showToast("Failed to update price");
     },
   });
 
