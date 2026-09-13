@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 import {
   Plus,
   MessageSquare,
@@ -6,8 +6,8 @@ import {
   Pencil,
   MoreVertical,
   Loader2,
-} from 'lucide-react';
-import type { ChatSessionSummary } from '../../types/chat';
+} from "lucide-react";
+import type { ChatSessionSummary } from "../../types/chat";
 
 interface Props {
   sessions: ChatSessionSummary[];
@@ -33,17 +33,17 @@ export default function SessionSidebar({
   const [menuOpenId, setMenuOpenId] = useState<number | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editValue, setEditValue] = useState('');
+  const [editValue, setEditValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const menuWrapRef = useRef<HTMLDivElement>(null);
 
   // ---- date format: 11 Sep 2026 ----
   const fmtDate = (iso: string) => {
     const d = new Date(iso);
-    return d.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
+    return d.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
     });
   };
 
@@ -65,8 +65,8 @@ export default function SessionSidebar({
         setMenuOpenId(null);
       }
     };
-    document.addEventListener('mousedown', onClick);
-    return () => document.removeEventListener('mousedown', onClick);
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
   const startRename = (id: number, currentTitle: string) => {
@@ -126,8 +126,8 @@ export default function SessionSidebar({
               key={s.id}
               className={`relative rounded-lg px-2.5 py-2 transition ${
                 active
-                  ? 'bg-gradient-to-r from-primary-600/20 to-accent-500/20 border border-accent-500/30 text-white'
-                  : 'hover:bg-white/5 cursor-pointer'
+                  ? "bg-gradient-to-r from-primary-600/20 to-accent-500/20 border border-accent-500/30 text-white"
+                  : "hover:bg-white/5 cursor-pointer"
               }`}
               onClick={() => {
                 if (!editing) onSelect(s.id);
@@ -145,10 +145,10 @@ export default function SessionSidebar({
                       value={editValue}
                       onChange={(e) => setEditValue(e.target.value)}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+                        if (e.key === "Enter") {
                           e.preventDefault();
                           commitRename();
-                        } else if (e.key === 'Escape') {
+                        } else if (e.key === "Escape") {
                           e.preventDefault();
                           setEditingId(null);
                         }
@@ -164,7 +164,7 @@ export default function SessionSidebar({
                     </div>
                   )}
                   <div className="text-[9px] text-ink-500 truncate mt-0.5">
-                    {s.lastMessagePreview || 'No messages'}
+                    {s.lastMessagePreview || "No messages"}
                   </div>
                 </div>
 
@@ -185,8 +185,8 @@ export default function SessionSidebar({
                     }}
                     className={`p-0.5 rounded transition ${
                       menuOpen
-                        ? 'bg-white/10 text-white'
-                        : 'text-ink-500 hover:text-white hover:bg-white/10'
+                        ? "bg-white/10 text-white"
+                        : "text-ink-500 hover:text-white hover:bg-white/10"
                     }`}
                     aria-label="Options"
                   >

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   User,
   LayoutGrid,
@@ -6,58 +6,56 @@ import {
   Clock,
   Loader2,
   AlertCircle,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   useKundaliBasic,
   useKundaliCharts,
   usePlanetaryPositions,
   useDashaPeriods,
-} from '../../../api/queries/useKundali';
-import NorthIndianChart from '../../../components/kundali/NorthIndianChart';
-import type { DashaPeriod } from '../../../types/kundali';
+} from "../../../api/queries/useKundali";
+import NorthIndianChart from "../../../components/kundali/NorthIndianChart";
+import type { DashaPeriod } from "../../../types/kundali";
 
-type Tab = 'basic' | 'kundali' | 'planetary' | 'dasha';
+type Tab = "basic" | "kundali" | "planetary" | "dasha";
 
 const TABS: { id: Tab; label: string; icon: any }[] = [
-  { id: 'basic', label: 'Basic', icon: User },
-  { id: 'kundali', label: 'Kundali', icon: LayoutGrid },
-  { id: 'planetary', label: 'Planetary Positions', icon: Orbit },
-  { id: 'dasha', label: 'Dasha', icon: Clock },
+  { id: "basic", label: "Basic", icon: User },
+  { id: "kundali", label: "Kundali", icon: LayoutGrid },
+  { id: "planetary", label: "Planetary Positions", icon: Orbit },
+  { id: "dasha", label: "Dasha", icon: Clock },
 ];
 
 const PLANET_ABBR: Record<string, string> = {
-  SUN: 'Su',
-  MOON: 'Mo',
-  MARS: 'Ma',
-  MERCURY: 'Me',
-  JUPITER: 'Ju',
-  VENUS: 'Ve',
-  SATURN: 'Sa',
-  RAHU: 'Ra',
-  KETU: 'Ke',
+  SUN: "Su",
+  MOON: "Mo",
+  MARS: "Ma",
+  MERCURY: "Me",
+  JUPITER: "Ju",
+  VENUS: "Ve",
+  SATURN: "Sa",
+  RAHU: "Ra",
+  KETU: "Ke",
 };
 
 const PLANET_COLORS: Record<string, string> = {
-  SUN: 'from-orange-500 to-amber-500',
-  MOON: 'from-slate-400 to-slate-600',
-  MARS: 'from-red-500 to-rose-600',
-  MERCURY: 'from-green-500 to-emerald-500',
-  JUPITER: 'from-yellow-500 to-amber-600',
-  VENUS: 'from-pink-500 to-rose-500',
-  SATURN: 'from-blue-500 to-indigo-600',
-  RAHU: 'from-gray-600 to-slate-700',
-  KETU: 'from-purple-500 to-indigo-500',
+  SUN: "from-orange-500 to-amber-500",
+  MOON: "from-slate-400 to-slate-600",
+  MARS: "from-red-500 to-rose-600",
+  MERCURY: "from-green-500 to-emerald-500",
+  JUPITER: "from-yellow-500 to-amber-600",
+  VENUS: "from-pink-500 to-rose-500",
+  SATURN: "from-blue-500 to-indigo-600",
+  RAHU: "from-gray-600 to-slate-700",
+  KETU: "from-purple-500 to-indigo-500",
 };
 
 export default function Kundali() {
-  const [activeTab, setActiveTab] = useState<Tab>('basic');
+  const [activeTab, setActiveTab] = useState<Tab>("basic");
 
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">
-          Kundali
-        </h1>
+        <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">Kundali</h1>
         <p className="text-ink-500 mt-1 text-sm">
           Your complete Vedic birth chart
         </p>
@@ -74,8 +72,8 @@ export default function Kundali() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
                   active
-                    ? 'bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md'
-                    : 'text-ink-600 hover:bg-ink-50'
+                    ? "bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md"
+                    : "text-ink-600 hover:bg-ink-50"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -87,10 +85,10 @@ export default function Kundali() {
       </div>
 
       <div className="min-h-[400px]">
-        {activeTab === 'basic' && <BasicTab />}
-        {activeTab === 'kundali' && <KundaliTab />}
-        {activeTab === 'planetary' && <PlanetaryTab />}
-        {activeTab === 'dasha' && <DashaTab />}
+        {activeTab === "basic" && <BasicTab />}
+        {activeTab === "kundali" && <KundaliTab />}
+        {activeTab === "planetary" && <PlanetaryTab />}
+        {activeTab === "dasha" && <DashaTab />}
       </div>
     </div>
   );
@@ -111,7 +109,9 @@ function BasicTab() {
     return (
       <div className="bg-white rounded-2xl border border-ink-100 p-10 text-center">
         <AlertCircle className="h-7 w-7 text-danger-500 mx-auto mb-3" />
-        <p className="text-sm text-ink-700 mb-3">Failed to load Kundali details</p>
+        <p className="text-sm text-ink-700 mb-3">
+          Failed to load Kundali details
+        </p>
         <button
           onClick={() => refetch()}
           className="rounded-lg px-4 py-2 border border-ink-200 text-xs font-semibold text-ink-700 hover:bg-ink-50"
@@ -123,41 +123,47 @@ function BasicTab() {
   }
 
   const birthDetails = [
-    { label: 'Name', value: data.name || '—' },
-    { label: 'Gender', value: data.gender || '—' },
-    { label: 'Date of Birth', value: formatDate(data.dateOfBirth) },
-    { label: 'Time of Birth', value: data.timeOfBirth || '—' },
-    { label: 'Place of Birth', value: data.placeOfBirth || '—' },
-    { label: 'Latitude', value: data.birthLat != null ? data.birthLat.toFixed(4) : '—' },
-    { label: 'Longitude', value: data.birthLng != null ? data.birthLng.toFixed(4) : '—' },
-    { label: 'Timezone', value: data.birthTimezone || '—' },
+    { label: "Name", value: data.name || "—" },
+    { label: "Gender", value: data.gender || "—" },
+    { label: "Date of Birth", value: formatDate(data.dateOfBirth) },
+    { label: "Time of Birth", value: data.timeOfBirth || "—" },
+    { label: "Place of Birth", value: data.placeOfBirth || "—" },
+    {
+      label: "Latitude",
+      value: data.birthLat != null ? data.birthLat.toFixed(4) : "—",
+    },
+    {
+      label: "Longitude",
+      value: data.birthLng != null ? data.birthLng.toFixed(4) : "—",
+    },
+    { label: "Timezone", value: data.birthTimezone || "—" },
   ];
 
   const panchang = [
-    { label: 'Tithi', value: data.panchangTithi || '—' },
-    { label: 'Karana', value: data.karana || '—' },
-    { label: 'Yoga', value: data.yoga || '—' },
-    { label: 'Nakshatra', value: data.nakshatra || '—' },
-    { label: 'Nakshatra Lord', value: data.nakshatraLord || '—' },
-    { label: 'Ascendant', value: data.ascendant || '—' },
-    { label: 'Ascendant Lord', value: data.ascendantLord || '—' },
-    { label: 'Sunrise', value: data.sunrise || '—' },
-    { label: 'Sunset', value: data.sunset || '—' },
+    { label: "Tithi", value: data.panchangTithi || "—" },
+    { label: "Karana", value: data.karana || "—" },
+    { label: "Yoga", value: data.yoga || "—" },
+    { label: "Nakshatra", value: data.nakshatra || "—" },
+    { label: "Nakshatra Lord", value: data.nakshatraLord || "—" },
+    { label: "Ascendant", value: data.ascendant || "—" },
+    { label: "Ascendant Lord", value: data.ascendantLord || "—" },
+    { label: "Sunrise", value: data.sunrise || "—" },
+    { label: "Sunset", value: data.sunset || "—" },
   ];
 
   const avakhada = [
-    { label: 'Varna', value: data.varna || '—' },
-    { label: 'Vashya', value: data.vashya || '—' },
-    { label: 'Yoni', value: data.yoni || '—' },
-    { label: 'Gan', value: data.gan || '—' },
-    { label: 'Nadi', value: data.nadi || '—' },
-    { label: 'Sign', value: data.sign || '—' },
-    { label: 'Sign Lord', value: data.signLord || '—' },
-    { label: 'Charan', value: data.charan || '—' },
-    { label: 'Tatva', value: data.tatva || '—' },
-    { label: 'Name Alphabet', value: data.nameAlphabet || '—' },
-    { label: 'Paya', value: data.paya || '—' },
-    { label: 'Yunja', value: data.yunja || '—' },
+    { label: "Varna", value: data.varna || "—" },
+    { label: "Vashya", value: data.vashya || "—" },
+    { label: "Yoni", value: data.yoni || "—" },
+    { label: "Gan", value: data.gan || "—" },
+    { label: "Nadi", value: data.nadi || "—" },
+    { label: "Sign", value: data.sign || "—" },
+    { label: "Sign Lord", value: data.signLord || "—" },
+    { label: "Charan", value: data.charan || "—" },
+    { label: "Tatva", value: data.tatva || "—" },
+    { label: "Name Alphabet", value: data.nameAlphabet || "—" },
+    { label: "Paya", value: data.paya || "—" },
+    { label: "Yunja", value: data.yunja || "—" },
   ];
 
   return (
@@ -186,7 +192,9 @@ function KundaliTab() {
     return (
       <div className="bg-white rounded-2xl border border-ink-100 p-10 text-center">
         <AlertCircle className="h-7 w-7 text-danger-500 mx-auto mb-3" />
-        <p className="text-sm text-ink-700 mb-3">Failed to load Kundali charts</p>
+        <p className="text-sm text-ink-700 mb-3">
+          Failed to load Kundali charts
+        </p>
         <button
           onClick={() => refetch()}
           className="rounded-lg px-4 py-2 border border-ink-200 text-xs font-semibold text-ink-700 hover:bg-ink-50"
@@ -197,8 +205,8 @@ function KundaliTab() {
     );
   }
 
-  const d1 = data.find((c) => c.chartType === 'D1');
-  const d9 = data.find((c) => c.chartType === 'D9');
+  const d1 = data.find((c) => c.chartType === "D1");
+  const d9 = data.find((c) => c.chartType === "D9");
 
   return (
     <div className="grid lg:grid-cols-2 gap-4">
@@ -231,7 +239,9 @@ function PlanetaryTab() {
     return (
       <div className="bg-white rounded-2xl border border-ink-100 p-10 text-center">
         <AlertCircle className="h-7 w-7 text-danger-500 mx-auto mb-3" />
-        <p className="text-sm text-ink-700 mb-3">Failed to load planetary positions</p>
+        <p className="text-sm text-ink-700 mb-3">
+          Failed to load planetary positions
+        </p>
         <button
           onClick={() => refetch()}
           className="rounded-lg px-4 py-2 border border-ink-200 text-xs font-semibold text-ink-700 hover:bg-ink-50"
@@ -243,13 +253,14 @@ function PlanetaryTab() {
   }
 
   const statusColor = (status: string) => {
-    const s = (status || '').toUpperCase();
-    if (s === 'EXALTED') return 'bg-green-100 text-green-700';
-    if (s === 'DEBILITATED') return 'bg-red-100 text-red-700';
-    if (s === 'OWNED' || s === 'MOOLTRIKONA') return 'bg-purple-100 text-purple-700';
-    if (s === 'FRIENDLY') return 'bg-blue-100 text-blue-700';
-    if (s === 'ENEMY') return 'bg-amber-100 text-amber-700';
-    return 'bg-ink-100 text-ink-600';
+    const s = (status || "").toUpperCase();
+    if (s === "EXALTED") return "bg-green-100 text-green-700";
+    if (s === "DEBILITATED") return "bg-red-100 text-red-700";
+    if (s === "OWNED" || s === "MOOLTRIKONA")
+      return "bg-purple-100 text-purple-700";
+    if (s === "FRIENDLY") return "bg-blue-100 text-blue-700";
+    if (s === "ENEMY") return "bg-amber-100 text-amber-700";
+    return "bg-ink-100 text-ink-600";
   };
 
   return (
@@ -276,21 +287,37 @@ function PlanetaryTab() {
                 key={`${p.planet}-${i}`}
                 className="border-t border-ink-100 hover:bg-ink-50/40 transition"
               >
-                <td className="px-4 py-3 font-bold text-ink-900 whitespace-nowrap">{p.planet}</td>
-                <td className="px-4 py-3 text-ink-700 whitespace-nowrap">{p.sign || '—'}</td>
-                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">{p.signLord || '—'}</td>
-                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">{p.nakshatra || '—'}</td>
-                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">{p.nakshatraLord || '—'}</td>
-                <td className="px-4 py-3 text-ink-700 whitespace-nowrap font-mono text-xs">{p.degree || '—'}</td>
+                <td className="px-4 py-3 font-bold text-ink-900 whitespace-nowrap">
+                  {p.planet}
+                </td>
+                <td className="px-4 py-3 text-ink-700 whitespace-nowrap">
+                  {p.sign || "—"}
+                </td>
+                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">
+                  {p.signLord || "—"}
+                </td>
+                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">
+                  {p.nakshatra || "—"}
+                </td>
+                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">
+                  {p.nakshatraLord || "—"}
+                </td>
+                <td className="px-4 py-3 text-ink-700 whitespace-nowrap font-mono text-xs">
+                  {p.degree || "—"}
+                </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  {p.retro === 'Yes' ? (
+                  {p.retro === "Yes" ? (
                     <span className="text-amber-600 font-semibold">Yes</span>
                   ) : (
                     <span className="text-ink-500">No</span>
                   )}
                 </td>
-                <td className="px-4 py-3 text-ink-700 whitespace-nowrap">{p.house ?? '—'}</td>
-                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">{p.state || '—'}</td>
+                <td className="px-4 py-3 text-ink-700 whitespace-nowrap">
+                  {p.house ?? "—"}
+                </td>
+                <td className="px-4 py-3 text-ink-600 whitespace-nowrap">
+                  {p.state || "—"}
+                </td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   {p.status ? (
                     <span
@@ -299,7 +326,7 @@ function PlanetaryTab() {
                       {p.status}
                     </span>
                   ) : (
-                    '—'
+                    "—"
                   )}
                 </td>
               </tr>
@@ -326,7 +353,9 @@ function DashaTab() {
     return (
       <div className="bg-white rounded-2xl border border-ink-100 p-10 text-center">
         <AlertCircle className="h-7 w-7 text-danger-500 mx-auto mb-3" />
-        <p className="text-sm text-ink-700 mb-3">Failed to load Dasha periods</p>
+        <p className="text-sm text-ink-700 mb-3">
+          Failed to load Dasha periods
+        </p>
         <button
           onClick={() => refetch()}
           className="rounded-lg px-4 py-2 border border-ink-200 text-xs font-semibold text-ink-700 hover:bg-ink-50"
@@ -358,16 +387,18 @@ function DashaTab() {
 }
 
 function DashaCard({ period }: { period: DashaPeriod }) {
-  const abbr = PLANET_ABBR[period.planet.toUpperCase()] || period.planet.slice(0, 2);
+  const abbr =
+    PLANET_ABBR[period.planet.toUpperCase()] || period.planet.slice(0, 2);
   const colorClass =
-    PLANET_COLORS[period.planet.toUpperCase()] || 'from-amber-500 to-orange-500';
+    PLANET_COLORS[period.planet.toUpperCase()] ||
+    "from-amber-500 to-orange-500";
 
   return (
     <div
       className={`bg-white rounded-2xl p-5 transition-all ${
         period.active
-          ? 'border-2 border-amber-400 shadow-lg shadow-amber-200/50'
-          : 'border border-ink-100'
+          ? "border-2 border-amber-400 shadow-lg shadow-amber-200/50"
+          : "border border-ink-100"
       }`}
     >
       <div className="flex items-start justify-between mb-3">
@@ -383,7 +414,7 @@ function DashaCard({ period }: { period: DashaPeriod }) {
             </div>
             <div className="text-[11px] text-ink-500 mt-0.5">
               {period.startDateFormatted}
-              {' — '}
+              {" — "}
               {period.endDateFormatted}
             </div>
           </div>
@@ -421,7 +452,7 @@ function InfoCard({
       <h2 className="text-base font-bold text-ink-900 mb-4 pb-3 border-b border-ink-100">
         {title}
       </h2>
-      <div className={twoColumn ? 'grid sm:grid-cols-2 gap-x-8' : ''}>
+      <div className={twoColumn ? "grid sm:grid-cols-2 gap-x-8" : ""}>
         {rows.map((row) => (
           <div
             key={row.label}
@@ -441,11 +472,11 @@ function InfoCard({
 }
 
 function formatDate(iso: string | null): string {
-  if (!iso) return '—';
-  const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
+  if (!iso) return "—";
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
   });
 }

@@ -1,138 +1,172 @@
-import { Calendar, Clock, Star, Heart, Users, TrendingUp, Activity, Home, Briefcase, Baby, Moon, Sun, Compass, Sparkles, ArrowRight, BookOpen, MessageSquare, Share2, Eye } from 'lucide-react';
-import PageHero from '../components/ui/PageHero';
-import SectionHeading from '../components/ui/SectionHeading';
-import Reveal from '../components/animations/Reveal';
-import Button from '../components/ui/Button';
-import Badge from '../components/ui/Badge';
-import React, { useState } from 'react';
+import {
+  Calendar,
+  Clock,
+  Star,
+  Heart,
+  Users,
+  TrendingUp,
+  Activity,
+  Home,
+  Briefcase,
+  Baby,
+  Moon,
+  Sun,
+  Compass,
+  Sparkles,
+  ArrowRight,
+  BookOpen,
+  MessageSquare,
+  Share2,
+  Eye,
+} from "lucide-react";
+import PageHero from "../components/ui/PageHero";
+import SectionHeading from "../components/ui/SectionHeading";
+import Reveal from "../components/animations/Reveal";
+import Button from "../components/ui/Button";
+import Badge from "../components/ui/Badge";
+import React, { useState } from "react";
 
 const blogPosts = [
   {
-    category: 'Vedic Astrology',
-    title: 'Understanding Your Birth Chart: A Beginner\'s Guide',
-    excerpt: 'Learn the basics of Janam Kundli, including houses, planets, and signs. Discover how your birth chart influences your personality and life path.',
-    author: 'Pt. Rajesh Sharma',
-    date: '15 Dec 2025',
-    readTime: '8 min read',
-    image: 'â­',
-    slug: 'understanding-birth-chart',
-    featured: true
+    category: "Vedic Astrology",
+    title: "Understanding Your Birth Chart: A Beginner's Guide",
+    excerpt:
+      "Learn the basics of Janam Kundli, including houses, planets, and signs. Discover how your birth chart influences your personality and life path.",
+    author: "Pt. Rajesh Sharma",
+    date: "15 Dec 2025",
+    readTime: "8 min read",
+    image: "â­",
+    slug: "understanding-birth-chart",
+    featured: true,
   },
   {
-    category: 'Numerology',
-    title: 'What Your Destiny Number Reveals About Your Life Purpose',
-    excerpt: 'Discover how your Destiny Number (Bhagyank) can reveal your life\'s purpose, natural talents, and the path you are meant to follow.',
-    author: 'Dr. Priya Singh',
-    date: '10 Dec 2025',
-    readTime: '6 min read',
-    image: 'ðŸ”¢',
-    slug: 'destiny-number-life-purpose',
-    featured: false
+    category: "Numerology",
+    title: "What Your Destiny Number Reveals About Your Life Purpose",
+    excerpt:
+      "Discover how your Destiny Number (Bhagyank) can reveal your life's purpose, natural talents, and the path you are meant to follow.",
+    author: "Dr. Priya Singh",
+    date: "10 Dec 2025",
+    readTime: "6 min read",
+    image: "ðŸ”¢",
+    slug: "destiny-number-life-purpose",
+    featured: false,
   },
   {
-    category: 'Sade Sati',
-    title: 'Surviving Sade Sati: 7 Practical Tips for Saturn\'s Transit',
-    excerpt: 'Sade Sati is a 7.5-year period of Saturn\'s transit. Learn practical tips and remedies to navigate this challenging yet transformative phase.',
-    author: 'Maa Shanti Devi',
-    date: '5 Dec 2025',
-    readTime: '10 min read',
-    image: 'ðŸª',
-    slug: 'surviving-sade-sati-tips',
-    featured: false
+    category: "Sade Sati",
+    title: "Surviving Sade Sati: 7 Practical Tips for Saturn's Transit",
+    excerpt:
+      "Sade Sati is a 7.5-year period of Saturn's transit. Learn practical tips and remedies to navigate this challenging yet transformative phase.",
+    author: "Maa Shanti Devi",
+    date: "5 Dec 2025",
+    readTime: "10 min read",
+    image: "ðŸª",
+    slug: "surviving-sade-sati-tips",
+    featured: false,
   },
   {
-    category: 'Love & Compatibility',
-    title: 'Love Compatibility: How Zodiac Signs Match in Relationships',
-    excerpt: 'Explore how different zodiac signs interact in relationships. Find out which signs are most compatible with yours for love and marriage.',
-    author: 'Prof. Amit Kumar',
-    date: '28 Nov 2025',
-    readTime: '7 min read',
-    image: 'â¤ï¸',
-    slug: 'zodiac-love-compatibility',
-    featured: false
+    category: "Love & Compatibility",
+    title: "Love Compatibility: How Zodiac Signs Match in Relationships",
+    excerpt:
+      "Explore how different zodiac signs interact in relationships. Find out which signs are most compatible with yours for love and marriage.",
+    author: "Prof. Amit Kumar",
+    date: "28 Nov 2025",
+    readTime: "7 min read",
+    image: "â¤ï¸",
+    slug: "zodiac-love-compatibility",
+    featured: false,
   },
   {
-    category: 'Kundali Matching',
-    title: 'Kundli Milan: A Complete Guide to Marriage Compatibility',
-    excerpt: 'Understand the Ashtakoota Guna Milan system for marriage compatibility. Learn about the 8 Kootas and what they mean for your relationship.',
-    author: 'Pt. Rajesh Sharma',
-    date: '20 Nov 2025',
-    readTime: '12 min read',
-    image: 'ðŸ’‘',
-    slug: 'kundli-milan-guide',
-    featured: true
+    category: "Kundali Matching",
+    title: "Kundli Milan: A Complete Guide to Marriage Compatibility",
+    excerpt:
+      "Understand the Ashtakoota Guna Milan system for marriage compatibility. Learn about the 8 Kootas and what they mean for your relationship.",
+    author: "Pt. Rajesh Sharma",
+    date: "20 Nov 2025",
+    readTime: "12 min read",
+    image: "ðŸ’‘",
+    slug: "kundli-milan-guide",
+    featured: true,
   },
   {
-    category: 'Panchang',
-    title: 'How to Use Panchang Daily for Better Decision Making',
-    excerpt: 'Learn how to read the Panchang and use it for planning important activities like weddings, business launches, and travel.',
-    author: 'Dr. Priya Singh',
-    date: '15 Nov 2025',
-    readTime: '5 min read',
-    image: 'ðŸ“…',
-    slug: 'daily-panchang-guide',
-    featured: false
+    category: "Panchang",
+    title: "How to Use Panchang Daily for Better Decision Making",
+    excerpt:
+      "Learn how to read the Panchang and use it for planning important activities like weddings, business launches, and travel.",
+    author: "Dr. Priya Singh",
+    date: "15 Nov 2025",
+    readTime: "5 min read",
+    image: "ðŸ“…",
+    slug: "daily-panchang-guide",
+    featured: false,
   },
   {
-    category: 'Vedic Astrology',
-    title: 'The 12 Houses in Astrology and Their Significance',
-    excerpt: 'Each of the 12 houses in your birth chart represents different areas of life. Learn what each house means and how it affects you.',
-    author: 'Prof. Amit Kumar',
-    date: '10 Nov 2025',
-    readTime: '9 min read',
-    image: 'ðŸ ',
-    slug: '12-houses-astrology',
-    featured: false
+    category: "Vedic Astrology",
+    title: "The 12 Houses in Astrology and Their Significance",
+    excerpt:
+      "Each of the 12 houses in your birth chart represents different areas of life. Learn what each house means and how it affects you.",
+    author: "Prof. Amit Kumar",
+    date: "10 Nov 2025",
+    readTime: "9 min read",
+    image: "ðŸ ",
+    slug: "12-houses-astrology",
+    featured: false,
   },
   {
-    category: 'Remedies',
-    title: 'Top 5 Gemstones for Astrological Remedies and Their Benefits',
-    excerpt: 'Discover the most powerful gemstones used in Vedic astrology for planetary remedies and their healing properties.',
-    author: 'Maa Shanti Devi',
-    date: '5 Nov 2025',
-    readTime: '6 min read',
-    image: 'ðŸ’Ž',
-    slug: 'gemstones-astrological-remedies',
-    featured: false
+    category: "Remedies",
+    title: "Top 5 Gemstones for Astrological Remedies and Their Benefits",
+    excerpt:
+      "Discover the most powerful gemstones used in Vedic astrology for planetary remedies and their healing properties.",
+    author: "Maa Shanti Devi",
+    date: "5 Nov 2025",
+    readTime: "6 min read",
+    image: "ðŸ’Ž",
+    slug: "gemstones-astrological-remedies",
+    featured: false,
   },
   {
-    category: 'Numerology',
-    title: 'How to Calculate Your Personality Number and What It Means',
-    excerpt: 'Your Personality Number reveals how others perceive you. Learn how to calculate it and what it says about your outer personality.',
-    author: 'Dr. Priya Singh',
-    date: '28 Oct 2025',
-    readTime: '4 min read',
-    image: 'ðŸ§®',
-    slug: 'personality-number-guide',
-    featured: false
+    category: "Numerology",
+    title: "How to Calculate Your Personality Number and What It Means",
+    excerpt:
+      "Your Personality Number reveals how others perceive you. Learn how to calculate it and what it says about your outer personality.",
+    author: "Dr. Priya Singh",
+    date: "28 Oct 2025",
+    readTime: "4 min read",
+    image: "ðŸ§®",
+    slug: "personality-number-guide",
+    featured: false,
   },
 ];
 
 const categories = [
-  'All',
-  'Vedic Astrology',
-  'Numerology',
-  'Sade Sati',
-  'Love & Compatibility',
-  'Kundali Matching',
-  'Panchang',
-  'Remedies'
+  "All",
+  "Vedic Astrology",
+  "Numerology",
+  "Sade Sati",
+  "Love & Compatibility",
+  "Kundali Matching",
+  "Panchang",
+  "Remedies",
 ];
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const filteredPosts = selectedCategory === 'All'
-    ? blogPosts
-    : blogPosts.filter(post => post.category === selectedCategory);
+  const filteredPosts =
+    selectedCategory === "All"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
 
-  const featuredPosts = blogPosts.filter(post => post.featured);
+  const featuredPosts = blogPosts.filter((post) => post.featured);
 
   return (
     <>
       <PageHero
         badge="Blog"
-        title={<>Explore <span className="gradient-text">Cosmic Wisdom</span></>}
+        title={
+          <>
+            Explore <span className="gradient-text">Cosmic Wisdom</span>
+          </>
+        }
         subtitle="Insights, guides, and articles on Vedic astrology, numerology, and spiritual living."
       />
 
@@ -156,16 +190,25 @@ export default function Blog() {
                     <h3 className="text-xl font-bold text-ink-900 mb-2 group-hover:text-primary-600 transition-colors">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-ink-500 leading-relaxed mb-4">{post.excerpt}</p>
+                    <p className="text-sm text-ink-500 leading-relaxed mb-4">
+                      {post.excerpt}
+                    </p>
                     <div className="flex items-center justify-between text-sm text-ink-400">
                       <div className="flex items-center gap-3">
-                        <span className="font-medium text-ink-600">{post.author}</span>
+                        <span className="font-medium text-ink-600">
+                          {post.author}
+                        </span>
                         <span>â€¢</span>
                         <span>{post.date}</span>
                       </div>
                       <span>{post.readTime}</span>
                     </div>
-                    <Button to={`/blog/${post.slug}`} variant="outline" size="sm" className="mt-4">
+                    <Button
+                      to={`/blog/${post.slug}`}
+                      variant="outline"
+                      size="sm"
+                      className="mt-4"
+                    >
                       Read More <ArrowRight className="h-3 w-3" />
                     </Button>
                   </div>
@@ -196,10 +239,11 @@ export default function Blog() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
-                  ? 'bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-lg'
-                  : 'bg-white text-ink-600 hover:bg-ink-100 border border-ink-200'
-                  }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedCategory === category
+                    ? "bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-lg"
+                    : "bg-white text-ink-600 hover:bg-ink-100 border border-ink-200"
+                }`}
               >
                 {category}
               </button>
@@ -215,16 +259,25 @@ export default function Blog() {
                   <h3 className="text-base font-bold text-ink-900 mb-2 group-hover:text-primary-600 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-sm text-ink-500 leading-relaxed mb-3 line-clamp-2">{post.excerpt}</p>
+                  <p className="text-sm text-ink-500 leading-relaxed mb-3 line-clamp-2">
+                    {post.excerpt}
+                  </p>
                   <div className="flex items-center justify-between text-xs text-ink-400">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-ink-600">{post.author}</span>
+                      <span className="font-medium text-ink-600">
+                        {post.author}
+                      </span>
                       <span>â€¢</span>
                       <span>{post.date}</span>
                     </div>
                     <span>{post.readTime}</span>
                   </div>
-                  <Button to={`/blog/${post.slug}`} variant="outline" size="sm" className="mt-3">
+                  <Button
+                    to={`/blog/${post.slug}`}
+                    variant="outline"
+                    size="sm"
+                    className="mt-3"
+                  >
                     Read More <ArrowRight className="h-3 w-3" />
                   </Button>
                 </div>
@@ -234,7 +287,9 @@ export default function Blog() {
 
           {filteredPosts.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-ink-500">No articles found in this category.</p>
+              <p className="text-ink-500">
+                No articles found in this category.
+              </p>
             </div>
           )}
         </div>
@@ -257,7 +312,9 @@ export default function Blog() {
                 onClick={() => setSelectedCategory(category)}
                 className="p-4 rounded-2xl bg-ink-50 border border-ink-100 hover:border-accent-200 hover:bg-white hover:shadow-md transition-all text-center"
               >
-                <span className="text-sm font-medium text-ink-900">{category}</span>
+                <span className="text-sm font-medium text-ink-900">
+                  {category}
+                </span>
               </button>
             ))}
           </div>
@@ -272,9 +329,12 @@ export default function Blog() {
               <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-ink-900">Subscribe to Our Newsletter</h3>
+              <h3 className="text-2xl font-bold text-ink-900">
+                Subscribe to Our Newsletter
+              </h3>
               <p className="text-ink-500 mt-2">
-                Get weekly astrological insights, guides, and cosmic wisdom delivered to your inbox.
+                Get weekly astrological insights, guides, and cosmic wisdom
+                delivered to your inbox.
               </p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input
@@ -286,7 +346,9 @@ export default function Blog() {
                   Subscribe <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-xs text-ink-400 mt-3">No spam. Unsubscribe anytime.</p>
+              <p className="text-xs text-ink-400 mt-3">
+                No spam. Unsubscribe anytime.
+              </p>
             </div>
           </Reveal>
         </div>
@@ -303,10 +365,12 @@ export default function Blog() {
               Learn More
             </Badge>
             <h2 className="text-3xl font-bold text-white sm:text-4xl text-balance">
-              Ready to explore your <span className="gradient-text-light">cosmic path?</span>
+              Ready to explore your{" "}
+              <span className="gradient-text-light">cosmic path?</span>
             </h2>
             <p className="mt-4 text-lg text-ink-400 max-w-2xl mx-auto">
-              Read our blog articles and start your journey of self-discovery today.
+              Read our blog articles and start your journey of self-discovery
+              today.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button to="/free-kundali" variant="primary" size="lg">

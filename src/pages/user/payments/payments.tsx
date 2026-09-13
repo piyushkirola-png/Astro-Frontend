@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   CreditCard,
   Sparkles,
@@ -10,29 +10,31 @@ import {
   CheckCircle2,
   XCircle,
   AlertCircle,
-} from 'lucide-react';
+  Download,
+} from "lucide-react";
 import {
   useWalletPackages,
   useReportCategory,
   useHasPurchasedReport,
   usePaymentHistory,
-} from '../../../api/queries/usePayments';
+} from "../../../api/queries/usePayments";
 import {
   useInitiateWallet,
   useInitiateReport,
-} from '../../../api/mutations/paymentMutations';
-import paymentService from '../../../api/services/paymentService';
-import GatewayPickerModal from '../../../components/payment/GatewayPickerModal';
-import PaymentSuccessModal from '../../../components/payment/PaymentSuccessModal';
-import type { PaymentRecord } from '../../../types/payment';
+} from "../../../api/mutations/paymentMutations";
+import paymentService from "../../../api/services/paymentService";
+import GatewayPickerModal from "../../../components/payment/GatewayPickerModal";
+import { useAuth } from '../../../lib/AuthContext';
+import PaymentSuccessModal from "../../../components/payment/PaymentSuccessModal";
+import type { PaymentRecord } from "../../../types/payment";
 
 type PendingIntent =
-  | { kind: 'wallet'; packageId: number; amount: number; label: string }
-  | { kind: 'report'; amount: number; label: string }
+  | { kind: "wallet"; packageId: number; amount: number; label: string }
+  | { kind: "report"; amount: number; label: string }
   | null;
 
 interface ReturnState {
-  status: 'SUCCESS' | 'FAILED' | 'PENDING' | null;
+  status: "SUCCESS" | "FAILED" | "PENDING" | null;
   amount: number | null;
   productLabel: string | null;
   secondsCredited: number | null;
@@ -40,7 +42,24 @@ interface ReturnState {
 }
 
 export default function UserPayments() {
-  const [tab, setTab] = useState<'recharge' | 'report' | 'history'>('recharge');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryClient = useQueryClient();
+
+  const initialTab =
+    (searchParams.get("tab") as "recharge" | "report" | "history" | null) ??
+    "recharge";
+  const initialFilter = searchParams.get("filter");
+
+  const [tab, setTab] = useState<"recharge" | "report" | "history">(
+    initialTab === "history" ||
+      initialTab === "report" ||
+      initialTab === "recharge"
+      ? initialTab
+      : "recharge",
+  );
+  const [walletFilter, setWalletFilter] = useState<boolean>(
+    initialFilter === "wallet",
+  );
   const [intent, setIntent] = useState<PendingIntent>(null);
   const [returnState, setReturnState] = useState<ReturnState>({
     status: null,
@@ -50,24 +69,25 @@ export default function UserPayments() {
     orderId: null,
   });
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryClient = useQueryClient();
-
   const initiateWallet = useInitiateWallet();
   const initiateReport = useInitiateReport();
 
   useEffect(() => {
-    const statusParam = searchParams.get('status');
-    if (statusParam !== 'return') return;
+    const statusParam = searchParams.get("status");
+    const merchantTxnIdParam = searchParams.get("merchant_txn_id");
+    const transactionIdParam = searchParams.get("transaction_id");
 
-    const orderIdParam = searchParams.get('order_id');
+    if (statusParam !== "return" && !merchantTxnIdParam && !transactionIdParam)
+      return;
+
+    const orderIdParam = searchParams.get("order_id") || merchantTxnIdParam;
 
     const run = async () => {
-      queryClient.invalidateQueries({ queryKey: ['payments'] });
-      queryClient.invalidateQueries({ queryKey: ['chat'] });
+      queryClient.invalidateQueries({ queryKey: ["payments"] });
+      queryClient.invalidateQueries({ queryKey: ["chat"] });
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['payments'] });
+        queryClient.invalidateQueries({ queryKey: ["payments"] });
       }, 3000);
 
       try {
@@ -80,26 +100,26 @@ export default function UserPayments() {
         if (latest) {
           setReturnState({
             status:
-              latest.status === 'SUCCESS'
-                ? 'SUCCESS'
-                : latest.status === 'FAILED'
-                ? 'FAILED'
-                : 'PENDING',
+              latest.status === "SUCCESS"
+                ? "SUCCESS"
+                : latest.status === "FAILED"
+                  ? "FAILED"
+                  : "PENDING",
             amount: Number(latest.amount),
             productLabel:
-              latest.categoryCode === 'REPORT'
-                ? 'Kundali Report'
+              latest.categoryCode === "REPORT"
+                ? "Kundali Report"
                 : latest.secondsCredited
-                ? `Chat Recharge · ${Math.round(
-                    latest.secondsCredited / 60
+                  ? `Chat Recharge · ${Math.round(
+                    latest.secondsCredited / 60,
                   )} min`
-                : 'Chat Recharge',
+                  : "Chat Recharge",
             secondsCredited: latest.secondsCredited,
             orderId: latest.gatewayOrderId,
           });
         } else {
           setReturnState({
-            status: 'PENDING',
+            status: "PENDING",
             amount: null,
             productLabel: null,
             secondsCredited: null,
@@ -108,7 +128,7 @@ export default function UserPayments() {
         }
       } catch {
         setReturnState({
-          status: 'PENDING',
+          status: "PENDING",
           amount: null,
           productLabel: null,
           secondsCredited: null,
@@ -120,8 +140,15 @@ export default function UserPayments() {
     run();
 
     const clean = new URLSearchParams(searchParams);
-    clean.delete('status');
-    clean.delete('order_id');
+    clean.delete("status");
+    clean.delete("order_id");
+    clean.delete("transaction_id");
+    clean.delete("merchant_txn_id");
+    clean.delete("amount");
+    clean.delete("paid_amount");
+    clean.delete("payment_mode");
+    clean.delete("timestamp");
+    clean.delete("signature");
     setSearchParams(clean, { replace: true });
   }, [searchParams, setSearchParams, queryClient]);
 
@@ -140,14 +167,14 @@ export default function UserPayments() {
   const handleGatewaySelect = (gatewayCode: string) => {
     if (!intent) return;
 
-    if (intent.kind === 'wallet') {
+    if (intent.kind === "wallet") {
       initiateWallet.mutate(
         { packageId: intent.packageId, gateway: gatewayCode },
         {
           onSuccess: (data) => {
             window.location.href = data.paymentLink;
           },
-        }
+        },
       );
     } else {
       initiateReport.mutate(
@@ -156,7 +183,7 @@ export default function UserPayments() {
           onSuccess: (data) => {
             window.location.href = data.paymentLink;
           },
-        }
+        },
       );
     }
   };
@@ -164,7 +191,9 @@ export default function UserPayments() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">Payments</h1>
+        <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">
+          Payments
+        </h1>
         <p className="text-ink-500 mt-1 text-sm">
           Recharge your chat wallet or unlock your Kundali Report
         </p>
@@ -173,35 +202,45 @@ export default function UserPayments() {
       <div className="bg-white rounded-2xl border border-ink-100 p-2 overflow-x-auto">
         <div className="flex gap-1 min-w-max">
           <TabButton
-            active={tab === 'recharge'}
-            onClick={() => setTab('recharge')}
+            active={tab === "recharge"}
+            onClick={() => setTab("recharge")}
             icon={<Clock className="h-4 w-4" />}
             label="Chat Recharge"
           />
           <TabButton
-            active={tab === 'report'}
-            onClick={() => setTab('report')}
+            active={tab === "report"}
+            onClick={() => setTab("report")}
             icon={<FileText className="h-4 w-4" />}
             label="Kundali Report"
           />
           <TabButton
-            active={tab === 'history'}
-            onClick={() => setTab('history')}
+            active={tab === "history"}
+            onClick={() => setTab("history")}
             icon={<CreditCard className="h-4 w-4" />}
             label="History"
           />
         </div>
       </div>
 
-      {tab === 'recharge' && <RechargeTab onBuy={setIntent} />}
-      {tab === 'report' && <ReportTab onBuy={setIntent} />}
-      {tab === 'history' && <HistoryTab />}
+      {tab === "recharge" && <RechargeTab onBuy={setIntent} />}
+      {tab === "report" && <ReportTab onBuy={setIntent} />}
+      {tab === "history" && (
+        <HistoryTab
+          walletOnly={walletFilter}
+          onClearFilter={() => {
+            setWalletFilter(false);
+            const clean = new URLSearchParams(searchParams);
+            clean.delete("filter");
+            setSearchParams(clean, { replace: true });
+          }}
+        />
+      )}
 
       <GatewayPickerModal
         open={intent !== null}
         onClose={closeModal}
         amount={intent?.amount ?? 0}
-        productLabel={intent?.label ?? ''}
+        productLabel={intent?.label ?? ""}
         onSelect={handleGatewaySelect}
         loading={initiateWallet.isPending || initiateReport.isPending}
       />
@@ -214,14 +253,14 @@ export default function UserPayments() {
         productLabel={returnState.productLabel}
         secondsCredited={returnState.secondsCredited}
         orderId={returnState.orderId}
-        onGoToHistory={() => setTab('history')}
+        onGoToHistory={() => setTab("history")}
       />
 
       {initiateWallet.isError && (
         <ErrorBanner
           message={
             (initiateWallet.error as any)?.response?.data?.message ||
-            'Payment initiation failed. Please try again.'
+            "Payment initiation failed. Please try again."
           }
         />
       )}
@@ -229,7 +268,7 @@ export default function UserPayments() {
         <ErrorBanner
           message={
             (initiateReport.error as any)?.response?.data?.message ||
-            'Payment initiation failed. Please try again.'
+            "Payment initiation failed. Please try again."
           }
         />
       )}
@@ -251,11 +290,10 @@ function TabButton({
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
-        active
-          ? 'bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md'
-          : 'text-ink-600 hover:bg-ink-50'
-      }`}
+      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${active
+          ? "bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md"
+          : "text-ink-600 hover:bg-ink-50"
+        }`}
     >
       {icon}
       {label}
@@ -313,15 +351,23 @@ function RechargeTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
             </div>
 
             <div className="mb-4">
-              <div className="text-2xl font-bold text-ink-900">
-                ₹{pkg.amount}
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-2xl font-bold text-ink-900">
+                  ₹{pkg.amount}
+                </span>
+                <span className="text-[11px] text-ink-500 font-medium">
+                  + 18% GST
+                </span>
+              </div>
+              <div className="text-[11px] text-ink-500 mt-0.5">
+                Total: ₹{(Number(pkg.amount) * 1.18).toFixed(2)}
               </div>
             </div>
 
             <button
               onClick={() =>
                 onBuy({
-                  kind: 'wallet',
+                  kind: "wallet",
                   packageId: pkg.id,
                   amount: pkg.amount,
                   label: pkg.label,
@@ -372,7 +418,8 @@ function ReportTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
           <div className="min-w-0">
             <h2 className="text-xl font-bold text-ink-900">{category.name}</h2>
             <p className="text-sm text-ink-500 mt-1">
-              {category.description || 'Full Vedic analysis of your birth chart'}
+              {category.description ||
+                "Full Vedic analysis of your birth chart"}
             </p>
           </div>
         </div>
@@ -380,9 +427,17 @@ function ReportTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
         <div className="border-t border-ink-100 pt-5 mb-6">
           <div className="flex items-baseline justify-between mb-2">
             <span className="text-sm text-ink-500">One-time price</span>
-            <span className="text-3xl font-bold text-ink-900">
-              ₹{category.amount}
-            </span>
+            <div className="text-right">
+              <span className="text-3xl font-bold text-ink-900">
+                ₹{category.amount}
+              </span>
+              <span className="text-[11px] text-ink-500 font-medium ml-2">
+                + 18% GST
+              </span>
+            </div>
+          </div>
+          <div className="text-right text-[11px] text-ink-500 mb-2">
+            Total: ₹{(Number(category.amount) * 1.18).toFixed(2)}
           </div>
           <p className="text-xs text-ink-400">
             Lifetime access · Instant delivery to your email
@@ -405,7 +460,7 @@ function ReportTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
           <button
             onClick={() =>
               onBuy({
-                kind: 'report',
+                kind: "report",
                 amount: category.amount,
                 label: category.name,
               })
@@ -413,7 +468,7 @@ function ReportTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
             className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-sm font-semibold hover:shadow-lg transition"
           >
             <CreditCard className="h-4 w-4" />
-            Buy Now for ₹{category.amount}
+            Buy Now for ₹{(Number(category.amount) * 1.18).toFixed(2)}
           </button>
         )}
       </div>
@@ -421,8 +476,33 @@ function ReportTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
   );
 }
 
-function HistoryTab() {
+function HistoryTab({
+  walletOnly,
+  onClearFilter,
+}: {
+  walletOnly?: boolean;
+  onClearFilter?: () => void;
+}) {
   const { data: history, isLoading, isError, refetch } = usePaymentHistory();
+  const [downloading, setDownloading] = useState<string | null>(null);
+  const { showToast } = useAuth();
+
+  const handleDownload = async (orderId: string) => {
+    setDownloading(orderId);
+    try {
+      await paymentService.downloadInvoice(orderId);
+      showToast('Invoice downloaded successfully');
+    } catch (e) {
+      console.error('Download failed', e);
+      showToast('Failed to download invoice');
+    } finally {
+      setDownloading(null);
+    }
+  };
+
+  const filtered = walletOnly
+    ? (history ?? []).filter((p) => p.categoryCode === "WALLET")
+    : (history ?? []);
 
   if (isLoading) {
     return (
@@ -438,58 +518,94 @@ function HistoryTab() {
     );
   }
 
-  if (history.length === 0) {
+  if (filtered.length === 0) {
     return (
       <div className="bg-white rounded-2xl border border-ink-100 p-12 text-center">
         <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 mb-4">
           <CreditCard className="h-8 w-8 text-white" />
         </div>
-        <h2 className="text-lg font-bold text-ink-900 mb-1">No payments yet</h2>
+        <h2 className="text-lg font-bold text-ink-900 mb-1">
+          {walletOnly ? "No wallet recharges yet" : "No payments yet"}
+        </h2>
         <p className="text-sm text-ink-500 max-w-md mx-auto">
-          Your chat recharges and report purchases will appear here.
+          {walletOnly
+            ? "Your wallet recharges will appear here."
+            : "Your chat recharges and report purchases will appear here."}
         </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[720px] text-sm">
-          <thead>
-            <tr className="bg-ink-50/70 text-left text-[11px] uppercase tracking-wider text-ink-500 font-semibold">
-              <th className="px-4 py-3">Order ID</th>
-              <th className="px-4 py-3">Product</th>
-              <th className="px-4 py-3">Amount</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {history.map((row) => (
-              <tr
-                key={row.id}
-                className="border-t border-ink-100 hover:bg-ink-50/40 transition"
-              >
-                <td className="px-4 py-3 font-mono text-xs text-ink-700 whitespace-nowrap">
-                  {row.gatewayOrderId}
-                </td>
-                <td className="px-4 py-3 text-ink-900 whitespace-nowrap">
-                  {productLabel(row)}
-                </td>
-                <td className="px-4 py-3 font-semibold text-ink-900 whitespace-nowrap">
-                  ₹{row.amount}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap">
-                  <StatusBadge status={row.status} />
-                </td>
-                <td className="px-4 py-3 text-ink-600 whitespace-nowrap text-xs">
-                  {formatDate(row.createdAt)}
-                </td>
+    <div className="space-y-3">
+      {walletOnly && (
+        <div className="bg-primary-50 border border-primary-200 rounded-xl px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm text-primary-700 font-semibold">
+            <CreditCard className="h-4 w-4" />
+            Showing wallet recharges only
+          </div>
+          <button
+            onClick={onClearFilter}
+            className="text-xs font-semibold text-primary-600 hover:text-primary-800"
+          >
+            Clear filter
+          </button>
+        </div>
+      )}
+
+      <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[720px] text-sm">
+            <thead>
+              <tr className="bg-ink-50/70 text-left text-[11px] uppercase tracking-wider text-ink-500 font-semibold">
+                <th className="px-4 py-3">Order ID</th>
+                <th className="px-4 py-3">Product</th>
+                <th className="px-4 py-3">Amount</th>
+                <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Date</th>
+                <th className="px-4 py-3 text-right">Invoice</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filtered.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-t border-ink-100 hover:bg-ink-50/40 transition"
+                >
+                  <td className="px-4 py-3 font-mono text-xs text-ink-700 whitespace-nowrap">
+                    {row.gatewayOrderId}
+                  </td>
+                  <td className="px-4 py-3 text-ink-900 whitespace-nowrap">
+                    {productLabel(row)}
+                  </td>
+                  <td className="px-4 py-3 font-semibold text-ink-900 whitespace-nowrap">
+                    ₹{row.amount}
+                  </td>
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    <StatusBadge status={row.status} />
+                  </td>
+                  <td className="px-4 py-3 text-ink-600 whitespace-nowrap text-xs">
+                    {formatDate(row.createdAt)}
+                  </td>
+                  <td className="px-4 py-3 text-right whitespace-nowrap">
+                    <button
+                      onClick={() => handleDownload(row.gatewayOrderId)}
+                      disabled={downloading === row.gatewayOrderId}
+                      title="Download Invoice"
+                      className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-ink-200 text-ink-600 hover:bg-ink-50 hover:border-primary-300 hover:text-primary-600 disabled:opacity-50 transition"
+                    >
+                      {downloading === row.gatewayOrderId ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Download className="h-4 w-4" />
+                      )}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -497,14 +613,14 @@ function HistoryTab() {
 
 function StatusBadge({ status }: { status: string }) {
   const s = status?.toUpperCase();
-  if (s === 'SUCCESS') {
+  if (s === "SUCCESS") {
     return (
       <span className="inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-green-100 text-green-700">
         Success
       </span>
     );
   }
-  if (s === 'FAILED') {
+  if (s === "FAILED") {
     return (
       <span className="inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-red-100 text-red-700">
         Failed
@@ -554,25 +670,25 @@ function ErrorBanner({ message }: { message: string }) {
 }
 
 function productLabel(row: PaymentRecord): string {
-  if (row.categoryCode === 'REPORT') return 'Kundali Report';
-  if (row.categoryCode === 'WALLET') {
+  if (row.categoryCode === "REPORT") return "Kundali Report";
+  if (row.categoryCode === "WALLET") {
     if (row.secondsCredited) {
       const mins = Math.round(row.secondsCredited / 60);
       return `Chat Recharge · ${mins} min`;
     }
-    return 'Chat Recharge';
+    return "Chat Recharge";
   }
-  return row.notes || 'Payment';
+  return row.notes || "Payment";
 }
 
 function formatDate(iso: string): string {
-  if (!iso) return '—';
+  if (!iso) return "—";
   const d = new Date(iso);
-  return d.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+  return d.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 }

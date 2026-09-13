@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Mail,
-  Lock,
-  ArrowRight,
-  AlertCircle,
-  CheckCircle,
-} from 'lucide-react';
-import { useAuth } from '../../lib/AuthContext';
-import { useLogin } from '../../api/mutations/authMutations';
-import Button from '../../components/ui/Button';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Lock, ArrowRight, AlertCircle, CheckCircle } from "lucide-react";
+import { useAuth } from "../../lib/AuthContext";
+import { useLogin } from "../../api/mutations/authMutations";
+import Button from "../../components/ui/Button";
 
 export default function Login() {
   const navigate = useNavigate();
   const { setSession } = useAuth();
   const loginMutation = useLogin();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
@@ -29,7 +23,7 @@ export default function Login() {
 
   const errorMessage =
     (loginMutation.error as any)?.response?.data?.message ||
-    (loginMutation.error ? 'Login failed. Please try again.' : null);
+    (loginMutation.error ? "Login failed. Please try again." : null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,12 +32,12 @@ export default function Login() {
       {
         onSuccess: (data) => {
           setSession(data);
-          setToast('Login successful');
+          setToast("Login successful");
           const redirect =
-            data.role === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard';
+            data.role === "ADMIN" ? "/admin/dashboard" : "/user/dashboard";
           setTimeout(() => navigate(redirect, { replace: true }), 700);
         },
-      }
+      },
     );
   };
 
@@ -79,7 +73,11 @@ export default function Login() {
         <div className="glass-card rounded-3xl p-8 lg:p-10">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-2.5 mb-6">
-              <img src="/assets/logo.png" alt="Jyotish" className="h-8 w-10 rounded-lg" />
+              <img
+                src="/assets/logo.png"
+                alt="Jyotish"
+                className="h-8 w-10 rounded-lg"
+              />
               <span className="text-xl font-bold text-ink-900">JyotishAI</span>
             </Link>
             <h1 className="text-2xl font-bold text-ink-900">Welcome back</h1>
@@ -95,7 +93,9 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-ink-700 mb-2">Email</label>
+              <label className="block text-sm font-medium text-ink-700 mb-2">
+                Email
+              </label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-ink-400" />
                 <input
@@ -111,7 +111,9 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink-700 mb-2">Password</label>
+              <label className="block text-sm font-medium text-ink-700 mb-2">
+                Password
+              </label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-ink-400" />
                 <input
@@ -126,15 +128,23 @@ export default function Login() {
               </div>
             </div>
 
-            <Button type="submit" variant="primary" size="lg" className="w-full">
-              {loading ? 'Signing in...' : 'Sign In'}
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              className="w-full"
+            >
+              {loading ? "Signing in..." : "Sign In"}
               {!loading && <ArrowRight className="h-4 w-4" />}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-ink-500">
-            Don't have an account?{' '}
-            <Link to="/signup" className="font-semibold text-primary-600 hover:text-primary-700">
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="font-semibold text-primary-600 hover:text-primary-700"
+            >
               Sign up
             </Link>
           </p>

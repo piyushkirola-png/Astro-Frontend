@@ -6,15 +6,15 @@ import {
   useMemo,
   useState,
   type ReactNode,
-} from 'react';
-import type { AuthResponse, AuthUser } from '../types/auth';
+} from "react";
+import type { AuthResponse, AuthUser } from "../types/auth";
 import {
   clearSession,
   getStoredUser,
   getToken,
   setStoredUser,
   setToken,
-} from './token-storage';
+} from "./token-storage";
 
 interface AuthContextValue {
   user: AuthUser | null;
@@ -51,9 +51,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       clearSession();
       setUser(null);
     };
-    window.addEventListener('auth:unauthorized', onUnauthorized);
+    window.addEventListener("auth:unauthorized", onUnauthorized);
     return () =>
-      window.removeEventListener('auth:unauthorized', onUnauthorized);
+      window.removeEventListener("auth:unauthorized", onUnauthorized);
   }, []);
 
   // Auto-dismiss toast after 1s
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession,
       clearUser,
     }),
-    [user, isLoading, toast, showToast, dismissToast, setSession, clearUser]
+    [user, isLoading, toast, showToast, dismissToast, setSession, clearUser],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -105,6 +105,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 }

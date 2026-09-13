@@ -1,5 +1,5 @@
-import { useState, type KeyboardEvent } from 'react';
-import { Send, Loader2 } from 'lucide-react';
+import { useState, type KeyboardEvent } from "react";
+import { Send, Loader2 } from "lucide-react";
 
 interface Props {
   onSend: (text: string) => void;
@@ -8,17 +8,17 @@ interface Props {
 }
 
 export default function ChatInput({ onSend, disabled, sending }: Props) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const handleSend = () => {
     const t = text.trim();
     if (!t || disabled || sending) return;
     onSend(t);
-    setText('');
+    setText("");
   };
 
   const onKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }

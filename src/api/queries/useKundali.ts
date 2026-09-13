@@ -1,19 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import apiClient from '../../lib/api-client';
-import type { ApiResponse } from '../../types/auth';
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../../lib/api-client";
+import type { ApiResponse } from "../../types/auth";
 import type {
   DashaPeriod,
   KundaliBasic,
   KundaliChart,
   PlanetaryPosition,
-} from '../../types/kundali';
+} from "../../types/kundali";
 
 export function useKundaliBasic() {
   return useQuery({
-    queryKey: ['user', 'kundali', 'basic'],
+    queryKey: ["user", "kundali", "basic"],
     queryFn: async (): Promise<KundaliBasic> => {
       const res = await apiClient.get<ApiResponse<KundaliBasic>>(
-        '/user/kundali/basic'
+        "/user/kundali/basic",
       );
       return res.data.data;
     },
@@ -23,10 +23,10 @@ export function useKundaliBasic() {
 
 export function useKundaliCharts() {
   return useQuery({
-    queryKey: ['user', 'kundali', 'charts'],
+    queryKey: ["user", "kundali", "charts"],
     queryFn: async (): Promise<KundaliChart[]> => {
       const res = await apiClient.get<ApiResponse<KundaliChart[]>>(
-        '/user/kundali/charts'
+        "/user/kundali/charts",
       );
       return res.data.data;
     },
@@ -36,10 +36,10 @@ export function useKundaliCharts() {
 
 export function usePlanetaryPositions() {
   return useQuery({
-    queryKey: ['user', 'kundali', 'planetary'],
+    queryKey: ["user", "kundali", "planetary"],
     queryFn: async (): Promise<PlanetaryPosition[]> => {
       const res = await apiClient.get<ApiResponse<PlanetaryPosition[]>>(
-        '/user/kundali/planetary'
+        "/user/kundali/planetary",
       );
       return res.data.data;
     },
@@ -49,10 +49,10 @@ export function usePlanetaryPositions() {
 
 export function useDashaPeriods() {
   return useQuery({
-    queryKey: ['user', 'kundali', 'dasha'],
+    queryKey: ["user", "kundali", "dasha"],
     queryFn: async (): Promise<DashaPeriod[]> => {
       const res = await apiClient.get<ApiResponse<DashaPeriod[]>>(
-        '/user/kundali/dasha'
+        "/user/kundali/dasha",
       );
       return res.data.data;
     },

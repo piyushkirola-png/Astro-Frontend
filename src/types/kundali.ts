@@ -33,7 +33,7 @@ export interface KundaliBasic {
 }
 
 export interface KundaliChart {
-  chartType: 'D1' | 'D9';
+  chartType: "D1" | "D9";
   chartLabel: string;
   zodiac: string;
   houses: string[];

@@ -1,10 +1,10 @@
-export type UserGender = 'MALE' | 'FEMALE';
+export type UserGender = "MALE" | "FEMALE";
 
 export interface UserProfile {
   id: number;
   name: string;
   email: string;
-  role: 'ADMIN' | 'USER';
+  role: "ADMIN" | "USER";
 
   gender: UserGender | null;
   phone: string | null;
@@ -33,7 +33,7 @@ export interface UpdateProfileRequest {
   name?: string;
   email?: string;
   phone?: string;
-  gender?: UserGender | '';
+  gender?: UserGender | "";
   dateOfBirth?: string;
   timeOfBirth?: string;
   placeOfBirth?: string;

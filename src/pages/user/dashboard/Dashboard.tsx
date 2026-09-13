@@ -16,48 +16,48 @@ import {
   Loader2,
   AlertCircle,
   Dices,
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../../lib/AuthContext';
-import { useGetMe } from '../../../api/queries/useUser';
-import { useDailyReading } from '../../../api/queries/useUserDashboard';
-import userService from '../../../api/services/userService';
-import type { MoodTrend } from '../../../types/dashboard';
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../../lib/AuthContext";
+import { useGetMe } from "../../../api/queries/useUser";
+import { useDailyReading } from "../../../api/queries/useUserDashboard";
+import userService from "../../../api/services/userService";
+import type { MoodTrend } from "../../../types/dashboard";
 
 const COLOR_SWATCH: Record<string, string> = {
-  Red: '#dc2626',
-  Pink: '#ec4899',
-  Yellow: '#eab308',
-  Blue: '#2563eb',
-  White: '#f3f4f6',
-  Orange: '#ea580c',
-  Green: '#16a34a',
-  Grey: '#9ca3af',
-  Multicolor: 'linear-gradient(90deg,#ef4444,#f59e0b,#10b981,#3b82f6,#8b5cf6)',
+  Red: "#dc2626",
+  Pink: "#ec4899",
+  Yellow: "#eab308",
+  Blue: "#2563eb",
+  White: "#f3f4f6",
+  Orange: "#ea580c",
+  Green: "#16a34a",
+  Grey: "#9ca3af",
+  Multicolor: "linear-gradient(90deg,#ef4444,#f59e0b,#10b981,#3b82f6,#8b5cf6)",
 };
 
 const TRAVEL_TIPS = [
-  'Aaj yatra ke liye accha samay hai. Subah nikalna shubh rahega.',
-  'Kisi purane sheher ki yaad aa sakti hai. Naye travel plan bana sakte hain.',
-  'Aaj kisi nayi jagah ke baare me jaankari milegi.',
-  'Chhoti yatra se mann khush rahega. Shopping ka mauka milega.',
-  'Ghar se door koi acchi khabar milegi. Aaj travel related decision accha rahega.',
-  'Aaj apne sapno ke destination ke baare me soch sakte hain.',
-  'Kisi dost ya rishtedaar ke ghar jaane ka mauka milega.',
+  "Aaj yatra ke liye accha samay hai. Subah nikalna shubh rahega.",
+  "Kisi purane sheher ki yaad aa sakti hai. Naye travel plan bana sakte hain.",
+  "Aaj kisi nayi jagah ke baare me jaankari milegi.",
+  "Chhoti yatra se mann khush rahega. Shopping ka mauka milega.",
+  "Ghar se door koi acchi khabar milegi. Aaj travel related decision accha rahega.",
+  "Aaj apne sapno ke destination ke baare me soch sakte hain.",
+  "Kisi dost ya rishtedaar ke ghar jaane ka mauka milega.",
 ];
 
 function getTravelTip(dateIso: string): string {
-  const d = new Date(dateIso + 'T00:00:00');
+  const d = new Date(dateIso + "T00:00:00");
   const dayOfYear = Math.floor(
     (d.getTime() - new Date(d.getFullYear(), 0, 0).getTime()) /
-    (1000 * 60 * 60 * 24)
+      (1000 * 60 * 60 * 24),
   );
   return TRAVEL_TIPS[dayOfYear % TRAVEL_TIPS.length];
 }
 
 function TrendIcon({ trend }: { trend: MoodTrend }) {
-  if (trend === 'RISING') return <TrendingUp className="h-6 w-6 text-white" />;
-  if (trend === 'LOW') return <TrendingDown className="h-6 w-6 text-white" />;
+  if (trend === "RISING") return <TrendingUp className="h-6 w-6 text-white" />;
+  if (trend === "LOW") return <TrendingDown className="h-6 w-6 text-white" />;
   return <Minus className="h-6 w-6 text-white" />;
 }
 
@@ -94,7 +94,7 @@ export default function UserDashboard() {
     );
   }
 
-  const swatch = COLOR_SWATCH[data.luckyColor] || '#e5e7eb';
+  const swatch = COLOR_SWATCH[data.luckyColor] || "#e5e7eb";
   const avatarSrc = userService.absoluteAvatarUrl(me?.avatarUrl);
   const travelTip = getTravelTip(data.readingDate);
 
@@ -104,7 +104,7 @@ export default function UserDashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">
-            Welcome back, {user?.name || 'User'}
+            Welcome back, {user?.name || "User"}
           </h1>
           <p className="text-ink-500 mt-1 text-sm">
             Your cosmic journey continues today
@@ -115,10 +115,10 @@ export default function UserDashboard() {
           <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50">
             <Calendar className="h-4 w-4 text-amber-600" />
             <span className="text-sm font-semibold text-ink-900">
-              {new Date(data.readingDate).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
+              {new Date(data.readingDate).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
               })}
             </span>
           </div>
@@ -131,7 +131,7 @@ export default function UserDashboard() {
               />
             ) : (
               <span className="text-sm font-bold text-white">
-                {user?.name?.[0]?.toUpperCase() || 'U'}
+                {user?.name?.[0]?.toUpperCase() || "U"}
               </span>
             )}
           </div>
@@ -180,7 +180,7 @@ export default function UserDashboard() {
                 className="h-9 w-9 rounded-full border-2 border-white shadow-sm shrink-0"
                 style={{
                   background:
-                    typeof swatch === 'string' && swatch.startsWith('linear')
+                    typeof swatch === "string" && swatch.startsWith("linear")
                       ? swatch
                       : swatch,
                 }}
@@ -282,7 +282,7 @@ export default function UserDashboard() {
 
           <div className="flex items-start gap-4">
             <p className="flex-1 text-sm text-ink-700 leading-relaxed whitespace-pre-wrap">
-              {data.forecastText || 'Aapka aaj ka forecast uplabdh nahi hai.'}
+              {data.forecastText || "Aapka aaj ka forecast uplabdh nahi hai."}
             </p>
 
             <div className="shrink-0 hidden sm:flex items-center justify-center w-28 h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-br from-amber-100 via-orange-100 to-rose-100 relative">
@@ -312,7 +312,7 @@ export default function UserDashboard() {
                   Love
                 </div>
                 <div className="text-xs text-ink-600 leading-relaxed">
-                  {data.loveText || 'No update today'}
+                  {data.loveText || "No update today"}
                 </div>
               </div>
             </div>
@@ -327,7 +327,7 @@ export default function UserDashboard() {
                   Career
                 </div>
                 <div className="text-xs text-ink-600 leading-relaxed">
-                  {data.careerText || 'No update today'}
+                  {data.careerText || "No update today"}
                 </div>
               </div>
             </div>
@@ -342,7 +342,7 @@ export default function UserDashboard() {
                   Health
                 </div>
                 <div className="text-xs text-ink-600 leading-relaxed">
-                  {data.wellnessText || 'No update today'}
+                  {data.wellnessText || "No update today"}
                 </div>
               </div>
             </div>
@@ -357,7 +357,7 @@ export default function UserDashboard() {
                   Finance
                 </div>
                 <div className="text-xs text-ink-600 leading-relaxed">
-                  {data.financeText || 'No update today'}
+                  {data.financeText || "No update today"}
                 </div>
               </div>
             </div>
@@ -387,7 +387,8 @@ export default function UserDashboard() {
                   Wellness
                 </div>
                 <div className="text-xs text-ink-600 leading-relaxed">
-                  {data.wellnessText || 'Take care of your mind and body today.'}
+                  {data.wellnessText ||
+                    "Take care of your mind and body today."}
                 </div>
               </div>
             </div>

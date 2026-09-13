@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Users as UsersIcon,
   Loader2,
@@ -9,14 +9,14 @@ import {
   Power,
   PowerOff,
   CheckCircle,
-} from 'lucide-react';
-import { useAdminUsers } from '../../../api/queries/useAdmin';
+} from "lucide-react";
+import { useAdminUsers } from "../../../api/queries/useAdmin";
 import {
   useToggleUserStatus,
   useDeleteUser,
-} from '../../../api/mutations/adminMutations';
-import userService from '../../../api/services/userService';
-import type { UserProfile } from '../../../types/user';
+} from "../../../api/mutations/adminMutations";
+import userService from "../../../api/services/userService";
+import type { UserProfile } from "../../../types/user";
 
 export default function AdminUsers() {
   const { data, isLoading, isError, refetch } = useAdminUsers();
@@ -24,7 +24,7 @@ export default function AdminUsers() {
   const deleteMutation = useDeleteUser();
 
   const [confirmAction, setConfirmAction] = useState<{
-    type: 'toggle' | 'delete';
+    type: "toggle" | "delete";
     user: UserProfile;
   } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -37,10 +37,10 @@ export default function AdminUsers() {
 
   const fmtDate = (iso: string) => {
     const d = new Date(iso);
-    return d.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
+    return d.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
     });
   };
 
@@ -53,15 +53,15 @@ export default function AdminUsers() {
       {
         onSuccess: () => {
           setToast(
-            newActive ? `${user.name} activated` : `${user.name} deactivated`
+            newActive ? `${user.name} activated` : `${user.name} deactivated`,
           );
           setConfirmAction(null);
         },
         onError: (err: any) => {
-          setToast(err?.response?.data?.message || 'Action failed');
+          setToast(err?.response?.data?.message || "Action failed");
           setConfirmAction(null);
         },
-      }
+      },
     );
   };
 
@@ -74,7 +74,7 @@ export default function AdminUsers() {
         setConfirmAction(null);
       },
       onError: (err: any) => {
-        setToast(err?.response?.data?.message || 'Delete failed');
+        setToast(err?.response?.data?.message || "Delete failed");
         setConfirmAction(null);
       },
     });
@@ -155,7 +155,7 @@ export default function AdminUsers() {
                     />
                   ) : (
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
-                      {u.name?.[0]?.toUpperCase() || 'U'}
+                      {u.name?.[0]?.toUpperCase() || "U"}
                     </div>
                   )}
                   <div className="min-w-0">
@@ -170,15 +170,15 @@ export default function AdminUsers() {
                 </div>
 
                 <div className="col-span-2 text-xs text-ink-600 truncate">
-                  {u.phone || '—'}
+                  {u.phone || "—"}
                 </div>
 
                 <div className="col-span-1">
                   <span
                     className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                      u.role === 'ADMIN'
-                        ? 'bg-primary-100 text-primary-700'
-                        : 'bg-accent-100 text-accent-700'
+                      u.role === "ADMIN"
+                        ? "bg-primary-100 text-primary-700"
+                        : "bg-accent-100 text-accent-700"
                     }`}
                   >
                     {u.role}
@@ -193,31 +193,31 @@ export default function AdminUsers() {
                   <span
                     className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
                       u.isActive
-                        ? 'bg-success-100 text-success-700'
-                        : 'bg-ink-200 text-ink-600'
+                        ? "bg-success-100 text-success-700"
+                        : "bg-ink-200 text-ink-600"
                     }`}
                   >
                     <span
                       className={`h-1.5 w-1.5 rounded-full ${
-                        u.isActive ? 'bg-success-500' : 'bg-ink-400'
+                        u.isActive ? "bg-success-500" : "bg-ink-400"
                       }`}
                     />
-                    {u.isActive ? 'Active' : 'Inactive'}
+                    {u.isActive ? "Active" : "Inactive"}
                   </span>
                 </div>
 
                 <div className="col-span-1 flex justify-start md:justify-end gap-1">
                   <button
                     onClick={() =>
-                      setConfirmAction({ type: 'toggle', user: u })
+                      setConfirmAction({ type: "toggle", user: u })
                     }
                     className={`p-2 rounded-lg transition ${
                       u.isActive
-                        ? 'text-ink-500 hover:text-warning-600 hover:bg-warning-50'
-                        : 'text-ink-500 hover:text-success-600 hover:bg-success-50'
+                        ? "text-ink-500 hover:text-warning-600 hover:bg-warning-50"
+                        : "text-ink-500 hover:text-success-600 hover:bg-success-50"
                     }`}
-                    aria-label={u.isActive ? 'Deactivate' : 'Activate'}
-                    title={u.isActive ? 'Deactivate' : 'Activate'}
+                    aria-label={u.isActive ? "Deactivate" : "Activate"}
+                    title={u.isActive ? "Deactivate" : "Activate"}
                   >
                     {u.isActive ? (
                       <PowerOff className="h-4 w-4" />
@@ -229,19 +229,19 @@ export default function AdminUsers() {
                   <button
                     onClick={() =>
                       u.isActive
-                        ? setConfirmAction({ type: 'toggle', user: u })
-                        : setConfirmAction({ type: 'delete', user: u })
+                        ? setConfirmAction({ type: "toggle", user: u })
+                        : setConfirmAction({ type: "delete", user: u })
                     }
                     className={`p-2 rounded-lg transition ${
                       u.isActive
-                        ? 'text-ink-400 hover:text-warning-600 hover:bg-warning-50'
-                        : 'text-ink-500 hover:text-danger-600 hover:bg-danger-50'
+                        ? "text-ink-400 hover:text-warning-600 hover:bg-warning-50"
+                        : "text-ink-500 hover:text-danger-600 hover:bg-danger-50"
                     }`}
                     aria-label="Delete"
                     title={
                       u.isActive
-                        ? 'Active users must be deactivated before deletion'
-                        : 'Delete user'
+                        ? "Active users must be deactivated before deletion"
+                        : "Delete user"
                     }
                   >
                     <Trash2 className="h-4 w-4" />
@@ -271,7 +271,7 @@ export default function AdminUsers() {
                 onClick={(e) => e.stopPropagation()}
                 className="bg-white rounded-xl p-5 w-full max-w-sm shadow-2xl"
               >
-                {confirmAction.type === 'toggle' ? (
+                {confirmAction.type === "toggle" ? (
                   <>
                     <h3 className="text-sm font-bold text-ink-900 mb-1">
                       {confirmAction.user.isActive
@@ -281,7 +281,7 @@ export default function AdminUsers() {
                     <p className="text-xs text-ink-500 mb-5">
                       {confirmAction.user.isActive
                         ? "They won't be able to log in until reactivated."
-                        : 'They will be able to log in again.'}
+                        : "They will be able to log in again."}
                     </p>
                     <div className="flex gap-2.5">
                       <button
@@ -299,9 +299,9 @@ export default function AdminUsers() {
                         {saving ? (
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />
                         ) : confirmAction.user.isActive ? (
-                          'Deactivate'
+                          "Deactivate"
                         ) : (
-                          'Activate'
+                          "Activate"
                         )}
                       </button>
                     </div>
@@ -330,7 +330,7 @@ export default function AdminUsers() {
                         {saving ? (
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />
                         ) : (
-                          'Delete'
+                          "Delete"
                         )}
                       </button>
                     </div>
@@ -340,7 +340,7 @@ export default function AdminUsers() {
             </motion.div>
           )}
         </AnimatePresence>,
-        document.body
+        document.body,
       )}
 
       {/* Toast — PORTAL */}
@@ -360,7 +360,7 @@ export default function AdminUsers() {
             </motion.div>
           )}
         </AnimatePresence>,
-        document.body
+        document.body,
       )}
     </div>
   );

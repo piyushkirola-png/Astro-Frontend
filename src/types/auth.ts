@@ -4,7 +4,7 @@ export interface ApiResponse<T> {
   data: T;
 }
 
-export type UserRole = 'ADMIN' | 'USER';
+export type UserRole = "ADMIN" | "USER";
 
 export interface AuthUser {
   userId: number;

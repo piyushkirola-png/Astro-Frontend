@@ -1,5 +1,5 @@
-import { MessageSquare, Plus, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { MessageSquare, Plus, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function MyConsultations() {
   return (
@@ -32,8 +32,8 @@ export default function MyConsultations() {
           No consultations yet
         </h2>
         <p className="text-sm text-ink-500 max-w-md mx-auto mb-6">
-          Start your first consultation with an expert astrologer. Get personalized
-          guidance on love, career, health, and more.
+          Start your first consultation with an expert astrologer. Get
+          personalized guidance on love, career, health, and more.
         </p>
         <Link
           to="/consultations"

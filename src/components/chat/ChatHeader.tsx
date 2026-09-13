@@ -1,4 +1,4 @@
-import { Sparkles, Menu } from 'lucide-react';
+import { Sparkles, Menu } from "lucide-react";
 
 interface Props {
   onOpenSidebar?: () => void;

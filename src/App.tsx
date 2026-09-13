@@ -1,72 +1,78 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
-import { AuthProvider, useAuth } from './lib/AuthContext';
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+import { AuthProvider, useAuth } from "./lib/AuthContext";
 
-import Navbar from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import ScrollToTop from './components/layout/ScrollToTop';
-import ChatBot from './components/ui/ChatBot';
+import Navbar from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import ScrollToTop from "./components/layout/ScrollToTop";
+import ChatBot from "./components/ui/ChatBot";
 
-import ProtectedRoute from './lib/ProtectedRoute';
-import AdminLayout from './components/layout/AdminLayout';
-import UserLayout from './components/layout/UserLayout';
+import ProtectedRoute from "./lib/ProtectedRoute";
+import AdminLayout from "./components/layout/AdminLayout";
+import UserLayout from "./components/layout/UserLayout";
 
-import Home from './pages/Home';
-import Blog from './pages/Blog';
-import Contact from './pages/Contact';
-import Partners from './pages/Partners';
-import CaseStudies from './pages/CaseStudies';
-import WhyAstrotalk from './pages/WhyAstrotalk';
-import FAQ from './pages/FAQ';
-import About from './pages/legal/About';
-import Privacy from './pages/legal/Privacy';
-import Terms from './pages/legal/Terms';
+import Home from "./pages/Home";
+import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
+import Partners from "./pages/Partners";
+import CaseStudies from "./pages/CaseStudies";
+import WhyAstrotalk from "./pages/WhyAstrotalk";
+import FAQ from "./pages/FAQ";
+import About from "./pages/legal/About";
+import Privacy from "./pages/legal/Privacy";
+import Terms from "./pages/legal/Terms";
 
-import Login from './pages/auth/Login';
-import SignUp from './pages/auth/SignUp';
+import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/SignUp";
 
-import Consultations from './pages/consultations/Consultations';
-import ChatWithAstrologer from './pages/consultations/ChatWithAstrologer';
-import Horoscope from './pages/horoscope/Horoscope';
-import FreeServices from './pages/free-services/FreeServices';
-import FreeKundali from './pages/free-services/FreeKundali';
-import KundaliMatching from './pages/free-services/KundaliMatching';
-import Compatibility from './pages/free-services/Compatibility';
-import Calculators from './pages/calculators/Calculators';
-import LoveCalculator from './pages/calculators/LoveCalculator';
-import NumerologyCalculator from './pages/calculators/NumerologyCalculator';
-import FriendshipCalculator from './pages/calculators/FriendshipCalculator';
-import MulankCalculator from './pages/calculators/MulankCalculator';
-import DestinyNumber from './pages/calculators/DestinyNumber';
-import AgeCalculator from './pages/calculators/AgeCalculator';
-import SadeSati from './pages/calculators/SadeSati';
-import KaalSarpDosh from './pages/calculators/KaalSarpDosh';
-import Panchang from './pages/panchang/Panchang';
-import TodayPanchang from './pages/panchang/TodayPanchang';
-import TomorrowPanchang from './pages/panchang/TomorrowPanchang';
-import RahuKaal from './pages/panchang/RahuKaal';
-import SubhMuhurat from './pages/panchang/SubhMuhurat';
+import Consultations from "./pages/consultations/Consultations";
+import ChatWithAstrologer from "./pages/consultations/ChatWithAstrologer";
+import Horoscope from "./pages/horoscope/Horoscope";
+import FreeServices from "./pages/free-services/FreeServices";
+import FreeKundali from "./pages/free-services/FreeKundali";
+import KundaliMatching from "./pages/free-services/KundaliMatching";
+import Compatibility from "./pages/free-services/Compatibility";
+import Calculators from "./pages/calculators/Calculators";
+import LoveCalculator from "./pages/calculators/LoveCalculator";
+import NumerologyCalculator from "./pages/calculators/NumerologyCalculator";
+import FriendshipCalculator from "./pages/calculators/FriendshipCalculator";
+import MulankCalculator from "./pages/calculators/MulankCalculator";
+import DestinyNumber from "./pages/calculators/DestinyNumber";
+import AgeCalculator from "./pages/calculators/AgeCalculator";
+import SadeSati from "./pages/calculators/SadeSati";
+import KaalSarpDosh from "./pages/calculators/KaalSarpDosh";
+import Panchang from "./pages/panchang/Panchang";
+import TodayPanchang from "./pages/panchang/TodayPanchang";
+import TomorrowPanchang from "./pages/panchang/TomorrowPanchang";
+import RahuKaal from "./pages/panchang/RahuKaal";
+import SubhMuhurat from "./pages/panchang/SubhMuhurat";
 
 // Admin
-import AdminDashboard from './pages/admin/dashboard/Dashboard';
-import AdminUsers from './pages/admin/users/Users';
-import AdminPayments from './pages/admin/payments/payments';
-import AdminProfile from './pages/admin/profile/Profile';
+import AdminDashboard from "./pages/admin/dashboard/Dashboard";
+import AdminUsers from "./pages/admin/users/Users";
+import AdminPayments from "./pages/admin/payments/payments";
+import AdminWalletSlabs from "./pages/admin/wallet-slabs/WalletSlabs";
+import AdminProfile from "./pages/admin/profile/Profile";
 
 // User
-import UserDashboard from './pages/user/dashboard/Dashboard';
-import UserChat from './pages/user/chat/Chat';
-import UserPayments from './pages/user/payments/payments';
-import UserProfile from './pages/user/profile/profile';
-import UserKundali from './pages/user/kundali/Kundali';
-import UserReport from './pages/user/kundali/Report';
-import UserHoroscope from './pages/user/horoscope/Horoscope';
+import UserDashboard from "./pages/user/dashboard/Dashboard";
+import UserChat from "./pages/user/chat/Chat";
+import UserPayments from "./pages/user/payments/payments";
+import UserProfile from "./pages/user/profile/profile";
+import UserKundali from "./pages/user/kundali/Kundali";
+import UserReport from "./pages/user/kundali/Report";
+import UserWallet from "./pages/user/wallet/Wallet";
+import UserHoroscope from "./pages/user/horoscope/Horoscope";
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { retry: 1, refetchOnWindowFocus: false, staleTime: 5 * 60 * 1000 },
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+    },
   },
 });
 
@@ -128,7 +134,10 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
 
               <Route path="/consultations" element={<Consultations />} />
-              <Route path="/chat-with-astrologer" element={<ChatWithAstrologer />} />
+              <Route
+                path="/chat-with-astrologer"
+                element={<ChatWithAstrologer />}
+              />
               <Route path="/horoscope" element={<Horoscope />} />
               <Route path="/free-services" element={<FreeServices />} />
               <Route path="/free-kundali" element={<FreeKundali />} />
@@ -136,8 +145,14 @@ function App() {
               <Route path="/compatibility" element={<Compatibility />} />
               <Route path="/calculators" element={<Calculators />} />
               <Route path="/love-calculator" element={<LoveCalculator />} />
-              <Route path="/numerology-calculator" element={<NumerologyCalculator />} />
-              <Route path="/friendship-calculator" element={<FriendshipCalculator />} />
+              <Route
+                path="/numerology-calculator"
+                element={<NumerologyCalculator />}
+              />
+              <Route
+                path="/friendship-calculator"
+                element={<FriendshipCalculator />}
+              />
               <Route path="/mulank-calculator" element={<MulankCalculator />} />
               <Route path="/destiny-number" element={<DestinyNumber />} />
               <Route path="/age-calculator" element={<AgeCalculator />} />
@@ -154,13 +169,14 @@ function App() {
             <Route
               path="/admin"
               element={
-                <ProtectedRoute roles={['ADMIN']}>
+                <ProtectedRoute roles={["ADMIN"]}>
                   <AdminLayout />
                 </ProtectedRoute>
               }
             >
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="users" element={<AdminUsers />} />
+              <Route path="wallet-slabs" element={<AdminWalletSlabs />} />
               <Route path="payments" element={<AdminPayments />} />
               <Route path="profile" element={<AdminProfile />} />
             </Route>
@@ -169,13 +185,14 @@ function App() {
             <Route
               path="/user"
               element={
-                <ProtectedRoute roles={['USER']}>
+                <ProtectedRoute roles={["USER"]}>
                   <UserLayout />
                 </ProtectedRoute>
               }
             >
               <Route path="dashboard" element={<UserDashboard />} />
               <Route path="chat" element={<UserChat />} />
+              <Route path="wallet" element={<UserWallet />} />
               <Route path="payments" element={<UserPayments />} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="kundali" element={<UserKundali />} />

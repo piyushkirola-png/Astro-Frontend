@@ -1,75 +1,152 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown, Search, HelpCircle, Star, Users, Clock, Heart, Sparkles } from 'lucide-react';
-import PageHero from '../components/ui/PageHero';
-import Reveal from '../components/animations/Reveal';
-import Button from '../components/ui/Button';
-import Badge from '../components/ui/Badge';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  ChevronDown,
+  Search,
+  HelpCircle,
+  Star,
+  Users,
+  Clock,
+  Heart,
+  Sparkles,
+} from "lucide-react";
+import PageHero from "../components/ui/PageHero";
+import Reveal from "../components/animations/Reveal";
+import Button from "../components/ui/Button";
+import Badge from "../components/ui/Badge";
 
 const faqCategories = [
   {
-    category: 'Kundali & Horoscope',
+    category: "Kundali & Horoscope",
     questions: [
-      { q: 'How do I generate my free Kundali?', a: 'Simply enter your birth details (name, gender, date, time, and place of birth) in our Free Kundali tool. Your complete Janam Kundli with planetary positions, houses, and doshas will be generated instantly.' },
-      { q: 'Is the Kundali generation really free?', a: 'Yes! Our Kundali generation tool is completely free with no hidden charges. You get a detailed birth chart with planetary positions, houses, nakshatras, and doshas.' },
-      { q: 'What information do I need for Kundali matching?', a: 'You need the birth details (date, time, place) of both partners. Our Kundali Matching tool analyzes compatibility using the Ashtakoota Guna Milan system and Mangal Dosha analysis.' },
-      { q: 'What is the difference between Lagna and Moon sign?', a: 'Lagna (Ascendant) is the zodiac sign rising on the eastern horizon at your birth time. Moon sign is the zodiac sign where the Moon was placed at your birth. Both are important in Vedic astrology.' },
+      {
+        q: "How do I generate my free Kundali?",
+        a: "Simply enter your birth details (name, gender, date, time, and place of birth) in our Free Kundali tool. Your complete Janam Kundli with planetary positions, houses, and doshas will be generated instantly.",
+      },
+      {
+        q: "Is the Kundali generation really free?",
+        a: "Yes! Our Kundali generation tool is completely free with no hidden charges. You get a detailed birth chart with planetary positions, houses, nakshatras, and doshas.",
+      },
+      {
+        q: "What information do I need for Kundali matching?",
+        a: "You need the birth details (date, time, place) of both partners. Our Kundali Matching tool analyzes compatibility using the Ashtakoota Guna Milan system and Mangal Dosha analysis.",
+      },
+      {
+        q: "What is the difference between Lagna and Moon sign?",
+        a: "Lagna (Ascendant) is the zodiac sign rising on the eastern horizon at your birth time. Moon sign is the zodiac sign where the Moon was placed at your birth. Both are important in Vedic astrology.",
+      },
     ],
   },
   {
-    category: 'Numerology',
+    category: "Numerology",
     questions: [
-      { q: 'What is the Destiny Number?', a: 'Your Destiny Number (also called Bhagyank) reveals your life\'s purpose, natural talents, and spiritual path. It is calculated from your full birth name using the Pythagorean numerology system.' },
-      { q: 'What is Mulank and how is it calculated?', a: 'Mulank is your foundation number calculated from your birth date. Simply add the digits of your birth date until you get a single number (1-9). For example, if born on 15th, 1+5=6, so Mulank is 6.' },
-      { q: 'How do I calculate my Personality Number?', a: 'Your Personality Number is calculated by adding the consonant values in your name. It represents how others perceive you and your outer personality.' },
-      { q: 'What is the Soul Urge Number?', a: 'Your Soul Urge Number (Heart Desire Number) is calculated from the vowels in your name. It reveals what your soul craves and what truly motivates you at a deeper level.' },
+      {
+        q: "What is the Destiny Number?",
+        a: "Your Destiny Number (also called Bhagyank) reveals your life's purpose, natural talents, and spiritual path. It is calculated from your full birth name using the Pythagorean numerology system.",
+      },
+      {
+        q: "What is Mulank and how is it calculated?",
+        a: "Mulank is your foundation number calculated from your birth date. Simply add the digits of your birth date until you get a single number (1-9). For example, if born on 15th, 1+5=6, so Mulank is 6.",
+      },
+      {
+        q: "How do I calculate my Personality Number?",
+        a: "Your Personality Number is calculated by adding the consonant values in your name. It represents how others perceive you and your outer personality.",
+      },
+      {
+        q: "What is the Soul Urge Number?",
+        a: "Your Soul Urge Number (Heart Desire Number) is calculated from the vowels in your name. It reveals what your soul craves and what truly motivates you at a deeper level.",
+      },
     ],
   },
   {
-    category: 'Sade Sati & Kaal Sarp Dosh',
+    category: "Sade Sati & Kaal Sarp Dosh",
     questions: [
-      { q: 'What is Sade Sati and when does it occur?', a: 'Sade Sati is a 7.5-year period when Saturn transits through your Moon sign and the signs before and after it. It occurs 2-3 times in a lifetime and brings deep lessons, challenges, and growth.' },
-      { q: 'How do I check if I have Kaal Sarp Dosh?', a: 'Use our Kaal Sarp Dosh Calculator by entering your birth details. It checks if all seven planets are positioned between Rahu and Ketu in your birth chart.' },
-      { q: 'What are the remedies for Kaal Sarp Dosh?', a: 'Common remedies include Rudrabhishek puja, visiting Trimbakeshwar or Kalahasti temples, chanting mantras, feeding birds, and wearing gemstones after consulting an astrologer.' },
-      { q: 'Is Sade Sati always negative?', a: 'No. Sade Sati is a period of transformation and growth. While it can bring challenges, it also offers opportunities for spiritual development, career advancement, and personal strength.' },
+      {
+        q: "What is Sade Sati and when does it occur?",
+        a: "Sade Sati is a 7.5-year period when Saturn transits through your Moon sign and the signs before and after it. It occurs 2-3 times in a lifetime and brings deep lessons, challenges, and growth.",
+      },
+      {
+        q: "How do I check if I have Kaal Sarp Dosh?",
+        a: "Use our Kaal Sarp Dosh Calculator by entering your birth details. It checks if all seven planets are positioned between Rahu and Ketu in your birth chart.",
+      },
+      {
+        q: "What are the remedies for Kaal Sarp Dosh?",
+        a: "Common remedies include Rudrabhishek puja, visiting Trimbakeshwar or Kalahasti temples, chanting mantras, feeding birds, and wearing gemstones after consulting an astrologer.",
+      },
+      {
+        q: "Is Sade Sati always negative?",
+        a: "No. Sade Sati is a period of transformation and growth. While it can bring challenges, it also offers opportunities for spiritual development, career advancement, and personal strength.",
+      },
     ],
   },
   {
-    category: 'Love & Compatibility',
+    category: "Love & Compatibility",
     questions: [
-      { q: 'How accurate is the Love Calculator?', a: 'Our Love Calculator uses name numerology and birth date analysis to estimate compatibility. While it\'s fun and insightful, for serious relationships we recommend Kundali Matching.' },
-      { q: 'What is Kundali Matching?', a: 'Kundali Matching (Kundli Milan) is a Vedic astrology method that assesses marriage compatibility between two people using the Ashtakoota Guna Milan system, analyzing 36 points across 8 categories.' },
-      { q: 'What is a good Guna Milan score?', a: '18+ points is acceptable, 24+ points indicates good compatibility, and 30+ points is considered excellent for marriage.' },
-      { q: 'Can Manglik and non-Manglik marry?', a: 'Yes, with proper remedies and chart compatibility. Many couples with Mangal Dosha have successful marriages with the right guidance and remedies.' },
+      {
+        q: "How accurate is the Love Calculator?",
+        a: "Our Love Calculator uses name numerology and birth date analysis to estimate compatibility. While it's fun and insightful, for serious relationships we recommend Kundali Matching.",
+      },
+      {
+        q: "What is Kundali Matching?",
+        a: "Kundali Matching (Kundli Milan) is a Vedic astrology method that assesses marriage compatibility between two people using the Ashtakoota Guna Milan system, analyzing 36 points across 8 categories.",
+      },
+      {
+        q: "What is a good Guna Milan score?",
+        a: "18+ points is acceptable, 24+ points indicates good compatibility, and 30+ points is considered excellent for marriage.",
+      },
+      {
+        q: "Can Manglik and non-Manglik marry?",
+        a: "Yes, with proper remedies and chart compatibility. Many couples with Mangal Dosha have successful marriages with the right guidance and remedies.",
+      },
     ],
   },
   {
-    category: 'Panchang & Muhurat',
+    category: "Panchang & Muhurat",
     questions: [
-      { q: 'What is Panchang?', a: 'Panchang is a Vedic daily calendar derived from the Sanskrit words "panch" (five) and "ang" (limbs). It considers five elements: Tithi, Vaar, Nakshatra, Yoga, and Karana to determine daily cosmic energy.' },
-      { q: 'What is Rahu Kaal?', a: 'Rahu Kaal is a 90-minute period considered inauspicious for starting new work. It is governed by planet Rahu and varies each day based on sunrise and sunset timings.' },
-      { q: 'What is Abhijit Muhurat?', a: 'Abhijit Muhurat is the 8th muhurat of the day, associated with victory and success. It occurs around midday (approximately 48-56 minutes) and is considered highly auspicious for new beginnings.' },
-      { q: 'How do I find Shubh Muhurat?', a: 'Use our Shubh Muhurat tool to find auspicious timings for important events like marriage, housewarming, business launch, and naming ceremonies based on Tithi, Nakshatra, and Yoga.' },
+      {
+        q: "What is Panchang?",
+        a: 'Panchang is a Vedic daily calendar derived from the Sanskrit words "panch" (five) and "ang" (limbs). It considers five elements: Tithi, Vaar, Nakshatra, Yoga, and Karana to determine daily cosmic energy.',
+      },
+      {
+        q: "What is Rahu Kaal?",
+        a: "Rahu Kaal is a 90-minute period considered inauspicious for starting new work. It is governed by planet Rahu and varies each day based on sunrise and sunset timings.",
+      },
+      {
+        q: "What is Abhijit Muhurat?",
+        a: "Abhijit Muhurat is the 8th muhurat of the day, associated with victory and success. It occurs around midday (approximately 48-56 minutes) and is considered highly auspicious for new beginnings.",
+      },
+      {
+        q: "How do I find Shubh Muhurat?",
+        a: "Use our Shubh Muhurat tool to find auspicious timings for important events like marriage, housewarming, business launch, and naming ceremonies based on Tithi, Nakshatra, and Yoga.",
+      },
     ],
   },
 ];
 
 export default function FAQ() {
-  const [openId, setOpenId] = useState<string | null>('0-0');
-  const [search, setSearch] = useState('');
+  const [openId, setOpenId] = useState<string | null>("0-0");
+  const [search, setSearch] = useState("");
 
-  const filtered = faqCategories.map(cat => ({
-    ...cat,
-    questions: cat.questions.filter(
-      q => q.q.toLowerCase().includes(search.toLowerCase()) || q.a.toLowerCase().includes(search.toLowerCase())
-    ),
-  })).filter(cat => cat.questions.length > 0);
+  const filtered = faqCategories
+    .map((cat) => ({
+      ...cat,
+      questions: cat.questions.filter(
+        (q) =>
+          q.q.toLowerCase().includes(search.toLowerCase()) ||
+          q.a.toLowerCase().includes(search.toLowerCase()),
+      ),
+    }))
+    .filter((cat) => cat.questions.length > 0);
 
   return (
     <>
       <PageHero
         badge="FAQ"
-        title={<>Frequently asked <span className="gradient-text">questions</span></>}
+        title={
+          <>
+            Frequently asked <span className="gradient-text">questions</span>
+          </>
+        }
         subtitle="Everything you need to know about Jyotish AI's astrology tools and services. Can't find an answer? Reach out to our team."
       />
 
@@ -99,7 +176,9 @@ export default function FAQ() {
                   <div className="p-2 rounded-lg bg-gradient-to-br from-primary-600 to-accent-500">
                     <HelpCircle className="h-5 w-5 text-white" />
                   </div>
-                  <h2 className="text-2xl font-bold text-ink-900">{cat.category}</h2>
+                  <h2 className="text-2xl font-bold text-ink-900">
+                    {cat.category}
+                  </h2>
                 </div>
               </Reveal>
               <div className="space-y-3">
@@ -112,18 +191,25 @@ export default function FAQ() {
                           onClick={() => setOpenId(openId === id ? null : id)}
                           className="w-full flex items-center justify-between p-6 text-left"
                         >
-                          <span className="font-semibold text-ink-900">{faq.q}</span>
+                          <span className="font-semibold text-ink-900">
+                            {faq.q}
+                          </span>
                           <ChevronDown
-                            className={`h-5 w-5 text-ink-400 shrink-0 transition-transform duration-300 ${openId === id ? 'rotate-180' : ''}`}
+                            className={`h-5 w-5 text-ink-400 shrink-0 transition-transform duration-300 ${openId === id ? "rotate-180" : ""}`}
                           />
                         </button>
                         <motion.div
                           initial={false}
-                          animate={{ height: openId === id ? 'auto' : 0, opacity: openId === id ? 1 : 0 }}
+                          animate={{
+                            height: openId === id ? "auto" : 0,
+                            opacity: openId === id ? 1 : 0,
+                          }}
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <p className="px-6 pb-6 text-ink-500 leading-relaxed">{faq.a}</p>
+                          <p className="px-6 pb-6 text-ink-500 leading-relaxed">
+                            {faq.a}
+                          </p>
                         </motion.div>
                       </div>
                     </Reveal>
@@ -134,7 +220,9 @@ export default function FAQ() {
           ))}
           {filtered.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-ink-500">No results found. Try a different search term.</p>
+              <p className="text-ink-500">
+                No results found. Try a different search term.
+              </p>
             </div>
           )}
         </div>
@@ -151,17 +239,23 @@ export default function FAQ() {
             </div>
             <div className="text-center p-4 rounded-2xl bg-ink-50 border border-ink-100 hover:border-accent-200 transition-all">
               <Heart className="h-6 w-6 text-accent-600 mx-auto mb-2" />
-              <div className="text-sm font-bold text-ink-900">Love Calculator</div>
+              <div className="text-sm font-bold text-ink-900">
+                Love Calculator
+              </div>
               <div className="text-xs text-ink-500">Check compatibility</div>
             </div>
             <div className="text-center p-4 rounded-2xl bg-ink-50 border border-ink-100 hover:border-accent-200 transition-all">
               <Clock className="h-6 w-6 text-green-600 mx-auto mb-2" />
-              <div className="text-sm font-bold text-ink-900">Today Panchang</div>
+              <div className="text-sm font-bold text-ink-900">
+                Today Panchang
+              </div>
               <div className="text-xs text-ink-500">Daily cosmic update</div>
             </div>
             <div className="text-center p-4 rounded-2xl bg-ink-50 border border-ink-100 hover:border-accent-200 transition-all">
               <Users className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-              <div className="text-sm font-bold text-ink-900">Consult Expert</div>
+              <div className="text-sm font-bold text-ink-900">
+                Consult Expert
+              </div>
               <div className="text-xs text-ink-500">Talk to astrologer</div>
             </div>
           </div>
@@ -179,10 +273,12 @@ export default function FAQ() {
               Still Have Questions?
             </Badge>
             <h2 className="text-3xl font-bold text-white sm:text-4xl text-balance">
-              Need <span className="gradient-text-light">Personal Guidance?</span>
+              Need{" "}
+              <span className="gradient-text-light">Personal Guidance?</span>
             </h2>
             <p className="mt-4 text-lg text-ink-400 max-w-2xl mx-auto">
-              Our expert astrologers are here to help with personalized insights and guidance.
+              Our expert astrologers are here to help with personalized insights
+              and guidance.
             </p>
             <div className="mt-8 flex justify-center gap-4 flex-wrap">
               <Button to="/consultations" variant="primary" size="lg">

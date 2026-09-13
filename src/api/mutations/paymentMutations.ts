@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
-import paymentService from '../services/paymentService';
+import { useMutation } from "@tanstack/react-query";
+import paymentService from "../services/paymentService";
 import type {
   InitiateReportRequest,
   InitiateWalletRequest,
-} from '../../types/payment';
+} from "../../types/payment";
 
 export function useInitiateReport() {
   return useMutation({

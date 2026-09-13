@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
   Mail,
@@ -19,36 +19,36 @@ import {
   AlertCircle,
   CheckCircle,
   AlertTriangle,
-} from 'lucide-react';
-import { useGetMe } from '../../../api/queries/useUser';
+} from "lucide-react";
+import { useGetMe } from "../../../api/queries/useUser";
 import {
   useUpdateProfile,
   useUploadAvatar,
-} from '../../../api/mutations/userMutations';
-import userService from '../../../api/services/userService';
+} from "../../../api/mutations/userMutations";
+import userService from "../../../api/services/userService";
 import type {
   PlaceSuggestion,
   UpdateProfileRequest,
   UserGender,
   UserProfile,
-} from '../../../types/user';
-import Button from '../../../components/ui/Button';
+} from "../../../types/user";
+import Button from "../../../components/ui/Button";
 
 function isoToDdMmYyyy(iso: string | null): string {
-  if (!iso) return '';
-  const [y, m, d] = iso.split('-');
-  if (!y || !m || !d) return '';
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-");
+  if (!y || !m || !d) return "";
   return `${d}-${m}-${y}`;
 }
 
 function hmsToHm(hms: string | null): string {
-  if (!hms) return '';
+  if (!hms) return "";
   return hms.slice(0, 5);
 }
 
 function formatDisplayDate(iso: string | null): string {
-  if (!iso) return '—';
-  const [y, m, d] = iso.split('-');
+  if (!iso) return "—";
+  const [y, m, d] = iso.split("-");
   if (!y || !m || !d) return iso;
   return `${d}-${m}-${y}`;
 }
@@ -119,7 +119,7 @@ export default function UserProfile() {
         onSuccess={() => {
           setEditOpen(false);
           refetch();
-          setToast('Profile updated successfully!');
+          setToast("Profile updated successfully!");
         }}
       />
 
@@ -140,7 +140,7 @@ export default function UserProfile() {
             </motion.div>
           )}
         </AnimatePresence>,
-        document.body
+        document.body,
       )}
     </div>
   );
@@ -154,26 +154,34 @@ function ViewMode({ profile }: { profile: UserProfile }) {
   const [imgFailed, setImgFailed] = useState(false);
 
   const fields = [
-    { icon: User, label: 'Full Name', value: profile.name },
-    { icon: Mail, label: 'Email', value: profile.email },
-    { icon: Phone, label: 'Phone', value: profile.phone || '—' },
-    { icon: User, label: 'Gender', value: profile.gender || '—' },
+    { icon: User, label: "Full Name", value: profile.name },
+    { icon: Mail, label: "Email", value: profile.email },
+    { icon: Phone, label: "Phone", value: profile.phone || "—" },
+    { icon: User, label: "Gender", value: profile.gender || "—" },
     {
       icon: Calendar,
-      label: 'Date of Birth',
+      label: "Date of Birth",
       value: formatDisplayDate(profile.dateOfBirth),
     },
     {
       icon: Clock,
-      label: 'Time of Birth',
-      value: hmsToHm(profile.timeOfBirth) || '—',
+      label: "Time of Birth",
+      value: hmsToHm(profile.timeOfBirth) || "—",
     },
-    { icon: MapPin, label: 'Place of Birth', value: profile.placeOfBirth || '—' },
-    { icon: Home, label: 'Current Address', value: profile.currentAddress || '—' },
-    { icon: Building2, label: 'City', value: profile.city || '—' },
-    { icon: Globe2, label: 'State', value: profile.state || '—' },
-    { icon: Globe2, label: 'Country', value: profile.country || '—' },
-    { icon: Hash, label: 'Pincode', value: profile.pincode || '—' },
+    {
+      icon: MapPin,
+      label: "Place of Birth",
+      value: profile.placeOfBirth || "—",
+    },
+    {
+      icon: Home,
+      label: "Current Address",
+      value: profile.currentAddress || "—",
+    },
+    { icon: Building2, label: "City", value: profile.city || "—" },
+    { icon: Globe2, label: "State", value: profile.state || "—" },
+    { icon: Globe2, label: "Country", value: profile.country || "—" },
+    { icon: Hash, label: "Pincode", value: profile.pincode || "—" },
   ];
 
   const showImage = avatarSrc && !imgFailed;
@@ -196,7 +204,7 @@ function ViewMode({ profile }: { profile: UserProfile }) {
               />
             ) : (
               <div className="h-full w-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-3xl font-bold">
-                {profile.name?.[0]?.toUpperCase() || 'U'}
+                {profile.name?.[0]?.toUpperCase() || "U"}
               </div>
             )}
           </div>
@@ -261,17 +269,17 @@ function EditProfileModal({
     if (open) {
       setForm({
         name: profile.name,
-        phone: profile.phone || '',
+        phone: profile.phone || "",
         email: profile.email,
-        gender: (profile.gender as UserGender) || '',
+        gender: (profile.gender as UserGender) || "",
         dateOfBirth: isoToDdMmYyyy(profile.dateOfBirth),
         timeOfBirth: hmsToHm(profile.timeOfBirth),
-        placeOfBirth: profile.placeOfBirth || '',
-        currentAddress: profile.currentAddress || '',
-        city: profile.city || '',
-        state: profile.state || '',
-        country: profile.country || '',
-        pincode: profile.pincode || '',
+        placeOfBirth: profile.placeOfBirth || "",
+        currentAddress: profile.currentAddress || "",
+        city: profile.city || "",
+        state: profile.state || "",
+        country: profile.country || "",
+        pincode: profile.pincode || "",
       });
       setPendingAvatarFile(null);
       setAvatarPreview(userService.absoluteAvatarUrl(profile.avatarUrl));
@@ -282,30 +290,30 @@ function EditProfileModal({
 
   // Hide the site header while modal is open
   useEffect(() => {
-    const header = document.querySelector('header');
+    const header = document.querySelector("header");
     if (!header) return;
     if (open) {
-      header.style.visibility = 'hidden';
-      header.style.pointerEvents = 'none';
+      header.style.visibility = "hidden";
+      header.style.pointerEvents = "none";
     } else {
-      header.style.visibility = '';
-      header.style.pointerEvents = '';
+      header.style.visibility = "";
+      header.style.pointerEvents = "";
     }
     return () => {
-      header.style.visibility = '';
-      header.style.pointerEvents = '';
+      header.style.visibility = "";
+      header.style.pointerEvents = "";
     };
   }, [open]);
 
   const onField =
     (key: keyof UpdateProfileRequest) =>
-      (
-        e: React.ChangeEvent<
-          HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
-      ) => {
-        setForm((f) => ({ ...f, [key]: e.target.value }));
-      };
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >,
+    ) => {
+      setForm((f) => ({ ...f, [key]: e.target.value }));
+    };
 
   const handlePickFile = () => fileInputRef.current?.click();
 
@@ -314,11 +322,11 @@ function EditProfileModal({
     if (!file) return;
 
     if (!/^image\/(png|jpe?g|webp)$/i.test(file.type)) {
-      setError('Only PNG, JPG, or WEBP images allowed');
+      setError("Only PNG, JPG, or WEBP images allowed");
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      setError('Image must be under 5 MB');
+      setError("Image must be under 5 MB");
       return;
     }
 
@@ -344,7 +352,7 @@ function EditProfileModal({
       onSuccess();
     } catch (err: any) {
       setConfirmOpen(false);
-      setError(err?.response?.data?.message || 'Update failed');
+      setError(err?.response?.data?.message || "Update failed");
     }
   };
 
@@ -405,7 +413,7 @@ function EditProfileModal({
                             className="h-full w-full object-cover"
                           />
                         ) : (
-                          form.name?.[0]?.toUpperCase() || 'U'
+                          form.name?.[0]?.toUpperCase() || "U"
                         )}
                       </div>
                       <button
@@ -447,8 +455,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="text"
-                        value={form.name ?? ''}
-                        onChange={onField('name')}
+                        value={form.name ?? ""}
+                        onChange={onField("name")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                         required
                       />
@@ -459,8 +467,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="tel"
-                        value={form.phone ?? ''}
-                        onChange={onField('phone')}
+                        value={form.phone ?? ""}
+                        onChange={onField("phone")}
                         placeholder="+91 98765 43210"
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
@@ -471,8 +479,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="email"
-                        value={form.email ?? ''}
-                        onChange={onField('email')}
+                        value={form.email ?? ""}
+                        onChange={onField("email")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                         required
                       />
@@ -482,8 +490,8 @@ function EditProfileModal({
                         Gender
                       </label>
                       <select
-                        value={form.gender ?? ''}
-                        onChange={onField('gender')}
+                        value={form.gender ?? ""}
+                        onChange={onField("gender")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 appearance-none"
                       >
                         <option value="">Select</option>
@@ -501,8 +509,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="text"
-                        value={form.dateOfBirth ?? ''}
-                        onChange={onField('dateOfBirth')}
+                        value={form.dateOfBirth ?? ""}
+                        onChange={onField("dateOfBirth")}
                         placeholder="dd-MM-yyyy"
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
@@ -513,8 +521,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="time"
-                        value={form.timeOfBirth ?? ''}
-                        onChange={onField('timeOfBirth')}
+                        value={form.timeOfBirth ?? ""}
+                        onChange={onField("timeOfBirth")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
                     </div>
@@ -522,16 +530,18 @@ function EditProfileModal({
 
                   {/* Row 3 — autocomplete */}
                   <PlaceAutocomplete
-                    value={form.placeOfBirth || ''}
-                    onChange={(v) => setForm((f) => ({ ...f, placeOfBirth: v }))}
+                    value={form.placeOfBirth || ""}
+                    onChange={(v) =>
+                      setForm((f) => ({ ...f, placeOfBirth: v }))
+                    }
                     onSelect={(place) =>
                       setForm((f) => ({
                         ...f,
                         placeOfBirth: place.displayName,
-                        city: place.city || f.city || '',
-                        state: place.state || f.state || '',
-                        country: place.country || f.country || '',
-                        pincode: place.postcode || f.pincode || '',
+                        city: place.city || f.city || "",
+                        state: place.state || f.state || "",
+                        country: place.country || f.country || "",
+                        pincode: place.postcode || f.pincode || "",
                       }))
                     }
                   />
@@ -543,8 +553,8 @@ function EditProfileModal({
                     </label>
                     <textarea
                       rows={2}
-                      value={form.currentAddress ?? ''}
-                      onChange={onField('currentAddress')}
+                      value={form.currentAddress ?? ""}
+                      onChange={onField("currentAddress")}
                       className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 resize-none"
                     />
                   </div>
@@ -557,8 +567,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="text"
-                        value={form.pincode ?? ''}
-                        onChange={onField('pincode')}
+                        value={form.pincode ?? ""}
+                        onChange={onField("pincode")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
                     </div>
@@ -568,8 +578,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="text"
-                        value={form.city ?? ''}
-                        onChange={onField('city')}
+                        value={form.city ?? ""}
+                        onChange={onField("city")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
                     </div>
@@ -583,8 +593,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="text"
-                        value={form.state ?? ''}
-                        onChange={onField('state')}
+                        value={form.state ?? ""}
+                        onChange={onField("state")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
                     </div>
@@ -594,8 +604,8 @@ function EditProfileModal({
                       </label>
                       <input
                         type="text"
-                        value={form.country ?? ''}
-                        onChange={onField('country')}
+                        value={form.country ?? ""}
+                        onChange={onField("country")}
                         className="w-full px-3 py-2 rounded-lg bg-white border border-ink-200 text-sm text-ink-900 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20"
                       />
                     </div>
@@ -625,7 +635,7 @@ function EditProfileModal({
             </motion.div>
           )}
         </AnimatePresence>,
-        document.body
+        document.body,
       )}
 
       {/* Confirm — PORTAL */}
@@ -636,7 +646,7 @@ function EditProfileModal({
           onCancel={() => setConfirmOpen(false)}
           onConfirm={handleConfirmSave}
         />,
-        document.body
+        document.body,
       )}
     </>
   );
@@ -700,7 +710,7 @@ function ConfirmDialog({
                     Saving...
                   </>
                 ) : (
-                  'Confirm'
+                  "Confirm"
                 )}
               </button>
             </div>
@@ -732,8 +742,8 @@ function PlaceAutocomplete({
         setOpen(false);
       }
     };
-    document.addEventListener('mousedown', onClick);
-    return () => document.removeEventListener('mousedown', onClick);
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
   const handleInput = (v: string) => {
@@ -794,7 +804,7 @@ function PlaceAutocomplete({
               <div className="font-medium truncate">{s.displayName}</div>
               {(s.city || s.state || s.country) && (
                 <div className="text-[10px] text-ink-400 truncate">
-                  {[s.city, s.state, s.country].filter(Boolean).join(', ')}
+                  {[s.city, s.state, s.country].filter(Boolean).join(", ")}
                 </div>
               )}
             </button>

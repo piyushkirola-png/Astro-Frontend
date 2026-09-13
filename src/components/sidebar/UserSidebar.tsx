@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   Calendar,
@@ -12,19 +12,21 @@ import {
   Menu,
   X,
   FileText,
-} from 'lucide-react';
-import { useAuth } from '../../lib/AuthContext';
-import { useLogout } from '../../api/mutations/authMutations';
-import Button from '../ui/Button';
+  Wallet,
+} from "lucide-react";
+import { useAuth } from "../../lib/AuthContext";
+import { useLogout } from "../../api/mutations/authMutations";
+import Button from "../ui/Button";
 
 const navItems = [
-  { label: 'Dashboard', href: '/user/dashboard', icon: LayoutDashboard },
-  { label: 'Horoscope', href: '/user/horoscope', icon: Calendar },
-  { label: 'Kundali', href: '/user/kundali', icon: Sparkles },
-  { label: 'Chat', href: '/user/chat', icon: MessageSquare },
-  { label: 'Report', href: '/user/report', icon: FileText },
-  { label: 'Payments', href: '/user/payments', icon: CreditCard },
-  { label: 'Profile', href: '/user/profile', icon: User },
+  { label: "Dashboard", href: "/user/dashboard", icon: LayoutDashboard },
+  { label: "Horoscope", href: "/user/horoscope", icon: Calendar },
+  { label: "Kundali", href: "/user/kundali", icon: Sparkles },
+  { label: "Chat", href: "/user/chat", icon: MessageSquare },
+  { label: "Wallet", href: "/user/wallet", icon: Wallet },
+  { label: "Report", href: "/user/report", icon: FileText },
+  { label: "Payments", href: "/user/payments", icon: CreditCard },
+  { label: "Profile", href: "/user/profile", icon: User },
 ];
 
 export default function UserSidebar() {
@@ -39,7 +41,7 @@ export default function UserSidebar() {
     logoutMutation.mutate(undefined, {
       onSettled: () => {
         clearUser();
-        navigate('/login', { replace: true });
+        navigate("/login", { replace: true });
       },
     });
   };
@@ -53,7 +55,7 @@ export default function UserSidebar() {
             alt="Jyotish AI"
             className="h-8 w-10 rounded-lg"
             onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
+              (e.target as HTMLImageElement).style.display = "none";
             }}
           />
           <span className="text-lg font-bold text-white">
@@ -76,9 +78,10 @@ export default function UserSidebar() {
             to={item.href}
             onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
-              `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive
-                ? 'bg-gradient-to-r from-primary-600/20 to-accent-500/20 text-white border border-accent-500/30'
-                : 'text-ink-300 hover:text-white hover:bg-white/5'
+              `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? "bg-gradient-to-r from-primary-600/20 to-accent-500/20 text-white border border-accent-500/30"
+                  : "text-ink-300 hover:text-white hover:bg-white/5"
               }`
             }
           >
@@ -104,7 +107,11 @@ export default function UserSidebar() {
     <>
       <div className="lg:hidden fixed top-0 left-0 right-0 z-30 h-14 bg-ink-950 text-white flex items-center justify-between px-4 border-b border-white/10">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/assets/logo.png" alt="Jyotish AI" className="h-7 w-9 rounded" />
+          <img
+            src="/assets/logo.png"
+            alt="Jyotish AI"
+            className="h-7 w-9 rounded"
+          />
           <span className="text-base font-bold">
             Jyotish <span className="text-primary-500">AI</span>
           </span>
@@ -132,10 +139,10 @@ export default function UserSidebar() {
             onClick={() => setMobileOpen(false)}
           >
             <motion.aside
-              initial={{ x: '-100%' }}
+              initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className="absolute top-0 left-0 bottom-0 w-72 max-w-[85vw]"
               onClick={(e) => e.stopPropagation()}
             >
@@ -184,7 +191,7 @@ export default function UserSidebar() {
                   disabled={logoutMutation.isPending}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white bg-danger-600 hover:bg-danger-700 disabled:opacity-60 transition-all"
                 >
-                  {logoutMutation.isPending ? 'Logging out...' : 'Logout'}
+                  {logoutMutation.isPending ? "Logging out..." : "Logout"}
                 </button>
               </div>
             </motion.div>

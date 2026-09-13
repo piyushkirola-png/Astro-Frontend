@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   Linkedin,
   Mail,
@@ -8,47 +8,47 @@ import {
   Star,
   Sparkles,
   Moon,
-  Sun
-} from 'lucide-react';
+  Sun,
+} from "lucide-react";
 
 const footerLinks = {
   Services: [
-    { label: 'Consultations', href: '/consultations' },
-    { label: 'Free Kundali', href: '/free-kundali' },
-    { label: 'Horoscope', href: '/horoscope' },
-    { label: 'Panchang', href: '/panchang' },
-    { label: 'Kundali Matching', href: '/kundali-matching' },
-    { label: 'Compatibility', href: '/compatibility' },
+    { label: "Consultations", href: "/consultations" },
+    { label: "Free Kundali", href: "/free-kundali" },
+    { label: "Horoscope", href: "/horoscope" },
+    { label: "Panchang", href: "/panchang" },
+    { label: "Kundali Matching", href: "/kundali-matching" },
+    { label: "Compatibility", href: "/compatibility" },
   ],
   Calculators: [
-    { label: 'Love Calculator', href: '/love-calculator' },
-    { label: 'Numerology Calculator', href: '/numerology-calculator' },
-    { label: 'Friendship Calculator', href: '/friendship-calculator' },
-    { label: 'Mulank Calculator', href: '/mulank-calculator' },
-    { label: 'Destiny Number', href: '/destiny-number' },
-    { label: 'Age Calculator', href: '/age-calculator' },
+    { label: "Love Calculator", href: "/love-calculator" },
+    { label: "Numerology Calculator", href: "/numerology-calculator" },
+    { label: "Friendship Calculator", href: "/friendship-calculator" },
+    { label: "Mulank Calculator", href: "/mulank-calculator" },
+    { label: "Destiny Number", href: "/destiny-number" },
+    { label: "Age Calculator", href: "/age-calculator" },
   ],
-  'Astrology Tools': [
-    { label: 'Sade Sati', href: '/sade-sati' },
-    { label: 'Kaal Sarp Dosh', href: '/kaal-sarp-dosh' },
-    { label: 'Today Panchang', href: '/today-panchang' },
-    { label: 'Tomorrow Panchang', href: '/tomorrow-panchang' },
-    { label: 'Rahu Kaal', href: '/rahu-kaal' },
-    { label: 'Shubh Muhurat', href: '/subh-muhurat' },
+  "Astrology Tools": [
+    { label: "Sade Sati", href: "/sade-sati" },
+    { label: "Kaal Sarp Dosh", href: "/kaal-sarp-dosh" },
+    { label: "Today Panchang", href: "/today-panchang" },
+    { label: "Tomorrow Panchang", href: "/tomorrow-panchang" },
+    { label: "Rahu Kaal", href: "/rahu-kaal" },
+    { label: "Shubh Muhurat", href: "/subh-muhurat" },
   ],
   Company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Careers', href: '/careers' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Why Astrotalk', href: '/why-astrotalk' },
+    { label: "About Us", href: "/about" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
+    { label: "Careers", href: "/careers" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Why Astrotalk", href: "/why-astrotalk" },
   ],
   Support: [
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms', href: '/terms' },
-    { label: 'Login', href: '/login' },
-    { label: 'Sign Up', href: '/signup' },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+    { label: "Login", href: "/login" },
+    { label: "Sign Up", href: "/signup" },
   ],
 };
 
@@ -80,12 +80,14 @@ export default function Footer() {
               className="h-12 w-auto"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
+                target.style.display = "none";
                 const parent = target.parentElement;
                 if (parent) {
-                  const fallback = document.createElement('div');
-                  fallback.className = 'h-12 w-12 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center shrink-0';
-                  fallback.innerHTML = '<span class="text-white text-xl font-bold">J</span>';
+                  const fallback = document.createElement("div");
+                  fallback.className =
+                    "h-12 w-12 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center shrink-0";
+                  fallback.innerHTML =
+                    '<span class="text-white text-xl font-bold">J</span>';
                   parent.prepend(fallback);
                 }
               }}
@@ -96,11 +98,12 @@ export default function Footer() {
           </div>
 
           <p className="text-sm text-ink-400 leading-relaxed w-full">
-            Astrotalk is the best astrology website for online Astrology predictions.
-            Talk to Astrologer on call and get answers to all your worries by seeing
-            the future life through Astrology Kundli Predictions from the best Astrologers
-            from India. Get best future predictions related to Marriage, love life, Career
-            or Health over call, chat, query or report.
+            Astrotalk is the best astrology website for online Astrology
+            predictions. Talk to Astrologer on call and get answers to all your
+            worries by seeing the future life through Astrology Kundli
+            Predictions from the best Astrologers from India. Get best future
+            predictions related to Marriage, love life, Career or Health over
+            call, chat, query or report.
           </p>
 
           <div className="flex items-center gap-3 mt-4">
@@ -154,7 +157,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
           {Object.entries(footerLinks).map(([heading, links]) => (
             <div key={heading}>
-              <h4 className="text-xs font-semibold text-white mb-3 uppercase tracking-wider">{heading}</h4>
+              <h4 className="text-xs font-semibold text-white mb-3 uppercase tracking-wider">
+                {heading}
+              </h4>
               <ul className="space-y-2">
                 {links.map((link: { label: string; href: string }) => (
                   <li key={link.href}>

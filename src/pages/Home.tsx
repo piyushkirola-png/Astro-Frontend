@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -11,12 +11,12 @@ import {
   Heart,
   Moon,
   Sparkles,
-} from 'lucide-react';
-import Button from '../components/ui/Button';
-import Badge from '../components/ui/Badge';
-import SectionHeading from '../components/ui/SectionHeading';
-import Reveal from '../components/animations/Reveal';
-import Counter from '../components/animations/Counter';
+} from "lucide-react";
+import Button from "../components/ui/Button";
+import Badge from "../components/ui/Badge";
+import SectionHeading from "../components/ui/SectionHeading";
+import Reveal from "../components/animations/Reveal";
+import Counter from "../components/animations/Counter";
 import {
   services,
   stats,
@@ -24,7 +24,7 @@ import {
   testimonials,
   faqs,
   specializations,
-} from '../lib/navigation';
+} from "../lib/navigation";
 
 export default function Home() {
   return (
@@ -49,12 +49,12 @@ function HeroSection() {
       <motion.div
         className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-400/20 rounded-full blur-[120px]"
         animate={{ x: [0, 40, 0], y: [0, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary-400/20 rounded-full blur-[120px]"
         animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="relative container-8xl grid lg:grid-cols-2 gap-12 items-center py-20">
@@ -76,8 +76,8 @@ function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl font-bold tracking-tight text-ink-900 text-balance sm:text-5xl lg:text-6xl xl:text-7xl"
           >
-            Discover Your{' '}
-            <span className="gradient-text">Cosmic Destiny</span> with Expert Astrologers
+            Discover Your <span className="gradient-text">Cosmic Destiny</span>{" "}
+            with Expert Astrologers
           </motion.h1>
 
           <motion.p
@@ -86,8 +86,9 @@ function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg text-ink-500 leading-relaxed max-w-xl"
           >
-            Connect with certified astrologers, get personalized horoscopes,
-            and unlock the secrets of your birth chart. Your journey to self-discovery starts here.
+            Connect with certified astrologers, get personalized horoscopes, and
+            unlock the secrets of your birth chart. Your journey to
+            self-discovery starts here.
           </motion.p>
 
           <motion.div
@@ -113,7 +114,8 @@ function HeroSection() {
             className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-500"
           >
             <span className="flex items-center gap-2">
-              <Check className="h-4 w-4 text-accent-500" /> 500+ Expert Astrologers
+              <Check className="h-4 w-4 text-accent-500" /> 500+ Expert
+              Astrologers
             </span>
             <span className="flex items-center gap-2">
               <Check className="h-4 w-4 text-accent-500" /> 24/7 Availability
@@ -152,7 +154,9 @@ function HeroVisual() {
             <div className="h-3 w-3 rounded-full bg-warning-500" />
             <div className="h-3 w-3 rounded-full bg-success-500" />
           </div>
-          <span className="text-xs font-mono text-ink-400">kundali_chart.js</span>
+          <span className="text-xs font-mono text-ink-400">
+            kundali_chart.js
+          </span>
         </div>
 
         <div className="space-y-3 font-mono text-sm">
@@ -163,7 +167,7 @@ function HeroVisual() {
             <span className="text-accent-600">await</span>
             <span>Astro.generate</span>
           </div>
-          <div className="pl-6 text-ink-500">({'('})</div>
+          <div className="pl-6 text-ink-500">({"("})</div>
           <div className="pl-10 text-ink-600">
             name: <span className="text-success-600">'John Doe'</span>,
           </div>
@@ -176,7 +180,7 @@ function HeroVisual() {
           <div className="pl-10 text-ink-600">
             place: <span className="text-success-600">'New Delhi'</span>,
           </div>
-          <div className="pl-6 text-ink-500">{')'}</div>
+          <div className="pl-6 text-ink-500">{")"}</div>
 
           <motion.div
             className="mt-4 p-3 rounded-xl bg-accent-50 border border-accent-200"
@@ -186,7 +190,9 @@ function HeroVisual() {
           >
             <div className="flex items-center gap-2 text-accent-700">
               <CheckCircle className="h-4 w-4" />
-              <span className="text-xs font-semibold">Kundali Generated Successfully</span>
+              <span className="text-xs font-semibold">
+                Kundali Generated Successfully
+              </span>
             </div>
             <div className="text-xs text-ink-500 mt-1">
               Sun Sign: Capricorn Â· Moon Sign: Taurus
@@ -198,7 +204,7 @@ function HeroVisual() {
       <motion.div
         className="absolute -top-6 -right-6 glass-card rounded-2xl p-4 shadow-xl"
         animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-success-100">
@@ -214,7 +220,7 @@ function HeroVisual() {
       <motion.div
         className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 shadow-xl"
         animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-primary-100">
@@ -250,7 +256,9 @@ function StatsSection() {
                     decimals={stat.value % 1 !== 0 ? 2 : 0}
                   />
                 </div>
-                <div className="mt-2 text-sm text-ink-300 font-medium">{stat.label}</div>
+                <div className="mt-2 text-sm text-ink-300 font-medium">
+                  {stat.label}
+                </div>
               </div>
             </Reveal>
           ))}
@@ -280,8 +288,12 @@ function ServicesSection() {
                 <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform">
                   <service.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-ink-900 mb-2">{service.title}</h3>
-                <p className="text-sm text-ink-500 leading-relaxed mb-4">{service.description}</p>
+                <h3 className="text-lg font-bold text-ink-900 mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-ink-500 leading-relaxed mb-4">
+                  {service.description}
+                </p>
                 <div className="flex items-center gap-1.5 text-sm font-semibold text-primary-600 group-hover:gap-3 transition-all">
                   Learn more
                   <ArrowRight className="h-4 w-4" />
@@ -315,8 +327,12 @@ function SpecializationsSection() {
                 <div className="p-3 rounded-xl bg-accent-50 w-fit mb-5 group-hover:bg-accent-100 transition-colors">
                   <spec.icon className="h-6 w-6 text-accent-600" />
                 </div>
-                <h3 className="text-lg font-bold text-ink-900 mb-2">{spec.title}</h3>
-                <p className="text-sm text-ink-500 leading-relaxed">{spec.description}</p>
+                <h3 className="text-lg font-bold text-ink-900 mb-2">
+                  {spec.title}
+                </h3>
+                <p className="text-sm text-ink-500 leading-relaxed">
+                  {spec.description}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -331,28 +347,28 @@ function HowItWorksSection() {
   const steps = [
     {
       icon: Sparkles,
-      title: 'Generate Your Kundali',
-      desc: 'Enter your birth details to get a detailed birth chart instantly.',
+      title: "Generate Your Kundali",
+      desc: "Enter your birth details to get a detailed birth chart instantly.",
     },
     {
       icon: Calendar,
-      title: 'Daily Horoscope',
-      desc: 'Receive personalized horoscopes and panchang updates daily.',
+      title: "Daily Horoscope",
+      desc: "Receive personalized horoscopes and panchang updates daily.",
     },
     {
       icon: Moon,
-      title: 'Book a Pooja',
-      desc: 'Schedule sacred rituals and ceremonies for spiritual well-being.',
+      title: "Book a Pooja",
+      desc: "Schedule sacred rituals and ceremonies for spiritual well-being.",
     },
     {
       icon: MessageCircle,
-      title: 'Get Daily Guidance',
-      desc: 'Connect with certified astrologers for daily insights and advice.',
+      title: "Get Daily Guidance",
+      desc: "Connect with certified astrologers for daily insights and advice.",
     },
     {
       icon: Heart,
-      title: 'Transform Your Life',
-      desc: 'Make informed decisions with cosmic insights and guidance.',
+      title: "Transform Your Life",
+      desc: "Make informed decisions with cosmic insights and guidance.",
     },
   ];
 
@@ -377,7 +393,7 @@ function HowItWorksSection() {
                   <div className="group relative w-full max-w-[200px] bg-ink-50 rounded-2xl p-5 border border-ink-100 hover:border-accent-200 hover:bg-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                     {/* Step Number Badge */}
                     <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
-                      {String(i + 1).padStart(2, '0')}
+                      {String(i + 1).padStart(2, "0")}
                     </div>
 
                     {/* Icon */}
@@ -415,7 +431,7 @@ function HowItWorksSection() {
             <Reveal key={step.title} delay={i * 0.1}>
               <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:bg-white hover:shadow-lg transition-all duration-300 relative">
                 <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
-                  {String(i + 1).padStart(2, '0')}
+                  {String(i + 1).padStart(2, "0")}
                 </div>
                 <div className="flex items-start gap-4 pr-6">
                   <div className="shrink-0">
@@ -424,7 +440,9 @@ function HowItWorksSection() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-ink-900">{step.title}</h3>
+                    <h3 className="text-sm font-bold text-ink-900">
+                      {step.title}
+                    </h3>
                     <p className="text-xs text-ink-500 mt-1">{step.desc}</p>
                   </div>
                 </div>
@@ -457,8 +475,12 @@ function WhyChooseUsSection() {
                 <div className="p-3 rounded-xl bg-accent-50 w-fit mb-5 group-hover:bg-accent-100 transition-colors">
                   <feature.icon className="h-6 w-6 text-accent-600" />
                 </div>
-                <h3 className="text-lg font-bold text-ink-900 mb-2">{feature.title}</h3>
-                <p className="text-sm text-ink-500 leading-relaxed">{feature.description}</p>
+                <h3 className="text-lg font-bold text-ink-900 mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-ink-500 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -487,10 +509,15 @@ function TestimonialsSection() {
               <div className="h-full bg-ink-50 rounded-2xl p-8 border border-ink-100 flex flex-col">
                 <div className="flex items-center gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} className="h-4 w-4 fill-accent-500 text-accent-500" />
+                    <Star
+                      key={j}
+                      className="h-4 w-4 fill-accent-500 text-accent-500"
+                    />
                   ))}
                 </div>
-                <p className="text-ink-700 leading-relaxed flex-1 italic">"{t.quote}"</p>
+                <p className="text-ink-700 leading-relaxed flex-1 italic">
+                  "{t.quote}"
+                </p>
                 <div className="mt-6 pt-6 border-t border-ink-200">
                   <div className="font-bold text-ink-900">{t.author}</div>
                   <div className="text-sm text-ink-500">{t.role}</div>

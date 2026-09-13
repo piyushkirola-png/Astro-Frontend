@@ -1,12 +1,11 @@
-import axios from 'axios';
-import { getToken, clearSession } from './token-storage';
+import axios from "axios";
+import { getToken, clearSession } from "./token-storage";
 
 // Axios instance
 export const apiClient = axios.create({
-  baseURL:
-    import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   timeout: 15000,
 });
@@ -21,7 +20,7 @@ apiClient.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // RESPONSE interceptor — handle 401
@@ -31,10 +30,10 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       clearSession();
       // Notify AuthContext to reset in-memory state
-      window.dispatchEvent(new Event('auth:unauthorized'));
+      window.dispatchEvent(new Event("auth:unauthorized"));
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiClient;

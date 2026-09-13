@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 
 interface CounterProps {
   value: number;
@@ -11,13 +11,13 @@ interface CounterProps {
 
 export default function Counter({
   value,
-  prefix = '',
-  suffix = '',
+  prefix = "",
+  suffix = "",
   decimals = 0,
   duration = 2000,
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const inView = useInView(ref, { once: true, margin: "-50px" });
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Counter({
     return () => cancelAnimationFrame(frame);
   }, [inView, value, duration]);
 
-  const formatted = display.toLocaleString('en-US', {
+  const formatted = display.toLocaleString("en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });

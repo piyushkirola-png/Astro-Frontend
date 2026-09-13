@@ -1,25 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
-import { Sparkles, Loader2 } from 'lucide-react';
-import {
-  useChatSessions,
-  useChatSession,
-} from '../../../api/queries/useChat';
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { Sparkles, Loader2 } from "lucide-react";
+import { useChatSessions, useChatSession } from "../../../api/queries/useChat";
 import {
   useCreateSession,
   useSendMessage,
   useDeleteSession,
   useRenameSession,
-} from '../../../api/mutations/chatMutations';
-import chatService from '../../../api/services/chatService';
-import SessionSidebar from '../../../components/chat/SessionSidebar';
-import ChatHeader from '../../../components/chat/ChatHeader';
-import MessageBubble from '../../../components/chat/MessageBubble';
-import TypingIndicator from '../../../components/chat/TypingIndicator';
-import ChatInput from '../../../components/chat/ChatInput';
-import PaywallOverlay from '../../../components/chat/PaywallOverlay';
-import type { ChatMessage, ChatSessionSummary } from '../../../types/chat';
+} from "../../../api/mutations/chatMutations";
+import chatService from "../../../api/services/chatService";
+import SessionSidebar from "../../../components/chat/SessionSidebar";
+import ChatHeader from "../../../components/chat/ChatHeader";
+import MessageBubble from "../../../components/chat/MessageBubble";
+import TypingIndicator from "../../../components/chat/TypingIndicator";
+import ChatInput from "../../../components/chat/ChatInput";
+import PaywallOverlay from "../../../components/chat/PaywallOverlay";
+import type { ChatMessage, ChatSessionSummary } from "../../../types/chat";
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -30,7 +27,9 @@ export default function Chat() {
   const [paywallOpen, setPaywallOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [hideLastGreeting, setHideLastGreeting] = useState(false);
-  const [optimisticUserMsgs, setOptimisticUserMsgs] = useState<ChatMessage[]>([]);
+  const [optimisticUserMsgs, setOptimisticUserMsgs] = useState<ChatMessage[]>(
+    [],
+  );
   const [secondsBalance, setSecondsBalance] = useState<number | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -76,7 +75,7 @@ export default function Chat() {
   ]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [sessionQuery.data?.messages.length, optimisticUserMsgs.length, isTyping]);
 
   useEffect(() => {
@@ -145,15 +144,15 @@ export default function Chat() {
     }
 
     queryClient.setQueryData<ChatSessionSummary[]>(
-      ['chat', 'sessions'],
-      (old) => (old ?? []).filter((s) => s.id !== id)
+      ["chat", "sessions"],
+      (old) => (old ?? []).filter((s) => s.id !== id),
     );
 
-    queryClient.removeQueries({ queryKey: ['chat', 'session', id] });
+    queryClient.removeQueries({ queryKey: ["chat", "session", id] });
 
     deleteMutation.mutate(id, {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['chat', 'sessions'] });
+        queryClient.invalidateQueries({ queryKey: ["chat", "sessions"] });
       },
     });
   };
@@ -173,7 +172,7 @@ export default function Chat() {
     const tempId = -Date.now();
     const optimistic: ChatMessage = {
       id: tempId,
-      role: 'USER',
+      role: "USER",
       content: text,
       createdAt: new Date().toISOString(),
     };
@@ -195,7 +194,7 @@ export default function Chat() {
             setPaywallOpen(true);
           }
         },
-      }
+      },
     );
   };
 
@@ -210,10 +209,10 @@ export default function Chat() {
   const hasSession = !!activeId;
 
   const formatTime = (secs: number | null): string => {
-    if (secs === null) return '--:--';
+    if (secs === null) return "--:--";
     const m = Math.floor(secs / 60);
     const s = secs % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
+    return `${m}:${s.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -228,8 +227,8 @@ export default function Chat() {
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
               secondsBalance !== null && secondsBalance <= 30
-                ? 'bg-danger-50 border-danger-200 text-danger-700'
-                : 'bg-white border-ink-200 text-ink-700'
+                ? "bg-danger-50 border-danger-200 text-danger-700"
+                : "bg-white border-ink-200 text-ink-700"
             }`}
           >
             <span className="text-ink-500 font-normal">Time left</span>

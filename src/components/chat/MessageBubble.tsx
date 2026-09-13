@@ -1,4 +1,4 @@
-import type { ChatMessage } from '../../types/chat';
+import type { ChatMessage } from "../../types/chat";
 
 interface Props {
   message: ChatMessage;
@@ -6,12 +6,12 @@ interface Props {
 
 export default function MessageBubble({ message }: Props) {
   const { role, content, createdAt } = message;
-  const time = new Date(createdAt).toLocaleTimeString('en-IN', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const time = new Date(createdAt).toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
-  if (role === 'SYSTEM') {
+  if (role === "SYSTEM") {
     return (
       <div className="flex justify-center my-1.5">
         <div className="text-[10px] text-ink-500 bg-ink-100/80 rounded-full px-2.5 py-0.5 max-w-[85%] text-center">
@@ -21,7 +21,7 @@ export default function MessageBubble({ message }: Props) {
     );
   }
 
-  if (role === 'USER') {
+  if (role === "USER") {
     return (
       <div className="flex justify-end mb-2">
         <div className="max-w-[78%]">

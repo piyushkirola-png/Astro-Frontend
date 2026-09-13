@@ -1,16 +1,20 @@
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react";
 
 interface BadgeProps {
   children: ReactNode;
-  variant?: 'light' | 'dark' | 'accent';
+  variant?: "light" | "dark" | "accent";
   className?: string;
 }
 
-export default function Badge({ children, variant = 'light', className = '' }: BadgeProps) {
+export default function Badge({
+  children,
+  variant = "light",
+  className = "",
+}: BadgeProps) {
   const variants = {
-    light: 'bg-accent-50 text-accent-700 border-accent-200',
-    dark: 'bg-white/10 text-accent-300 border-white/15',
-    accent: 'bg-accent-500 text-white border-accent-500',
+    light: "bg-accent-50 text-accent-700 border-accent-200",
+    dark: "bg-white/10 text-accent-300 border-white/15",
+    accent: "bg-accent-500 text-white border-accent-500",
   };
 
   return (

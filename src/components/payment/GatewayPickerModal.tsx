@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { X, Loader2, CreditCard } from 'lucide-react';
-import { createPortal } from 'react-dom';
+import { useState } from "react";
+import { X, Loader2, CreditCard } from "lucide-react";
+import { createPortal } from "react-dom";
 
 export interface GatewayOption {
   code: string;
@@ -11,10 +11,16 @@ export interface GatewayOption {
 
 const AVAILABLE_GATEWAYS: GatewayOption[] = [
   {
-    code: 'CASHFREE',
-    name: 'Cashfree',
-    logo: '/partners/cashfree.png',
-    description: 'UPI, Cards, Netbanking, Wallets',
+    code: "CASHFREE",
+    name: "Cashfree",
+    logo: "/partners/cashfree.png",
+    description: "UPI",
+  },
+  {
+    code: "SABPAISA",
+    name: "SabPaisa",
+    logo: "/partners/sabpaisa.png",
+    description: "UPI",
   },
 ];
 
@@ -37,6 +43,9 @@ export default function GatewayPickerModal({
 }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
 
+  const totalAmount = (amount * 1.18).toFixed(2);
+  const gstAmount = (amount * 0.18).toFixed(2);
+
   if (!open) return null;
 
   const handleConfirm = () => {
@@ -58,8 +67,10 @@ export default function GatewayPickerModal({
             <h3 className="text-base font-bold text-ink-900">
               Choose Payment Method
             </h3>
-            <p className="text-xs text-ink-500 mt-0.5">
-              {productLabel} · ₹{amount}
+            <p className="text-xs text-ink-500 mt-0.5">{productLabel}</p>
+            <p className="text-[11px] text-ink-500 mt-1">
+              ₹{amount} + ₹{gstAmount} GST (18%) ={" "}
+              <span className="font-semibold text-ink-900">₹{totalAmount}</span>
             </p>
           </div>
           <button
@@ -78,8 +89,8 @@ export default function GatewayPickerModal({
               onClick={() => setSelected(gw.code)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition text-left ${
                 selected === gw.code
-                  ? 'border-primary-500 bg-primary-50/50'
-                  : 'border-ink-100 hover:border-primary-200 hover:bg-ink-50/50'
+                  ? "border-primary-500 bg-primary-50/50"
+                  : "border-ink-100 hover:border-primary-200 hover:bg-ink-50/50"
               }`}
             >
               <div className="h-10 w-14 shrink-0 rounded-lg bg-white border border-ink-100 flex items-center justify-center overflow-hidden">
@@ -88,12 +99,12 @@ export default function GatewayPickerModal({
                   alt={gw.name}
                   className="max-h-7 max-w-12 object-contain"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
+                    (e.target as HTMLImageElement).style.display = "none";
                     const parent = (e.target as HTMLImageElement).parentElement;
-                    if (parent && !parent.querySelector('.fallback-label')) {
-                      const span = document.createElement('span');
+                    if (parent && !parent.querySelector(".fallback-label")) {
+                      const span = document.createElement("span");
                       span.className =
-                        'fallback-label text-[10px] font-bold text-ink-700';
+                        "fallback-label text-[10px] font-bold text-ink-700";
                       span.textContent = gw.name.slice(0, 3).toUpperCase();
                       parent.appendChild(span);
                     }
@@ -111,8 +122,8 @@ export default function GatewayPickerModal({
               <div
                 className={`h-5 w-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
                   selected === gw.code
-                    ? 'border-primary-500 bg-primary-500'
-                    : 'border-ink-300'
+                    ? "border-primary-500 bg-primary-500"
+                    : "border-ink-300"
                 }`}
               >
                 {selected === gw.code && (
@@ -137,7 +148,7 @@ export default function GatewayPickerModal({
             ) : (
               <>
                 <CreditCard className="h-4 w-4" />
-                Pay ₹{amount}
+                Pay ₹{totalAmount}
               </>
             )}
           </button>
@@ -147,6 +158,6 @@ export default function GatewayPickerModal({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

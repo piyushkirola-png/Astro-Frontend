@@ -3,12 +3,25 @@ export interface DayPoint {
   value: number;
 }
 
+export interface DurationPoint {
+  label: string;
+  value: number;
+}
+
+export interface StatusPoint {
+  status: string;
+  value: number;
+}
+
 export interface AdminStats {
   totalUsers: number;
   totalRevenue: number;
-  activeSessions: number;
+  totalMessages: number;
+  totalPayments: number;
   revenueByDay: DayPoint[];
   aiUsageByDay: DayPoint[];
+  revenueByDuration: DurationPoint[];
+  statusDistribution: StatusPoint[];
 }
 
 export interface AdminWalletPackage {

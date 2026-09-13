@@ -1,11 +1,17 @@
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { CheckCircle2, XCircle, Clock, FileText, ArrowRight } from 'lucide-react';
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import {
+  CheckCircle2,
+  XCircle,
+  Clock,
+  FileText,
+  ArrowRight,
+} from "lucide-react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  status: 'SUCCESS' | 'FAILED' | 'PENDING' | null;
+  status: "SUCCESS" | "FAILED" | "PENDING" | null;
   amount: number | null;
   productLabel: string | null;
   secondsCredited?: number | null;
@@ -33,9 +39,9 @@ export default function PaymentSuccessModal({
 
   if (!open) return null;
 
-  const isSuccess = status === 'SUCCESS';
-  const isFailed = status === 'FAILED';
-  const isPending = status === 'PENDING' || !status;
+  const isSuccess = status === "SUCCESS";
+  const isFailed = status === "FAILED";
+  const isPending = status === "PENDING" || !status;
 
   const mins = secondsCredited ? Math.round(secondsCredited / 60) : 0;
 
@@ -66,16 +72,15 @@ export default function PaymentSuccessModal({
           )}
 
           <h2 className="text-lg font-bold text-ink-900 mb-1">
-            {isSuccess && 'Payment Successful'}
-            {isFailed && 'Payment Failed'}
-            {isPending && 'Payment Processing'}
+            {isSuccess && "Payment Successful"}
+            {isFailed && "Payment Failed"}
+            {isPending && "Payment Processing"}
           </h2>
           <p className="text-sm text-ink-500 mb-5">
-            {isSuccess &&
-              `Your ${productLabel || 'payment'} is confirmed.`}
-            {isFailed && 'Something went wrong. Please try again.'}
+            {isSuccess && `Your ${productLabel || "payment"} is confirmed.`}
+            {isFailed && "Something went wrong. Please try again."}
             {isPending &&
-              'Your payment is being processed. This may take a few seconds.'}
+              "Your payment is being processed. This may take a few seconds."}
           </p>
 
           {isSuccess && amount !== null && (
@@ -145,6 +150,6 @@ export default function PaymentSuccessModal({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

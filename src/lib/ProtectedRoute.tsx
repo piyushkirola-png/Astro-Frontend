@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
-import type { UserRole } from '../types/auth';
-import type { ReactNode } from 'react';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+import type { UserRole } from "../types/auth";
+import type { ReactNode } from "react";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -30,7 +30,7 @@ export default function ProtectedRoute({
     // Wrong role → redirect to their own dashboard
     return (
       <Navigate
-        to={user.role === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard'}
+        to={user.role === "ADMIN" ? "/admin/dashboard" : "/user/dashboard"}
         replace
       />
     );

@@ -1,13 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import chatService from '../services/chatService';
-import type { SendMessageRequest } from '../../types/chat';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import chatService from "../services/chatService";
+import type { SendMessageRequest } from "../../types/chat";
 
 export function useCreateSession() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => chatService.createSession(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chat', 'sessions'] });
+      queryClient.invalidateQueries({ queryKey: ["chat", "sessions"] });
     },
   });
 }
@@ -18,8 +18,10 @@ export function useSendMessage(sessionId: number) {
     mutationFn: (payload: SendMessageRequest) =>
       chatService.sendMessage(sessionId, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chat', 'session', sessionId] });
-      queryClient.invalidateQueries({ queryKey: ['chat', 'sessions'] });
+      queryClient.invalidateQueries({
+        queryKey: ["chat", "session", sessionId],
+      });
+      queryClient.invalidateQueries({ queryKey: ["chat", "sessions"] });
     },
   });
 }
@@ -29,7 +31,7 @@ export function useDeleteSession() {
   return useMutation({
     mutationFn: (sessionId: number) => chatService.deleteSession(sessionId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chat', 'sessions'] });
+      queryClient.invalidateQueries({ queryKey: ["chat", "sessions"] });
     },
   });
 }
@@ -43,7 +45,7 @@ export function useRenameSession() {
     mutationFn: ({ id, title }: { id: number; title: string }) =>
       chatService.renameSession(id, title),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chat', 'sessions'] });
+      queryClient.invalidateQueries({ queryKey: ["chat", "sessions"] });
     },
   });
 }

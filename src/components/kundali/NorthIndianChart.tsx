@@ -9,18 +9,18 @@ interface Props {
 // The chart is a square with two diagonals and a central diamond.
 // House positions (approximate label center in a 300x300 viewBox):
 const HOUSE_CENTERS: { x: number; y: number }[] = [
-  { x: 150, y: 45 },   // 1  (top center)
-  { x: 60, y: 45 },    // 2  (top left)
-  { x: 45, y: 90 },    // 3  (left upper)
-  { x: 90, y: 150 },   // 4  (left middle)
-  { x: 45, y: 220 },   // 5  (left lower)
-  { x: 60, y: 260 },   // 6  (bottom left)
-  { x: 150, y: 260 },  // 7  (bottom center)
-  { x: 240, y: 260 },  // 8  (bottom right)
-  { x: 255, y: 220 },  // 9  (right lower)
-  { x: 210, y: 150 },  // 10 (right middle)
-  { x: 255, y: 90 },   // 11 (right upper)
-  { x: 240, y: 45 },   // 12 (top right)
+  { x: 150, y: 45 }, // 1  (top center)
+  { x: 60, y: 45 }, // 2  (top left)
+  { x: 45, y: 90 }, // 3  (left upper)
+  { x: 90, y: 150 }, // 4  (left middle)
+  { x: 45, y: 220 }, // 5  (left lower)
+  { x: 60, y: 260 }, // 6  (bottom left)
+  { x: 150, y: 260 }, // 7  (bottom center)
+  { x: 240, y: 260 }, // 8  (bottom right)
+  { x: 255, y: 220 }, // 9  (right lower)
+  { x: 210, y: 150 }, // 10 (right middle)
+  { x: 255, y: 90 }, // 11 (right upper)
+  { x: 240, y: 45 }, // 12 (top right)
 ];
 
 export default function NorthIndianChart({ houses, title }: Props) {
@@ -35,7 +35,7 @@ export default function NorthIndianChart({ houses, title }: Props) {
         <svg
           viewBox="0 0 300 300"
           className="w-full h-auto"
-          style={{ maxWidth: 380, margin: '0 auto', display: 'block' }}
+          style={{ maxWidth: 380, margin: "0 auto", display: "block" }}
         >
           {/* Outer square */}
           <rect
@@ -49,8 +49,22 @@ export default function NorthIndianChart({ houses, title }: Props) {
           />
 
           {/* Diagonals (X) */}
-          <line x1="5" y1="5" x2="295" y2="295" stroke="#b8862a" strokeWidth="1" />
-          <line x1="295" y1="5" x2="5" y2="295" stroke="#b8862a" strokeWidth="1" />
+          <line
+            x1="5"
+            y1="5"
+            x2="295"
+            y2="295"
+            stroke="#b8862a"
+            strokeWidth="1"
+          />
+          <line
+            x1="295"
+            y1="5"
+            x2="5"
+            y2="295"
+            stroke="#b8862a"
+            strokeWidth="1"
+          />
 
           {/* Inner diamond (connects midpoints of sides) */}
           <polygon
@@ -105,7 +119,7 @@ export default function NorthIndianChart({ houses, title }: Props) {
 function parseHouses(h: string | undefined): string[] {
   if (!h) return [];
   return h
-    .split(/[,|]/)          // supports both "Su,Mo" and "Su|Mo"
+    .split(/[,|]/) // supports both "Su,Mo" and "Su|Mo"
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
 }

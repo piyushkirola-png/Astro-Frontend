@@ -1,4 +1,4 @@
-export type MoodTrend = 'RISING' | 'STABLE' | 'LOW';
+export type MoodTrend = "RISING" | "STABLE" | "LOW";
 
 export interface DailyReading {
   readingDate: string;

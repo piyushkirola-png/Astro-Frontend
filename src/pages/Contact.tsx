@@ -1,32 +1,47 @@
-import { Mail, Phone, MapPin, MessageSquare, Star, Users, Clock, Shield, Paperclip, X, Sparkles, Heart, Compass } from 'lucide-react';
-import { useState, useRef } from 'react';
-import PageHero from '../components/ui/PageHero';
-import Reveal from '../components/animations/Reveal';
-import Button from '../components/ui/Button';
-import Badge from '../components/ui/Badge';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  MessageSquare,
+  Star,
+  Users,
+  Clock,
+  Shield,
+  Paperclip,
+  X,
+  Sparkles,
+  Heart,
+  Compass,
+} from "lucide-react";
+import { useState, useRef } from "react";
+import PageHero from "../components/ui/PageHero";
+import Reveal from "../components/animations/Reveal";
+import Button from "../components/ui/Button";
+import Badge from "../components/ui/Badge";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
+    type: "success" | "error" | null;
     message: string;
-  }>({ type: null, message: '' });
+  }>({ type: null, message: "" });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
         setSubmitStatus({
-          type: 'error',
-          message: 'âŒ File size exceeds 5MB limit. Please choose a smaller file.',
+          type: "error",
+          message:
+            "âŒ File size exceeds 5MB limit. Please choose a smaller file.",
         });
         if (fileInputRef.current) {
-          fileInputRef.current.value = '';
+          fileInputRef.current.value = "";
         }
         return;
       }
@@ -37,27 +52,27 @@ export default function Contact() {
 
   const removeFile = () => {
     setSelectedFile(null);
-    setFileName('');
+    setFileName("");
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: '' });
+    setSubmitStatus({ type: null, message: "" });
 
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     if (selectedFile) {
-      formData.append('attachment', selectedFile);
+      formData.append("attachment", selectedFile);
     }
 
     try {
       const response = await fetch(`${API_URL}/api/send-email`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       });
 
@@ -65,23 +80,25 @@ export default function Contact() {
 
       if (result.success) {
         setSubmitStatus({
-          type: 'success',
-          message: 'âœ… Message sent successfully! We\'ll get back to you within 24 hours.',
+          type: "success",
+          message:
+            "âœ… Message sent successfully! We'll get back to you within 24 hours.",
         });
         form.reset();
         setSelectedFile(null);
-        setFileName('');
+        setFileName("");
         if (fileInputRef.current) {
-          fileInputRef.current.value = '';
+          fileInputRef.current.value = "";
         }
       } else {
-        throw new Error(result.error || 'Failed to send');
+        throw new Error(result.error || "Failed to send");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
       setSubmitStatus({
-        type: 'error',
-        message: 'âŒ Failed to send. Please try again or use our contact details below.',
+        type: "error",
+        message:
+          "âŒ Failed to send. Please try again or use our contact details below.",
       });
     } finally {
       setIsSubmitting(false);
@@ -92,7 +109,11 @@ export default function Contact() {
     <>
       <PageHero
         badge="Contact Us"
-        title={<>Connect with <span className="gradient-text">Cosmic Wisdom</span></>}
+        title={
+          <>
+            Connect with <span className="gradient-text">Cosmic Wisdom</span>
+          </>
+        }
         subtitle="Whether you need guidance, have questions, or want to consult an astrologer â€” our team is here to help."
       />
 
@@ -100,10 +121,12 @@ export default function Contact() {
         <div className="container-8xl max-w-7xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-ink-900 mb-4">Get in touch</h2>
+              <h2 className="text-3xl font-bold text-ink-900 mb-4">
+                Get in touch
+              </h2>
               <p className="text-ink-500 max-w-2xl mx-auto">
-                Fill out the form and our team will get back to you within 24 hours. For urgent
-                matters, use the contact details below.
+                Fill out the form and our team will get back to you within 24
+                hours. For urgent matters, use the contact details below.
               </p>
             </div>
           </Reveal>
@@ -113,10 +136,11 @@ export default function Contact() {
               <Reveal>
                 {submitStatus.type && (
                   <div
-                    className={`mb-6 p-4 rounded-lg ${submitStatus.type === 'success'
-                      ? 'bg-green-50 border border-green-200 text-green-700'
-                      : 'bg-red-50 border border-red-200 text-red-700'
-                      }`}
+                    className={`mb-6 p-4 rounded-lg ${
+                      submitStatus.type === "success"
+                        ? "bg-green-50 border border-green-200 text-green-700"
+                        : "bg-red-50 border border-red-200 text-red-700"
+                    }`}
                   >
                     {submitStatus.message}
                   </div>
@@ -125,7 +149,10 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-ink-700 mb-1">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-ink-700 mb-1"
+                      >
                         Full Name <span className="text-danger-500">*</span>
                       </label>
                       <input
@@ -138,7 +165,10 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-ink-700 mb-1">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-ink-700 mb-1"
+                      >
                         Email Address <span className="text-danger-500">*</span>
                       </label>
                       <input
@@ -154,7 +184,10 @@ export default function Contact() {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-ink-700 mb-1">
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-ink-700 mb-1"
+                      >
                         Phone Number
                       </label>
                       <input
@@ -166,7 +199,10 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-ink-700 mb-1">
+                      <label
+                        htmlFor="subject"
+                        className="block text-sm font-medium text-ink-700 mb-1"
+                      >
                         Subject <span className="text-danger-500">*</span>
                       </label>
                       <select
@@ -176,18 +212,31 @@ export default function Contact() {
                         className="w-full px-4 py-3 rounded-xl border border-ink-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none bg-white"
                       >
                         <option value="">Select a subject</option>
-                        <option value="Astrology Consultation">Astrology Consultation</option>
-                        <option value="Kundali Generation">Kundali Generation</option>
-                        <option value="Technical Support">Technical Support</option>
-                        <option value="Feedback & Suggestions">Feedback & Suggestions</option>
-                        <option value="Partnership Opportunity">Partnership Opportunity</option>
+                        <option value="Astrology Consultation">
+                          Astrology Consultation
+                        </option>
+                        <option value="Kundali Generation">
+                          Kundali Generation
+                        </option>
+                        <option value="Technical Support">
+                          Technical Support
+                        </option>
+                        <option value="Feedback & Suggestions">
+                          Feedback & Suggestions
+                        </option>
+                        <option value="Partnership Opportunity">
+                          Partnership Opportunity
+                        </option>
                         <option value="General Inquiry">General Inquiry</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-ink-700 mb-1">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-ink-700 mb-1"
+                    >
                       Your Message <span className="text-danger-500">*</span>
                     </label>
                     <textarea
@@ -218,7 +267,9 @@ export default function Contact() {
                         <div className="flex items-center justify-center gap-2 text-ink-500">
                           <Paperclip className="h-5 w-5" />
                           <span>
-                            {fileName ? `Selected: ${fileName}` : 'Click to upload or drag & drop'}
+                            {fileName
+                              ? `Selected: ${fileName}`
+                              : "Click to upload or drag & drop"}
                           </span>
                           <span className="text-xs text-ink-400 ml-2">
                             (Max 5MB - PDF, DOC, JPG, PNG, TXT)
@@ -229,7 +280,9 @@ export default function Contact() {
                     {fileName && (
                       <div className="mt-2 flex items-center gap-2 p-2 bg-primary-50 rounded-lg border border-primary-200">
                         <Paperclip className="h-4 w-4 text-primary-600" />
-                        <span className="text-sm text-ink-700 flex-1 truncate">{fileName}</span>
+                        <span className="text-sm text-ink-700 flex-1 truncate">
+                          {fileName}
+                        </span>
                         <button
                           type="button"
                           onClick={removeFile}
@@ -247,14 +300,13 @@ export default function Contact() {
                         type="submit"
                         className="px-8 py-4 text-lg opacity-70 cursor-not-allowed"
                       >
-                        <span className="inline-block animate-spin mr-2">âŸ³</span>
+                        <span className="inline-block animate-spin mr-2">
+                          âŸ³
+                        </span>
                         Sending...
                       </Button>
                     ) : (
-                      <Button
-                        type="submit"
-                        className="px-8 py-4 text-lg"
-                      >
+                      <Button type="submit" className="px-8 py-4 text-lg">
                         <MessageSquare className="h-4 w-4" />
                         Send Message
                       </Button>
@@ -271,9 +323,22 @@ export default function Contact() {
               <div className="space-y-4">
                 {/* Contact Details */}
                 {[
-                  { icon: Mail, label: 'Email', value: 'support@jyotishai.com', href: 'mailto:support@jyotishai.com' },
-                  { icon: MapPin, label: 'Office', value: 'Noida, Uttar Pradesh, India' },
-                  { icon: MessageSquare, label: 'Live Chat', value: 'Available 24/7' },
+                  {
+                    icon: Mail,
+                    label: "Email",
+                    value: "support@jyotishai.com",
+                    href: "mailto:support@jyotishai.com",
+                  },
+                  {
+                    icon: MapPin,
+                    label: "Office",
+                    value: "Noida, Uttar Pradesh, India",
+                  },
+                  {
+                    icon: MessageSquare,
+                    label: "Live Chat",
+                    value: "Available 24/7",
+                  },
                 ].map((item) => (
                   <Reveal key={item.label} delay={0.1}>
                     {item.href ? (
@@ -285,8 +350,12 @@ export default function Contact() {
                           <item.icon className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <div className="text-sm text-ink-500">{item.label}</div>
-                          <div className="font-semibold text-ink-900">{item.value}</div>
+                          <div className="text-sm text-ink-500">
+                            {item.label}
+                          </div>
+                          <div className="font-semibold text-ink-900">
+                            {item.value}
+                          </div>
                         </div>
                       </a>
                     ) : (
@@ -295,8 +364,12 @@ export default function Contact() {
                           <item.icon className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <div className="text-sm text-ink-500">{item.label}</div>
-                          <div className="font-semibold text-ink-900">{item.value}</div>
+                          <div className="text-sm text-ink-500">
+                            {item.label}
+                          </div>
+                          <div className="font-semibold text-ink-900">
+                            {item.value}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -308,10 +381,13 @@ export default function Contact() {
                   <div className="p-6 rounded-2xl bg-gradient-to-br from-primary-50 to-accent-50 border border-primary-100">
                     <div className="flex items-center gap-2 mb-3">
                       <Star className="h-5 w-5 text-primary-600 flex-shrink-0" />
-                      <h3 className="font-bold text-ink-900">Talk to an Astrologer</h3>
+                      <h3 className="font-bold text-ink-900">
+                        Talk to an Astrologer
+                      </h3>
                     </div>
                     <p className="text-sm text-ink-600 mb-4">
-                      Get personalized guidance on love, career, health, and life from our expert astrologers.
+                      Get personalized guidance on love, career, health, and
+                      life from our expert astrologers.
                     </p>
                     <Button to="/consultations" variant="outline" size="sm">
                       <Users className="h-4 w-4" />
@@ -356,10 +432,12 @@ export default function Contact() {
               Free Consultation
             </Badge>
             <h2 className="text-3xl font-bold text-white sm:text-4xl text-balance">
-              Ready to discover your <span className="gradient-text-light">cosmic path?</span>
+              Ready to discover your{" "}
+              <span className="gradient-text-light">cosmic path?</span>
             </h2>
             <p className="mt-4 text-lg text-ink-400 max-w-2xl mx-auto">
-              Chat with our expert astrologers today and get the guidance you need.
+              Chat with our expert astrologers today and get the guidance you
+              need.
             </p>
             <div className="mt-8 flex justify-center gap-4 flex-wrap">
               <Button to="/consultations" variant="primary" size="lg">

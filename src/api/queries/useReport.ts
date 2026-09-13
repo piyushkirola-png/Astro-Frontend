@@ -1,19 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import apiClient from '../../lib/api-client';
-import type { ApiResponse } from '../../types/auth';
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../../lib/api-client";
+import type { ApiResponse } from "../../types/auth";
 import type {
   ReportDosha,
   ReportGemstone,
   ReportGeneral,
   ReportRemedy,
-} from '../../types/report';
+} from "../../types/report";
 
 export function useReportGeneral(enabled: boolean) {
   return useQuery({
-    queryKey: ['report', 'general'],
+    queryKey: ["report", "general"],
     queryFn: async (): Promise<ReportGeneral[]> => {
       const res = await apiClient.get<ApiResponse<ReportGeneral[]>>(
-        '/user/report/general'
+        "/user/report/general",
       );
       return res.data.data;
     },
@@ -24,10 +24,10 @@ export function useReportGeneral(enabled: boolean) {
 
 export function useReportRemedies(enabled: boolean) {
   return useQuery({
-    queryKey: ['report', 'remedies'],
+    queryKey: ["report", "remedies"],
     queryFn: async (): Promise<ReportRemedy[]> => {
       const res = await apiClient.get<ApiResponse<ReportRemedy[]>>(
-        '/user/report/remedies'
+        "/user/report/remedies",
       );
       return res.data.data;
     },
@@ -38,10 +38,10 @@ export function useReportRemedies(enabled: boolean) {
 
 export function useReportDoshas(enabled: boolean) {
   return useQuery({
-    queryKey: ['report', 'doshas'],
+    queryKey: ["report", "doshas"],
     queryFn: async (): Promise<ReportDosha[]> => {
       const res = await apiClient.get<ApiResponse<ReportDosha[]>>(
-        '/user/report/doshas'
+        "/user/report/doshas",
       );
       return res.data.data;
     },
@@ -52,10 +52,10 @@ export function useReportDoshas(enabled: boolean) {
 
 export function useReportGemstones(enabled: boolean) {
   return useQuery({
-    queryKey: ['report', 'gemstones'],
+    queryKey: ["report", "gemstones"],
     queryFn: async (): Promise<ReportGemstone[]> => {
       const res = await apiClient.get<ApiResponse<ReportGemstone[]>>(
-        '/user/report/gemstones'
+        "/user/report/gemstones",
       );
       return res.data.data;
     },

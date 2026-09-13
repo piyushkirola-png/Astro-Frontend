@@ -1,19 +1,13 @@
-import apiClient from '../../lib/api-client';
-import type { ApiResponse } from '../../types/auth';
-import type { UserProfile } from '../../types/user';
-import type {
-  AdminPaymentRecord,
-  AdminWalletPackage,
-} from '../../types/admin';
+import apiClient from "../../lib/api-client";
+import type { ApiResponse } from "../../types/auth";
+import type { UserProfile } from "../../types/user";
+import type { AdminPaymentRecord, AdminWalletPackage } from "../../types/admin";
 
 export const adminService = {
-  setUserStatus: async (
-    id: number,
-    active: boolean
-  ): Promise<UserProfile> => {
+  setUserStatus: async (id: number, active: boolean): Promise<UserProfile> => {
     const res = await apiClient.patch<ApiResponse<UserProfile>>(
       `/users/${id}/status`,
-      { active }
+      { active },
     );
     return res.data.data;
   },
@@ -24,38 +18,55 @@ export const adminService = {
 
   listWalletPackages: async (): Promise<AdminWalletPackage[]> => {
     const res = await apiClient.get<ApiResponse<AdminWalletPackage[]>>(
-      '/admin/payments/wallet/packages'
+      "/admin/payments/wallet/packages",
     );
     return res.data.data;
   },
 
   updatePackagePrice: async (
     id: number,
-    amount: number
+    amount: number,
   ): Promise<AdminWalletPackage> => {
     const res = await apiClient.patch<ApiResponse<AdminWalletPackage>>(
       `/admin/payments/wallet/packages/${id}/price`,
-      { amount }
+      { amount },
     );
     return res.data.data;
   },
 
   togglePackageActive: async (
     id: number,
-    active: boolean
+    active: boolean,
   ): Promise<AdminWalletPackage> => {
     const res = await apiClient.patch<ApiResponse<AdminWalletPackage>>(
       `/admin/payments/wallet/packages/${id}/toggle`,
-      { active }
+      { active },
     );
     return res.data.data;
   },
 
   listAllPayments: async (): Promise<AdminPaymentRecord[]> => {
     const res = await apiClient.get<ApiResponse<AdminPaymentRecord[]>>(
-      '/admin/payments/all'
+      "/admin/payments/all",
     );
     return res.data.data;
+  },
+
+  downloadInvoice: async (orderId: string): Promise<void> => {
+    const res = await apiClient.get(`/admin/payments/${orderId}/invoice`, {
+      responseType: "blob",
+    });
+
+    const url = window.URL.createObjectURL(
+      new Blob([res.data], { type: "application/pdf" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${orderId}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   },
 };
 

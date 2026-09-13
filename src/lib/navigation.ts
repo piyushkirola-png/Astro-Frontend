@@ -90,37 +90,43 @@ export const services: ServiceItem[] = [
   {
     icon: MessageCircle,
     title: "Chat Consultation",
-    description: "Connect with expert astrologers via real-time chat for instant guidance.",
+    description:
+      "Connect with expert astrologers via real-time chat for instant guidance.",
     href: "/chat-with-astrologer",
   },
   {
     icon: Calendar,
     title: "Daily Horoscope",
-    description: "Get personalized daily predictions based on your zodiac sign.",
+    description:
+      "Get personalized daily predictions based on your zodiac sign.",
     href: "/daily-horoscope",
   },
   {
     icon: Star,
     title: "Free Kundali",
-    description: "Generate your complete birth chart with detailed planetary positions.",
+    description:
+      "Generate your complete birth chart with detailed planetary positions.",
     href: "/free-kundali",
   },
   {
     icon: Calculator,
     title: "Love Calculator",
-    description: "Check compatibility with your partner using ancient Vedic techniques.",
+    description:
+      "Check compatibility with your partner using ancient Vedic techniques.",
     href: "/love-calculator",
   },
   {
     icon: Sun,
     title: "Panchang",
-    description: "Get daily auspicious timings, tithi, nakshatra, and planetary positions.",
+    description:
+      "Get daily auspicious timings, tithi, nakshatra, and planetary positions.",
     href: "/today-panchang",
   },
   {
     icon: Heart,
     title: "Kundali Matching",
-    description: "Find perfect life partner match using detailed 36-guna matching.",
+    description:
+      "Find perfect life partner match using detailed 36-guna matching.",
     href: "/kundali-matching",
   },
 ];
@@ -151,22 +157,26 @@ export const features: FeatureItem[] = [
   {
     icon: Sparkles,
     title: "Vedic Astrology Expertise",
-    description: "Consult certified astrologers with deep knowledge of Vedic scriptures.",
+    description:
+      "Consult certified astrologers with deep knowledge of Vedic scriptures.",
   },
   {
     icon: MessageCircle,
     title: "Multiple Consultation Modes",
-    description: "Chat, call, or video consult with astrologers anytime, anywhere.",
+    description:
+      "Chat, call, or video consult with astrologers anytime, anywhere.",
   },
   {
     icon: Star,
     title: "Accurate Predictions",
-    description: "Get precise predictions based on your exact birth details and planetary positions.",
+    description:
+      "Get precise predictions based on your exact birth details and planetary positions.",
   },
   {
     icon: Calendar,
     title: "Daily Updates",
-    description: "Receive daily horoscope and panchang updates tailored to your zodiac.",
+    description:
+      "Receive daily horoscope and panchang updates tailored to your zodiac.",
   },
   {
     icon: Heart,
@@ -176,7 +186,8 @@ export const features: FeatureItem[] = [
   {
     icon: TrendingUp,
     title: "Career & Finance",
-    description: "Get guidance for professional growth, investments, and financial decisions.",
+    description:
+      "Get guidance for professional growth, investments, and financial decisions.",
   },
 ];
 
@@ -191,12 +202,14 @@ export const specializations: AstrologerSpecialization[] = [
   {
     icon: Moon,
     title: "Vedic Astrology",
-    description: "Traditional Indian astrology with birth charts and planetary positions.",
+    description:
+      "Traditional Indian astrology with birth charts and planetary positions.",
   },
   {
     icon: Star,
     title: "Numerology",
-    description: "Understand the power of numbers and their impact on your life.",
+    description:
+      "Understand the power of numbers and their impact on your life.",
   },
   {
     icon: Heart,
@@ -206,7 +219,8 @@ export const specializations: AstrologerSpecialization[] = [
   {
     icon: Users,
     title: "Career & Business",
-    description: "Professional guidance for career growth and business success.",
+    description:
+      "Professional guidance for career growth and business success.",
   },
   {
     icon: Clock,
@@ -216,7 +230,8 @@ export const specializations: AstrologerSpecialization[] = [
   {
     icon: BookOpen,
     title: "Gemstone Therapy",
-    description: "Get recommendations for beneficial gemstones based on your chart.",
+    description:
+      "Get recommendations for beneficial gemstones based on your chart.",
   },
 ];
 
@@ -230,17 +245,20 @@ export interface TestimonialItem {
 
 export const testimonials: TestimonialItem[] = [
   {
-    quote: "The astrologer helped me understand my career path clearly. The predictions were spot on!",
+    quote:
+      "The astrologer helped me understand my career path clearly. The predictions were spot on!",
     author: "Priya Sharma",
     role: "Software Engineer",
   },
   {
-    quote: "My love life was in chaos. The kundali matching and guidance gave me clarity.",
+    quote:
+      "My love life was in chaos. The kundali matching and guidance gave me clarity.",
     author: "Arjun Patel",
     role: "Business Owner",
   },
   {
-    quote: "Daily horoscopes have been incredibly accurate. It helps me plan my day better.",
+    quote:
+      "Daily horoscopes have been incredibly accurate. It helps me plan my day better.",
     author: "Neha Singh",
     role: "Teacher",
   },
@@ -255,27 +273,33 @@ export interface FaqItem {
 export const faqs: FaqItem[] = [
   {
     question: "How do I start a consultation?",
-    answer: "Simply select an astrologer, choose your preferred mode (chat/call/video), and start your consultation instantly.",
+    answer:
+      "Simply select an astrologer, choose your preferred mode (chat/call/video), and start your consultation instantly.",
   },
   {
     question: "Is my birth details secure?",
-    answer: "Absolutely. We encrypt all personal data including birth details. Your privacy is our top priority.",
+    answer:
+      "Absolutely. We encrypt all personal data including birth details. Your privacy is our top priority.",
   },
   {
     question: "What is Kundali matching?",
-    answer: "Kundali matching is a Vedic technique that compares the birth charts of two individuals for marriage compatibility based on 36 points (gunas).",
+    answer:
+      "Kundali matching is a Vedic technique that compares the birth charts of two individuals for marriage compatibility based on 36 points (gunas).",
   },
   {
     question: "How accurate are the predictions?",
-    answer: "Our predictions are based on authentic Vedic astrology principles. We have expert astrologers with decades of experience.",
+    answer:
+      "Our predictions are based on authentic Vedic astrology principles. We have expert astrologers with decades of experience.",
   },
   {
     question: "What is Muhurat?",
-    answer: "Muhurat is an auspicious time determined by planetary positions. We help you find the best timings for important events like weddings, business launches, etc.",
+    answer:
+      "Muhurat is an auspicious time determined by planetary positions. We help you find the best timings for important events like weddings, business launches, etc.",
   },
   {
     question: "Can I get a free Kundali?",
-    answer: "Yes! We offer free kundali generation with basic details. You can upgrade for detailed analysis.",
+    answer:
+      "Yes! We offer free kundali generation with basic details. You can upgrade for detailed analysis.",
   },
 ];
 

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Sparkles,
   Lock,
@@ -10,26 +10,26 @@ import {
   Shield,
   Gem,
   ArrowRight,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   useReportGeneral,
   useReportRemedies,
   useReportDoshas,
   useReportGemstones,
-} from '../../../api/queries/useReport';
-import { useHasPurchasedReport } from '../../../api/queries/usePayments';
+} from "../../../api/queries/useReport";
+import { useHasPurchasedReport } from "../../../api/queries/usePayments";
 
-type Tab = 'general' | 'remedies' | 'dosha' | 'gemstone';
+type Tab = "general" | "remedies" | "dosha" | "gemstone";
 
 const TABS: { id: Tab; label: string; icon: any }[] = [
-  { id: 'general', label: 'General', icon: FileText },
-  { id: 'remedies', label: 'Remedies', icon: Heart },
-  { id: 'dosha', label: 'Dosha', icon: Shield },
-  { id: 'gemstone', label: 'Gemstone', icon: Gem },
+  { id: "general", label: "General", icon: FileText },
+  { id: "remedies", label: "Remedies", icon: Heart },
+  { id: "dosha", label: "Dosha", icon: Shield },
+  { id: "gemstone", label: "Gemstone", icon: Gem },
 ];
 
 export default function KundaliReport() {
-  const [tab, setTab] = useState<Tab>('general');
+  const [tab, setTab] = useState<Tab>("general");
   const navigate = useNavigate();
   const { data: purchasedData, isLoading: purchaseLoading } =
     useHasPurchasedReport();
@@ -70,8 +70,8 @@ export default function KundaliReport() {
                 onClick={() => setTab(t.id)}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
                   active
-                    ? 'bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md'
-                    : 'text-ink-600 hover:bg-ink-50'
+                    ? "bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-md"
+                    : "text-ink-600 hover:bg-ink-50"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -83,10 +83,10 @@ export default function KundaliReport() {
       </div>
 
       <div className="min-h-[400px]">
-        {tab === 'general' && <GeneralTab />}
-        {tab === 'remedies' && <RemediesTab />}
-        {tab === 'dosha' && <DoshaTab />}
-        {tab === 'gemstone' && <GemstoneTab />}
+        {tab === "general" && <GeneralTab />}
+        {tab === "remedies" && <RemediesTab />}
+        {tab === "dosha" && <DoshaTab />}
+        {tab === "gemstone" && <GemstoneTab />}
       </div>
     </div>
   );
@@ -120,10 +120,22 @@ function Paywall({ navigate }: { navigate: any }) {
 
         <div className="p-6 lg:p-8">
           <div className="grid sm:grid-cols-2 gap-4 mb-8">
-            <Feature title="General Analysis" desc="Career, love, health, wealth, and personality insights" />
-            <Feature title="Personalized Remedies" desc="Vedic remedies tailored to your chart" />
-            <Feature title="Dosha Detection" desc="Identify Mangal, Kaal Sarp, Sade Sati, and more" />
-            <Feature title="Gemstone Guide" desc="Which gemstone to wear, how, and when" />
+            <Feature
+              title="General Analysis"
+              desc="Career, love, health, wealth, and personality insights"
+            />
+            <Feature
+              title="Personalized Remedies"
+              desc="Vedic remedies tailored to your chart"
+            />
+            <Feature
+              title="Dosha Detection"
+              desc="Identify Mangal, Kaal Sarp, Sade Sati, and more"
+            />
+            <Feature
+              title="Gemstone Guide"
+              desc="Which gemstone to wear, how, and when"
+            />
           </div>
 
           <div className="flex items-baseline justify-between border-t border-ink-100 pt-6 mb-6">
@@ -131,7 +143,15 @@ function Paywall({ navigate }: { navigate: any }) {
               <div className="text-xs uppercase tracking-wider text-ink-500 font-semibold">
                 One-time price
               </div>
-              <div className="text-3xl font-bold text-ink-900 mt-1">₹500</div>
+              <div className="flex items-baseline gap-2 flex-wrap mt-1">
+                <span className="text-3xl font-bold text-ink-900">₹500</span>
+                <span className="text-[11px] text-ink-500 font-medium">
+                  + 18% GST
+                </span>
+              </div>
+              <div className="text-[11px] text-ink-500 mt-0.5">
+                Total: ₹590.00
+              </div>
             </div>
             <div className="text-right text-xs text-ink-500">
               Lifetime access
@@ -141,11 +161,11 @@ function Paywall({ navigate }: { navigate: any }) {
           </div>
 
           <button
-            onClick={() => navigate('/user/payments')}
+            onClick={() => navigate("/user/payments")}
             className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-sm font-semibold hover:shadow-lg transition"
           >
             <Sparkles className="h-4 w-4" />
-            Buy Report for ₹500
+            Buy Report for ₹590.00
             <ArrowRight className="h-4 w-4" />
           </button>
 
@@ -177,12 +197,16 @@ function GeneralTab() {
 
   if (isLoading) return <Loading />;
   if (isError || !data) return <ErrorCard onRetry={() => refetch()} />;
-  if (data.length === 0) return <EmptyCard message="No general analysis available yet." />;
+  if (data.length === 0)
+    return <EmptyCard message="No general analysis available yet." />;
 
   return (
     <div className="space-y-4">
       {data.map((item) => (
-        <div key={item.id} className="bg-white rounded-2xl border border-ink-100 p-5 lg:p-6">
+        <div
+          key={item.id}
+          className="bg-white rounded-2xl border border-ink-100 p-5 lg:p-6"
+        >
           <div className="flex items-start gap-3 mb-3">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white shrink-0 mt-0.5">
               <Sparkles className="h-4 w-4" />
@@ -210,12 +234,16 @@ function RemediesTab() {
 
   if (isLoading) return <Loading />;
   if (isError || !data) return <ErrorCard onRetry={() => refetch()} />;
-  if (data.length === 0) return <EmptyCard message="No remedies available yet." />;
+  if (data.length === 0)
+    return <EmptyCard message="No remedies available yet." />;
 
   return (
     <div className="space-y-4">
       {data.map((item) => (
-        <div key={item.id} className="bg-white rounded-2xl border border-ink-100 p-5 lg:p-6">
+        <div
+          key={item.id}
+          className="bg-white rounded-2xl border border-ink-100 p-5 lg:p-6"
+        >
           <div className="flex items-start gap-3 mb-3">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white shrink-0 mt-0.5">
               <Heart className="h-4 w-4" />
@@ -243,12 +271,16 @@ function DoshaTab() {
 
   if (isLoading) return <Loading />;
   if (isError || !data) return <ErrorCard onRetry={() => refetch()} />;
-  if (data.length === 0) return <EmptyCard message="No dosha analysis available yet." />;
+  if (data.length === 0)
+    return <EmptyCard message="No dosha analysis available yet." />;
 
   return (
     <div className="space-y-4">
       {data.map((item) => (
-        <div key={item.id} className="bg-white rounded-2xl border border-ink-100 p-5 lg:p-6">
+        <div
+          key={item.id}
+          className="bg-white rounded-2xl border border-ink-100 p-5 lg:p-6"
+        >
           <div className="flex items-start justify-between gap-4 mb-3">
             <div className="flex items-start gap-3">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white shrink-0 mt-0.5">
@@ -266,11 +298,11 @@ function DoshaTab() {
             <span
               className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider shrink-0 ${
                 item.present
-                  ? 'bg-red-100 text-red-700'
-                  : 'bg-green-100 text-green-700'
+                  ? "bg-red-100 text-red-700"
+                  : "bg-green-100 text-green-700"
               }`}
             >
-              {item.present ? 'Present' : 'Not Present'}
+              {item.present ? "Present" : "Not Present"}
             </span>
           </div>
           <p className="text-sm text-ink-700 leading-relaxed mb-3 whitespace-pre-line">
@@ -297,12 +329,16 @@ function GemstoneTab() {
 
   if (isLoading) return <Loading />;
   if (isError || !data) return <ErrorCard onRetry={() => refetch()} />;
-  if (data.length === 0) return <EmptyCard message="No gemstone guide available yet." />;
+  if (data.length === 0)
+    return <EmptyCard message="No gemstone guide available yet." />;
 
   return (
     <div className="grid sm:grid-cols-2 gap-4">
       {data.map((item) => (
-        <div key={item.id} className="bg-white rounded-2xl border border-ink-100 p-5">
+        <div
+          key={item.id}
+          className="bg-white rounded-2xl border border-ink-100 p-5"
+        >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white">
               <Gem className="h-5 w-5" />

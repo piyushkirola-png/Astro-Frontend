@@ -7,6 +7,13 @@ export interface WalletPackage {
   isActive: boolean;
 }
 
+export interface WalletBalance {
+  seconds: number;
+  minutes: number;
+  remainingSeconds: number;
+  formatted: string;
+}
+
 export interface PaymentCategory {
   id: number;
   code: string;
