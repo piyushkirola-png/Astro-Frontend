@@ -12,6 +12,7 @@ import {
   Clock,
   CreditCard,
   Download,
+  FileSpreadsheet,
 } from "lucide-react";
 import adminService from "../../../api/services/adminService";
 import { useAuth } from "../../../lib/AuthContext";
@@ -40,6 +41,19 @@ export default function AdminPayments() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [downloading, setDownloading] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      await adminService.exportAllCsv();
+      showToast("CSV exported successfully");
+    } catch {
+      showToast("Failed to export CSV");
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handleDownload = async (orderId: string) => {
     setDownloading(orderId);
@@ -270,6 +284,19 @@ export default function AdminPayments() {
               </div>
             )}
           </div>
+
+          <button
+            onClick={handleExport}
+            disabled={exporting}
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 border border-ink-200 text-sm font-semibold text-ink-700 hover:bg-ink-50 disabled:opacity-60 transition"
+          >
+            {exporting ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <FileSpreadsheet className="h-4 w-4" />
+            )}
+            Export CSV
+          </button>
 
           <button
             onClick={async () => {

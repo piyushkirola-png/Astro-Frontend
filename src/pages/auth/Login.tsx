@@ -1,9 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Lock, ArrowRight, AlertCircle, CheckCircle } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  ArrowRight,
+  AlertCircle,
+  CheckCircle,
+  KeyRound,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import { useAuth } from "../../lib/AuthContext";
 import { useLogin } from "../../api/mutations/authMutations";
+import OtpLoginDialog from "../../components/auth/OtpLoginDialog";
+import ForgotPasswordDialog from "../../components/auth/ForgotPasswordDialog";
 import Button from "../../components/ui/Button";
 
 export default function Login() {
@@ -13,11 +24,14 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [otpOpen, setOtpOpen] = useState(false);
+  const [forgotOpen, setForgotOpen] = useState(false);
 
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 1000);
+    const t = setTimeout(() => setToast(null), 1500);
     return () => clearTimeout(t);
   }, [toast]);
 
@@ -47,7 +61,6 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-ink-50 pt-20 pb-12 px-4">
       <div className="absolute inset-0 mesh-gradient opacity-50" />
 
-      {/* Toast */}
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -117,14 +130,26 @@ export default function Login() {
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-ink-400" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-accent-400 focus:ring-2 focus:ring-accent-400/20 transition-all"
+                  className="w-full pl-11 pr-11 py-3 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-accent-400 focus:ring-2 focus:ring-accent-400/20 transition-all"
                   placeholder="••••••••"
                   disabled={loading}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600"
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
             </div>
 
@@ -139,6 +164,33 @@ export default function Login() {
             </Button>
           </form>
 
+          <div className="flex items-center gap-3 my-5">
+            <div className="flex-1 h-px bg-ink-200" />
+            <span className="text-[11px] uppercase tracking-wider text-ink-400 font-semibold">
+              or
+            </span>
+            <div className="flex-1 h-px bg-ink-200" />
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setOtpOpen(true)}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 border border-ink-200 bg-white text-sm font-semibold text-ink-800 hover:border-primary-300 hover:bg-primary-50 transition"
+          >
+            <KeyRound className="h-4 w-4" />
+            Login with OTP
+          </button>
+
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => setForgotOpen(true)}
+              className="text-xs font-semibold text-ink-500 hover:text-primary-600 transition"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
           <p className="mt-6 text-center text-sm text-ink-500">
             Don't have an account?{" "}
             <Link
@@ -150,6 +202,12 @@ export default function Login() {
           </p>
         </div>
       </motion.div>
+
+      <OtpLoginDialog open={otpOpen} onClose={() => setOtpOpen(false)} />
+      <ForgotPasswordDialog
+        open={forgotOpen}
+        onClose={() => setForgotOpen(false)}
+      />
     </div>
   );
 }

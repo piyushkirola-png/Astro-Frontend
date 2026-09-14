@@ -6,6 +6,8 @@ import {
   Clock,
   Loader2,
   AlertCircle,
+  Download,
+  FileText,
 } from "lucide-react";
 import {
   useKundaliBasic,
@@ -15,6 +17,8 @@ import {
 } from "../../../api/queries/useKundali";
 import NorthIndianChart from "../../../components/kundali/NorthIndianChart";
 import type { DashaPeriod } from "../../../types/kundali";
+import { useAuth } from "../../../lib/AuthContext";
+import { downloadKundaliPdf } from "../../../api/queries/useKundali";
 
 type Tab = "basic" | "kundali" | "planetary" | "dasha";
 
@@ -51,14 +55,50 @@ const PLANET_COLORS: Record<string, string> = {
 
 export default function Kundali() {
   const [activeTab, setActiveTab] = useState<Tab>("basic");
+  const { showToast } = useAuth();
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setDownloading(true);
+    try {
+      await downloadKundaliPdf();
+      showToast("Kundali PDF downloaded");
+    } catch {
+      showToast("Failed to download PDF");
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <div className="space-y-5">
-      <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">Kundali</h1>
-        <p className="text-ink-500 mt-1 text-sm">
-          Your complete Vedic birth chart
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">
+            Kundali
+          </h1>
+          <p className="text-ink-500 mt-1 text-sm">
+            Your complete Vedic birth chart
+          </p>
+        </div>
+
+        <button
+          onClick={handleDownloadPdf}
+          disabled={downloading}
+          className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-sm font-semibold hover:shadow-lg disabled:opacity-60 transition self-start sm:self-auto"
+        >
+          {downloading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Generating...
+            </>
+          ) : (
+            <>
+              <Download className="h-4 w-4" />
+              Download PDF
+            </>
+          )}
+        </button>
       </div>
 
       <div className="bg-white rounded-2xl border border-ink-100 p-2 overflow-x-auto">

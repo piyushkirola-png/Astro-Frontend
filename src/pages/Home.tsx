@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -138,6 +137,21 @@ function HeroSection() {
   );
 }
 
+const ZODIAC_SIGNS = [
+  { symbol: "♈", name: "Aries", color: "text-red-500" },
+  { symbol: "♉", name: "Taurus", color: "text-emerald-600" },
+  { symbol: "♊", name: "Gemini", color: "text-amber-500" },
+  { symbol: "♋", name: "Cancer", color: "text-slate-500" },
+  { symbol: "♌", name: "Leo", color: "text-orange-500" },
+  { symbol: "♍", name: "Virgo", color: "text-teal-600" },
+  { symbol: "♎", name: "Libra", color: "text-pink-500" },
+  { symbol: "♏", name: "Scorpio", color: "text-red-700" },
+  { symbol: "♐", name: "Sagittarius", color: "text-purple-600" },
+  { symbol: "♑", name: "Capricorn", color: "text-indigo-600" },
+  { symbol: "♒", name: "Aquarius", color: "text-blue-600" },
+  { symbol: "♓", name: "Pisces", color: "text-cyan-600" },
+];
+
 function HeroVisual() {
   return (
     <div className="relative">
@@ -146,7 +160,8 @@ function HeroVisual() {
         animate={{ opacity: [0.5, 0.8, 0.5] }}
         transition={{ duration: 4, repeat: Infinity }}
       />
-      <div className="relative glass-card rounded-3xl p-6 lg:p-8">
+
+      <div className="relative glass-card rounded-3xl p-6 lg:p-10">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <div className="h-3 w-3 rounded-full bg-danger-500" />
@@ -154,47 +169,147 @@ function HeroVisual() {
             <div className="h-3 w-3 rounded-full bg-success-500" />
           </div>
           <span className="text-xs font-mono text-ink-400">
-            kundali_chart.js
+            zodiac_wheel.svg
           </span>
         </div>
 
-        <div className="space-y-3 font-mono text-sm">
-          <div className="flex items-center gap-2 text-ink-400">
-            <span className="text-primary-500">const</span>
-            <span>birthChart</span>
-            <span className="text-ink-600">=</span>
-            <span className="text-accent-600">await</span>
-            <span>Astro.generate</span>
-          </div>
-          <div className="pl-6 text-ink-500">({"("})</div>
-          <div className="pl-10 text-ink-600">
-            name: <span className="text-success-600">'John Doe'</span>,
-          </div>
-          <div className="pl-10 text-ink-600">
-            dob: <span className="text-success-600">'1990-01-15'</span>,
-          </div>
-          <div className="pl-10 text-ink-600">
-            time: <span className="text-success-600">'08:30 AM'</span>,
-          </div>
-          <div className="pl-10 text-ink-600">
-            place: <span className="text-success-600">'New Delhi'</span>,
-          </div>
-          <div className="pl-6 text-ink-500">{")"}</div>
-
-          <motion.div
-            className="mt-4 p-3 rounded-xl bg-accent-50 border border-accent-200"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
+        <div className="relative aspect-square max-w-[440px] mx-auto flex items-center justify-center">
+          {/* Starfield */}
+          <svg
+            viewBox="0 0 100 100"
+            className="absolute inset-0 w-full h-full opacity-40"
           >
-            <div className="flex items-center gap-2 text-accent-700">
-              <CheckCircle className="h-4 w-4" />
-              <span className="text-xs font-semibold">
-                Kundali Generated Successfully
-              </span>
-            </div>
-            <div className="text-xs text-ink-500 mt-1">
-              Sun Sign: Capricorn Â· Moon Sign: Taurus
+            {Array.from({ length: 24 }).map((_, i) => {
+              const x = (i * 37) % 100;
+              const y = (i * 61) % 100;
+              const r = 0.15 + ((i * 7) % 4) * 0.1;
+              return (
+                <motion.circle
+                  key={i}
+                  cx={x}
+                  cy={y}
+                  r={r}
+                  fill="#b8862a"
+                  animate={{ opacity: [0.2, 0.9, 0.2] }}
+                  transition={{
+                    duration: 2 + (i % 3),
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                  }}
+                />
+              );
+            })}
+          </svg>
+
+          {/* Outer rotating ring */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+          >
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="#f59e0b"
+                strokeWidth="0.25"
+                opacity="0.4"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="42"
+                fill="none"
+                stroke="#b8862a"
+                strokeWidth="0.15"
+                opacity="0.3"
+                strokeDasharray="0.5 1.5"
+              />
+            </svg>
+
+            {/* 12 zodiac symbols around */}
+            {ZODIAC_SIGNS.map((sign, idx) => {
+              const angle = (idx * 360) / 12 - 90;
+              const rad = (angle * Math.PI) / 180;
+              const radius = 42;
+              const x = 50 + radius * Math.cos(rad);
+              const y = 50 + radius * Math.sin(rad);
+              return (
+                <div
+                  key={sign.name}
+                  className="absolute"
+                  style={{
+                    left: `${x}%`,
+                    top: `${y}%`,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <motion.div
+                    className={`h-9 w-9 lg:h-11 lg:w-11 rounded-full bg-white border-2 border-accent-200 flex items-center justify-center shadow-md ${sign.color}`}
+                    animate={{ rotate: -360 }}
+                    transition={{
+                      duration: 90,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    whileHover={{ scale: 1.15 }}
+                  >
+                    <span className="text-lg lg:text-xl leading-none">
+                      {sign.symbol}
+                    </span>
+                  </motion.div>
+                </div>
+              );
+            })}
+          </motion.div>
+
+          {/* Inner counter-rotating ring */}
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+          >
+            <svg viewBox="0 0 100 100" className="w-[70%] h-[70%]">
+              <circle
+                cx="50"
+                cy="50"
+                r="48"
+                fill="none"
+                stroke="#f59e0b"
+                strokeWidth="0.3"
+                opacity="0.5"
+                strokeDasharray="1 2"
+              />
+            </svg>
+          </motion.div>
+
+          {/* Center glowing sun/om */}
+          <motion.div
+            className="relative z-10"
+            animate={{ scale: [1, 1.06, 1] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div className="relative">
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 blur-2xl"
+                animate={{ opacity: [0.5, 0.9, 0.5] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              <div className="relative h-20 w-20 lg:h-24 lg:w-24 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 flex items-center justify-center shadow-2xl border-2 border-white/40">
+                <motion.span
+                  className="text-4xl lg:text-5xl"
+                  animate={{ scale: [1, 1.08, 1] }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  ☀️
+                </motion.span>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -378,25 +493,20 @@ function HowItWorksSection() {
           />
         </Reveal>
 
-        {/* Desktop Version - Horizontal Flow */}
         <div className="mt-16 hidden md:block">
           <div className="flex items-start justify-between gap-2">
             {steps.map((step, i) => (
               <Reveal key={step.title} delay={i * 0.1}>
                 <div className="flex items-start gap-0 flex-1">
-                  {/* Step Card */}
                   <div className="group relative w-full max-w-[200px] bg-ink-50 rounded-2xl p-5 border border-ink-100 hover:border-accent-200 hover:bg-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    {/* Step Number Badge */}
                     <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
                       {String(i + 1).padStart(2, "0")}
                     </div>
 
-                    {/* Icon */}
                     <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform">
                       <step.icon className="h-6 w-6 text-white" />
                     </div>
 
-                    {/* Content */}
                     <h3 className="text-sm font-bold text-ink-900 mb-2 leading-tight">
                       {step.title}
                     </h3>
@@ -405,7 +515,6 @@ function HowItWorksSection() {
                     </p>
                   </div>
 
-                  {/* Arrow between steps */}
                   {i < steps.length - 1 && (
                     <div className="flex items-center justify-center px-1 flex-shrink-0 self-center mt-[-20px]">
                       <div className="relative">
@@ -420,7 +529,6 @@ function HowItWorksSection() {
           </div>
         </div>
 
-        {/* Mobile Version - Grid Layout */}
         <div className="mt-8 grid sm:grid-cols-2 gap-4 md:hidden">
           {steps.map((step, i) => (
             <Reveal key={step.title} delay={i * 0.1}>

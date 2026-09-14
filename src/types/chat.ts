@@ -13,6 +13,7 @@ export interface ChatSessionSummary {
   createdAt: string;
   updatedAt: string;
   lastMessagePreview: string;
+  isPinned: boolean;
 }
 
 export interface ChatSessionDetail {

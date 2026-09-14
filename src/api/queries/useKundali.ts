@@ -59,3 +59,20 @@ export function useDashaPeriods() {
     staleTime: 5 * 60 * 1000,
   });
 }
+
+export async function downloadKundaliPdf(): Promise<void> {
+  const res = await apiClient.get("/user/kundali/pdf", {
+    responseType: "blob",
+  });
+
+  const url = window.URL.createObjectURL(
+    new Blob([res.data], { type: "application/pdf" }),
+  );
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", "kundali.pdf");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(url);
+}

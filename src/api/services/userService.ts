@@ -11,13 +11,11 @@ const BACKEND_ROOT = (
 ).replace(/\/api\/?$/, "");
 
 export const userService = {
-  // GET /api/users/me
   getMe: async (): Promise<UserProfile> => {
     const res = await apiClient.get<ApiResponse<UserProfile>>("/users/me");
     return res.data.data;
   },
 
-  // PUT /api/users/me
   updateMe: async (payload: UpdateProfileRequest): Promise<UserProfile> => {
     const res = await apiClient.put<ApiResponse<UserProfile>>(
       "/users/me",
@@ -26,7 +24,6 @@ export const userService = {
     return res.data.data;
   },
 
-  // POST /api/users/me/avatar (multipart)
   uploadAvatar: async (file: File): Promise<UserProfile> => {
     const formData = new FormData();
     formData.append("file", file);
@@ -39,7 +36,16 @@ export const userService = {
     return res.data.data;
   },
 
-  // GET /api/places/autocomplete?q=...&limit=...
+  changePassword: async (
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<void> => {
+    await apiClient.post("/users/me/password", {
+      currentPassword,
+      newPassword,
+    });
+  },
+
   searchPlaces: async (query: string): Promise<PlaceSuggestion[]> => {
     const res = await apiClient.get<ApiResponse<PlaceSuggestion[]>>(
       "/places/autocomplete",
@@ -48,7 +54,6 @@ export const userService = {
     return res.data.data;
   },
 
-  // Helper — full URL for an avatar path returned by backend
   absoluteAvatarUrl: (path: string | null | undefined): string | null => {
     if (!path) return null;
     if (path.startsWith("http")) return path;

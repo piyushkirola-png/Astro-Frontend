@@ -47,10 +47,25 @@ export const chatService = {
     await apiClient.patch(`/chat/sessions/${id}`, { title });
   },
 
-  heartbeat: async (seconds: number = 10): Promise<HeartbeatResponse> => {
+  togglePin: async (id: number): Promise<void> => {
+    await apiClient.patch(`/chat/sessions/${id}/pin`);
+  },
+
+  bulkDelete: async (ids: number[]): Promise<void> => {
+    await apiClient.post(`/chat/sessions/bulk-delete`, { ids });
+  },
+
+  bulkPin: async (ids: number[], pinned: boolean): Promise<void> => {
+    await apiClient.post(`/chat/sessions/bulk-pin`, { ids, pinned });
+  },
+
+  heartbeat: async (
+    seconds: number = 10,
+    sessionId?: number | null,
+  ): Promise<HeartbeatResponse> => {
     const res = await apiClient.post<ApiResponse<HeartbeatResponse>>(
       "/chat/heartbeat",
-      { seconds },
+      { seconds, sessionId: sessionId ?? null },
     );
     return res.data.data;
   },

@@ -9,12 +9,16 @@ import {
   Power,
   PowerOff,
   CheckCircle,
+  MoreVertical,
+  KeyRound,
+  X,
 } from "lucide-react";
 import { useAdminUsers } from "../../../api/queries/useAdmin";
 import {
   useToggleUserStatus,
   useDeleteUser,
 } from "../../../api/mutations/adminMutations";
+import adminService from "../../../api/services/adminService";
 import userService from "../../../api/services/userService";
 import type { UserProfile } from "../../../types/user";
 
@@ -28,12 +32,21 @@ export default function AdminUsers() {
     user: UserProfile;
   } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [menuOpenFor, setMenuOpenFor] = useState<number | null>(null);
+  const [resetPasswordUser, setResetPasswordUser] =
+    useState<UserProfile | null>(null);
 
   useEffect(() => {
     if (!toast) return;
     const t = setTimeout(() => setToast(null), 2000);
     return () => clearTimeout(t);
   }, [toast]);
+
+  useEffect(() => {
+    const closeMenu = () => setMenuOpenFor(null);
+    document.addEventListener("click", closeMenu);
+    return () => document.removeEventListener("click", closeMenu);
+  }, []);
 
   const fmtDate = (iso: string) => {
     const d = new Date(iso);
@@ -84,7 +97,6 @@ export default function AdminUsers() {
 
   return (
     <div className="space-y-5">
-      {/* Header */}
       <div>
         <h1 className="text-2xl lg:text-3xl font-bold text-ink-900">Users</h1>
         <p className="text-ink-500 mt-1 text-sm">
@@ -92,14 +104,12 @@ export default function AdminUsers() {
         </p>
       </div>
 
-      {/* Loading */}
       {isLoading && (
         <div className="bg-white rounded-2xl border border-ink-100 p-12 text-center">
           <Loader2 className="h-6 w-6 animate-spin text-primary-500 mx-auto" />
         </div>
       )}
 
-      {/* Error */}
       {isError && (
         <div className="bg-white rounded-2xl border border-ink-100 p-12 text-center">
           <AlertCircle className="h-7 w-7 text-danger-500 mx-auto mb-3" />
@@ -113,7 +123,6 @@ export default function AdminUsers() {
         </div>
       )}
 
-      {/* Empty */}
       {!isLoading && !isError && (!data || data.length === 0) && (
         <div className="bg-white rounded-2xl border border-ink-100 p-12 text-center">
           <div className="inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary-600 to-accent-500 mb-4">
@@ -126,9 +135,8 @@ export default function AdminUsers() {
         </div>
       )}
 
-      {/* Table */}
       {!isLoading && !isError && data && data.length > 0 && (
-        <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
+        <div className="bg-white rounded-2xl border border-ink-100 overflow-visible">
           <div className="hidden md:grid grid-cols-12 gap-3 px-5 py-3 border-b border-ink-100 bg-ink-50/50 text-[11px] uppercase tracking-wider text-ink-500 font-semibold">
             <div className="col-span-3">User</div>
             <div className="col-span-3">Email</div>
@@ -206,46 +214,82 @@ export default function AdminUsers() {
                   </span>
                 </div>
 
-                <div className="col-span-1 flex justify-start md:justify-end gap-1">
+                <div className="col-span-1 flex justify-start md:justify-end relative">
                   <button
-                    onClick={() =>
-                      setConfirmAction({ type: "toggle", user: u })
-                    }
-                    className={`p-2 rounded-lg transition ${
-                      u.isActive
-                        ? "text-ink-500 hover:text-warning-600 hover:bg-warning-50"
-                        : "text-ink-500 hover:text-success-600 hover:bg-success-50"
-                    }`}
-                    aria-label={u.isActive ? "Deactivate" : "Activate"}
-                    title={u.isActive ? "Deactivate" : "Activate"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setMenuOpenFor(menuOpenFor === u.id ? null : u.id);
+                    }}
+                    className="p-2 rounded-lg text-ink-500 hover:text-ink-900 hover:bg-ink-100 transition"
+                    aria-label="Actions"
                   >
-                    {u.isActive ? (
-                      <PowerOff className="h-4 w-4" />
-                    ) : (
-                      <Power className="h-4 w-4" />
-                    )}
+                    <MoreVertical className="h-4 w-4" />
                   </button>
 
-                  <button
-                    onClick={() =>
-                      u.isActive
-                        ? setConfirmAction({ type: "toggle", user: u })
-                        : setConfirmAction({ type: "delete", user: u })
-                    }
-                    className={`p-2 rounded-lg transition ${
-                      u.isActive
-                        ? "text-ink-400 hover:text-warning-600 hover:bg-warning-50"
-                        : "text-ink-500 hover:text-danger-600 hover:bg-danger-50"
-                    }`}
-                    aria-label="Delete"
-                    title={
-                      u.isActive
-                        ? "Active users must be deactivated before deletion"
-                        : "Delete user"
-                    }
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
+                  {menuOpenFor === u.id && (
+                    <div
+                      className="absolute right-0 top-10 z-50 w-48 bg-white rounded-xl border border-ink-100 shadow-2xl overflow-hidden text-left"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {u.isActive ? (
+                        <button
+                          onClick={() => {
+                            setMenuOpenFor(null);
+                            setConfirmAction({ type: "toggle", user: u });
+                          }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-semibold text-ink-700 hover:bg-ink-50 transition"
+                        >
+                          <PowerOff className="h-3.5 w-3.5" />
+                          Deactivate
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            setMenuOpenFor(null);
+                            setConfirmAction({ type: "toggle", user: u });
+                          }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-semibold text-ink-700 hover:bg-ink-50 transition"
+                        >
+                          <Power className="h-3.5 w-3.5" />
+                          Activate
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => {
+                          setMenuOpenFor(null);
+                          setResetPasswordUser(u);
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-semibold text-ink-700 hover:bg-ink-50 transition"
+                      >
+                        <KeyRound className="h-3.5 w-3.5" />
+                        Reset Password
+                      </button>
+
+                      <div className="h-px bg-ink-100" />
+
+                      <button
+                        onClick={() => {
+                          setMenuOpenFor(null);
+                          if (u.isActive) {
+                            setToast(
+                              "Active users must be deactivated before deletion",
+                            );
+                          } else {
+                            setConfirmAction({ type: "delete", user: u });
+                          }
+                        }}
+                        className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-semibold transition ${
+                          u.isActive
+                            ? "text-ink-400 cursor-not-allowed"
+                            : "text-danger-600 hover:bg-danger-50"
+                        }`}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             );
@@ -253,7 +297,6 @@ export default function AdminUsers() {
         </div>
       )}
 
-      {/* Confirm dialog — PORTAL */}
       {createPortal(
         <AnimatePresence>
           {confirmAction && (
@@ -343,7 +386,17 @@ export default function AdminUsers() {
         document.body,
       )}
 
-      {/* Toast — PORTAL */}
+      {resetPasswordUser && (
+        <ResetPasswordDialog
+          user={resetPasswordUser}
+          onClose={() => setResetPasswordUser(null)}
+          onSuccess={(name) => {
+            setToast(`Password reset for ${name}`);
+            setResetPasswordUser(null);
+          }}
+        />
+      )}
+
       {createPortal(
         <AnimatePresence>
           {toast && (
@@ -363,5 +416,172 @@ export default function AdminUsers() {
         document.body,
       )}
     </div>
+  );
+}
+
+function ResetPasswordDialog({
+  user,
+  onClose,
+  onSuccess,
+}: {
+  user: UserProfile;
+  onClose: () => void;
+  onSuccess: (name: string) => void;
+}) {
+  const [mode, setMode] = useState<"default" | "custom">("default");
+  const [customPassword, setCustomPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const DEFAULT_PASSWORD = "12345678";
+
+  const handleConfirm = async () => {
+    const password = mode === "default" ? DEFAULT_PASSWORD : customPassword;
+
+    if (mode === "custom" && password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    try {
+      await adminService.resetUserPassword(user.id, password);
+      onSuccess(user.name);
+    } catch (e: any) {
+      setError(e?.response?.data?.message || "Failed to reset password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={() => !loading && onClose()}
+    >
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-5 py-4 border-b border-ink-100">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white">
+              <KeyRound className="h-4 w-4" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-ink-900">Reset Password</h3>
+              <p className="text-[11px] text-ink-500">{user.name}</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            disabled={loading}
+            className="p-1.5 rounded-lg hover:bg-ink-100 text-ink-500 disabled:opacity-50"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="p-5 space-y-3">
+          <label
+            className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition ${
+              mode === "default"
+                ? "border-primary-500 bg-primary-50"
+                : "border-ink-200 hover:border-ink-300"
+            }`}
+          >
+            <input
+              type="radio"
+              name="pw-mode"
+              checked={mode === "default"}
+              onChange={() => setMode("default")}
+              className="mt-0.5 accent-primary-600"
+            />
+            <div className="flex-1">
+              <div className="text-sm font-bold text-ink-900">
+                Use default password
+              </div>
+              <div className="text-[11px] text-ink-500 mt-0.5">
+                Sets password to{" "}
+                <code className="font-mono bg-ink-100 px-1 rounded">
+                  12345678
+                </code>
+              </div>
+            </div>
+          </label>
+
+          <label
+            className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition ${
+              mode === "custom"
+                ? "border-primary-500 bg-primary-50"
+                : "border-ink-200 hover:border-ink-300"
+            }`}
+          >
+            <input
+              type="radio"
+              name="pw-mode"
+              checked={mode === "custom"}
+              onChange={() => setMode("custom")}
+              className="mt-0.5 accent-primary-600"
+            />
+            <div className="flex-1">
+              <div className="text-sm font-bold text-ink-900">
+                Choose custom password
+              </div>
+              <div className="text-[11px] text-ink-500 mt-0.5">
+                Minimum 8 characters
+              </div>
+            </div>
+          </label>
+
+          {mode === "custom" && (
+            <input
+              type="text"
+              value={customPassword}
+              onChange={(e) => setCustomPassword(e.target.value)}
+              placeholder="Enter new password"
+              autoFocus
+              disabled={loading}
+              className="w-full rounded-xl border border-ink-200 px-3 py-2.5 text-sm text-ink-900 focus:outline-none focus:border-primary-400"
+            />
+          )}
+
+          {error && (
+            <div className="bg-danger-50 border border-danger-200 rounded-lg p-2.5 text-xs text-danger-700">
+              {error}
+            </div>
+          )}
+
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-2.5 text-[11px] text-amber-800">
+            User will be able to log in with this new password immediately.
+          </div>
+        </div>
+
+        <div className="flex gap-2 px-5 pb-5">
+          <button
+            onClick={onClose}
+            disabled={loading}
+            className="flex-1 rounded-xl px-4 py-2.5 border border-ink-200 text-sm font-semibold text-ink-700 hover:bg-ink-50 disabled:opacity-50 transition"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleConfirm}
+            disabled={
+              loading || (mode === "custom" && customPassword.length < 8)
+            }
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-sm font-semibold hover:shadow-lg disabled:opacity-50 transition"
+          >
+            {loading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              "Reset Password"
+            )}
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
   );
 }

@@ -64,7 +64,9 @@ import UserProfile from "./pages/user/profile/profile";
 import UserKundali from "./pages/user/kundali/Kundali";
 import UserReport from "./pages/user/kundali/Report";
 import UserWallet from "./pages/user/wallet/Wallet";
+import UserAiUsage from "./pages/user/ai-usage/AiUsage";
 import UserHoroscope from "./pages/user/horoscope/Horoscope";
+import UserUpdatePassword from './pages/user/profile/UpdatePassword';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -197,7 +199,9 @@ function App() {
               <Route path="profile" element={<UserProfile />} />
               <Route path="kundali" element={<UserKundali />} />
               <Route path="report" element={<UserReport />} />
+              <Route path="ai-usage" element={<UserAiUsage />} />
               <Route path="horoscope" element={<UserHoroscope />} />
+              <Route path="update-password" element={<UserUpdatePassword />} />
             </Route>
 
             <Route path="*" element={<Home />} />

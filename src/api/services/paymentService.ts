@@ -77,6 +77,23 @@ export const paymentService = {
     window.URL.revokeObjectURL(url);
   },
 
+  exportCsv: async (): Promise<void> => {
+    const res = await apiClient.get("/payments/export", {
+      responseType: "blob",
+    });
+
+    const url = window.URL.createObjectURL(
+      new Blob([res.data], { type: "text/csv" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "my_payments.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  },
+
   getHistory: async (): Promise<PaymentRecord[]> => {
     const res =
       await apiClient.get<ApiResponse<PaymentRecord[]>>("/payments/history");

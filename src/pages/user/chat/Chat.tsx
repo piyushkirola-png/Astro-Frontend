@@ -97,7 +97,7 @@ export default function Chat() {
 
     const tick = () => {
       chatService
-        .heartbeat(10)
+        .heartbeat(10, activeId)
         .then((res) => {
           setSecondsBalance(res.chatSecondsBalance);
           setDisplaySeconds(res.chatSecondsBalance);

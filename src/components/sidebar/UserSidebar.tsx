@@ -13,6 +13,8 @@ import {
   X,
   FileText,
   Wallet,
+  ShieldCheck,
+  Activity,
 } from "lucide-react";
 import { useAuth } from "../../lib/AuthContext";
 import { useLogout } from "../../api/mutations/authMutations";
@@ -25,8 +27,14 @@ const navItems = [
   { label: "Chat", href: "/user/chat", icon: MessageSquare },
   { label: "Wallet", href: "/user/wallet", icon: Wallet },
   { label: "Report", href: "/user/report", icon: FileText },
+  { label: "AI Usage", href: "/user/ai-usage", icon: Activity },
   { label: "Payments", href: "/user/payments", icon: CreditCard },
   { label: "Profile", href: "/user/profile", icon: User },
+  {
+    label: "Update Password",
+    href: "/user/update-password",
+    icon: ShieldCheck,
+  },
 ];
 
 export default function UserSidebar() {
