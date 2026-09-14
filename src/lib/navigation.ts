@@ -32,12 +32,12 @@ export const navLinks: NavItem[] = [
     label: "Horoscope",
     href: "/horoscope",
     children: [
-      { label: "Daily Horoscope", href: "/daily-horoscope" },
-      { label: "Tomorrow Horoscope", href: "/tomorrow-horoscope" },
-      { label: "Yesterday Horoscope", href: "/yesterday-horoscope" },
-      { label: "Weekly Horoscope", href: "/weekly-horoscope" },
-      { label: "Monthly Horoscope", href: "/monthly-horoscope" },
-      { label: "Yearly Horoscope", href: "/yearly-horoscope" },
+      { label: "Daily Horoscope", href: "/horoscope/daily-horoscope" },
+      { label: "Tomorrow Horoscope", href: "/horoscope/tomorrow-horoscope" },
+      { label: "Yesterday Horoscope", href: "/horoscope/yesterday-horoscope" },
+      { label: "Weekly Horoscope", href: "/horoscope/weekly-horoscope" },
+      { label: "Monthly Horoscope", href: "/horoscope/monthly-horoscope" },
+      { label: "Yearly Horoscope", href: "/horoscope/yearly-horoscope" },
     ],
   },
   {

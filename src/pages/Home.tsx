@@ -168,9 +168,6 @@ function HeroVisual() {
             <div className="h-3 w-3 rounded-full bg-warning-500" />
             <div className="h-3 w-3 rounded-full bg-success-500" />
           </div>
-          <span className="text-xs font-mono text-ink-400">
-            zodiac_wheel.svg
-          </span>
         </div>
 
         <div className="relative aspect-square max-w-[440px] mx-auto flex items-center justify-center">
@@ -325,8 +322,8 @@ function HeroVisual() {
             <Star className="h-5 w-5 text-success-600" />
           </div>
           <div>
-            <div className="text-xs text-ink-500">Accuracy Rate</div>
-            <div className="text-lg font-bold text-ink-900">99.5%</div>
+            <div className="text-xs text-ink-500">Daily Users</div>
+            <div className="text-lg font-bold text-ink-900">Rated 4.9/5</div>
           </div>
         </div>
       </motion.div>

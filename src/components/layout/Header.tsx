@@ -22,7 +22,7 @@ export default function Navbar() {
   const { user, clearUser } = useAuth();
   const logoutMutation = useLogout();
 
-  // Fetch full profile (cached by React Query — no extra network if already loaded)
+  // Fetch full profile
   const { data: me } = useGetMe({ enabled: !!user });
 
   const avatarSrc =

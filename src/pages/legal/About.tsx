@@ -64,7 +64,7 @@ const team = [
     bio: "20+ years of practice in marriage compatibility, kundli matching, and relationship astrology.",
   },
   {
-    name: "Maa Shanti Devi",
+    name: "Maa Sonu Devi",
     role: "Spiritual Guide",
     bio: "30+ years of experience in Vedic rituals, poojas, remedies, and spiritual healing practices.",
   },

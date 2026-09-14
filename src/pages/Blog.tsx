@@ -56,7 +56,7 @@ const blogPosts = [
     title: "Surviving Sade Sati: 7 Practical Tips for Saturn's Transit",
     excerpt:
       "Sade Sati is a 7.5-year period of Saturn's transit. Learn practical tips and remedies to navigate this challenging yet transformative phase.",
-    author: "Maa Shanti Devi",
+    author: "Maa Sonu Devi",
     date: "5 Dec 2025",
     readTime: "10 min read",
     image: "ðŸª",
@@ -116,7 +116,7 @@ const blogPosts = [
     title: "Top 5 Gemstones for Astrological Remedies and Their Benefits",
     excerpt:
       "Discover the most powerful gemstones used in Vedic astrology for planetary remedies and their healing properties.",
-    author: "Maa Shanti Devi",
+    author: "Maa Sonu Devi",
     date: "5 Nov 2025",
     readTime: "6 min read",
     image: "ðŸ’Ž",

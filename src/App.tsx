@@ -30,6 +30,20 @@ import SignUp from "./pages/auth/SignUp";
 import Consultations from "./pages/consultations/Consultations";
 import ChatWithAstrologer from "./pages/consultations/ChatWithAstrologer";
 import Horoscope from "./pages/horoscope/Horoscope";
+
+import DailyHoroscope from "./pages/horoscope/period/DailyHoroscope";
+import DailyHoroscopeDetail from "./pages/horoscope/detail/DailyHoroscopeDetail";
+import TomorrowHoroscope from "./pages/horoscope/period/TomorrowHoroscope";
+import TomorrowHoroscopeDetail from "./pages/horoscope/detail/TomorrowHoroscopeDetail";
+import YesterdayHoroscope from "./pages/horoscope/period/YesterdayHoroscope";
+import YesterdayHoroscopeDetail from "./pages/horoscope/detail/YesterdayHoroscopeDetail";
+import WeeklyHoroscope from "./pages/horoscope/period/WeeklyHoroscope";
+import WeeklyHoroscopeDetail from "./pages/horoscope/detail/WeeklyHoroscopeDetail";
+import MonthlyHoroscope from "./pages/horoscope/period/MonthlyHoroscope";
+import MonthlyHoroscopeDetail from "./pages/horoscope/detail/MonthlyHoroscopeDetail";
+import YearlyHoroscope from "./pages/horoscope/period/YearlyHoroscope";
+import YearlyHoroscopeDetail from "./pages/horoscope/detail/YearlyHoroscopeDetail";
+
 import FreeServices from "./pages/free-services/FreeServices";
 import FreeKundali from "./pages/free-services/FreeKundali";
 import KundaliMatching from "./pages/free-services/KundaliMatching";
@@ -141,6 +155,54 @@ function App() {
                 element={<ChatWithAstrologer />}
               />
               <Route path="/horoscope" element={<Horoscope />} />
+              <Route
+                path="/horoscope/daily-horoscope"
+                element={<DailyHoroscope />}
+              />
+              <Route
+                path="/horoscope/daily-horoscope/:zodiac"
+                element={<DailyHoroscopeDetail />}
+              />
+              <Route
+                path="/horoscope/tomorrow-horoscope"
+                element={<TomorrowHoroscope />}
+              />
+              <Route
+                path="/horoscope/tomorrow-horoscope/:zodiac"
+                element={<TomorrowHoroscopeDetail />}
+              />
+              <Route
+                path="/horoscope/yesterday-horoscope"
+                element={<YesterdayHoroscope />}
+              />
+              <Route
+                path="/horoscope/yesterday-horoscope/:zodiac"
+                element={<YesterdayHoroscopeDetail />}
+              />
+              <Route
+                path="/horoscope/weekly-horoscope"
+                element={<WeeklyHoroscope />}
+              />
+              <Route
+                path="/horoscope/weekly-horoscope/:zodiac"
+                element={<WeeklyHoroscopeDetail />}
+              />
+              <Route
+                path="/horoscope/monthly-horoscope"
+                element={<MonthlyHoroscope />}
+              />
+              <Route
+                path="/horoscope/monthly-horoscope/:zodiac"
+                element={<MonthlyHoroscopeDetail />}
+              />
+              <Route
+                path="/horoscope/yearly-horoscope"
+                element={<YearlyHoroscope />}
+              />
+              <Route
+                path="/horoscope/yearly-horoscope/:zodiac"
+                element={<YearlyHoroscopeDetail />}
+              />
               <Route path="/free-services" element={<FreeServices />} />
               <Route path="/free-kundali" element={<FreeKundali />} />
               <Route path="/kundali-matching" element={<KundaliMatching />} />

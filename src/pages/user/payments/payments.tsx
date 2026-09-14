@@ -46,17 +46,21 @@ export default function UserPayments() {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryClient = useQueryClient();
 
+  const highlightedOrder = searchParams.get("order");
+
   const initialTab =
     (searchParams.get("tab") as "recharge" | "report" | "history" | null) ??
     "recharge";
   const initialFilter = searchParams.get("filter");
 
   const [tab, setTab] = useState<"recharge" | "report" | "history">(
-    initialTab === "history" ||
-      initialTab === "report" ||
-      initialTab === "recharge"
-      ? initialTab
-      : "recharge",
+    searchParams.get("order")
+      ? "history"
+      : initialTab === "history" ||
+          initialTab === "report" ||
+          initialTab === "recharge"
+        ? initialTab
+        : "recharge",
   );
   const [walletFilter, setWalletFilter] = useState<boolean>(
     initialFilter === "wallet",
@@ -227,6 +231,7 @@ export default function UserPayments() {
       {tab === "report" && <ReportTab onBuy={setIntent} />}
       {tab === "history" && (
         <HistoryTab
+          highlightedOrder={highlightedOrder}
           walletOnly={walletFilter}
           onClearFilter={() => {
             setWalletFilter(false);
@@ -481,9 +486,11 @@ function ReportTab({ onBuy }: { onBuy: (intent: PendingIntent) => void }) {
 function HistoryTab({
   walletOnly,
   onClearFilter,
+  highlightedOrder,
 }: {
   walletOnly?: boolean;
   onClearFilter?: () => void;
+  highlightedOrder?: string | null;
 }) {
   const { data: history, isLoading, isError, refetch } = usePaymentHistory();
   const [downloading, setDownloading] = useState<string | null>(null);
@@ -582,6 +589,12 @@ function HistoryTab({
         </div>
       )}
 
+      {highlightedOrder && (
+        <div className="bg-amber-50 border border-amber-300 rounded-xl px-4 py-2.5 text-xs font-semibold text-amber-800">
+          Scanned payment highlighted below
+        </div>
+      )}
+
       <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-sm">
@@ -596,42 +609,56 @@ function HistoryTab({
               </tr>
             </thead>
             <tbody>
-              {filtered.map((row) => (
-                <tr
-                  key={row.id}
-                  className="border-t border-ink-100 hover:bg-ink-50/40 transition"
-                >
-                  <td className="px-4 py-3 font-mono text-xs text-ink-700 whitespace-nowrap">
-                    {row.gatewayOrderId}
-                  </td>
-                  <td className="px-4 py-3 text-ink-900 whitespace-nowrap">
-                    {productLabel(row)}
-                  </td>
-                  <td className="px-4 py-3 font-semibold text-ink-900 whitespace-nowrap">
-                    ₹{row.amount}
-                  </td>
-                  <td className="px-4 py-3 whitespace-nowrap">
-                    <StatusBadge status={row.status} />
-                  </td>
-                  <td className="px-4 py-3 text-ink-600 whitespace-nowrap text-xs">
-                    {formatDate(row.createdAt)}
-                  </td>
-                  <td className="px-4 py-3 text-right whitespace-nowrap">
-                    <button
-                      onClick={() => handleDownload(row.gatewayOrderId)}
-                      disabled={downloading === row.gatewayOrderId}
-                      title="Download Invoice"
-                      className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-ink-200 text-ink-600 hover:bg-ink-50 hover:border-primary-300 hover:text-primary-600 disabled:opacity-50 transition"
-                    >
-                      {downloading === row.gatewayOrderId ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <Download className="h-4 w-4" />
+              {filtered.map((row) => {
+                const isHighlighted =
+                  highlightedOrder === row.gatewayOrderId;
+
+                return (
+                  <tr
+                    key={row.id}
+                    className={`border-t transition ${
+                      isHighlighted
+                        ? "bg-amber-50 border-amber-300"
+                        : "border-ink-100 hover:bg-ink-50/40"
+                    }`}
+                  >
+                    <td className="px-4 py-3 font-mono text-xs text-ink-700 whitespace-nowrap">
+                      {row.gatewayOrderId}
+                      {isHighlighted && (
+                        <span className="ml-2 inline-flex rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500 text-white">
+                          Scanned
+                        </span>
                       )}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="px-4 py-3 text-ink-900 whitespace-nowrap">
+                      {productLabel(row)}
+                    </td>
+                    <td className="px-4 py-3 font-semibold text-ink-900 whitespace-nowrap">
+                      ₹{row.amount}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <StatusBadge status={row.status} />
+                    </td>
+                    <td className="px-4 py-3 text-ink-600 whitespace-nowrap text-xs">
+                      {formatDate(row.createdAt)}
+                    </td>
+                    <td className="px-4 py-3 text-right whitespace-nowrap">
+                      <button
+                        onClick={() => handleDownload(row.gatewayOrderId)}
+                        disabled={downloading === row.gatewayOrderId}
+                        title="Download Invoice"
+                        className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-ink-200 text-ink-600 hover:bg-ink-50 hover:border-primary-300 hover:text-primary-600 disabled:opacity-50 transition"
+                      >
+                        {downloading === row.gatewayOrderId ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Download className="h-4 w-4" />
+                        )}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

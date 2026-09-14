@@ -74,7 +74,7 @@ const astrologers = [
     image: "A",
   },
   {
-    name: "Maa Shanti Devi",
+    name: "Maa Sonu Devi",
     expertise: "Remedies & Pooja",
     experience: "30+ years",
     rating: 4.9,
@@ -297,7 +297,7 @@ export default function Consultations() {
               forward.
             </p>
             <div className="mt-8 flex justify-center gap-4 flex-wrap">
-              <Button to="/consultations/chat" variant="primary" size="lg">
+              <Button to="/consultations" variant="primary" size="lg">
                 <MessageCircle className="h-4 w-4" />
                 Start Chat
               </Button>
