@@ -36,7 +36,6 @@ const footerLinks = {
     { label: "About Us", href: "/about" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
-    { label: "Careers", href: "/careers" },
     { label: "FAQ", href: "/faq" },
     { label: "Why Astrotalk", href: "/why-astrotalk" },
   ],

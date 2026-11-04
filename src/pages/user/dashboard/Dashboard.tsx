@@ -97,6 +97,9 @@ export default function UserDashboard() {
   const swatch = COLOR_SWATCH[data.luckyColor] || "#e5e7eb";
   const avatarSrc = userService.absoluteAvatarUrl(me?.avatarUrl);
   const travelTip = getTravelTip(data.readingDate);
+  
+  // Get the zodiac image path, fallback to lowercase
+  const zodiacImg = `/zodiac/${data.zodiacSign?.toLowerCase()}.png`;
 
   return (
     <div className="space-y-5">
@@ -146,13 +149,27 @@ export default function UserDashboard() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Your Sign */}
-          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl p-4 text-white shadow-md">
+          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl p-4 text-white shadow-md relative overflow-hidden">
             <div className="text-[10px] uppercase tracking-wider opacity-90 font-semibold mb-2">
               Your Sign
             </div>
             <div className="flex items-center justify-between">
               <span className="text-2xl font-bold">{data.zodiacSign}</span>
-              <span className="text-4xl opacity-95">{data.zodiacSymbol}</span>
+              
+              {/* Zodiac Image replacing the text symbol */}
+              <div className="h-10 w-10 shrink-0">
+                <img 
+                  src={zodiacImg} 
+                  alt={data.zodiacSign}
+                  className="h-full w-full object-contain drop-shadow-md"
+                  onError={(e) => {
+                    // Fallback to symbol if image doesn't load
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = 
+                      `<span class="text-4xl opacity-95">${data.zodiacSymbol}</span>`;
+                  }}
+                />
+              </div>
             </div>
           </div>
 
