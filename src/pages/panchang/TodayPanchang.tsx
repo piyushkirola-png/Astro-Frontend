@@ -1,43 +1,24 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
   MapPin,
-  Sun,
   Moon,
-  Star,
-  Sparkles,
-  Heart,
-  ChevronRight,
-  Shield,
-  CheckCircle,
-  ArrowRight,
-  Globe,
-  TrendingUp,
-  Activity,
-  Home,
-  Briefcase,
-  Baby,
   AlertCircle,
   Info,
-  Award,
-  Zap,
-  Calculator,
   Compass,
-  Target,
   Sunrise,
   Sunset,
-  Cloud,
   Users,
-  BookOpen,
+  Heart,
+  Briefcase,
+  Baby,
+  ArrowRight,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// City data
 const cities = [
   { value: "new-delhi", label: "New Delhi, Delhi, India" },
   { value: "mumbai", label: "Mumbai, Maharashtra, India" },
@@ -51,7 +32,6 @@ const cities = [
   { value: "lucknow", label: "Lucknow, Uttar Pradesh, India" },
 ];
 
-// Sample panchang data for today
 const getTodayPanchang = (city: string) => {
   const today = new Date();
   const date = today.toLocaleDateString("en-IN", {
@@ -74,8 +54,8 @@ const getTodayPanchang = (city: string) => {
     karana: "Gar",
     paksha: "Krishna",
     weekday: "Wednesday",
-    shakaSamvat: "1948 ViÅ›vÄvasu",
-    vikramSamvat: "1948 ViÅ›vÄvasu",
+    shakaSamvat: "1948 Viśvāvasu",
+    vikramSamvat: "1948 Viśvāvasu",
     inauspiciousTimings: [
       { name: "Kantaka / Mrityu", from: "03:25:55 PM", to: "04:59:45 PM" },
       { name: "Rahu Kaal", from: "12:18:17 PM", to: "01:52:06 PM" },
@@ -86,102 +66,26 @@ const getTodayPanchang = (city: string) => {
       { name: "Gulika Kaal", from: "10:44:27 AM", to: "12:18:17 PM" },
     ],
     tarabalam: [
-      "Krittika",
-      "Mrigashirsha",
-      "Punarvasu",
-      "Ashlesha",
-      "Uttara Phalguni",
-      "Chitra",
-      "Vishakha",
-      "Jyeshtha",
-      "Uttara Ashadha",
-      "Dhanishta",
-      "Purva Bhadrapada",
+      "Krittika", "Mrigashirsha", "Punarvasu", "Ashlesha",
+      "Uttara Phalguni", "Chitra", "Vishakha", "Jyeshtha",
+      "Uttara Ashadha", "Dhanishta", "Purva Bhadrapada",
     ],
     chandrabalam: [
-      "Krittika",
-      "Mrigashirsha",
-      "Punarvasu",
-      "Ashlesha",
-      "Uttara Phalguni",
-      "Chitra",
-      "Vishakha",
-      "Jyeshtha",
-      "Uttara Ashadha",
-      "Dhanishta",
-      "Purva Bhadrapada",
+      "Krittika", "Mrigashirsha", "Punarvasu", "Ashlesha",
+      "Uttara Phalguni", "Chitra", "Vishakha", "Jyeshtha",
+      "Uttara Ashadha", "Dhanishta", "Purva Bhadrapada",
     ],
     planets: [
-      {
-        name: "Ascendant",
-        rashi: "Leo",
-        longitude: "21Â°4â€²55â€³",
-        nakshatra: "Purva Phalguni",
-        pada: "3",
-      },
-      {
-        name: "SUN",
-        rashi: "Leo",
-        longitude: "22Â°8â€²13â€³",
-        nakshatra: "Purva Phalguni",
-        pada: "3",
-      },
-      {
-        name: "MOON",
-        rashi: "Cancer",
-        longitude: "24Â°34â€²35â€³",
-        nakshatra: "Ashlesha",
-        pada: "3",
-      },
-      {
-        name: "MERCURY",
-        rashi: "Virgo",
-        longitude: "2Â°56â€²6â€³",
-        nakshatra: "Uttara Phalguni",
-        pada: "2",
-      },
-      {
-        name: "VENUS",
-        rashi: "Libra",
-        longitude: "4Â°53â€²19â€³",
-        nakshatra: "Chitra",
-        pada: "4",
-      },
-      {
-        name: "MARS",
-        rashi: "Gemini",
-        longitude: "24Â°12â€²7â€³",
-        nakshatra: "Punarvasu",
-        pada: "2",
-      },
-      {
-        name: "JUPITER",
-        rashi: "Cancer",
-        longitude: "21Â°7â€²44â€³",
-        nakshatra: "Ashlesha",
-        pada: "2",
-      },
-      {
-        name: "SATURN",
-        rashi: "Pisces",
-        longitude: "18Â°57â€²33â€³",
-        nakshatra: "Revati",
-        pada: "1",
-      },
-      {
-        name: "RAHU",
-        rashi: "Aquarius",
-        longitude: "4Â°38â€²48â€³",
-        nakshatra: "Dhanishta",
-        pada: "4",
-      },
-      {
-        name: "KETU",
-        rashi: "Leo",
-        longitude: "4Â°38â€²48â€³",
-        nakshatra: "Magha",
-        pada: "2",
-      },
+      { name: "Ascendant", rashi: "Leo", longitude: "21°4′55″", nakshatra: "Purva Phalguni", pada: "3" },
+      { name: "SUN", rashi: "Leo", longitude: "22°8′13″", nakshatra: "Purva Phalguni", pada: "3" },
+      { name: "MOON", rashi: "Cancer", longitude: "24°34′35″", nakshatra: "Ashlesha", pada: "3" },
+      { name: "MERCURY", rashi: "Virgo", longitude: "2°56′6″", nakshatra: "Uttara Phalguni", pada: "2" },
+      { name: "VENUS", rashi: "Libra", longitude: "4°53′19″", nakshatra: "Chitra", pada: "4" },
+      { name: "MARS", rashi: "Gemini", longitude: "24°12′7″", nakshatra: "Punarvasu", pada: "2" },
+      { name: "JUPITER", rashi: "Cancer", longitude: "21°7′44″", nakshatra: "Ashlesha", pada: "2" },
+      { name: "SATURN", rashi: "Pisces", longitude: "18°57′33″", nakshatra: "Revati", pada: "1" },
+      { name: "RAHU", rashi: "Aquarius", longitude: "4°38′48″", nakshatra: "Dhanishta", pada: "4" },
+      { name: "KETU", rashi: "Leo", longitude: "4°38′48″", nakshatra: "Magha", pada: "2" },
     ],
   };
 };
@@ -203,10 +107,7 @@ export default function TodayPanchang() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Panchang Display */}
       <PanchangDisplay
         panchangData={panchangData}
         selectedCity={selectedCity}
@@ -214,23 +115,14 @@ export default function TodayPanchang() {
         cities={cities}
         setShowImportance={setShowImportance}
       />
-
-      {/* Importance Section */}
       {showImportance && <ImportanceSection />}
-
-      {/* Related Pages */}
-      <RelatedPages />
-
-      {/* What is Panchang */}
       <WhatIsPanchang />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── HERO SECTION ─────────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -264,10 +156,7 @@ function HeroSection() {
               Panchang daily tracks the cosmic energy of each day to determine
               key events such as marriage, new business venture, naming
               ceremony, travel, and fasting.
-              <span className="font-semibold text-primary-600">
-                {" "}
-                Panchang
-              </span>{" "}
+              <span className="font-semibold text-primary-600"> Panchang</span>{" "}
               is derived from the Sanskrit words panch, meaning five, and ang,
               meaning limbs.
             </p>
@@ -278,7 +167,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ PANCHANG DISPLAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────────── PANCHANG DISPLAY ────────────────────────── */
 interface PanchangDisplayProps {
   panchangData: any;
   selectedCity: string;
@@ -299,7 +188,6 @@ function PanchangDisplay({
       <div className="container-8xl">
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            {/* City Selector */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-ink-700 mb-2">
                 Select Location
@@ -321,7 +209,6 @@ function PanchangDisplay({
             </div>
 
             <div className="bg-gradient-to-br from-ink-50 to-primary-50 rounded-2xl p-6 md:p-8 border border-ink-100">
-              {/* Date & Location */}
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-ink-900">
                   {panchangData.city}
@@ -329,7 +216,6 @@ function PanchangDisplay({
                 <p className="text-sm text-ink-500">{panchangData.date}</p>
               </div>
 
-              {/* Sunrise/Sunset/Moonrise/Moonset */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="bg-white rounded-xl p-4 text-center border border-ink-100">
                   <Sunrise className="h-6 w-6 text-orange-500 mx-auto mb-1" />
@@ -361,7 +247,6 @@ function PanchangDisplay({
                 </div>
               </div>
 
-              {/* Panchang Details */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 <div className="bg-white rounded-xl p-3 text-center border border-ink-100">
                   <div className="text-xs text-ink-500">Tithi</div>
@@ -413,7 +298,6 @@ function PanchangDisplay({
                 </div>
               </div>
 
-              {/* Inauspicious Timings */}
               <div className="mb-6">
                 <h3 className="text-lg font-bold text-ink-900 mb-3 flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-red-500" />
@@ -438,7 +322,6 @@ function PanchangDisplay({
                 </div>
               </div>
 
-              {/* Tarabalam & Chandrabalam */}
               <div className="grid md:grid-cols-2 gap-4 mb-6">
                 <div className="bg-green-50 rounded-xl p-4 border border-green-200">
                   <h4 className="text-sm font-bold text-green-700 mb-2">
@@ -476,7 +359,6 @@ function PanchangDisplay({
                 </div>
               </div>
 
-              {/* Planetary Positions */}
               <div>
                 <h3 className="text-lg font-bold text-ink-900 mb-3">
                   Planetary Positions
@@ -485,21 +367,11 @@ function PanchangDisplay({
                   <table className="w-full bg-white rounded-xl border border-ink-100">
                     <thead>
                       <tr className="bg-gradient-to-r from-primary-600 to-accent-500">
-                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">
-                          Planets
-                        </th>
-                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">
-                          Rashi
-                        </th>
-                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">
-                          Longitude
-                        </th>
-                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">
-                          Nakshatra
-                        </th>
-                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">
-                          Pada
-                        </th>
+                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">Planets</th>
+                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">Rashi</th>
+                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">Longitude</th>
+                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">Nakshatra</th>
+                        <th className="text-left py-2 px-3 text-white font-semibold text-xs">Pada</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -508,21 +380,11 @@ function PanchangDisplay({
                           key={planet.name}
                           className={i % 2 === 0 ? "bg-ink-50" : "bg-white"}
                         >
-                          <td className="py-2 px-3 text-xs font-semibold text-ink-900">
-                            {planet.name}
-                          </td>
-                          <td className="py-2 px-3 text-xs text-ink-600">
-                            {planet.rashi}
-                          </td>
-                          <td className="py-2 px-3 text-xs text-ink-600">
-                            {planet.longitude}
-                          </td>
-                          <td className="py-2 px-3 text-xs text-ink-600">
-                            {planet.nakshatra}
-                          </td>
-                          <td className="py-2 px-3 text-xs text-ink-600">
-                            {planet.pada}
-                          </td>
+                          <td className="py-2 px-3 text-xs font-semibold text-ink-900">{planet.name}</td>
+                          <td className="py-2 px-3 text-xs text-ink-600">{planet.rashi}</td>
+                          <td className="py-2 px-3 text-xs text-ink-600">{planet.longitude}</td>
+                          <td className="py-2 px-3 text-xs text-ink-600">{planet.nakshatra}</td>
+                          <td className="py-2 px-3 text-xs text-ink-600">{planet.pada}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -530,9 +392,7 @@ function PanchangDisplay({
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="mt-4 text-center">
-                <p className="text-xs text-ink-400">Â© Astrotalk.com</p>
                 <Button
                   variant="outline"
                   size="sm"
@@ -551,44 +411,14 @@ function PanchangDisplay({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ IMPORTANCE SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── IMPORTANCE SECTION ───────────────────────── */
 function ImportanceSection() {
   const importanceItems = [
-    {
-      icon: Heart,
-      title: "Marriage",
-      description:
-        "An auspicious day is always selected according to Vedic astrology. It considers Tithi, Yoga, Vaar, and Nakshatra to determine the best day and time for marriage.",
-      color: "from-pink-500 to-rose-500",
-    },
-    {
-      icon: Briefcase,
-      title: "Business",
-      description:
-        "Inaugurating an office, starting a new venture, or signing off on important papers at the right muharat brings success and cuts off obstacles.",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: Baby,
-      title: "Naming Ceremony",
-      description:
-        "Determines a child's Nakshatra and zodiac, which describes a child's personality, strengths, and the life path they will follow.",
-      color: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: Compass,
-      title: "Travel",
-      description:
-        "Lets you know the right time to leave home for utmost safety and security. Determines the Nakshatra and the best days for a hassle-free journey.",
-      color: "from-purple-500 to-indigo-500",
-    },
-    {
-      icon: Moon,
-      title: "Fasting",
-      description:
-        "Observing fast in Indian culture also depends upon the Panchang. It determines the correct Tithi that enables a native to derive the full benefits of fasting.",
-      color: "from-orange-500 to-amber-500",
-    },
+    { icon: Heart, title: "Marriage", description: "An auspicious day is always selected according to Vedic astrology. It considers Tithi, Yoga, Vaar, and Nakshatra to determine the best day and time for marriage.", color: "from-pink-500 to-rose-500" },
+    { icon: Briefcase, title: "Business", description: "Inaugurating an office, starting a new venture, or signing off on important papers at the right muharat brings success and cuts off obstacles.", color: "from-blue-500 to-cyan-500" },
+    { icon: Baby, title: "Naming Ceremony", description: "Determines a child's Nakshatra and zodiac, which describes a child's personality, strengths, and the life path they will follow.", color: "from-green-500 to-emerald-500" },
+    { icon: Compass, title: "Travel", description: "Lets you know the right time to leave home for utmost safety and security. Determines the Nakshatra and the best days for a hassle-free journey.", color: "from-purple-500 to-indigo-500" },
+    { icon: Moon, title: "Fasting", description: "Observing fast in Indian culture also depends upon the Panchang. It determines the correct Tithi that enables a native to derive the full benefits of fasting.", color: "from-orange-500 to-amber-500" },
   ];
 
   return (
@@ -606,9 +436,7 @@ function ImportanceSection() {
           {importanceItems.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.1}>
               <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all">
-                <div
-                  className={`p-3 rounded-xl bg-gradient-to-br ${item.color} w-fit mb-4`}
-                >
+                <div className={`p-3 rounded-xl bg-gradient-to-br ${item.color} w-fit mb-4`}>
                   <item.icon className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
@@ -626,7 +454,7 @@ function ImportanceSection() {
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 border border-accent-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸ’¡ Panchang</span> is derived
+                <span className="font-semibold">💡 Panchang</span> is derived
                 from the Sanskrit words
                 <span className="font-semibold"> panch</span> (five) and
                 <span className="font-semibold"> ang</span> (limbs). The
@@ -642,52 +470,7 @@ function ImportanceSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ RELATED PAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-function RelatedPages() {
-  const relatedPages = [
-    { name: "Tomorrow Panchang", icon: Calendar, link: "/tomorrow-panchang" },
-    { name: "Daily Horoscope", icon: Star, link: "/horoscope" },
-    { name: "Rahu Kaal", icon: AlertCircle, link: "/rahu-kaal" },
-    { name: "Tithi", icon: Moon, link: "/tithi" },
-    { name: "Vaar", icon: Calendar, link: "/vaar" },
-    { name: "Yoga", icon: Activity, link: "/yoga" },
-    { name: "Karana", icon: Clock, link: "/karana" },
-    { name: "Hora", icon: Sun, link: "/hora" },
-    { name: "Choghadiya", icon: Compass, link: "/choghadiya" },
-  ];
-
-  return (
-    <section className="py-16 bg-white">
-      <div className="container-8xl">
-        <Reveal>
-          <SectionHeading
-            badge="Related Pages"
-            title="Explore More Panchang Tools"
-            subtitle="Discover other aspects of the daily Vedic calendar"
-          />
-        </Reveal>
-
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-3 max-w-6xl mx-auto">
-          {relatedPages.map((page, i) => (
-            <Reveal key={page.name} delay={i * 0.05}>
-              <Button
-                to={page.link}
-                variant="outline"
-                size="sm"
-                className="w-full text-center"
-              >
-                <page.icon className="h-3 w-3 mx-auto mb-1" />
-                <span className="text-[10px]">{page.name}</span>
-              </Button>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS PANCHANG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── WHAT IS PANCHANG ───────────────────────── */
 function WhatIsPanchang() {
   const elements = [
     { name: "Tithi", description: "Lunar day based on the phase of the Moon" },
@@ -728,7 +511,7 @@ function WhatIsPanchang() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────────── CTA SECTION ──────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

@@ -5,34 +5,22 @@ import {
   Users,
   Sparkles,
   ArrowRight,
-  CheckCircle,
   Zap,
   Shield,
-  Award,
-  TrendingUp,
-  Activity,
-  Moon,
-  Sun,
-  Star,
   Calendar,
   Clock,
-  MapPin,
   User,
-  Info,
   Gift,
   Smile,
   Flame,
   Crown,
-  Music,
-  Coffee,
-  Diamond,
+  Star,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// Love quotes
 const loveQuotes = [
   "Together, you will create a symphony of love, harmonizing perfectly in each other's arms.",
   "Love is not about how many days, months, or years you've been together. Love is about how much you love each other every single day.",
@@ -66,7 +54,6 @@ export default function LoveCalculator() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.yourName && formData.partnerName) {
-      // Calculate love percentage based on names
       const combined = (formData.yourName + formData.partnerName)
         .toLowerCase()
         .replace(/\s/g, "");
@@ -74,33 +61,28 @@ export default function LoveCalculator() {
       for (let i = 0; i < combined.length; i++) {
         hash = (hash * 31 + combined.charCodeAt(i)) % 1000;
       }
-      const percentage = (hash % 41) + 60; // 60-100
+      const percentage = (hash % 41) + 60;
 
       let category, description, emoji;
       if (percentage >= 90) {
         category = "Soulmate Bond";
-        description =
-          "The universe supports this bond. Whether it is mental, physical, emotional, or spiritual matters, you both will dwell easily into each other.";
-        emoji = "ðŸ’–";
+        description = "The universe supports this bond. Whether it is mental, physical, emotional, or spiritual matters, you both will dwell easily into each other.";
+        emoji = "🌍";
       } else if (percentage >= 70) {
         category = "Promising Bond";
-        description =
-          "You share good chemistry with high-level attraction, mutual respect, and care from both sides. This bond can evolve into something beautiful with transparent communication.";
-        emoji = "ðŸ’•";
+        description = "You share good chemistry with high-level attraction, mutual respect, and care from both sides. This bond can evolve into something beautiful with transparent communication.";
+        emoji = "💫";
       } else if (percentage >= 50) {
         category = "Growing Bond";
-        description =
-          "There will be love and affection, but it comes with some challenges. The relationship requires patience and hard work. Understanding and accepting each other's flaws is key.";
-        emoji = "ðŸ’—";
+        description = "There will be love and affection, but it comes with some challenges. The relationship requires patience and hard work. Understanding and accepting each other's flaws is key.";
+        emoji = "🌱";
       } else {
         category = "Tender Bond";
-        description =
-          "The path may not be easy. There can be conflicts and misunderstandings. Consider consulting an expert astrologer for guidance before committing to a relationship.";
-        emoji = "ðŸ’”";
+        description = "The path may not be easy. There can be conflicts and misunderstandings. Consider consulting an expert astrologer for guidance before committing to a relationship.";
+        emoji = "🤔";
       }
 
-      const randomQuote =
-        loveQuotes[Math.floor(Math.random() * loveQuotes.length)];
+      const randomQuote = loveQuotes[Math.floor(Math.random() * loveQuotes.length)];
 
       setResult({
         percentage,
@@ -116,47 +98,29 @@ export default function LoveCalculator() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Love Calculator Form */}
       <LoveCalculatorForm
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         result={result}
       />
-
-      {/* What is Love Calculator */}
       <WhatIsLoveCalculator />
-
-      {/* How It Works */}
       <HowItWorks />
-
-      {/* What Does Love Percentage Say */}
       <LovePercentageGuide />
-
-      {/* Why Choose Us */}
       <WhyChooseLoveCalculator />
-
-      {/* Other Love Tools */}
       <OtherLoveTools />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HERO SECTION ───────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-accent-900/10 to-ink-50">
@@ -205,7 +169,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LOVE CALCULATOR FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── LOVE CALCULATOR FORM ──────────────────────── */
 interface LoveCalculatorFormProps {
   formData: {
     yourName: string;
@@ -215,9 +179,7 @@ interface LoveCalculatorFormProps {
     yourBirthDate: string;
     partnerBirthDate: string;
   };
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
   result: null | {
     percentage: number;
@@ -257,7 +219,6 @@ function LoveCalculatorForm({
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid md:grid-cols-2 gap-6">
-                  {/* Your Details */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-2">
                       Your Name <span className="text-danger-500">*</span>
@@ -291,11 +252,10 @@ function LoveCalculatorForm({
                                 },
                               } as any)
                             }
-                            className={`py-1.5 px-3 rounded-xl border-2 font-medium transition-all text-xs ${
-                              formData.yourGender === gender.toLowerCase()
+                            className={`py-1.5 px-3 rounded-xl border-2 font-medium transition-all text-xs ${formData.yourGender === gender.toLowerCase()
                                 ? "border-primary-500 bg-primary-50 text-primary-700"
                                 : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
-                            }`}
+                              }`}
                           >
                             {gender}
                           </button>
@@ -319,7 +279,6 @@ function LoveCalculatorForm({
                     </div>
                   </div>
 
-                  {/* Partner's Details */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-2">
                       Partner's Name <span className="text-danger-500">*</span>
@@ -353,11 +312,10 @@ function LoveCalculatorForm({
                                 },
                               } as any)
                             }
-                            className={`py-1.5 px-3 rounded-xl border-2 font-medium transition-all text-xs ${
-                              formData.partnerGender === gender.toLowerCase()
+                            className={`py-1.5 px-3 rounded-xl border-2 font-medium transition-all text-xs ${formData.partnerGender === gender.toLowerCase()
                                 ? "border-primary-500 bg-primary-50 text-primary-700"
                                 : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
-                            }`}
+                              }`}
                           >
                             {gender}
                           </button>
@@ -382,19 +340,13 @@ function LoveCalculatorForm({
                   </div>
                 </div>
 
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                  type="submit"
-                >
+                <Button variant="primary" size="lg" className="w-full" type="submit">
                   <Heart className="h-4 w-4" />
                   Calculate Love %
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </form>
 
-              {/* Results */}
               {result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -422,7 +374,7 @@ function LoveCalculatorForm({
 
                   <div className="mt-4 p-4 bg-gradient-to-br from-accent-100 to-primary-100 rounded-xl border border-accent-200">
                     <p className="text-sm text-ink-700 italic text-center">
-                      "ðŸ’– {result.quote}"
+                      "🌍 {result.quote}"
                     </p>
                   </div>
                 </motion.div>
@@ -435,7 +387,7 @@ function LoveCalculatorForm({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS LOVE CALCULATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHAT IS LOVE CALCULATOR ──────────────────────── */
 function WhatIsLoveCalculator() {
   return (
     <section className="py-16 bg-ink-50">
@@ -461,7 +413,7 @@ function WhatIsLoveCalculator() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ Did you know?</span> This
+                  <span className="font-semibold">💡 Did you know?</span> This
                   Love Calculator is also known as a Love Meter, Love Percentage
                   Calculator, Love Match Calculator, or True Love Calculator.
                   All these names may look different, but they refer to the same
@@ -471,7 +423,7 @@ function WhatIsLoveCalculator() {
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">âœ¨ Many people</span> use
+                  <span className="font-semibold">✨ Many people</span> use
                   this love meter to test their compatibility with a partner,
                   satisfy their curiosity about a crush, or simply enjoy a fun
                   activity with a friend. If you have entered into a new
@@ -489,37 +441,13 @@ function WhatIsLoveCalculator() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── HOW IT WORKS ──────────────────────── */
 function HowItWorks() {
   const steps = [
-    {
-      number: 1,
-      icon: User,
-      title: "Enter Your Name",
-      description:
-        "Type your full name in the first field to begin the compatibility check.",
-    },
-    {
-      number: 2,
-      icon: Heart,
-      title: "Enter Partner's Name",
-      description:
-        "Type the name of the person you want to check compatibility with.",
-    },
-    {
-      number: 3,
-      icon: Calendar,
-      title: "Add Birth Details",
-      description:
-        "Enter date of birth if you have the option for a more detailed analysis.",
-    },
-    {
-      number: 4,
-      icon: Sparkles,
-      title: "Get Your Result",
-      description:
-        'Click on "Calculate Love %" to get an instant compatibility result.',
-    },
+    { number: 1, icon: User, title: "Enter Your Name", description: "Type your full name in the first field to begin the compatibility check." },
+    { number: 2, icon: Heart, title: "Enter Partner's Name", description: "Type the name of the person you want to check compatibility with." },
+    { number: 3, icon: Calendar, title: "Add Birth Details", description: "Enter date of birth if you have the option for a more detailed analysis." },
+    { number: 4, icon: Sparkles, title: "Get Your Result", description: 'Click on "Calculate Love %" to get an instant compatibility result.' },
   ];
 
   return (
@@ -537,13 +465,11 @@ function HowItWorks() {
           {steps.map((step, i) => (
             <Reveal key={step.number} delay={i * 0.1}>
               <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
-                <div className="relative">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-xl font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto -mt-10 mb-3">
-                    <step.icon className="h-5 w-5 text-white" />
-                  </div>
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
+                  <step.icon className="h-6 w-6 text-white" />
+                </div>
+                <div className="text-xs font-bold text-ink-400 mb-1">
+                  Step {step.number}
                 </div>
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
                   {step.title}
@@ -560,7 +486,7 @@ function HowItWorks() {
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-accent-50 rounded-2xl p-6 border border-accent-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸ“Š Your result</span> provides
+                <span className="font-semibold">🌠 Your result</span> provides
                 an easy-to-understand score that you can share with friends and
                 family for fun, or use as a starting point to explore a
                 relationship further.
@@ -573,41 +499,13 @@ function HowItWorks() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LOVE PERCENTAGE GUIDE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── LOVE PERCENTAGE GUIDE ──────────────────────── */
 function LovePercentageGuide() {
   const ranges = [
-    {
-      range: "90-100%",
-      label: "Soulmate Bond",
-      description:
-        "The universe supports this bond. Whether it is mental, physical, emotional, or spiritual matters, you both will dwell easily into each other.",
-      emoji: "ðŸ’–",
-      color: "from-accent-500 to-primary-600",
-    },
-    {
-      range: "70-89%",
-      label: "Promising Bond",
-      description:
-        "You share good chemistry with high-level attraction, mutual respect, and care from both sides. This bond can evolve into something beautiful with transparent communication.",
-      emoji: "ðŸ’•",
-      color: "from-primary-400 to-accent-400",
-    },
-    {
-      range: "50-69%",
-      label: "Growing Bond",
-      description:
-        "There will be love and affection, but it comes with some challenges. The relationship requires patience and hard work. Understanding and accepting each other's flaws is key.",
-      emoji: "ðŸ’—",
-      color: "from-blue-400 to-primary-400",
-    },
-    {
-      range: "Below 50%",
-      label: "Tender Bond",
-      description:
-        "The path may not be easy. There can be conflicts and misunderstandings. Consider consulting an expert astrologer for guidance before committing to a relationship.",
-      emoji: "ðŸ’”",
-      color: "from-gray-400 to-slate-400",
-    },
+    { range: "90-100%", label: "Soulmate Bond", description: "The universe supports this bond. Whether it is mental, physical, emotional, or spiritual matters, you both will dwell easily into each other.", emoji: "🌍", color: "from-accent-500 to-primary-600" },
+    { range: "70-89%", label: "Promising Bond", description: "You share good chemistry with high-level attraction, mutual respect, and care from both sides. This bond can evolve into something beautiful with transparent communication.", emoji: "💫", color: "from-primary-400 to-accent-400" },
+    { range: "50-69%", label: "Growing Bond", description: "There will be love and affection, but it comes with some challenges. The relationship requires patience and hard work. Understanding and accepting each other's flaws is key.", emoji: "🌱", color: "from-blue-400 to-primary-400" },
+    { range: "Below 50%", label: "Tender Bond", description: "The path may not be easy. There can be conflicts and misunderstandings. Consider consulting an expert astrologer for guidance before committing to a relationship.", emoji: "🤔", color: "from-gray-400 to-slate-400" },
   ];
 
   return (
@@ -625,15 +523,14 @@ function LovePercentageGuide() {
           {ranges.map((range, i) => (
             <Reveal key={range.range} delay={i * 0.1}>
               <div
-                className={`bg-white rounded-2xl p-6 border ${
-                  i === 0
+                className={`bg-white rounded-2xl p-6 border ${i === 0
                     ? "border-accent-200"
                     : i === 1
                       ? "border-primary-200"
                       : i === 2
                         ? "border-blue-200"
                         : "border-gray-200"
-                } hover:shadow-lg transition-all`}
+                  } hover:shadow-lg transition-all`}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-3xl">{range.emoji}</span>
@@ -660,44 +557,15 @@ function LovePercentageGuide() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY CHOOSE LOVE CALCULATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHY CHOOSE LOVE CALCULATOR ──────────────────────── */
 function WhyChooseLoveCalculator() {
   const features = [
-    {
-      icon: Gift,
-      title: "Totally Free",
-      description:
-        "It is completely free to use with no charges involved whatsoever.",
-    },
-    {
-      icon: Zap,
-      title: "Instant Results",
-      description: "You get immediate results without any delays.",
-    },
-    {
-      icon: Shield,
-      title: "Privacy Priority",
-      description:
-        "All your inputs will be kept confidential so you can experiment with it safely.",
-    },
-    {
-      icon: Smile,
-      title: "Fun to Use",
-      description:
-        "Combination of compatibility based on names and dates of birth makes it enjoyable.",
-    },
-    {
-      icon: Clock,
-      title: "Available 24/7",
-      description:
-        "This tool is available 24*7, regardless of the kind of relationship you want to examine.",
-    },
-    {
-      icon: Star,
-      title: "Learn More",
-      description:
-        "May spark your interest in studying astrology and numerology further.",
-    },
+    { icon: Gift, title: "Totally Free", description: "It is completely free to use with no charges involved whatsoever." },
+    { icon: Zap, title: "Instant Results", description: "You get immediate results without any delays." },
+    { icon: Shield, title: "Privacy Priority", description: "All your inputs will be kept confidential so you can experiment with it safely." },
+    { icon: Smile, title: "Fun to Use", description: "Combination of compatibility based on names and dates of birth makes it enjoyable." },
+    { icon: Clock, title: "Available 24/7", description: "This tool is available 24*7, regardless of the kind of relationship you want to examine." },
+    { icon: Star, title: "Learn More", description: "May spark your interest in studying astrology and numerology further." },
   ];
 
   return (
@@ -732,19 +600,12 @@ function WhyChooseLoveCalculator() {
         <Reveal delay={0.4}>
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-2xl p-6 text-center text-white">
-              <p className="text-lg font-semibold">
-                Need Personalized Guidance?
-              </p>
+              <p className="text-lg font-semibold">Need Personalized Guidance?</p>
               <p className="text-sm opacity-90 mt-1">
                 If you wish to have a one-on-one conversation with an expert,
                 you can call an astrologer for personalized advice and insights.
               </p>
-              <Button
-                to="/consultations"
-                variant="dark"
-                size="lg"
-                className="mt-4"
-              >
+              <Button to="/consultations" variant="dark" size="lg" className="mt-4">
                 <Users className="h-4 w-4" />
                 Consult an Astrologer
               </Button>
@@ -756,23 +617,11 @@ function WhyChooseLoveCalculator() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ OTHER LOVE TOOLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── OTHER LOVE TOOLS ──────────────────────── */
 function OtherLoveTools() {
   const tools = [
-    {
-      icon: Flame,
-      title: "Flames Calculator",
-      description:
-        "Interested to know if there exists a profound spiritual bond between you and your partner? Try out the Flames Calculator.",
-      link: "/flames-calculator",
-    },
-    {
-      icon: Crown,
-      title: "Kundli Matching",
-      description:
-        "If you are planning to get married, then Kundli Matching is the ideal solution for you based on Vedic Astrology.",
-      link: "/kundali-matching",
-    },
+    { icon: Flame, title: "Flames Calculator", description: "Interested to know if there exists a profound spiritual bond between you and your partner? Try out the Flames Calculator.", link: "/flames-calculator" },
+    { icon: Crown, title: "Kundli Matching", description: "If you are planning to get married, then Kundli Matching is the ideal solution for you based on Vedic Astrology.", link: "/kundali-matching" },
   ];
 
   return (
@@ -801,12 +650,7 @@ function OtherLoveTools() {
                     <p className="text-sm text-ink-500 leading-relaxed">
                       {tool.description}
                     </p>
-                    <Button
-                      to={tool.link}
-                      variant="outline"
-                      size="sm"
-                      className="mt-3"
-                    >
+                    <Button to={tool.link} variant="outline" size="sm" className="mt-3">
                       Try Now
                       <ArrowRight className="h-3 w-3" />
                     </Button>
@@ -821,7 +665,7 @@ function OtherLoveTools() {
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-accent-50 rounded-2xl p-6 border border-accent-200 text-center">
               <p className="text-sm text-ink-700">
-                <span className="font-semibold">ðŸ’¡ Tip:</span> When you use
+                <span className="font-semibold">💡 Tip:</span> When you use
                 multiple compatibility tests simultaneously, you gain a better
                 insight into your partnership and, at the same time, make your
                 astrological experience more fun.
@@ -834,7 +678,7 @@ function OtherLoveTools() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── CTA SECTION ──────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

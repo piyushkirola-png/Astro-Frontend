@@ -3,7 +3,6 @@ import {
   Loader2,
   AlertCircle,
   ArrowLeft,
-  Phone,
   Palette,
   Hash,
   Clock,
@@ -132,17 +131,6 @@ export default function PublicHoroscopeDetail({
             </p>
           </div>
 
-          <button
-            onClick={() =>
-              navigate(
-                `/chat-with-astrologer?sign=${data.zodiac.toLowerCase()}`,
-              )
-            }
-            className="inline-flex items-center gap-2 rounded-xl px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-500 text-white text-sm font-semibold hover:shadow-lg transition"
-          >
-            <Phone className="h-4 w-4" />
-            Talk to {displayName} expert
-          </button>
         </div>
       </section>
 

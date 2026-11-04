@@ -1,12 +1,6 @@
 import {
-  FileText,
-  CheckCircle,
   ArrowRight,
   Clock,
-  BarChart3,
-  RefreshCw,
-  Download,
-  Wallet,
   Calendar,
   Sun,
   Moon,
@@ -16,7 +10,6 @@ import {
   Shield,
   Crown,
   Users,
-  AlertCircle,
 } from "lucide-react";
 import PageHero from "../../components/ui/PageHero";
 import SectionHeading from "../../components/ui/SectionHeading";

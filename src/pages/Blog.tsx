@@ -1,30 +1,14 @@
+import { useState } from "react";
 import {
-  Calendar,
-  Clock,
   Star,
-  Heart,
-  Users,
-  TrendingUp,
-  Activity,
-  Home,
-  Briefcase,
-  Baby,
-  Moon,
-  Sun,
-  Compass,
   Sparkles,
-  ArrowRight,
-  BookOpen,
   MessageSquare,
-  Share2,
-  Eye,
 } from "lucide-react";
 import PageHero from "../components/ui/PageHero";
 import SectionHeading from "../components/ui/SectionHeading";
 import Reveal from "../components/animations/Reveal";
 import Button from "../components/ui/Button";
 import Badge from "../components/ui/Badge";
-import React, { useState } from "react";
 
 const blogPosts = [
   {
@@ -35,7 +19,7 @@ const blogPosts = [
     author: "Pt. Rajesh Sharma",
     date: "15 Dec 2025",
     readTime: "8 min read",
-    image: "â­",
+    image: "⭐",
     slug: "understanding-birth-chart",
     featured: true,
   },
@@ -47,7 +31,7 @@ const blogPosts = [
     author: "Dr. Priya Singh",
     date: "10 Dec 2025",
     readTime: "6 min read",
-    image: "ðŸ”¢",
+    image: "🔮",
     slug: "destiny-number-life-purpose",
     featured: false,
   },
@@ -59,7 +43,7 @@ const blogPosts = [
     author: "Maa Sonu Devi",
     date: "5 Dec 2025",
     readTime: "10 min read",
-    image: "ðŸª",
+    image: "🪐",
     slug: "surviving-sade-sati-tips",
     featured: false,
   },
@@ -71,7 +55,7 @@ const blogPosts = [
     author: "Prof. Amit Kumar",
     date: "28 Nov 2025",
     readTime: "7 min read",
-    image: "â¤ï¸",
+    image: "❤️",
     slug: "zodiac-love-compatibility",
     featured: false,
   },
@@ -83,7 +67,7 @@ const blogPosts = [
     author: "Pt. Rajesh Sharma",
     date: "20 Nov 2025",
     readTime: "12 min read",
-    image: "ðŸ’‘",
+    image: "💑",
     slug: "kundli-milan-guide",
     featured: true,
   },
@@ -95,7 +79,7 @@ const blogPosts = [
     author: "Dr. Priya Singh",
     date: "15 Nov 2025",
     readTime: "5 min read",
-    image: "ðŸ“…",
+    image: "📅",
     slug: "daily-panchang-guide",
     featured: false,
   },
@@ -107,7 +91,7 @@ const blogPosts = [
     author: "Prof. Amit Kumar",
     date: "10 Nov 2025",
     readTime: "9 min read",
-    image: "ðŸ ",
+    image: "🏠",
     slug: "12-houses-astrology",
     featured: false,
   },
@@ -119,7 +103,7 @@ const blogPosts = [
     author: "Maa Sonu Devi",
     date: "5 Nov 2025",
     readTime: "6 min read",
-    image: "ðŸ’Ž",
+    image: "💎",
     slug: "gemstones-astrological-remedies",
     featured: false,
   },
@@ -131,7 +115,7 @@ const blogPosts = [
     author: "Dr. Priya Singh",
     date: "28 Oct 2025",
     readTime: "4 min read",
-    image: "ðŸ§®",
+    image: "🧮",
     slug: "personality-number-guide",
     featured: false,
   },
@@ -198,19 +182,11 @@ export default function Blog() {
                         <span className="font-medium text-ink-600">
                           {post.author}
                         </span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span>{post.date}</span>
                       </div>
                       <span>{post.readTime}</span>
                     </div>
-                    <Button
-                      to={`/blog/${post.slug}`}
-                      variant="outline"
-                      size="sm"
-                      className="mt-4"
-                    >
-                      Read More <ArrowRight className="h-3 w-3" />
-                    </Button>
                   </div>
                 </Reveal>
               ))}
@@ -267,19 +243,11 @@ export default function Blog() {
                       <span className="font-medium text-ink-600">
                         {post.author}
                       </span>
-                      <span>â€¢</span>
+                      <span>•</span>
                       <span>{post.date}</span>
                     </div>
                     <span>{post.readTime}</span>
                   </div>
-                  <Button
-                    to={`/blog/${post.slug}`}
-                    variant="outline"
-                    size="sm"
-                    className="mt-3"
-                  >
-                    Read More <ArrowRight className="h-3 w-3" />
-                  </Button>
                 </div>
               </Reveal>
             ))}
@@ -292,65 +260,6 @@ export default function Blog() {
               </p>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Categories Quick Links */}
-      <section className="section-pad bg-white">
-        <div className="container-8xl">
-          <Reveal>
-            <SectionHeading
-              badge="Explore Topics"
-              title="Browse by Category"
-              subtitle="Find articles that interest you"
-            />
-          </Reveal>
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
-            {categories.slice(1).map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className="p-4 rounded-2xl bg-ink-50 border border-ink-100 hover:border-accent-200 hover:bg-white hover:shadow-md transition-all text-center"
-              >
-                <span className="text-sm font-medium text-ink-900">
-                  {category}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="py-16 bg-ink-50">
-        <div className="container-8xl max-w-2xl">
-          <Reveal>
-            <div className="bg-white rounded-3xl p-8 border border-ink-100 text-center">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
-                <BookOpen className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-ink-900">
-                Subscribe to Our Newsletter
-              </h3>
-              <p className="text-ink-500 mt-2">
-                Get weekly astrological insights, guides, and cosmic wisdom
-                delivered to your inbox.
-              </p>
-              <div className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-xl border border-ink-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
-                />
-                <Button variant="primary" className="sm:shrink-0">
-                  Subscribe <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-              <p className="text-xs text-ink-400 mt-3">
-                No spam. Unsubscribe anytime.
-              </p>
-            </div>
-          </Reveal>
         </div>
       </section>
 

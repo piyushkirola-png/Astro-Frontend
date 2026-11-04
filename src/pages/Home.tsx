@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
-  CheckCircle,
   Users,
   Star,
   Calendar,
@@ -21,7 +20,6 @@ import {
   stats,
   features,
   testimonials,
-  faqs,
   specializations,
 } from "../lib/navigation";
 

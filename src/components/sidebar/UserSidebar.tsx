@@ -61,7 +61,7 @@ export default function UserSidebar() {
           <img
             src="/assets/logo.png"
             alt="Jyotish AI"
-            className="h-8 w-10 rounded-lg"
+            className="h-10 w-10 rounded-lg"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = "none";
             }}

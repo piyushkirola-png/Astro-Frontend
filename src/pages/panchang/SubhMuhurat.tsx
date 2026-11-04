@@ -1,49 +1,24 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
   MapPin,
   Sun,
   Moon,
   Star,
-  Sparkles,
-  Heart,
-  ChevronRight,
-  Shield,
   CheckCircle,
   ArrowRight,
-  Globe,
-  TrendingUp,
-  Activity,
-  Home,
-  Briefcase,
-  Baby,
-  AlertCircle,
-  Info,
-  Award,
-  Zap,
-  Calculator,
-  Compass,
+  Shield,
+  Crown,
+  Users,
+  XCircle,
   Sunrise,
   Sunset,
-  XCircle,
-  Cloud,
-  Users,
-  BookOpen,
-  AlertTriangle,
-  Gem,
-  Music,
-  Coffee,
-  Diamond,
-  Crown,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// City data
 const cities = [
   { value: "new-delhi", label: "New Delhi, Delhi, India" },
   { value: "mumbai", label: "Mumbai, Maharashtra, India" },
@@ -57,54 +32,22 @@ const cities = [
   { value: "lucknow", label: "Lucknow, Uttar Pradesh, India" },
 ];
 
-// Abhijit Muhurat data for 2026
 const abhijitMuhurat2026 = [
   { date: "Jan 19, 2026", day: "Monday", start: "5:30", end: "13:34" },
   { date: "February 15, 2026", day: "Sunday", start: "13:29", end: "21:28" },
-  {
-    date: "Mar 14, 2026",
-    day: "Saturday",
-    start: "22:27",
-    end: "6:30 AM (15 March)",
-  },
+  { date: "Mar 14, 2026", day: "Saturday", start: "22:27", end: "6:30 AM (15 March)" },
   { date: "Apr 11, 2026", day: "Saturday", start: "7:12", end: "15:21" },
   { date: "8 May 2026", day: "Friday", start: "2:44 PM", end: "11:04 PM" },
-  {
-    date: "4 June 2026",
-    day: "Thursday",
-    start: "9:04 PM",
-    end: "5:26 AM (5 June)",
-  },
+  { date: "4 June 2026", day: "Thursday", start: "9:04 PM", end: "5:26 AM (5 June)" },
   { date: "2 July 2026", day: "Thursday", start: "2:50 AM", end: "11:11 AM" },
   { date: "29 July 2026", day: "Wednesday", start: "9:05 AM", end: "5:20 PM" },
-  {
-    date: "25 August 2026",
-    day: "Tuesday",
-    start: "4:18 PM",
-    end: "12:35 AM (26 August)",
-  },
-  {
-    date: "22 September 2026",
-    day: "Tuesday",
-    start: "12:33 AM",
-    end: "8:50 AM",
-  },
+  { date: "25 August 2026", day: "Tuesday", start: "4:18 PM", end: "12:35 AM (26 August)" },
+  { date: "22 September 2026", day: "Tuesday", start: "12:33 AM", end: "8:50 AM" },
   { date: "19 October 2026", day: "Monday", start: "8:59 AM", end: "5:20 PM" },
-  {
-    date: "15 November 2026",
-    day: "Sunday",
-    start: "4:44 PM",
-    end: "1:15 AM (16 November)",
-  },
-  {
-    date: "12 December 2026",
-    day: "Saturday",
-    start: "11:27 PM",
-    end: "8:00 AM (13 December)",
-  },
+  { date: "15 November 2026", day: "Sunday", start: "4:44 PM", end: "1:15 AM (16 November)" },
+  { date: "12 December 2026", day: "Saturday", start: "11:27 PM", end: "8:00 AM (13 December)" },
 ];
 
-// Sample Shubh Muhurat data
 const getShubhMuhuratData = (city: string) => {
   const today = new Date();
   const date = today.toLocaleDateString("en-IN", {
@@ -114,11 +57,8 @@ const getShubhMuhuratData = (city: string) => {
     year: "numeric",
   });
 
-  // Calculate Abhijit Muhurat (approximate)
   const sunrise = "05:24 AM";
   const sunset = "07:24 PM";
-
-  // For demo purposes, calculate a simple muhurat
   const startTime = "11:56 AM";
   const endTime = "12:52 PM";
 
@@ -169,45 +109,26 @@ export default function ShubhMuhurat() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Abhijit Muhurat Today */}
       <AbhijitMuhuratToday
         muhuratData={muhuratData}
         selectedCity={selectedCity}
         handleCityChange={handleCityChange}
         cities={cities}
       />
-
-      {/* Abhijit Muhurat 2026 Calendar */}
       <AbhijitMuhurat2026 />
-
-      {/* How is Abhijit Muhurat Calculated */}
       <HowIsAbhijitMuhuratCalculated />
-
-      {/* Auspicious Activities */}
       <AuspiciousActivities muhuratData={muhuratData} />
-
-      {/* Activities to Avoid */}
       <ActivitiesToAvoid muhuratData={muhuratData} />
-
-      {/* Significance */}
       <Significance />
-
-      {/* Why Is Abhijit Muhurat Powerful */}
       <WhyIsAbhijitMuhuratPowerful />
-
-      {/* Mythological Significance */}
       <MythologicalSignificance />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── HERO SECTION ─────────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -259,7 +180,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ABHIJIT MUHURAT TODAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── ABHIJIT MUHURAT TODAY ───────────────────────── */
 interface AbhijitMuhuratTodayProps {
   muhuratData: any;
   selectedCity: string;
@@ -278,7 +199,6 @@ function AbhijitMuhuratToday({
       <div className="container-8xl">
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            {/* City Selector */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-ink-700 mb-2">
                 Select Location
@@ -300,7 +220,6 @@ function AbhijitMuhuratToday({
             </div>
 
             <div className="bg-gradient-to-br from-ink-50 to-primary-50 rounded-2xl p-6 md:p-8 border border-ink-100">
-              {/* Date & Location */}
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-ink-900">
                   {muhuratData.city}
@@ -308,7 +227,6 @@ function AbhijitMuhuratToday({
                 <p className="text-sm text-ink-500">{muhuratData.date}</p>
               </div>
 
-              {/* Abhijit Muhurat Highlight */}
               <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-6 border-2 border-amber-300 mb-6 text-center">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Crown className="h-6 w-6 text-amber-600" />
@@ -317,15 +235,14 @@ function AbhijitMuhuratToday({
                   </span>
                 </div>
                 <div className="text-2xl md:text-3xl font-bold text-amber-700">
-                  {muhuratData.abhijitStart} â€“ {muhuratData.abhijitEnd}
+                  {muhuratData.abhijitStart} – {muhuratData.abhijitEnd}
                 </div>
                 <p className="text-sm text-amber-600 mt-2">
-                  Duration: {muhuratData.duration} â€¢ Associated with victory
+                  Duration: {muhuratData.duration} • Associated with victory
                   and success
                 </p>
               </div>
 
-              {/* Sunrise/Sunset */}
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="bg-white rounded-xl p-4 text-center border border-ink-100">
                   <Sunrise className="h-6 w-6 text-orange-500 mx-auto mb-1" />
@@ -343,16 +260,10 @@ function AbhijitMuhuratToday({
                 </div>
               </div>
 
-              {/* Description */}
               <div className="bg-white rounded-xl p-4 border border-ink-100">
                 <p className="text-sm text-ink-600 leading-relaxed">
                   {muhuratData.description}
                 </p>
-              </div>
-
-              {/* Footer */}
-              <div className="mt-4 text-center">
-                <p className="text-xs text-ink-400">Â© Astrotalk.com</p>
               </div>
             </div>
           </Reveal>
@@ -362,7 +273,7 @@ function AbhijitMuhuratToday({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ABHIJIT MUHURAT 2026 CALENDAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── ABHIJIT MUHURAT 2026 ───────────────────────── */
 function AbhijitMuhurat2026() {
   return (
     <section className="py-16 bg-ink-50">
@@ -425,7 +336,7 @@ function AbhijitMuhurat2026() {
           <div className="mt-4 max-w-6xl mx-auto">
             <div className="bg-accent-50 rounded-2xl p-4 border border-accent-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸ’¡ Note:</span> Abhijit
+                <span className="font-semibold">💡 Note:</span> Abhijit
                 Muhurat and Abhijit Nakshatra are not the same, but when they
                 occur together, it is considered highly auspicious.
               </p>
@@ -437,7 +348,7 @@ function AbhijitMuhurat2026() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW IS ABHIJIT MUHURAT CALCULATED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────── HOW IS ABHIJIT MUHURAT CALCULATED ────────────────── */
 function HowIsAbhijitMuhuratCalculated() {
   return (
     <section className="py-16 bg-white">
@@ -486,7 +397,7 @@ function HowIsAbhijitMuhuratCalculated() {
                     <li className="flex items-start gap-3 text-sm text-ink-600">
                       <span className="text-primary-600 font-bold">3.</span>
                       <span>
-                        8th muhurat: Add 7 parts (7 Ã— 56 = 392 minutes) to
+                        8th muhurat: Add 7 parts (7 × 56 = 392 minutes) to
                         sunrise
                       </span>
                     </li>
@@ -540,7 +451,7 @@ function HowIsAbhijitMuhuratCalculated() {
 
               <div className="mt-6 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">âœ¨ Example:</span> In Delhi,
+                  <span className="font-semibold">✨ Example:</span> In Delhi,
                   Abhijit Muhurat today is approximately from{" "}
                   <span className="font-bold text-primary-600">
                     11:56 AM to 12:52 PM
@@ -556,7 +467,7 @@ function HowIsAbhijitMuhuratCalculated() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ AUSPICIOUS ACTIVITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── AUSPICIOUS ACTIVITIES ────────────────────── */
 function AuspiciousActivities({ muhuratData }: { muhuratData: any }) {
   return (
     <section className="py-16 bg-ink-50">
@@ -586,7 +497,7 @@ function AuspiciousActivities({ muhuratData }: { muhuratData: any }) {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ACTIVITIES TO AVOID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── ACTIVITIES TO AVOID ────────────────────── */
 function ActivitiesToAvoid({ muhuratData }: { muhuratData: any }) {
   return (
     <section className="py-16 bg-white">
@@ -614,7 +525,7 @@ function ActivitiesToAvoid({ muhuratData }: { muhuratData: any }) {
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-accent-50 rounded-2xl p-4 border border-accent-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸ’¡ Note:</span> In some
+                <span className="font-semibold">💡 Note:</span> In some
                 customs, Wednesday is not considered auspicious. Hence, starting
                 important work should be avoided on this day, even during
                 Abhijit Muhurat. For major Manglik activities, consult an
@@ -628,7 +539,7 @@ function ActivitiesToAvoid({ muhuratData }: { muhuratData: any }) {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SIGNIFICANCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── SIGNIFICANCE ─────────────────────────── */
 function Significance() {
   const significanceItems = [
     {
@@ -684,7 +595,7 @@ function Significance() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY IS ABHIJIT MUHURAT POWERFUL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────── WHY IS ABHIJIT MUHURAT POWERFUL ─────────────────── */
 function WhyIsAbhijitMuhuratPowerful() {
   return (
     <section className="py-16 bg-white">
@@ -702,7 +613,7 @@ function WhyIsAbhijitMuhuratPowerful() {
             <div className="bg-ink-50 rounded-2xl p-8 border border-ink-100 w-full">
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white rounded-xl p-6 border border-ink-100 text-center">
-                  <div className="text-4xl mb-3">ðŸ†</div>
+                  <div className="text-4xl mb-3">🏆</div>
                   <h4 className="text-lg font-bold text-ink-900 mb-2">
                     Victory
                   </h4>
@@ -712,7 +623,7 @@ function WhyIsAbhijitMuhuratPowerful() {
                   </p>
                 </div>
                 <div className="bg-white rounded-xl p-6 border border-ink-100 text-center">
-                  <div className="text-4xl mb-3">â˜€ï¸</div>
+                  <div className="text-4xl mb-3">☀️</div>
                   <h4 className="text-lg font-bold text-ink-900 mb-2">
                     Midday Power
                   </h4>
@@ -722,7 +633,7 @@ function WhyIsAbhijitMuhuratPowerful() {
                   </p>
                 </div>
                 <div className="bg-white rounded-xl p-6 border border-ink-100 text-center">
-                  <div className="text-4xl mb-3">ðŸ•‰ï¸</div>
+                  <div className="text-4xl mb-3">🕉️</div>
                   <h4 className="text-lg font-bold text-ink-900 mb-2">
                     Divine Blessings
                   </h4>
@@ -740,7 +651,7 @@ function WhyIsAbhijitMuhuratPowerful() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MYTHOLOGICAL SIGNIFICANCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────── MYTHOLOGICAL SIGNIFICANCE ─────────────────── */
 function MythologicalSignificance() {
   const myths = [
     {
@@ -806,7 +717,7 @@ function MythologicalSignificance() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────────── CTA SECTION ──────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

@@ -4,22 +4,12 @@ import {
   Star,
   Heart,
   Users,
-  Sparkles,
   ArrowRight,
-  ChevronRight,
   CheckCircle,
   Zap,
   Shield,
   Award,
   TrendingUp,
-  Activity,
-  Moon,
-  Sun,
-  Globe,
-  Calendar,
-  Clock,
-  MapPin,
-  User,
   Info,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
@@ -32,73 +22,73 @@ const zodiacSigns = [
   {
     name: "Aries",
     date: "Mar 21 - Apr 19",
-    emoji: "â™ˆ",
+    emoji: "♈",
     color: "from-red-500 to-orange-500",
   },
   {
     name: "Taurus",
     date: "Apr 20 - May 20",
-    emoji: "â™‰",
+    emoji: "♉",
     color: "from-green-500 to-emerald-500",
   },
   {
     name: "Gemini",
     date: "May 21 - Jun 21",
-    emoji: "â™Š",
+    emoji: "♊",
     color: "from-yellow-500 to-amber-500",
   },
   {
     name: "Cancer",
     date: "Jun 22 - Jul 22",
-    emoji: "â™‹",
+    emoji: "♋",
     color: "from-blue-400 to-cyan-500",
   },
   {
     name: "Leo",
     date: "Jul 23 - Aug 22",
-    emoji: "â™Œ",
+    emoji: "♌",
     color: "from-orange-500 to-yellow-500",
   },
   {
     name: "Virgo",
     date: "Aug 23 - Sep 22",
-    emoji: "â™",
+    emoji: "♍",
     color: "from-green-600 to-lime-500",
   },
   {
     name: "Libra",
     date: "Sep 23 - Oct 23",
-    emoji: "â™Ž",
+    emoji: "♎",
     color: "from-pink-500 to-rose-500",
   },
   {
     name: "Scorpio",
     date: "Oct 24 - Nov 21",
-    emoji: "â™",
+    emoji: "♏",
     color: "from-red-600 to-purple-700",
   },
   {
     name: "Sagittarius",
     date: "Nov 22 - Dec 21",
-    emoji: "â™",
+    emoji: "♐",
     color: "from-purple-500 to-indigo-500",
   },
   {
     name: "Capricorn",
     date: "Dec 22 - Jan 19",
-    emoji: "â™‘",
+    emoji: "♑",
     color: "from-gray-600 to-slate-700",
   },
   {
     name: "Aquarius",
     date: "Jan 20 - Feb 18",
-    emoji: "â™’",
+    emoji: "♒",
     color: "from-cyan-500 to-blue-500",
   },
   {
     name: "Pisces",
     date: "Feb 19 - Mar 20",
-    emoji: "â™“",
+    emoji: "♓",
     color: "from-purple-400 to-pink-400",
   },
 ];
@@ -117,8 +107,7 @@ export default function Compatibility() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedSign && partnerSign) {
-      // Simulate compatibility calculation
-      const score = Math.floor(Math.random() * 40) + 60; // 60-100
+      const score = Math.floor(Math.random() * 40) + 60;
       const messages = [
         "A match made in heaven! Your signs complement each other perfectly.",
         "You share a deep connection that can withstand any challenge.",
@@ -154,10 +143,7 @@ export default function Compatibility() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Compatibility Checker */}
       <CompatibilityChecker
         selectedSign={selectedSign}
         setSelectedSign={setSelectedSign}
@@ -166,26 +152,16 @@ export default function Compatibility() {
         handleSubmit={handleSubmit}
         matchResult={matchResult}
       />
-
-      {/* Zodiac Signs Grid */}
       <ZodiacSignsGrid />
-
-      {/* Love Compatibility Info */}
       <LoveCompatibilityInfo />
-
-      {/* Why Check Compatibility */}
       <WhyCompatibilityMatters />
-
-      {/* Compatibility Tips */}
       <CompatibilityTips />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── HERO SECTION ──────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-accent-900/10 to-ink-50">
@@ -230,7 +206,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ COMPATIBILITY CHECKER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── COMPATIBILITY CHECKER ──────────────────────── */
 interface CompatibilityCheckerProps {
   selectedSign: string;
   setSelectedSign: (sign: string) => void;
@@ -276,7 +252,6 @@ function CompatibilityChecker({
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid md:grid-cols-2 gap-6">
-                  {/* Your Sign */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-2">
                       Your Zodiac Sign{" "}
@@ -300,7 +275,6 @@ function CompatibilityChecker({
                     </div>
                   </div>
 
-                  {/* Partner's Sign */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-2">
                       Partner's Zodiac Sign{" "}
@@ -337,7 +311,6 @@ function CompatibilityChecker({
                 </Button>
               </form>
 
-              {/* Results */}
               {matchResult && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -371,7 +344,7 @@ function CompatibilityChecker({
                             key={i}
                             className="text-xs text-green-600 flex items-start gap-1"
                           >
-                            <span className="text-green-400">â€¢</span>
+                            <span className="text-green-400">•</span>
                             {strength}
                           </li>
                         ))}
@@ -388,7 +361,7 @@ function CompatibilityChecker({
                             key={i}
                             className="text-xs text-amber-600 flex items-start gap-1"
                           >
-                            <span className="text-amber-400">â€¢</span>
+                            <span className="text-amber-400">•</span>
                             {challenge}
                           </li>
                         ))}
@@ -413,7 +386,7 @@ function CompatibilityChecker({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ZODIAC SIGNS GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── ZODIAC SIGNS GRID ──────────────────────── */
 function ZodiacSignsGrid() {
   return (
     <section className="py-16 bg-ink-50">
@@ -446,7 +419,7 @@ function ZodiacSignsGrid() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LOVE COMPATIBILITY INFO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── LOVE COMPATIBILITY INFO ──────────────────────── */
 function LoveCompatibilityInfo() {
   return (
     <section className="py-16 bg-white">
@@ -473,7 +446,7 @@ function LoveCompatibilityInfo() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ Did you know?</span> Love
+                  <span className="font-semibold">💡 Did you know?</span> Love
                   compatibility can also forecast how your relationship will
                   develop in the future, in addition to letting you know how
                   things stand right now. It reveals the strength of your
@@ -490,7 +463,7 @@ function LoveCompatibilityInfo() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY COMPATIBILITY MATTERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHY COMPATIBILITY MATTERS ──────────────────────── */
 function WhyCompatibilityMatters() {
   const reasons = [
     {
@@ -558,7 +531,7 @@ function WhyCompatibilityMatters() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ COMPATIBILITY TIPS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── COMPATIBILITY TIPS ──────────────────────── */
 function CompatibilityTips() {
   const tips = [
     {
@@ -620,7 +593,7 @@ function CompatibilityTips() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── CTA SECTION ──────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

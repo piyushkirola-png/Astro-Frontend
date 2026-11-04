@@ -26,7 +26,7 @@ import Badge from "../components/ui/Badge";
 const advantages = [
   {
     icon: Star,
-    title: "500+ Expert Astrologers",
+    title: "1 AI Astrologer",
     desc: "Connect with certified and experienced astrologers specializing in Vedic astrology, numerology, tarot, and more.",
   },
   {

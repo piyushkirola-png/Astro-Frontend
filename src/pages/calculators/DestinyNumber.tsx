@@ -2,79 +2,26 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Star,
-  Calendar,
-  Clock,
-  MapPin,
   User,
   Users,
   Sparkles,
   Heart,
-  ChevronRight,
-  Shield,
-  CheckCircle,
   ArrowRight,
-  Globe,
-  Moon,
-  Sun,
-  TrendingUp,
-  Activity,
-  Home,
-  Briefcase,
-  Baby,
-  AlertCircle,
-  Info,
-  Award,
-  Zap,
-  Calculator,
-  BookOpen,
-  Crown,
-  Gem,
-  Palette,
-  Music,
-  Coffee,
-  Diamond,
-  Compass,
-  Feather,
-  Handshake,
   Target,
-  Compass as CompassIcon,
+  Compass,
+  Calculator,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// Pythagorean numerology mapping
 const pythagoreanMap: { [key: string]: number } = {
-  a: 1,
-  b: 2,
-  c: 3,
-  d: 4,
-  e: 5,
-  f: 6,
-  g: 7,
-  h: 8,
-  i: 9,
-  j: 1,
-  k: 2,
-  l: 3,
-  m: 4,
-  n: 5,
-  o: 6,
-  p: 7,
-  q: 8,
-  r: 9,
-  s: 1,
-  t: 2,
-  u: 3,
-  v: 4,
-  w: 5,
-  x: 6,
-  y: 7,
-  z: 8,
+  a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9,
+  j: 1, k: 2, l: 3, m: 4, n: 5, o: 6, p: 7, q: 8, r: 9,
+  s: 1, t: 2, u: 3, v: 4, w: 5, x: 6, y: 7, z: 8,
 };
 
-// Destiny number meanings
 const destinyMeanings: {
   [key: number]: {
     title: string;
@@ -89,21 +36,9 @@ const destinyMeanings: {
 } = {
   1: {
     title: "The Leader",
-    emoji: "ðŸ¥‡",
-    traits: [
-      "Born leader",
-      "Independent",
-      "Innovative",
-      "Courageous",
-      "Ambitious",
-    ],
-    careers: [
-      "Business owner",
-      "Inventor",
-      "Manager",
-      "Entrepreneur",
-      "Executive",
-    ],
+    emoji: "🌱",
+    traits: ["Born leader", "Independent", "Innovative", "Courageous", "Ambitious"],
+    careers: ["Business owner", "Inventor", "Manager", "Entrepreneur", "Executive"],
     strengths: ["Taking charge", "Initiative", "Decision making", "Courage"],
     weaknesses: ["Bossy", "Ego-driven", "Impatient", "Dominant"],
     color: "from-orange-500 to-yellow-500",
@@ -112,80 +47,41 @@ const destinyMeanings: {
   },
   2: {
     title: "The Peacemaker",
-    emoji: "ðŸ¤",
+    emoji: "🕊️",
     traits: ["Gentle", "Kind", "Cooperative", "Diplomatic", "Intuitive"],
     careers: ["Teaching", "Counseling", "Mediation", "Teamwork", "Diplomacy"],
     strengths: ["Problem solving", "Empathy", "Patience", "Harmony"],
-    weaknesses: [
-      "Overly sensitive",
-      "Indecisive",
-      "Approval-seeking",
-      "Self-neglect",
-    ],
+    weaknesses: ["Overly sensitive", "Indecisive", "Approval-seeking", "Self-neglect"],
     color: "from-blue-400 to-cyan-500",
     description:
       "Gentle, kind, and work well with others. You shine in teamwork and helping roles.",
   },
   3: {
     title: "The Creative Soul",
-    emoji: "ðŸŽ¨",
-    traits: [
-      "Creative",
-      "Expressive",
-      "Enthusiastic",
-      "Inspiring",
-      "Charismatic",
-    ],
+    emoji: "🎨",
+    traits: ["Creative", "Expressive", "Enthusiastic", "Inspiring", "Charismatic"],
     careers: ["Writer", "Actor", "Artist", "Marketer", "Entertainer"],
     strengths: ["Creativity", "Communication", "Inspiration", "Joy"],
-    weaknesses: [
-      "Unfocused",
-      "Scattered",
-      "Over-optimistic",
-      "Lack of follow-through",
-    ],
+    weaknesses: ["Unfocused", "Scattered", "Over-optimistic", "Lack of follow-through"],
     color: "from-yellow-500 to-amber-500",
     description:
       "Full of ideas, art, and fun. You bring joy and creativity wherever you go.",
   },
   4: {
     title: "The Builder",
-    emoji: "ðŸ§±",
-    traits: [
-      "Hardworking",
-      "Practical",
-      "Organized",
-      "Reliable",
-      "Disciplined",
-    ],
-    careers: [
-      "Engineer",
-      "Architect",
-      "Accountant",
-      "Project Manager",
-      "Organizer",
-    ],
+    emoji: "🧱",
+    traits: ["Hardworking", "Practical", "Organized", "Reliable", "Disciplined"],
+    careers: ["Engineer", "Architect", "Accountant", "Project Manager", "Organizer"],
     strengths: ["Planning", "Stability", "Systems thinking", "Persistence"],
-    weaknesses: [
-      "Rigid",
-      "Overly cautious",
-      "Resistant to change",
-      "Inflexible",
-    ],
+    weaknesses: ["Rigid", "Overly cautious", "Resistant to change", "Inflexible"],
     color: "from-indigo-500 to-purple-500",
     description:
       "Hardworking, practical, and love making strong foundations. You build lasting success.",
   },
   5: {
     title: "The Explorer",
-    emoji: "ðŸŒ",
-    traits: [
-      "Adventurous",
-      "Freedom-loving",
-      "Adaptable",
-      "Curious",
-      "Dynamic",
-    ],
+    emoji: "🏄",
+    traits: ["Adventurous", "Freedom-loving", "Adaptable", "Curious", "Dynamic"],
     careers: ["Sales", "Travel", "Tourism", "Marketing", "Entrepreneur"],
     strengths: ["Adaptability", "Versatility", "Risk-taking", "Communication"],
     weaknesses: ["Restless", "Impulsive", "Unpredictable", "Commitment issues"],
@@ -195,43 +91,20 @@ const destinyMeanings: {
   },
   6: {
     title: "The Caregiver",
-    emoji: "ðŸ‘¨â€ðŸ‘©â€ðŸ‘§",
-    traits: [
-      "Loving",
-      "Helpful",
-      "Family-focused",
-      "Responsible",
-      "Compassionate",
-    ],
+    emoji: "👨‍👩‍👧",
+    traits: ["Loving", "Helpful", "Family-focused", "Responsible", "Compassionate"],
     careers: ["Teaching", "Nursing", "Social work", "Healing", "Counseling"],
     strengths: ["Caring", "Responsibility", "Empathy", "Service"],
-    weaknesses: [
-      "Overly sacrificial",
-      "Control issues",
-      "Worrying",
-      "Self-neglect",
-    ],
+    weaknesses: ["Overly sacrificial", "Control issues", "Worrying", "Self-neglect"],
     color: "from-pink-500 to-rose-500",
     description:
       "Loving, helpful, and family-focused. You do well in teaching, healing, or caring roles.",
   },
   7: {
     title: "The Thinker",
-    emoji: "ðŸ§˜",
-    traits: [
-      "Deep thinker",
-      "Philosophical",
-      "Introspective",
-      "Spiritual",
-      "Analytical",
-    ],
-    careers: [
-      "Scientist",
-      "Researcher",
-      "Spiritual guide",
-      "Professor",
-      "Analyst",
-    ],
+    emoji: "🧘",
+    traits: ["Deep thinker", "Philosophical", "Introspective", "Spiritual", "Analytical"],
+    careers: ["Scientist", "Researcher", "Spiritual guide", "Professor", "Analyst"],
     strengths: ["Analysis", "Intuition", "Wisdom", "Independence"],
     weaknesses: ["Isolation", "Overthinking", "Detachment", "Pessimism"],
     color: "from-purple-500 to-indigo-500",
@@ -240,15 +113,9 @@ const destinyMeanings: {
   },
   8: {
     title: "The Achiever",
-    emoji: "ðŸ’¼",
+    emoji: "💰",
     traits: ["Ambitious", "Powerful", "Practical", "Strategic", "Successful"],
-    careers: [
-      "Business",
-      "Finance",
-      "Management",
-      "Leadership",
-      "Entrepreneurship",
-    ],
+    careers: ["Business", "Finance", "Management", "Leadership", "Entrepreneurship"],
     strengths: ["Leadership", "Strategy", "Wealth building", "Authority"],
     weaknesses: ["Workaholic", "Materialistic", "Controlling", "Impersonal"],
     color: "from-gray-600 to-slate-700",
@@ -257,42 +124,19 @@ const destinyMeanings: {
   },
   9: {
     title: "The Giver",
-    emoji: "ðŸ’–",
-    traits: [
-      "Compassionate",
-      "Generous",
-      "Humanitarian",
-      "Idealistic",
-      "Selfless",
-    ],
-    careers: [
-      "Social worker",
-      "Healer",
-      "Charity",
-      "Humanitarian",
-      "Counselor",
-    ],
+    emoji: "🌍",
+    traits: ["Compassionate", "Generous", "Humanitarian", "Idealistic", "Selfless"],
+    careers: ["Social worker", "Healer", "Charity", "Humanitarian", "Counselor"],
     strengths: ["Compassion", "Service", "Vision", "Generosity"],
-    weaknesses: [
-      "Overly idealistic",
-      "Self-sacrificing",
-      "Emotional draining",
-      "Boundary issues",
-    ],
+    weaknesses: ["Overly idealistic", "Self-sacrificing", "Emotional draining", "Boundary issues"],
     color: "from-red-500 to-orange-500",
     description:
       "Care deeply about helping others. You are meant to serve and make the world better.",
   },
   11: {
     title: "The Master Intuitive",
-    emoji: "ðŸ”®",
-    traits: [
-      "Highly intuitive",
-      "Spiritual",
-      "Inspiring",
-      "Visionary",
-      "Mystical",
-    ],
+    emoji: "🔮",
+    traits: ["Highly intuitive", "Spiritual", "Inspiring", "Visionary", "Mystical"],
     careers: ["Spiritual teacher", "Healer", "Artist", "Psychic", "Guide"],
     strengths: ["Intuition", "Inspiration", "Spiritual connection", "Vision"],
     weaknesses: ["Overwhelming energy", "Anxiety", "Self-doubt", "Sensitivity"],
@@ -302,21 +146,9 @@ const destinyMeanings: {
   },
   22: {
     title: "The Master Builder",
-    emoji: "ðŸ—ï¸",
-    traits: [
-      "Visionary",
-      "Practical",
-      "Powerful",
-      "Innovative",
-      "Inspirational",
-    ],
-    careers: [
-      "Architect",
-      "World leader",
-      "Inventor",
-      "Philanthropist",
-      "Creator",
-    ],
+    emoji: "🏗️",
+    traits: ["Visionary", "Practical", "Powerful", "Innovative", "Inspirational"],
+    careers: ["Architect", "World leader", "Inventor", "Philanthropist", "Creator"],
     strengths: ["Vision", "Practicality", "Leadership", "Manifestation"],
     weaknesses: ["Overwhelming pressure", "Burnout", "Perfectionism", "Stress"],
     color: "from-blue-600 to-indigo-600",
@@ -325,71 +157,29 @@ const destinyMeanings: {
   },
   33: {
     title: "The Master Teacher",
-    emoji: "ðŸ“š",
+    emoji: "📚",
     traits: ["Compassionate", "Wise", "Nurturing", "Inspiring", "Selfless"],
     careers: ["Teacher", "Mentor", "Healer", "Spiritual guide", "Humanitarian"],
     strengths: ["Wisdom", "Compassion", "Teaching", "Healing"],
-    weaknesses: [
-      "Self-sacrifice",
-      "Overwhelming responsibility",
-      "Burnout",
-      "Emotional drain",
-    ],
+    weaknesses: ["Self-sacrifice", "Overwhelming responsibility", "Burnout", "Emotional drain"],
     color: "from-yellow-400 to-orange-400",
     description:
       "A master number with the highest spiritual purpose. You are here to teach and uplift humanity.",
   },
 };
 
-// Life path meanings
 const lifePathMeanings: {
   [key: number]: { title: string; description: string };
 } = {
-  1: {
-    title: "The Pioneer",
-    description:
-      "You are here to lead, innovate, and create new paths. Independence and self-reliance are your life lessons.",
-  },
-  2: {
-    title: "The Diplomat",
-    description:
-      "Your life path involves cooperation, partnerships, and bringing people together. You are a natural peacemaker.",
-  },
-  3: {
-    title: "The Creator",
-    description:
-      "You are destined for creative expression, communication, and inspiring others through your talents.",
-  },
-  4: {
-    title: "The Builder",
-    description:
-      "Your life path is to build solid foundations, create systems, and bring stability to your community.",
-  },
-  5: {
-    title: "The Adventurer",
-    description:
-      "You are destined for exploration, freedom, and embracing change. Variety is your life's purpose.",
-  },
-  6: {
-    title: "The Nurturer",
-    description:
-      "Your life path involves caring for others, creating harmony, and being responsible for family and community.",
-  },
-  7: {
-    title: "The Seeker",
-    description:
-      "You are destined for spiritual growth, research, and uncovering hidden truths and wisdom.",
-  },
-  8: {
-    title: "The Achiever",
-    description:
-      "Your life path is to achieve success, build wealth, and reach positions of power and authority.",
-  },
-  9: {
-    title: "The Humanitarian",
-    description:
-      "You are destined to serve humanity, spread love, and make the world a better place.",
-  },
+  1: { title: "The Pioneer", description: "You are here to lead, innovate, and create new paths. Independence and self-reliance are your life lessons." },
+  2: { title: "The Diplomat", description: "Your life path involves cooperation, partnerships, and bringing people together. You are a natural peacemaker." },
+  3: { title: "The Creator", description: "You are destined for creative expression, communication, and inspiring others through your talents." },
+  4: { title: "The Builder", description: "Your life path is to build solid foundations, create systems, and bring stability to your community." },
+  5: { title: "The Adventurer", description: "You are destined for exploration, freedom, and embracing change. Variety is your life's purpose." },
+  6: { title: "The Nurturer", description: "Your life path involves caring for others, creating harmony, and being responsible for family and community." },
+  7: { title: "The Seeker", description: "You are destined for spiritual growth, research, and uncovering hidden truths and wisdom." },
+  8: { title: "The Achiever", description: "Your life path is to achieve success, build wealth, and reach positions of power and authority." },
+  9: { title: "The Humanitarian", description: "You are destined to serve humanity, spread love, and make the world a better place." },
 };
 
 export default function DestinyNumber() {
@@ -427,21 +217,13 @@ export default function DestinyNumber() {
     return reduceToSingleDigit(sum);
   };
 
-  const calculateLifePathNumber = (
-    day: string,
-    month: string,
-    year: string,
-  ) => {
-    const dayNum = parseInt(day);
-    const monthNum = parseInt(month);
-    const yearNum = parseInt(year);
-    const total = dayNum + monthNum + yearNum;
+  const calculateLifePathNumber = (day: string, month: string, year: string) => {
+    const total = parseInt(day) + parseInt(month) + parseInt(year);
     return reduceToSingleDigit(total);
   };
 
   const reduceToSingleDigit = (num: number): number => {
     if (num === 0) return 0;
-    // Check for master numbers
     if (num === 11 || num === 22 || num === 33) return num;
     while (num > 9) {
       num = num
@@ -467,65 +249,52 @@ export default function DestinyNumber() {
       );
 
       const destinyMeaning = destinyMeanings[destinyNum] || destinyMeanings[1];
-      const lifePathMeaning =
-        lifePathMeanings[lifePathNum] || lifePathMeanings[1];
+      const lifePathMeaning = lifePathMeanings[lifePathNum] || lifePathMeanings[1];
 
-      // Check compatibility
       let compatibility = "";
       if (destinyNum === lifePathNum) {
-        compatibility =
-          "Perfect Alignment - Your destiny and life path are in complete harmony!";
+        compatibility = "Perfect Alignment - Your destiny and life path are in complete harmony!";
       } else if (
         destinyNum === 1 &&
         (lifePathNum === 3 || lifePathNum === 5 || lifePathNum === 6)
       ) {
-        compatibility =
-          "Good Alignment - Your leadership qualities support your life journey.";
+        compatibility = "Good Alignment - Your leadership qualities support your life journey.";
       } else if (
         destinyNum === 2 &&
         (lifePathNum === 4 || lifePathNum === 6 || lifePathNum === 7)
       ) {
-        compatibility =
-          "Good Alignment - Your diplomatic nature supports your life path.";
+        compatibility = "Good Alignment - Your diplomatic nature supports your life path.";
       } else if (
         destinyNum === 3 &&
         (lifePathNum === 1 || lifePathNum === 5 || lifePathNum === 6)
       ) {
-        compatibility =
-          "Good Alignment - Your creativity aligns well with your life purpose.";
+        compatibility = "Good Alignment - Your creativity aligns well with your life purpose.";
       } else if (destinyNum === 4 && lifePathNum === 5) {
-        compatibility =
-          "Balanced Alignment - Your practicality supports your adventurous life path.";
+        compatibility = "Balanced Alignment - Your practicality supports your adventurous life path.";
       } else if (
         destinyNum === 5 &&
         (lifePathNum === 1 || lifePathNum === 3 || lifePathNum === 6)
       ) {
-        compatibility =
-          "Good Alignment - Your adaptability serves your life purpose.";
+        compatibility = "Good Alignment - Your adaptability serves your life purpose.";
       } else if (
         destinyNum === 6 &&
         (lifePathNum === 3 || lifePathNum === 5 || lifePathNum === 9)
       ) {
-        compatibility =
-          "Good Alignment - Your caring nature aligns with your life path.";
+        compatibility = "Good Alignment - Your caring nature aligns with your life path.";
       } else if (
         destinyNum === 7 &&
         (lifePathNum === 2 || lifePathNum === 4 || lifePathNum === 6)
       ) {
-        compatibility =
-          "Good Alignment - Your wisdom supports your life journey.";
+        compatibility = "Good Alignment - Your wisdom supports your life journey.";
       } else if (destinyNum === 8 && lifePathNum === 5) {
-        compatibility =
-          "Balanced Alignment - Your ambition aligns with your life purpose.";
+        compatibility = "Balanced Alignment - Your ambition aligns with your life purpose.";
       } else if (
         destinyNum === 9 &&
         (lifePathNum === 1 || lifePathNum === 3 || lifePathNum === 6)
       ) {
-        compatibility =
-          "Good Alignment - Your humanitarian nature serves your life purpose.";
+        compatibility = "Good Alignment - Your humanitarian nature serves your life purpose.";
       } else {
-        compatibility =
-          "You may need to consciously align your actions with your life path. Your destiny and life path complement each other with effort.";
+        compatibility = "You may need to consciously align your actions with your life path. Your destiny and life path complement each other with effort.";
       }
 
       setResult({
@@ -538,77 +307,40 @@ export default function DestinyNumber() {
         weaknesses: destinyMeaning.weaknesses,
         careers: destinyMeaning.careers,
         traits: destinyMeaning.traits,
-        luckyColors: [
-          "Red",
-          "Yellow",
-          "Orange",
-          "Green",
-          "Blue",
-          "Purple",
-          "Gold",
-          "Silver",
-        ].slice(0, 4),
-        luckyDays: [
-          "Monday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Sunday",
-        ].slice(0, 3),
-        luckyNumbers: [1, 3, 5, 6, 9, 10, 12, 14, 15, 18, 19, 21].slice(0, 5),
+        luckyColors: ["Red", "Yellow", "Orange", "Green"].slice(0, 4),
+        luckyDays: ["Monday", "Wednesday", "Thursday"].slice(0, 3),
+        luckyNumbers: [1, 3, 5, 6, 9].slice(0, 5),
         isMasterNumber: isMasterNumber(destinyNum),
       });
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Destiny Number Form */}
       <DestinyForm
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         result={result}
       />
-
-      {/* What is Destiny Number */}
       <WhatIsDestinyNumber />
-
-      {/* How to Calculate */}
       <HowToCalculate />
-
-      {/* What is Destiny Number Calculator */}
       <WhatIsDestinyCalculator />
-
-      {/* How Does It Work */}
       <HowDoesItWork />
-
-      {/* Meaning of Each Destiny Number */}
       <MeaningOfEachDestinyNumber />
-
-      {/* Benefits */}
       <Benefits />
-
-      {/* Difference Between Destiny and Life Path */}
       <DifferenceBetweenDestinyAndLifePath />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HERO SECTION ───────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -655,14 +387,9 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DESTINY FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────────── DESTINY FORM ────────────────────────── */
 interface DestinyFormProps {
-  formData: {
-    name: string;
-    day: string;
-    month: string;
-    year: string;
-  };
+  formData: { name: string; day: string; month: string; year: string };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
   result: null | {
@@ -682,12 +409,7 @@ interface DestinyFormProps {
   };
 }
 
-function DestinyForm({
-  formData,
-  handleChange,
-  handleSubmit,
-  result,
-}: DestinyFormProps) {
+function DestinyForm({ formData, handleChange, handleSubmit, result }: DestinyFormProps) {
   return (
     <section className="py-12 bg-white">
       <div className="container-8xl">
@@ -709,7 +431,6 @@ function DestinyForm({
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Name <span className="text-danger-500">*</span>
@@ -731,81 +452,62 @@ function DestinyForm({
                   </p>
                 </div>
 
-                {/* Date */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Date (DD/MM/YYYY) <span className="text-danger-500">*</span>
                   </label>
                   <div className="grid grid-cols-3 gap-3">
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400" />
-                      <input
-                        type="number"
-                        name="day"
-                        value={formData.day}
-                        onChange={handleChange}
-                        placeholder="DD"
-                        className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
-                        min="1"
-                        max="31"
-                        required
-                      />
-                    </div>
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400" />
-                      <input
-                        type="number"
-                        name="month"
-                        value={formData.month}
-                        onChange={handleChange}
-                        placeholder="MM"
-                        className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
-                        min="1"
-                        max="12"
-                        required
-                      />
-                    </div>
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400" />
-                      <input
-                        type="number"
-                        name="year"
-                        value={formData.year}
-                        onChange={handleChange}
-                        placeholder="YYYY"
-                        className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
-                        min="1900"
-                        max="2100"
-                        required
-                      />
-                    </div>
+                    <input
+                      type="number"
+                      name="day"
+                      value={formData.day}
+                      onChange={handleChange}
+                      placeholder="DD"
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
+                      min="1"
+                      max="31"
+                      required
+                    />
+                    <input
+                      type="number"
+                      name="month"
+                      value={formData.month}
+                      onChange={handleChange}
+                      placeholder="MM"
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
+                      min="1"
+                      max="12"
+                      required
+                    />
+                    <input
+                      type="number"
+                      name="year"
+                      value={formData.year}
+                      onChange={handleChange}
+                      placeholder="YYYY"
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
+                      min="1900"
+                      max="2100"
+                      required
+                    />
                   </div>
                 </div>
 
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                  type="submit"
-                >
+                <Button variant="primary" size="lg" className="w-full" type="submit">
                   <Sparkles className="h-4 w-4" />
                   Calculate Destiny Number
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </form>
 
-              {/* Results */}
               {result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-6 space-y-4"
                 >
-                  {/* Main Numbers */}
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div
-                      className={`bg-gradient-to-br ${result.destinyMeaning.color} rounded-xl p-4 text-white text-center`}
-                    >
+                    <div className={`bg-gradient-to-br ${result.destinyMeaning.color} rounded-xl p-4 text-white text-center`}>
                       <div className="text-xs font-semibold opacity-90">
                         Your Destiny Number
                       </div>
@@ -817,7 +519,7 @@ function DestinyForm({
                       </div>
                       {result.isMasterNumber && (
                         <div className="mt-1 text-xs font-semibold bg-white/20 rounded-full px-3 py-0.5 inline-block">
-                          â­ Master Number
+                          ⭐ Master Number
                         </div>
                       )}
                     </div>
@@ -834,17 +536,13 @@ function DestinyForm({
                     </div>
                   </div>
 
-                  {/* Compatibility */}
                   <div className="p-4 bg-gradient-to-br from-accent-50 to-primary-50 rounded-xl border border-accent-200">
                     <h4 className="text-sm font-bold text-ink-900 mb-1">
                       Compatibility
                     </h4>
-                    <p className="text-sm text-ink-600">
-                      {result.compatibility}
-                    </p>
+                    <p className="text-sm text-ink-600">{result.compatibility}</p>
                   </div>
 
-                  {/* Traits, Strengths, Weaknesses */}
                   <div className="grid md:grid-cols-3 gap-4">
                     <div className="bg-white rounded-xl p-4 border border-ink-100">
                       <h4 className="text-xs font-bold text-ink-900 mb-2">
@@ -852,11 +550,8 @@ function DestinyForm({
                       </h4>
                       <ul className="space-y-1">
                         {result.traits.map((trait, i) => (
-                          <li
-                            key={i}
-                            className="text-xs text-ink-600 flex items-center gap-1"
-                          >
-                            <span className="text-primary-500">â€¢</span>
+                          <li key={i} className="text-xs text-ink-600 flex items-center gap-1">
+                            <span className="text-primary-500">•</span>
                             {trait}
                           </li>
                         ))}
@@ -868,11 +563,8 @@ function DestinyForm({
                       </h4>
                       <ul className="space-y-1">
                         {result.strengths.map((strength, i) => (
-                          <li
-                            key={i}
-                            className="text-xs text-green-600 flex items-center gap-1"
-                          >
-                            <span className="text-green-400">â€¢</span>
+                          <li key={i} className="text-xs text-green-600 flex items-center gap-1">
+                            <span className="text-green-400">•</span>
                             {strength}
                           </li>
                         ))}
@@ -884,11 +576,8 @@ function DestinyForm({
                       </h4>
                       <ul className="space-y-1">
                         {result.weaknesses.map((weakness, i) => (
-                          <li
-                            key={i}
-                            className="text-xs text-amber-600 flex items-center gap-1"
-                          >
-                            <span className="text-amber-400">â€¢</span>
+                          <li key={i} className="text-xs text-amber-600 flex items-center gap-1">
+                            <span className="text-amber-400">•</span>
                             {weakness}
                           </li>
                         ))}
@@ -896,7 +585,6 @@ function DestinyForm({
                     </div>
                   </div>
 
-                  {/* Careers & Lucky Info */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-white rounded-xl p-4 border border-ink-100">
                       <h4 className="text-xs font-bold text-ink-900 mb-2">
@@ -904,11 +592,8 @@ function DestinyForm({
                       </h4>
                       <ul className="space-y-1">
                         {result.careers.map((career, i) => (
-                          <li
-                            key={i}
-                            className="text-xs text-ink-600 flex items-center gap-1"
-                          >
-                            <span className="text-accent-500">â€¢</span>
+                          <li key={i} className="text-xs text-ink-600 flex items-center gap-1">
+                            <span className="text-accent-500">•</span>
                             {career}
                           </li>
                         ))}
@@ -920,45 +605,30 @@ function DestinyForm({
                       </h4>
                       <div className="space-y-2">
                         <div>
-                          <span className="text-xs font-medium text-ink-700">
-                            Numbers:
-                          </span>
+                          <span className="text-xs font-medium text-ink-700">Numbers:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {result.luckyNumbers.map((num, i) => (
-                              <span
-                                key={i}
-                                className="text-xs bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full"
-                              >
+                              <span key={i} className="text-xs bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full">
                                 {num}
                               </span>
                             ))}
                           </div>
                         </div>
                         <div>
-                          <span className="text-xs font-medium text-ink-700">
-                            Days:
-                          </span>
+                          <span className="text-xs font-medium text-ink-700">Days:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {result.luckyDays.map((day, i) => (
-                              <span
-                                key={i}
-                                className="text-xs bg-accent-50 text-accent-700 px-2 py-0.5 rounded-full"
-                              >
+                              <span key={i} className="text-xs bg-accent-50 text-accent-700 px-2 py-0.5 rounded-full">
                                 {day}
                               </span>
                             ))}
                           </div>
                         </div>
                         <div>
-                          <span className="text-xs font-medium text-ink-700">
-                            Colors:
-                          </span>
+                          <span className="text-xs font-medium text-ink-700">Colors:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {result.luckyColors.map((color, i) => (
-                              <span
-                                key={i}
-                                className="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full"
-                              >
+                              <span key={i} className="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full">
                                 {color}
                               </span>
                             ))}
@@ -970,8 +640,7 @@ function DestinyForm({
 
                   <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-4 text-center text-white">
                     <p className="text-sm">
-                      Connect with an Astrologer for more personalised detailed
-                      predictions.
+                      Connect with an Astrologer for more personalised detailed predictions.
                     </p>
                     <div className="flex justify-center gap-3 mt-3">
                       <Button to="/consultations" variant="dark" size="sm">
@@ -989,7 +658,7 @@ function DestinyForm({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS DESTINY NUMBER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHAT IS DESTINY NUMBER ────────────────────── */
 function WhatIsDestinyNumber() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1015,9 +684,7 @@ function WhatIsDestinyNumber() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">
-                    ðŸ’¡ Unlike other numbers
-                  </span>{" "}
+                  <span className="font-semibold">💡 Unlike other numbers</span>{" "}
                   in numerology, your destiny number or bhagyank never changes.
                   It's like your life's blueprint. It shapes your personality,
                   career choices, and even the kind of relationships you
@@ -1026,10 +693,10 @@ function WhatIsDestinyNumber() {
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">âœ¨ Many believe</span>{" "}
-                  parents unknowingly pick names that match the child's destiny.
-                  That's why names often feel "just right." Changing your name
-                  can sometimes change your life, too.
+                  <span className="font-semibold">✨ Many believe</span> parents
+                  unknowingly pick names that match the child's destiny. That's
+                  why names often feel "just right." Changing your name can
+                  sometimes change your life, too.
                 </p>
               </div>
             </div>
@@ -1040,7 +707,7 @@ function WhatIsDestinyNumber() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW TO CALCULATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HOW TO CALCULATE ───────────────────────── */
 function HowToCalculate() {
   return (
     <section className="py-16 bg-white">
@@ -1062,42 +729,22 @@ function HowToCalculate() {
                     Letter-Number Mapping
                   </h4>
                   <div className="grid grid-cols-3 gap-2 text-sm">
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">1</span>
-                      <p className="text-xs text-ink-500">A, J, S</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">2</span>
-                      <p className="text-xs text-ink-500">B, K, T</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">3</span>
-                      <p className="text-xs text-ink-500">C, L, U</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">4</span>
-                      <p className="text-xs text-ink-500">D, M, V</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">5</span>
-                      <p className="text-xs text-ink-500">E, N, W</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">6</span>
-                      <p className="text-xs text-ink-500">F, O, X</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">7</span>
-                      <p className="text-xs text-ink-500">G, P, Y</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">8</span>
-                      <p className="text-xs text-ink-500">H, Q, Z</p>
-                    </div>
-                    <div className="bg-white rounded-lg p-2 text-center">
-                      <span className="font-bold text-primary-600">9</span>
-                      <p className="text-xs text-ink-500">I, R</p>
-                    </div>
+                    {[
+                      { n: 1, l: "A, J, S" },
+                      { n: 2, l: "B, K, T" },
+                      { n: 3, l: "C, L, U" },
+                      { n: 4, l: "D, M, V" },
+                      { n: 5, l: "E, N, W" },
+                      { n: 6, l: "F, O, X" },
+                      { n: 7, l: "G, P, Y" },
+                      { n: 8, l: "H, Q, Z" },
+                      { n: 9, l: "I, R" },
+                    ].map(({ n, l }) => (
+                      <div key={n} className="bg-white rounded-lg p-2 text-center">
+                        <span className="font-bold text-primary-600">{n}</span>
+                        <p className="text-xs text-ink-500">{l}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -1119,20 +766,15 @@ function HowToCalculate() {
                       S(1)+H(8)+A(1)+R(9)+M(4)+A(1) = 24
                     </p>
                     <p>
-                      <span className="font-semibold">Total:</span> 25 + 19 + 24
-                      = 68
+                      <span className="font-semibold">Total:</span> 25 + 19 + 24 = 68
                     </p>
                     <p>
                       <span className="font-semibold">Reduce:</span> 6 + 8 = 14
-                      â†’ 1 + 4 ={" "}
-                      <span className="font-bold text-primary-600 text-lg">
-                        5
-                      </span>
+                      → 1 + 4 ={" "}
+                      <span className="font-bold text-primary-600 text-lg">5</span>
                     </p>
                     <div className="bg-primary-50 rounded-lg p-2 mt-2">
-                      <p className="font-bold text-primary-700">
-                        Destiny Number = 5
-                      </p>
+                      <p className="font-bold text-primary-700">Destiny Number = 5</p>
                     </div>
                   </div>
                 </div>
@@ -1140,7 +782,7 @@ function HowToCalculate() {
 
               <div className="mt-6 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ Master Numbers:</span> If
+                  <span className="font-semibold">💡 Master Numbers:</span> If
                   your total is 11, 22, or 33, these are master numbers and are
                   not reduced further.
                 </p>
@@ -1153,7 +795,7 @@ function HowToCalculate() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS DESTINY CALCULATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHAT IS DESTINY CALCULATOR ────────────────────── */
 function WhatIsDestinyCalculator() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1183,21 +825,19 @@ function WhatIsDestinyCalculator() {
                     Professional Tools Go Further
                   </h4>
                   <ul className="space-y-1 text-sm text-ink-600">
-                    <li>â€¢ Tell how your number affects your job</li>
-                    <li>â€¢ Love life and personal growth insights</li>
-                    <li>â€¢ Tips on lucky days and suitable careers</li>
-                    <li>â€¢ Compatibility checks with others</li>
+                    <li>• Tell how your number affects your job</li>
+                    <li>• Love life and personal growth insights</li>
+                    <li>• Tips on lucky days and suitable careers</li>
+                    <li>• Compatibility checks with others</li>
                   </ul>
                 </div>
                 <div className="bg-ink-50 rounded-xl p-4">
-                  <h4 className="text-sm font-bold text-ink-900 mb-2">
-                    Why Use It
-                  </h4>
+                  <h4 className="text-sm font-bold text-ink-900 mb-2">Why Use It</h4>
                   <ul className="space-y-1 text-sm text-ink-600">
-                    <li>â€¢ Simple for everyone, even beginners</li>
-                    <li>â€¢ No human mistakes in counting</li>
-                    <li>â€¢ Quick and accurate results</li>
-                    <li>â€¢ Deep truths about your life path</li>
+                    <li>• Simple for everyone, even beginners</li>
+                    <li>• No human mistakes in counting</li>
+                    <li>• Quick and accurate results</li>
+                    <li>• Deep truths about your life path</li>
                   </ul>
                 </div>
               </div>
@@ -1209,19 +849,18 @@ function WhatIsDestinyCalculator() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW DOES IT WORK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── HOW DOES IT WORK ─────────────────────── */
 function HowDoesItWork() {
   const steps = [
     {
       number: 1,
       icon: User,
       title: "Enter Your Name",
-      description:
-        "Type your full birth name exactly as on your birth certificate.",
+      description: "Type your full birth name exactly as on your birth certificate.",
     },
     {
       number: 2,
-      icon: Calendar,
+      icon: Compass,
       title: "Enter Your Birth Date",
       description: "Enter the day, month, and year of your birth separately.",
     },
@@ -1229,8 +868,7 @@ function HowDoesItWork() {
       number: 3,
       icon: Target,
       title: "Get Your Numbers",
-      description:
-        'Click "Calculate" to get your Destiny and Life Path numbers.',
+      description: 'Click "Calculate" to get your Destiny and Life Path numbers.',
     },
   ];
 
@@ -1249,13 +887,11 @@ function HowDoesItWork() {
           {steps.map((step, i) => (
             <Reveal key={step.number} delay={i * 0.1}>
               <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
-                <div className="relative">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-xl font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto -mt-10 mb-3">
-                    <step.icon className="h-5 w-5 text-white" />
-                  </div>
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
+                  <step.icon className="h-6 w-6 text-white" />
+                </div>
+                <div className="text-xs font-bold text-ink-400 mb-1">
+                  Step {step.number}
                 </div>
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
                   {step.title}
@@ -1272,81 +908,21 @@ function HowDoesItWork() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MEANING OF EACH DESTINY NUMBER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── MEANINGS OF EACH NUMBER ─────────────────────── */
 function MeaningOfEachDestinyNumber() {
   const numbers = [
-    {
-      num: 1,
-      title: "The Leader",
-      emoji: "ðŸ¥‡",
-      desc: "Born to lead, take charge, and try new things. Often become business owners, inventors, or bold thinkers.",
-    },
-    {
-      num: 2,
-      title: "The Peacemaker",
-      emoji: "ðŸ¤",
-      desc: "Gentle, kind, and work well with others. Shine in teamwork, helping roles, and solving fights peacefully.",
-    },
-    {
-      num: 3,
-      title: "The Creative Soul",
-      emoji: "ðŸŽ¨",
-      desc: "Full of ideas, art, and fun. Writers, actors, and artists often carry this number.",
-    },
-    {
-      num: 4,
-      title: "The Builder",
-      emoji: "ðŸ§±",
-      desc: "Hardworking, practical, and love making strong foundations. Great at planning and organizing.",
-    },
-    {
-      num: 5,
-      title: "The Explorer",
-      emoji: "ðŸŒ",
-      desc: "Love freedom, change, and adventure. Enjoy travel, sales, and lively careers.",
-    },
-    {
-      num: 6,
-      title: "The Caregiver",
-      emoji: "ðŸ‘¨â€ðŸ‘©â€ðŸ‘§",
-      desc: "Loving, helpful, and family-focused. Do well in teaching, healing, or caring roles.",
-    },
-    {
-      num: 7,
-      title: "The Thinker",
-      emoji: "ðŸ§˜",
-      desc: "Love to study, think deeply, and seek truth. Become scientists, spiritual guides, or researchers.",
-    },
-    {
-      num: 8,
-      title: "The Achiever",
-      emoji: "ðŸ’¼",
-      desc: "All about money, power, and leadership. Succeed in business and on large projects.",
-    },
-    {
-      num: 9,
-      title: "The Giver",
-      emoji: "ðŸ’–",
-      desc: "Care deeply about helping others. May be a social worker, healer, or someone who wants to change the world.",
-    },
-    {
-      num: 11,
-      title: "Master Intuitive",
-      emoji: "ðŸ”®",
-      desc: "Higher purpose and spiritual mission. Amazing but challenging energy.",
-    },
-    {
-      num: 22,
-      title: "Master Builder",
-      emoji: "ðŸ—ï¸",
-      desc: "Power to turn dreams into reality. Build on a global scale.",
-    },
-    {
-      num: 33,
-      title: "Master Teacher",
-      emoji: "ðŸ“š",
-      desc: "Highest spiritual purpose. Here to teach and uplift humanity.",
-    },
+    { num: 1, title: "The Leader", emoji: "🌱", desc: "Born to lead, take charge, and try new things. Often become business owners, inventors, or bold thinkers." },
+    { num: 2, title: "The Peacemaker", emoji: "🕊️", desc: "Gentle, kind, and work well with others. Shine in teamwork, helping roles, and solving fights peacefully." },
+    { num: 3, title: "The Creative Soul", emoji: "🎨", desc: "Full of ideas, art, and fun. Writers, actors, and artists often carry this number." },
+    { num: 4, title: "The Builder", emoji: "🧱", desc: "Hardworking, practical, and love making strong foundations. Great at planning and organizing." },
+    { num: 5, title: "The Explorer", emoji: "🏄", desc: "Love freedom, change, and adventure. Enjoy travel, sales, and lively careers." },
+    { num: 6, title: "The Caregiver", emoji: "👨‍👩‍👧", desc: "Loving, helpful, and family-focused. Do well in teaching, healing, or caring roles." },
+    { num: 7, title: "The Thinker", emoji: "🧘", desc: "Love to study, think deeply, and seek truth. Become scientists, spiritual guides, or researchers." },
+    { num: 8, title: "The Achiever", emoji: "💰", desc: "All about money, power, and leadership. Succeed in business and on large projects." },
+    { num: 9, title: "The Giver", emoji: "🌍", desc: "Care deeply about helping others. May be a social worker, healer, or someone who wants to change the world." },
+    { num: 11, title: "Master Intuitive", emoji: "🔮", desc: "Higher purpose and spiritual mission. Amazing but challenging energy." },
+    { num: 22, title: "Master Builder", emoji: "🏗️", desc: "Power to turn dreams into reality. Build on a global scale." },
+    { num: 33, title: "Master Teacher", emoji: "📚", desc: "Highest spiritual purpose. Here to teach and uplift humanity." },
   ];
 
   return (
@@ -1369,13 +945,9 @@ function MeaningOfEachDestinyNumber() {
                     {item.num}
                   </div>
                   <span className="text-2xl">{item.emoji}</span>
-                  <h4 className="text-sm font-bold text-ink-900">
-                    {item.title}
-                  </h4>
+                  <h4 className="text-sm font-bold text-ink-900">{item.title}</h4>
                 </div>
-                <p className="text-xs text-ink-500 leading-relaxed">
-                  {item.desc}
-                </p>
+                <p className="text-xs text-ink-500 leading-relaxed">{item.desc}</p>
               </div>
             </Reveal>
           ))}
@@ -1385,45 +957,15 @@ function MeaningOfEachDestinyNumber() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ BENEFITS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── BENEFITS ─────────────────────────── */
 function Benefits() {
   const benefits = [
-    {
-      icon: Briefcase,
-      title: "Career Guidance",
-      description:
-        "You may realize why past jobs didn't feel right and what kind of work suits you best. Shows the best time for job changes and big work decisions.",
-    },
-    {
-      icon: Heart,
-      title: "Relationship Understanding",
-      description:
-        "Shows why you get along well with some people and not with others. Makes it easier to handle problems and find the right partner.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Personal Growth",
-      description:
-        "Learn your strengths and weaknesses, so you grow better and avoid common mistakes. Stops you from wasting years in the wrong places.",
-    },
-    {
-      icon: CompassIcon,
-      title: "Decision-Making Confidence",
-      description:
-        "Your destiny number acts like a guide. Shows which choices help you grow and which ones to avoid during big life changes.",
-    },
-    {
-      icon: Home,
-      title: "Family Harmony",
-      description:
-        "When everyone knows each other's destiny number, families understand each other's emotional styles and communication habits better.",
-    },
-    {
-      icon: Star,
-      title: "Self-Discovery",
-      description:
-        "Discover the real purpose of your life and the special strengths you are born with. Things that once felt confusing become clearer.",
-    },
+    { icon: Calculator, title: "Career Guidance", description: "You may realize why past jobs didn't feel right and what kind of work suits you best. Shows the best time for job changes and big work decisions." },
+    { icon: Heart, title: "Relationship Understanding", description: "Shows why you get along well with some people and not with others. Makes it easier to handle problems and find the right partner." },
+    { icon: Star, title: "Personal Growth", description: "Learn your strengths and weaknesses, so you grow better and avoid common mistakes. Stops you from wasting years in the wrong places." },
+    { icon: Compass, title: "Decision-Making Confidence", description: "Your destiny number acts like a guide. Shows which choices help you grow and which ones to avoid during big life changes." },
+    { icon: Users, title: "Family Harmony", description: "When everyone knows each other's destiny number, families understand each other's emotional styles and communication habits better." },
+    { icon: Sparkles, title: "Self-Discovery", description: "Discover the real purpose of your life and the special strengths you are born with. Things that once felt confusing become clearer." },
   ];
 
   return (
@@ -1459,7 +1001,7 @@ function Benefits() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DIFFERENCE BETWEEN DESTINY AND LIFE PATH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── DIFFERENCE BETWEEN NUMBERS ────────────────────── */
 function DifferenceBetweenDestinyAndLifePath() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1483,34 +1025,20 @@ function DifferenceBetweenDestinyAndLifePath() {
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
-                  <span>
-                    Comes from your{" "}
-                    <span className="font-semibold">full name at birth</span>
-                  </span>
+                  <Star className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
+                  <span>Comes from your <span className="font-semibold">full name at birth</span></span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
-                  <span>
-                    Tells you what you're{" "}
-                    <span className="font-semibold">here to do</span>
-                  </span>
+                  <Star className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
+                  <span>Tells you what you're <span className="font-semibold">here to do</span></span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
-                  <span>
-                    Shows your{" "}
-                    <span className="font-semibold">mission in this world</span>
-                  </span>
+                  <Star className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
+                  <span>Shows your <span className="font-semibold">mission in this world</span></span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
-                  <span>
-                    Helps with{" "}
-                    <span className="font-semibold">
-                      career, relationships, and self-growth
-                    </span>
-                  </span>
+                  <Star className="h-4 w-4 text-primary-500 shrink-0 mt-0.5" />
+                  <span>Helps with <span className="font-semibold">career, relationships, and self-growth</span></span>
                 </li>
               </ul>
             </div>
@@ -1519,42 +1047,27 @@ function DifferenceBetweenDestinyAndLifePath() {
           <Reveal delay={0.2}>
             <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:shadow-lg transition-all">
               <div className="p-3 rounded-xl bg-gradient-to-br from-accent-600 to-secondary-600 w-fit mb-4">
-                <CompassIcon className="h-6 w-6 text-white" />
+                <Compass className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-xl font-bold text-ink-900 mb-3">
                 Life Path Number
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
-                  <span>
-                    Comes from your{" "}
-                    <span className="font-semibold">birth date</span>
-                  </span>
+                  <Star className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
+                  <span>Comes from your <span className="font-semibold">birth date</span></span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
-                  <span>
-                    Shows the{" "}
-                    <span className="font-semibold">path you'll walk</span> in
-                    life
-                  </span>
+                  <Star className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
+                  <span>Shows the <span className="font-semibold">path you'll walk</span> in life</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
-                  <span>
-                    Explains how you'll{" "}
-                    <span className="font-semibold">learn life lessons</span>
-                  </span>
+                  <Star className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
+                  <span>Explains how you'll <span className="font-semibold">learn life lessons</span></span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <CheckCircle className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
-                  <span>
-                    Helps with{" "}
-                    <span className="font-semibold">
-                      timing and life choices
-                    </span>
-                  </span>
+                  <Star className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
+                  <span>Helps with <span className="font-semibold">timing and life choices</span></span>
                 </li>
               </ul>
             </div>
@@ -1565,7 +1078,7 @@ function DifferenceBetweenDestinyAndLifePath() {
           <div className="mt-6 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-accent-50 to-primary-50 rounded-2xl p-6 border border-accent-200">
               <h4 className="text-sm font-bold text-ink-900 mb-2">
-                ðŸ’¡ When Both Numbers Align
+                💡 When Both Numbers Align
               </h4>
               <p className="text-sm text-ink-600">
                 When your destiny number and life path number match well, life
@@ -1581,7 +1094,7 @@ function DifferenceBetweenDestinyAndLifePath() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── CTA ─────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

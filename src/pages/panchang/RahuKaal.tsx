@@ -1,45 +1,26 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import {
-  Calendar,
-  Clock,
   MapPin,
-  Sun,
   Moon,
-  Star,
   Sparkles,
-  Heart,
-  ChevronRight,
-  Shield,
-  CheckCircle,
   ArrowRight,
-  Globe,
   TrendingUp,
   Activity,
   Home,
   Briefcase,
-  Baby,
   AlertCircle,
-  Info,
-  Award,
-  Zap,
-  Calculator,
   ShoppingBag,
   Compass,
   Sunrise,
   Sunset,
-  Cloud,
   Users,
-  BookOpen,
   AlertTriangle,
-  XCircle,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// City data
 const cities = [
   { value: "new-delhi", label: "New Delhi, Delhi, India" },
   { value: "mumbai", label: "Mumbai, Maharashtra, India" },
@@ -53,7 +34,6 @@ const cities = [
   { value: "lucknow", label: "Lucknow, Uttar Pradesh, India" },
 ];
 
-// Rahu Kaal time slots by day
 const rahuKaalSlots: { [key: string]: number } = {
   Sunday: 8,
   Monday: 2,
@@ -64,7 +44,6 @@ const rahuKaalSlots: { [key: string]: number } = {
   Saturday: 3,
 };
 
-// Sample rahu kaal data
 const getRahuKaalData = (city: string) => {
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
@@ -75,11 +54,9 @@ const getRahuKaalData = (city: string) => {
     year: "numeric",
   });
 
-  // Calculate time slots based on sunrise/sunset
   const sunrise = "06:02 AM";
   const sunset = "06:33 PM";
 
-  // Convert to minutes for calculation
   const getMinutes = (time: string) => {
     const [hours, minutes] = time.split(":");
     const [h, m] = [parseInt(hours), parseInt(minutes)];
@@ -95,7 +72,6 @@ const getRahuKaalData = (city: string) => {
   const totalMinutes = sunsetMinutes - sunriseMinutes;
   const slotDuration = Math.floor(totalMinutes / 8);
 
-  // Generate slots
   const slots = [];
   for (let i = 0; i < 8; i++) {
     const start = sunriseMinutes + i * slotDuration;
@@ -126,22 +102,22 @@ const getRahuKaalData = (city: string) => {
     sunset: sunset,
     moonrise: "03:55 AM",
     moonset: "05:26 PM",
-    rahuKaal: `${rahuSlot.start} â€“ ${rahuSlot.end}`,
+    rahuKaal: `${rahuSlot.start} – ${rahuSlot.end}`,
     tithi: "Trayodashi",
     nakshatra: "Ashlesha upto 05:25",
     yoga: "Shiva",
     karana: "Gar",
     paksha: "Krishna",
     weekday: dayName,
-    abhijeetMuhurat: "11:53:16 AM â€“ 12:43:18 PM",
+    abhijeetMuhurat: "11:53:16 AM – 12:43:18 PM",
     inauspiciousTimings: [
-      { name: "Rahu Kaal", time: `${rahuSlot.start} â€“ ${rahuSlot.end}` },
-      { name: "Yamaganda", time: "07:36:49 AM â€“ 09:10:38 AM" },
-      { name: "Gulika Kaal", time: "10:44:27 AM â€“ 12:18:17 PM" },
-      { name: "Kantaka / Mrityu", time: "03:25:55 PM â€“ 04:59:45 PM" },
-      { name: "Kaalvela / Ardhayaam", time: "06:02:59 AM â€“ 07:36:49 AM" },
-      { name: "Yamaghanta", time: "07:36:49 AM â€“ 09:10:38 AM" },
-      { name: "Kulika Kaal", time: "10:44:27 AM â€“ 12:18:17 PM" },
+      { name: "Rahu Kaal", time: `${rahuSlot.start} – ${rahuSlot.end}` },
+      { name: "Yamaganda", time: "07:36:49 AM – 09:10:38 AM" },
+      { name: "Gulika Kaal", time: "10:44:27 AM – 12:18:17 PM" },
+      { name: "Kantaka / Mrityu", time: "03:25:55 PM – 04:59:45 PM" },
+      { name: "Kaalvela / Ardhayaam", time: "06:02:59 AM – 07:36:49 AM" },
+      { name: "Yamaghanta", time: "07:36:49 AM – 09:10:38 AM" },
+      { name: "Kulika Kaal", time: "10:44:27 AM – 12:18:17 PM" },
     ],
   };
 };
@@ -162,33 +138,21 @@ export default function RahuKaal() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Rahu Kaal Display */}
       <RahuKaalDisplay
         panchangData={panchangData}
         selectedCity={selectedCity}
         handleCityChange={handleCityChange}
         cities={cities}
       />
-
-      {/* How to Calculate */}
       <HowToCalculate />
-
-      {/* What to Avoid */}
       <WhatToAvoid />
-
-      {/* Related Pages */}
-      <RelatedPages />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── HERO SECTION ─────────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -232,7 +196,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ RAHU KAAL DISPLAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── RAHU KAAL DISPLAY ───────────────────────── */
 interface RahuKaalDisplayProps {
   panchangData: any;
   selectedCity: string;
@@ -251,7 +215,6 @@ function RahuKaalDisplay({
       <div className="container-8xl">
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            {/* City Selector */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-ink-700 mb-2">
                 Select Location
@@ -273,7 +236,6 @@ function RahuKaalDisplay({
             </div>
 
             <div className="bg-gradient-to-br from-ink-50 to-primary-50 rounded-2xl p-6 md:p-8 border border-ink-100">
-              {/* Date & Location */}
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-ink-900">
                   {panchangData.city}
@@ -281,7 +243,6 @@ function RahuKaalDisplay({
                 <p className="text-sm text-ink-500">{panchangData.date}</p>
               </div>
 
-              {/* Rahu Kaal Highlight */}
               <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-xl p-6 border-2 border-red-200 mb-6 text-center">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <AlertTriangle className="h-6 w-6 text-red-600" />
@@ -293,11 +254,10 @@ function RahuKaalDisplay({
                   {panchangData.rahuKaal}
                 </div>
                 <p className="text-sm text-red-600 mt-2 font-semibold">
-                  âš ï¸ Avoid starting new work during this period
+                  ⚠️ Avoid starting new work during this period
                 </p>
               </div>
 
-              {/* Sunrise/Sunset/Moonrise/Moonset */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="bg-white rounded-xl p-4 text-center border border-ink-100">
                   <Sunrise className="h-6 w-6 text-orange-500 mx-auto mb-1" />
@@ -329,7 +289,6 @@ function RahuKaalDisplay({
                 </div>
               </div>
 
-              {/* Panchang Details */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 <div className="bg-white rounded-xl p-3 text-center border border-ink-100">
                   <div className="text-xs text-ink-500">Tithi</div>
@@ -369,7 +328,6 @@ function RahuKaalDisplay({
                 </div>
               </div>
 
-              {/* Inauspicious Timings */}
               <div className="mb-4">
                 <h3 className="text-lg font-bold text-ink-900 mb-3 flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-red-500" />
@@ -398,22 +356,16 @@ function RahuKaalDisplay({
                 </div>
               </div>
 
-              {/* Abhijeet Muhurat */}
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
                 <div className="flex items-center gap-2 mb-1">
                   <Sparkles className="h-5 w-5 text-green-600" />
                   <h4 className="text-sm font-bold text-green-700">
-                    âœ¨ Abhijeet Muhurat
+                    ✨ Abhijeet Muhurat
                   </h4>
                 </div>
                 <div className="text-sm font-semibold text-green-700">
                   {panchangData.abhijeetMuhurat}
                 </div>
-              </div>
-
-              {/* Footer */}
-              <div className="mt-4 text-center">
-                <p className="text-xs text-ink-400">Â© Astrotalk.com</p>
               </div>
             </div>
           </Reveal>
@@ -423,7 +375,7 @@ function RahuKaalDisplay({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW TO CALCULATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HOW TO CALCULATE ───────────────────────── */
 function HowToCalculate() {
   const steps = [
     {
@@ -519,7 +471,7 @@ function HowToCalculate() {
               <Reveal delay={0.4}>
                 <div className="mt-4 bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-4 border border-accent-200">
                   <h4 className="text-sm font-bold text-ink-900 mb-2">
-                    ðŸ“ Example
+                    📝 Example
                   </h4>
                   <div className="text-sm text-ink-600 space-y-1">
                     <p>
@@ -537,12 +489,12 @@ function HowToCalculate() {
                       minutes
                     </p>
                     <p>
-                      <span className="font-semibold">Day:</span> Monday â†’ 2nd
+                      <span className="font-semibold">Day:</span> Monday → 2nd
                       slot
                     </p>
                     <div className="mt-2 p-2 bg-white rounded-lg border border-ink-100">
                       <p className="font-bold text-primary-600">
-                        Rahu Kaal: 7:10 AM â€“ 8:45 AM
+                        Rahu Kaal: 7:10 AM – 8:45 AM
                       </p>
                     </div>
                   </div>
@@ -556,7 +508,7 @@ function HowToCalculate() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT TO AVOID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── WHAT TO AVOID ─────────────────────────── */
 function WhatToAvoid() {
   const avoidItems = [
     {
@@ -626,7 +578,7 @@ function WhatToAvoid() {
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-6 border border-red-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸ’¡ Note:</span> Rahu Kaal is
+                <span className="font-semibold">💡 Note:</span> Rahu Kaal is
                 not a caution or danger zone where you cannot resume your daily
                 activities, but a period to{" "}
                 <span className="font-semibold text-red-600">
@@ -642,52 +594,7 @@ function WhatToAvoid() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ RELATED PAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-function RelatedPages() {
-  const relatedPages = [
-    { name: "Today Panchang", icon: Calendar, link: "/today-panchang" },
-    { name: "Tomorrow Panchang", icon: Calendar, link: "/tomorrow-panchang" },
-    { name: "Daily Horoscope", icon: Star, link: "/horoscope" },
-    { name: "Tithi", icon: Moon, link: "/tithi" },
-    { name: "Vaar", icon: Calendar, link: "/vaar" },
-    { name: "Yoga", icon: Activity, link: "/yoga" },
-    { name: "Karana", icon: Clock, link: "/karana" },
-    { name: "Hora", icon: Sun, link: "/hora" },
-    { name: "Choghadiya", icon: Compass, link: "/choghadiya" },
-  ];
-
-  return (
-    <section className="py-16 bg-ink-50">
-      <div className="container-8xl">
-        <Reveal>
-          <SectionHeading
-            badge="Related Pages"
-            title="Explore More Panchang Tools"
-            subtitle="Discover other aspects of the Vedic calendar"
-          />
-        </Reveal>
-
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-3 max-w-6xl mx-auto">
-          {relatedPages.map((page, i) => (
-            <Reveal key={page.name} delay={i * 0.05}>
-              <Button
-                to={page.link}
-                variant="outline"
-                size="sm"
-                className="w-full text-center"
-              >
-                <page.icon className="h-3 w-3 mx-auto mb-1" />
-                <span className="text-[10px]">{page.name}</span>
-              </Button>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────────── CTA SECTION ──────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

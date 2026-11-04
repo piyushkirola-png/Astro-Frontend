@@ -93,7 +93,7 @@ export default function Navbar() {
             <img
               src="/assets/logo.png"
               alt="Jyotish AI"
-              className="h-8 w-10 rounded-lg"
+              className="h-10 w-10 rounded-lg"
             />
             <span className="text-xl font-bold tracking-tight text-ink-900">
               Jyotish <span className="text-primary-600">AI</span>

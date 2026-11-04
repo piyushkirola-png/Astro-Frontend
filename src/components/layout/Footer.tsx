@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
 import {
-  Linkedin,
   Mail,
-  Twitter,
-  Youtube,
-  Instagram,
   Star,
   Sparkles,
   Moon,
@@ -108,42 +104,6 @@ export default function Footer() {
 
           <div className="flex items-center gap-3 mt-4">
             <a
-              href="https://www.linkedin.com/company/jyotish-ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-ink-300 hover:text-white transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="h-4 w-4" />
-            </a>
-            <a
-              href="https://twitter.com/jyotishai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-ink-300 hover:text-white transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.instagram.com/jyotishai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-ink-300 hover:text-white transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.youtube.com/@jyotishai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-ink-300 hover:text-white transition-colors"
-              aria-label="YouTube"
-            >
-              <Youtube className="h-4 w-4" />
-            </a>
-            <a
               href="mailto:support@jyotishai.com"
               className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-ink-300 hover:text-white transition-colors"
               aria-label="Email"
@@ -185,7 +145,7 @@ export default function Footer() {
           <div className="flex items-center gap-2 text-xs text-ink-500">
             <span className="flex items-center gap-1">
               <Star className="h-2.5 w-2.5 text-accent-500" />
-              500+ Expert Astrologers
+              1 AI Astrologer
             </span>
             <span className="w-0.5 h-0.5 rounded-full bg-ink-600" />
             <span className="flex items-center gap-1">

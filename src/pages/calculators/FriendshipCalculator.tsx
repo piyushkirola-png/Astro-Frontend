@@ -9,26 +9,16 @@ import {
   Zap,
   Shield,
   Award,
-  TrendingUp,
-  Activity,
   Moon,
   Sun,
   Star,
-  Calendar,
-  Clock,
-  MapPin,
   User,
   Info,
-  Gift,
-  Smile,
-  Flame,
   Crown,
-  Music,
   Coffee,
-  Diamond,
-  Handshake,
   Compass,
   Feather,
+  Handshake,
   Globe,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
@@ -36,7 +26,6 @@ import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// Friendship quotes
 const friendshipQuotes = [
   "Friendship is truly one of life's most beautiful gifts. It's not something you're born into or forced into, it's a bond you choose.",
   "Real friendship isn't about what you get from someone; it's about that warm feeling of being understood, supported, and accepted just as you are.",
@@ -46,99 +35,59 @@ const friendshipQuotes = [
   "Friends are the family we choose for ourselves.",
 ];
 
-// Friendship types
 const friendshipTypes = [
-  {
-    icon: Coffee,
-    title: "Casual Friendships",
-    description:
-      "People you enjoy spending time with during specific activities or circumstances but don't share deep personal information.",
-  },
-  {
-    icon: Heart,
-    title: "Close Friendships",
-    description:
-      "Higher levels of trust, emotional sharing, and mutual support where both people feel comfortable discussing personal challenges.",
-  },
-  {
-    icon: Crown,
-    title: "Best Friends",
-    description:
-      "The deepest level of friendship, characterized by unconditional acceptance, complete trust, and the ability to share anything.",
-  },
-  {
-    icon: Compass,
-    title: "Karmic Friendships",
-    description:
-      "Serve specific purposes in your spiritual development, appearing during times when you need to learn particular lessons.",
-  },
-  {
-    icon: Feather,
-    title: "Spiritual Friendships",
-    description:
-      "Center around shared spiritual interests, practices, or beliefs that create bonds based on mutual seeking for truth.",
-  },
+  { icon: Coffee, title: "Casual Friendships", description: "People you enjoy spending time with during specific activities or circumstances but don't share deep personal information." },
+  { icon: Heart, title: "Close Friendships", description: "Higher levels of trust, emotional sharing, and mutual support where both people feel comfortable discussing personal challenges." },
+  { icon: Crown, title: "Best Friends", description: "The deepest level of friendship, characterized by unconditional acceptance, complete trust, and the ability to share anything." },
+  { icon: Compass, title: "Karmic Friendships", description: "Serve specific purposes in your spiritual development, appearing during times when you need to learn particular lessons." },
+  { icon: Feather, title: "Spiritual Friendships", description: "Center around shared spiritual interests, practices, or beliefs that create bonds based on mutual seeking for truth." },
 ];
 
-// Planets affecting friendships
 const planets = [
   {
     name: "Sun",
     icon: Sun,
-    description:
-      "Governs self-image, confidence, and natural authority. Directly impacts how you show up in friendships.",
-    positive:
-      "Naturally shine in social circles, people are drawn to your presence.",
+    description: "Governs self-image, confidence, and natural authority. Directly impacts how you show up in friendships.",
+    positive: "Naturally shine in social circles, people are drawn to your presence.",
     negative: "Might come off as too dominant or struggle with ego clashes.",
     color: "from-orange-500 to-yellow-500",
   },
   {
     name: "Mars",
     icon: Zap,
-    description:
-      "Brings action, courage, and loyalty. Fiercely loyal friend who always has everyone's back.",
+    description: "Brings action, courage, and loyalty. Fiercely loyal friend who always has everyone's back.",
     positive: "Brings thrill and protective energy to relationships.",
-    negative:
-      "Can make you reactive, overly competitive, or struggle with conflicts.",
+    negative: "Can make you reactive, overly competitive, or struggle with conflicts.",
     color: "from-red-500 to-orange-500",
   },
   {
     name: "Saturn",
     icon: Shield,
-    description:
-      "Brings depth and stability. The kind of friend who stays through every high and low.",
-    positive:
-      "Takes promises seriously, relationships grow stronger with time.",
+    description: "Brings depth and stability. The kind of friend who stays through every high and low.",
+    positive: "Takes promises seriously, relationships grow stronger with time.",
     negative: "May feel emotionally guarded or struggle with opening up.",
     color: "from-gray-600 to-slate-700",
   },
   {
     name: "Rahu",
     icon: Globe,
-    description:
-      "The wildcard. Governs ambition and unconventional friendships, drawing you to people from vastly different backgrounds.",
+    description: "The wildcard. Governs ambition and unconventional friendships, drawing you to people from vastly different backgrounds.",
     positive: "Opens your world to diverse connections.",
-    negative:
-      "Might lead to friendships that are intense but filled with drama.",
+    negative: "Might lead to friendships that are intense but filled with drama.",
     color: "from-purple-500 to-indigo-500",
   },
   {
     name: "Ketu",
     icon: Moon,
-    description:
-      "Spiritual and mysterious. Governs soul-deep connections and karmic friendships.",
+    description: "Spiritual and mysterious. Governs soul-deep connections and karmic friendships.",
     positive: "Friendships that feel like you've known the person forever.",
-    negative:
-      "Might make you feel disconnected or bring sudden endings to friendships.",
+    negative: "Might make you feel disconnected or bring sudden endings to friendships.",
     color: "from-blue-400 to-cyan-500",
   },
 ];
 
 export default function FriendshipCalculator() {
-  const [formData, setFormData] = useState({
-    yourName: "",
-    partnerName: "",
-  });
+  const [formData, setFormData] = useState({ yourName: "", partnerName: "" });
 
   const [result, setResult] = useState<null | {
     percentage: number;
@@ -156,7 +105,6 @@ export default function FriendshipCalculator() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.yourName && formData.partnerName) {
-      // Calculate friendship compatibility
       const combined = (formData.yourName + formData.partnerName)
         .toLowerCase()
         .replace(/\s/g, "");
@@ -164,86 +112,45 @@ export default function FriendshipCalculator() {
       for (let i = 0; i < combined.length; i++) {
         hash = (hash * 31 + combined.charCodeAt(i)) % 1000;
       }
-      const percentage = (hash % 41) + 50; // 50-90
+      const percentage = (hash % 41) + 50;
 
       let category, description, emoji, type, strengths, challenges, advice;
 
       if (percentage >= 80) {
         category = "Soul-Aligned Bond";
-        description =
-          "Your friendship is truly special! You share a deep, meaningful connection that feels like you've known each other for lifetimes.";
-        emoji = "ðŸŒŸ";
+        description = "Your friendship is truly special! You share a deep, meaningful connection that feels like you've known each other for lifetimes.";
+        emoji = "💸";
         type = "Spiritual/Karmic Friendship";
-        strengths = [
-          "Deep understanding",
-          "Unconditional support",
-          "Shared values",
-          "Effortless communication",
-        ];
-        challenges = [
-          "May struggle with boundaries",
-          "Can become too dependent",
-        ];
-        advice =
-          "Cherish this rare connection. Continue nurturing it with honesty and mutual respect.";
+        strengths = ["Deep understanding", "Unconditional support", "Shared values", "Effortless communication"];
+        challenges = ["May struggle with boundaries", "Can become too dependent"];
+        advice = "Cherish this rare connection. Continue nurturing it with honesty and mutual respect.";
       } else if (percentage >= 65) {
         category = "Strong Bond";
-        description =
-          "You have a solid friendship built on trust, respect, and genuine care for each other.";
-        emoji = "ðŸ’«";
+        description = "You have a solid friendship built on trust, respect, and genuine care for each other.";
+        emoji = "💫";
         type = "Close/Best Friendship";
-        strengths = [
-          "Trustworthy",
-          "Reliable",
-          "Good communication",
-          "Mutual respect",
-        ];
-        challenges = [
-          "May need more quality time",
-          "Could work on deeper sharing",
-        ];
-        advice =
-          "Keep investing in this friendship. Regular check-ins and shared experiences will strengthen it further.";
+        strengths = ["Trustworthy", "Reliable", "Good communication", "Mutual respect"];
+        challenges = ["May need more quality time", "Could work on deeper sharing"];
+        advice = "Keep investing in this friendship. Regular check-ins and shared experiences will strengthen it further.";
       } else if (percentage >= 50) {
         category = "Growing Bond";
-        description =
-          "Your friendship has potential but needs nurturing. With effort and understanding, it can blossom into something beautiful.";
-        emoji = "ðŸŒ±";
+        description = "Your friendship has potential but needs nurturing. With effort and understanding, it can blossom into something beautiful.";
+        emoji = "🌱";
         type = "Casual/Growing Friendship";
-        strengths = [
-          "Pleasant interactions",
-          "Shared interests",
-          "Potential for growth",
-        ];
-        challenges = [
-          "May lack depth",
-          "Needs more trust-building",
-          "Communication gaps",
-        ];
-        advice =
-          "Take time to know each other better. Share more experiences and be open about your feelings.";
+        strengths = ["Pleasant interactions", "Shared interests", "Potential for growth"];
+        challenges = ["May lack depth", "Needs more trust-building", "Communication gaps"];
+        advice = "Take time to know each other better. Share more experiences and be open about your feelings.";
       } else {
         category = "Developing Bond";
-        description =
-          "Your friendship is in its early stages or may need more effort to align. Every connection has its own pace.";
-        emoji = "ðŸŒ¿";
+        description = "Your friendship is in its early stages or may need more effort to align. Every connection has its own pace.";
+        emoji = "🤔";
         type = "Casual Friendship";
-        strengths = [
-          "Open to connection",
-          "Positive start",
-          "Potential for growth",
-        ];
-        challenges = [
-          "May need more effort",
-          "Different expectations",
-          "Communication barriers",
-        ];
-        advice =
-          "Be patient and give this friendship time to grow. Focus on common interests and building trust gradually.";
+        strengths = ["Open to connection", "Positive start", "Potential for growth"];
+        challenges = ["May need more effort", "Different expectations", "Communication barriers"];
+        advice = "Be patient and give this friendship time to grow. Focus on common interests and building trust gradually.";
       }
 
-      const randomQuote =
-        friendshipQuotes[Math.floor(Math.random() * friendshipQuotes.length)];
+      const randomQuote = friendshipQuotes[Math.floor(Math.random() * friendshipQuotes.length)];
 
       setResult({
         percentage,
@@ -261,56 +168,32 @@ export default function FriendshipCalculator() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Friendship Calculator Form */}
       <FriendshipForm
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         result={result}
       />
-
-      {/* What is Friendship */}
       <WhatIsFriendship />
-
-      {/* What is Friendship Calculator */}
       <WhatIsFriendshipCalculator />
-
-      {/* How It Works */}
       <HowItWorks />
-
-      {/* Friendship Types */}
       <FriendshipTypes />
-
-      {/* Planets Affecting Friendships */}
       <PlanetsAffectingFriendships />
-
-      {/* House of Friendship */}
       <HouseOfFriendship />
-
-      {/* Benefits */}
       <Benefits />
-
-      {/* Why Choose Us */}
       <WhyChooseFriendship />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HERO SECTION ───────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -346,7 +229,7 @@ function HeroSection() {
               connection, a{" "}
               <span className="font-semibold text-primary-600">
                 Friendship Compatibility Calculator
-              </span>
+              </span>{" "}
               can give you surprising clarity.
             </p>
           </div>
@@ -356,12 +239,9 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ FRIENDSHIP FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────────── FRIENDSHIP FORM ────────────────────────── */
 interface FriendshipFormProps {
-  formData: {
-    yourName: string;
-    partnerName: string;
-  };
+  formData: { yourName: string; partnerName: string };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
   result: null | {
@@ -378,12 +258,7 @@ interface FriendshipFormProps {
   };
 }
 
-function FriendshipForm({
-  formData,
-  handleChange,
-  handleSubmit,
-  result,
-}: FriendshipFormProps) {
+function FriendshipForm({ formData, handleChange, handleSubmit, result }: FriendshipFormProps) {
   return (
     <section className="py-12 bg-white">
       <div className="container-8xl">
@@ -406,7 +281,6 @@ function FriendshipForm({
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid md:grid-cols-2 gap-6">
-                  {/* Your Name */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
                       Your Name <span className="text-danger-500">*</span>
@@ -425,11 +299,9 @@ function FriendshipForm({
                     </div>
                   </div>
 
-                  {/* Partner's Name */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
-                      Your Partner's Name{" "}
-                      <span className="text-danger-500">*</span>
+                      Your Partner's Name <span className="text-danger-500">*</span>
                     </label>
                     <div className="relative">
                       <Heart className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400" />
@@ -446,19 +318,13 @@ function FriendshipForm({
                   </div>
                 </div>
 
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                  type="submit"
-                >
+                <Button variant="primary" size="lg" className="w-full" type="submit">
                   <Sparkles className="h-4 w-4" />
                   Calculate Friendship Compatibility
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </form>
 
-              {/* Results */}
               {result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -476,9 +342,7 @@ function FriendshipForm({
                         {result.category}
                       </span>
                     </div>
-                    <div className="mt-1 text-xs text-ink-500">
-                      {result.type}
-                    </div>
+                    <div className="mt-1 text-xs text-ink-500">{result.type}</div>
                   </div>
 
                   <div className="mt-4 p-4 bg-white rounded-xl border border-accent-100">
@@ -495,11 +359,8 @@ function FriendshipForm({
                       </h4>
                       <ul className="space-y-1">
                         {result.strengths.map((strength, i) => (
-                          <li
-                            key={i}
-                            className="text-xs text-green-600 flex items-start gap-1"
-                          >
-                            <span className="text-green-400">â€¢</span>
+                          <li key={i} className="text-xs text-green-600 flex items-start gap-1">
+                            <span className="text-green-400">•</span>
                             {strength}
                           </li>
                         ))}
@@ -512,11 +373,8 @@ function FriendshipForm({
                       </h4>
                       <ul className="space-y-1">
                         {result.challenges.map((challenge, i) => (
-                          <li
-                            key={i}
-                            className="text-xs text-amber-600 flex items-start gap-1"
-                          >
-                            <span className="text-amber-400">â€¢</span>
+                          <li key={i} className="text-xs text-amber-600 flex items-start gap-1">
+                            <span className="text-amber-400">•</span>
                             {challenge}
                           </li>
                         ))}
@@ -534,7 +392,7 @@ function FriendshipForm({
 
                   <div className="mt-4 p-4 bg-gradient-to-br from-primary-100 to-accent-100 rounded-xl border border-primary-200">
                     <p className="text-sm text-ink-700 italic text-center">
-                      "ðŸ’« {result.quote}"
+                      "💫 {result.quote}"
                     </p>
                   </div>
                 </motion.div>
@@ -547,7 +405,7 @@ function FriendshipForm({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS FRIENDSHIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── WHAT IS FRIENDSHIP ───────────────────────── */
 function WhatIsFriendship() {
   return (
     <section className="py-16 bg-ink-50">
@@ -574,18 +432,16 @@ function WhatIsFriendship() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ In Indian culture,</span>{" "}
-                  and especially through the lens of Vedic philosophy,
-                  friendship is seen as more than just a social connection, it's
-                  a spiritual bridge. It reflects our ability to love selflessly
+                  <span className="font-semibold">💡 In Indian culture,</span>{" "}
+                  and especially through the lens of Vedic philosophy, friendship
+                  is seen as more than just a social connection, it's a
+                  spiritual bridge. It reflects our ability to love selflessly
                   and grow as individuals through heartfelt connections.
                 </p>
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">
-                    âœ¨ At the heart of any real friendship
-                  </span>{" "}
+                  <span className="font-semibold">✨ At the heart of any real friendship</span>{" "}
                   are qualities like trust, loyalty, and honesty. But it's more
                   than just the heavy stuff; it's about celebrating each other's
                   wins without envy, being that silent support when life gets
@@ -600,7 +456,7 @@ function WhatIsFriendship() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS FRIENDSHIP CALCULATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHAT IS FRIENDSHIP CALCULATOR ────────────────────── */
 function WhatIsFriendshipCalculator() {
   return (
     <section className="py-16 bg-white">
@@ -626,7 +482,7 @@ function WhatIsFriendshipCalculator() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ”® How it works:</span> Your
+                  <span className="font-semibold">🔮 How it works:</span> Your
                   name gets converted into numbers, and those numbers interact
                   to form either smooth, friendly vibes or some bumps in the
                   road. The more detailed calculators might also throw in your
@@ -642,30 +498,12 @@ function WhatIsFriendshipCalculator() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── HOW IT WORKS ─────────────────────── */
 function HowItWorks() {
   const steps = [
-    {
-      number: 1,
-      icon: User,
-      title: "Enter Your Name",
-      description:
-        "Type your full name to begin the friendship compatibility check.",
-    },
-    {
-      number: 2,
-      icon: Heart,
-      title: "Enter Your Friend's Name",
-      description:
-        "Type the name of the person you want to check compatibility with.",
-    },
-    {
-      number: 3,
-      icon: Sparkles,
-      title: "Get Your Result",
-      description:
-        'Click on "Calculate" to get an instant compatibility result with insights.',
-    },
+    { number: 1, icon: User, title: "Enter Your Name", description: "Type your full name to begin the friendship compatibility check." },
+    { number: 2, icon: Heart, title: "Enter Your Friend's Name", description: "Type the name of the person you want to check compatibility with." },
+    { number: 3, icon: Sparkles, title: "Get Your Result", description: 'Click on "Calculate" to get an instant compatibility result with insights.' },
   ];
 
   return (
@@ -683,13 +521,11 @@ function HowItWorks() {
           {steps.map((step, i) => (
             <Reveal key={step.number} delay={i * 0.1}>
               <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
-                <div className="relative">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-xl font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto -mt-10 mb-3">
-                    <step.icon className="h-5 w-5 text-white" />
-                  </div>
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
+                  <step.icon className="h-6 w-6 text-white" />
+                </div>
+                <div className="text-xs font-bold text-ink-400 mb-1">
+                  Step {step.number}
                 </div>
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
                   {step.title}
@@ -706,7 +542,7 @@ function HowItWorks() {
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 border border-accent-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸ“Š Your result</span> provides
+                <span className="font-semibold">🌠 Your result</span> provides
                 an easy-to-understand score with detailed insights and tips to
                 help you strengthen your bond.
               </p>
@@ -718,7 +554,7 @@ function HowItWorks() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ FRIENDSHIP TYPES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── FRIENDSHIP TYPES ─────────────────────── */
 function FriendshipTypes() {
   return (
     <section className="py-16 bg-white">
@@ -753,7 +589,7 @@ function FriendshipTypes() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ PLANETS AFFECTING FRIENDSHIPS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────── PLANETS AFFECTING FRIENDSHIPS ─────────────────── */
 function PlanetsAffectingFriendships() {
   return (
     <section className="py-16 bg-ink-50">
@@ -770,9 +606,7 @@ function PlanetsAffectingFriendships() {
           {planets.map((planet, i) => (
             <Reveal key={planet.name} delay={i * 0.1}>
               <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all">
-                <div
-                  className={`p-3 rounded-xl bg-gradient-to-br ${planet.color} w-fit mb-4`}
-                >
+                <div className={`p-3 rounded-xl bg-gradient-to-br ${planet.color} w-fit mb-4`}>
                   <planet.icon className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
@@ -783,14 +617,10 @@ function PlanetsAffectingFriendships() {
                 </p>
                 <div className="space-y-2">
                   <div className="bg-green-50 rounded-lg p-2">
-                    <p className="text-xs text-green-700">
-                      âœ… {planet.positive}
-                    </p>
+                    <p className="text-xs text-green-700">✅ {planet.positive}</p>
                   </div>
                   <div className="bg-red-50 rounded-lg p-2">
-                    <p className="text-xs text-red-700">
-                      âš ï¸ {planet.negative}
-                    </p>
+                    <p className="text-xs text-red-700">⚠️ {planet.negative}</p>
                   </div>
                 </div>
               </div>
@@ -802,7 +632,7 @@ function PlanetsAffectingFriendships() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOUSE OF FRIENDSHIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── HOUSE OF FRIENDSHIP ─────────────────────── */
 function HouseOfFriendship() {
   return (
     <section className="py-16 bg-white">
@@ -820,9 +650,7 @@ function HouseOfFriendship() {
             <div className="bg-ink-50 rounded-2xl p-8 border border-ink-100 w-full">
               <p className="text-ink-700 leading-relaxed">
                 The{" "}
-                <span className="font-semibold text-primary-600">
-                  11th house
-                </span>{" "}
+                <span className="font-semibold text-primary-600">11th house</span>{" "}
                 in your birth chart, often called the house of gains and
                 friendships, holds the key to understanding how you connect with
                 people, the kind of friends you attract, and how these
@@ -835,8 +663,7 @@ function HouseOfFriendship() {
                     Benefic Planets (Jupiter, Venus, Moon)
                   </h4>
                   <p className="text-sm text-ink-600">
-                    Naturally attract supportive, well-meaning people who lift
-                    you up.
+                    Naturally attract supportive, well-meaning people who lift you up.
                   </p>
                 </div>
                 <div className="bg-white rounded-xl p-4 border border-ink-100">
@@ -844,8 +671,7 @@ function HouseOfFriendship() {
                     Challenging Planets (Saturn, Mars, Rahu)
                   </h4>
                   <p className="text-sm text-ink-600">
-                    May come with roadblocks, delays, or lessons through
-                    misunderstandings.
+                    May come with roadblocks, delays, or lessons through misunderstandings.
                   </p>
                 </div>
               </div>
@@ -856,36 +682,20 @@ function HouseOfFriendship() {
                 </h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   <div className="bg-white rounded-lg p-2 text-center">
-                    <span className="text-sm font-semibold text-red-500">
-                      ðŸ”¥ Fire Signs
-                    </span>
-                    <p className="text-xs text-ink-500">
-                      Energetic, go-getter friends
-                    </p>
+                    <span className="text-sm font-semibold text-red-500">🔥 Fire Signs</span>
+                    <p className="text-xs text-ink-500">Energetic, go-getter friends</p>
                   </div>
                   <div className="bg-white rounded-lg p-2 text-center">
-                    <span className="text-sm font-semibold text-green-600">
-                      ðŸŒ Earth Signs
-                    </span>
-                    <p className="text-xs text-ink-500">
-                      Practical, dependable friends
-                    </p>
+                    <span className="text-sm font-semibold text-green-600">🌍 Earth Signs</span>
+                    <p className="text-xs text-ink-500">Practical, dependable friends</p>
                   </div>
                   <div className="bg-white rounded-lg p-2 text-center">
-                    <span className="text-sm font-semibold text-blue-500">
-                      ðŸ’¨ Air Signs
-                    </span>
-                    <p className="text-xs text-ink-500">
-                      Diverse social scenes
-                    </p>
+                    <span className="text-sm font-semibold text-blue-500">💨 Air Signs</span>
+                    <p className="text-xs text-ink-500">Diverse social scenes</p>
                   </div>
                   <div className="bg-white rounded-lg p-2 text-center">
-                    <span className="text-sm font-semibold text-blue-600">
-                      ðŸ’§ Water Signs
-                    </span>
-                    <p className="text-xs text-ink-500">
-                      Emotionally rich friendships
-                    </p>
+                    <span className="text-sm font-semibold text-blue-600">💧 Water Signs</span>
+                    <p className="text-xs text-ink-500">Emotionally rich friendships</p>
                   </div>
                 </div>
               </div>
@@ -897,33 +707,13 @@ function HouseOfFriendship() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ BENEFITS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── BENEFITS ─────────────────────────── */
 function Benefits() {
   const benefits = [
-    {
-      icon: Star,
-      title: "Self-Awareness",
-      description:
-        "Reflect on your behavior patterns and understand your strengths and limitations in friendships.",
-    },
-    {
-      icon: Shield,
-      title: "Clarity Before Commitment",
-      description:
-        "Get a heads-up on where you might clash and where you'll flow before investing too much.",
-    },
-    {
-      icon: Heart,
-      title: "Conflict Resolution",
-      description:
-        'Understand the "why" behind disagreements and approach conflicts with more empathy and patience.',
-    },
-    {
-      icon: Zap,
-      title: "Better Communication",
-      description:
-        "Learn to speak each other's language while staying true to your own communication style.",
-    },
+    { icon: Star, title: "Self-Awareness", description: "Reflect on your behavior patterns and understand your strengths and limitations in friendships." },
+    { icon: Shield, title: "Clarity Before Commitment", description: "Get a heads-up on where you might clash and where you'll flow before investing too much." },
+    { icon: Heart, title: "Conflict Resolution", description: 'Understand the "why" behind disagreements and approach conflicts with more empathy and patience.' },
+    { icon: Zap, title: "Better Communication", description: "Learn to speak each other's language while staying true to your own communication style." },
   ];
 
   return (
@@ -959,11 +749,11 @@ function Benefits() {
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 border border-accent-200">
               <p className="text-sm text-ink-700 text-center">
-                <span className="font-semibold">ðŸŒŸ Conclusion:</span>{" "}
-                Friendship is a journey; it's not just about clicking instantly,
-                but also about growing together. A friendship compatibility
-                calculator won't solve everything, but it's a great first step
-                toward conscious, connected friendships.
+                <span className="font-semibold">💸 Conclusion:</span> Friendship
+                is a journey; it's not just about clicking instantly, but also
+                about growing together. A friendship compatibility calculator
+                won't solve everything, but it's a great first step toward
+                conscious, connected friendships.
               </p>
             </div>
           </div>
@@ -973,33 +763,13 @@ function Benefits() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY CHOOSE FRIENDSHIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── WHY CHOOSE FRIENDSHIP ─────────────────────── */
 function WhyChooseFriendship() {
   const features = [
-    {
-      icon: Award,
-      title: "Accurate Analysis",
-      description:
-        "Based on ancient numerology and Vedic astrology principles for precise compatibility assessment.",
-    },
-    {
-      icon: Sparkles,
-      title: "Detailed Insights",
-      description:
-        "Get comprehensive results with strengths, challenges, and personalized advice.",
-    },
-    {
-      icon: Shield,
-      title: "Privacy Priority",
-      description:
-        "All your inputs are kept confidential for safe and secure use.",
-    },
-    {
-      icon: Zap,
-      title: "Instant Results",
-      description:
-        "Get your friendship compatibility results immediately after entering your details.",
-    },
+    { icon: Award, title: "Accurate Analysis", description: "Based on ancient numerology and Vedic astrology principles for precise compatibility assessment." },
+    { icon: Sparkles, title: "Detailed Insights", description: "Get comprehensive results with strengths, challenges, and personalized advice." },
+    { icon: Shield, title: "Privacy Priority", description: "All your inputs are kept confidential for safe and secure use." },
+    { icon: Zap, title: "Instant Results", description: "Get your friendship compatibility results immediately after entering your details." },
   ];
 
   return (
@@ -1034,19 +804,12 @@ function WhyChooseFriendship() {
         <Reveal delay={0.4}>
           <div className="mt-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-2xl p-6 text-center text-white">
-              <p className="text-lg font-semibold">
-                Need Friendship Counseling?
-              </p>
+              <p className="text-lg font-semibold">Need Friendship Counseling?</p>
               <p className="text-sm opacity-90 mt-1">
                 Consult a counselor for personalized guidance to repair and
                 nurture your pure friendships.
               </p>
-              <Button
-                to="/consultations"
-                variant="dark"
-                size="lg"
-                className="mt-4"
-              >
+              <Button to="/consultations" variant="dark" size="lg" className="mt-4">
                 <Users className="h-4 w-4" />
                 Consult a Counselor
               </Button>
@@ -1058,7 +821,7 @@ function WhyChooseFriendship() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── CTA ─────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">
@@ -1076,9 +839,7 @@ function CTASection() {
         <Reveal delay={0.1}>
           <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
             Ready to discover your{" "}
-            <span className="gradient-text-light">
-              friendship compatibility?
-            </span>
+            <span className="gradient-text-light">friendship compatibility?</span>
           </h2>
         </Reveal>
 

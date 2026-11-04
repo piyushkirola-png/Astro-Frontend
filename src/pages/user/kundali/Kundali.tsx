@@ -7,7 +7,6 @@ import {
   Loader2,
   AlertCircle,
   Download,
-  FileText,
 } from "lucide-react";
 import {
   useKundaliBasic,
@@ -29,28 +28,17 @@ const TABS: { id: Tab; label: string; icon: any }[] = [
   { id: "dasha", label: "Dasha", icon: Clock },
 ];
 
-const PLANET_ABBR: Record<string, string> = {
-  SUN: "Su",
-  MOON: "Mo",
-  MARS: "Ma",
-  MERCURY: "Me",
-  JUPITER: "Ju",
-  VENUS: "Ve",
-  SATURN: "Sa",
-  RAHU: "Ra",
-  KETU: "Ke",
-};
-
-const PLANET_COLORS: Record<string, string> = {
-  SUN: "from-orange-500 to-amber-500",
-  MOON: "from-slate-400 to-slate-600",
-  MARS: "from-red-500 to-rose-600",
-  MERCURY: "from-green-500 to-emerald-500",
-  JUPITER: "from-yellow-500 to-amber-600",
-  VENUS: "from-pink-500 to-rose-500",
-  SATURN: "from-blue-500 to-indigo-600",
-  RAHU: "from-gray-600 to-slate-700",
-  KETU: "from-purple-500 to-indigo-500",
+// Map the incoming planet names to the exact filenames in your public/planets folder
+const PLANET_IMAGES: Record<string, string> = {
+  SUN: "/planets/sun.png",
+  MOON: "/planets/moon.png",
+  MARS: "/planets/mars.png",
+  MERCURY: "/planets/mercury.png",
+  JUPITER: "/planets/jupiter.png",
+  VENUS: "/planets/venus.png",
+  SATURN: "/planets/saturn.png",
+  RAHU: "/planets/rahu.png",
+  KETU: "/planets/ketu.png",
 };
 
 export default function Kundali() {
@@ -427,11 +415,8 @@ function DashaTab() {
 }
 
 function DashaCard({ period }: { period: DashaPeriod }) {
-  const abbr =
-    PLANET_ABBR[period.planet.toUpperCase()] || period.planet.slice(0, 2);
-  const colorClass =
-    PLANET_COLORS[period.planet.toUpperCase()] ||
-    "from-amber-500 to-orange-500";
+  // Look up the image path. Defaults to a fallback icon if somehow missing.
+  const imageSrc = PLANET_IMAGES[period.planet.toUpperCase()];
 
   return (
     <div
@@ -442,11 +427,20 @@ function DashaCard({ period }: { period: DashaPeriod }) {
       }`}
     >
       <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div
-            className={`h-10 w-10 rounded-xl bg-gradient-to-br ${colorClass} flex items-center justify-center text-white text-sm font-bold shrink-0`}
-          >
-            {abbr}
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Replaced the text abbreviation with the actual image */}
+          <div className="h-12 w-12 rounded-xl bg-ink-50 border border-ink-100 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+            {imageSrc ? (
+              <img
+                src={imageSrc}
+                alt={period.planet}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="text-xs font-bold text-ink-500">
+                {period.planet.slice(0, 2).toUpperCase()}
+              </span>
+            )}
           </div>
           <div className="min-w-0">
             <div className="text-sm font-bold text-ink-900 uppercase truncate">

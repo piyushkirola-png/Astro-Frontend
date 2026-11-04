@@ -3,18 +3,10 @@ import {
   Eye,
   Heart,
   Users,
-  TrendingUp,
-  Globe,
-  Award,
-  Zap,
   Star,
-  Moon,
-  Sun,
   Compass,
   Sparkles,
   Shield,
-  Crown,
-  BookOpen,
   MessageSquare,
 } from "lucide-react";
 import PageHero from "../../components/ui/PageHero";
@@ -43,7 +35,7 @@ const values = [
   {
     icon: Users,
     title: "Accessible for All",
-    desc: "We make astrology simple, understandable, and accessible to everyone â€” free of charge.",
+    desc: "We make astrology simple, understandable, and accessible to everyone — free of charge.",
   },
 ];
 
@@ -129,8 +121,8 @@ export default function About() {
                 Our Mission
               </h3>
               <p className="text-ink-600 leading-relaxed">
-                To democratize Vedic wisdom by giving everyone â€” regardless of
-                their background â€” access to accurate, authentic, and
+                To democratize Vedic wisdom by giving everyone — regardless of
+                their background — access to accurate, authentic, and
                 easy-to-understand astrology and numerology tools. We believe
                 that cosmic guidance should be free, private, and empowering.
               </p>
@@ -147,7 +139,7 @@ export default function About() {
               <p className="text-ink-600 leading-relaxed">
                 A world where every person can understand their cosmic blueprint
                 and use that knowledge to navigate life with clarity,
-                confidence, and purpose â€” all through technology that makes
+                confidence, and purpose — all through technology that makes
                 ancient wisdom modern and accessible.
               </p>
             </div>

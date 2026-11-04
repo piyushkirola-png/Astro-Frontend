@@ -8,17 +8,12 @@ import {
   Users,
   Calculator,
   Moon,
-  Sun,
   Calendar,
   Clock,
   Compass,
   Shield,
-  Award,
-  TrendingUp,
   Crown,
-  Gem,
-  Coffee,
-  Diamond,
+  TrendingUp,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
@@ -178,7 +173,7 @@ export default function Calculators() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── HERO ─────────────────────────── */
 function HeroSection() {
   return (
     <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-ink-50 pt-20">
@@ -267,7 +262,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ FEATURED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────────── FEATURED ────────────────────────── */
 function FeaturedSection() {
   return (
     <section className="section-pad bg-white">
@@ -312,7 +307,7 @@ function FeaturedSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ STATS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── STATS ─────────────────────────── */
 function StatsSection() {
   return (
     <section className="py-20 bg-primary-900 relative overflow-hidden">
@@ -343,7 +338,7 @@ function StatsSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ALL CALCULATORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── ALL CALCULATORS ─────────────────────── */
 function AllCalculatorsSection() {
   return (
     <section id="all-calculators" className="section-pad bg-ink-50">
@@ -388,7 +383,7 @@ function AllCalculatorsSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ BENEFITS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────────── BENEFITS ────────────────────────── */
 function BenefitsSection() {
   const benefits = [
     {
@@ -442,7 +437,7 @@ function BenefitsSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────────── CTA ──────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 lg:py-28 bg-ink-950 relative overflow-hidden">

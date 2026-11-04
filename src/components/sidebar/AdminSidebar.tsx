@@ -47,7 +47,7 @@ export default function AdminSidebar() {
           <img
             src="/assets/logo.png"
             alt="Jyotish AI"
-            className="h-8 w-10 rounded-lg"
+            className="h-10 w-10 rounded-lg"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = "none";
             }}
@@ -104,7 +104,7 @@ export default function AdminSidebar() {
           <img
             src="/assets/logo.png"
             alt="Jyotish AI"
-            className="h-7 w-9 rounded"
+            className="h-10 w-9 rounded"
           />
           <span className="text-base font-bold">
             Jyotish <span className="text-primary-500">AI</span>

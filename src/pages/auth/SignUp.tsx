@@ -80,14 +80,6 @@ export default function SignUp() {
       >
         <div className="glass-card rounded-3xl p-8 lg:p-10">
           <div className="text-center mb-8">
-            <Link to="/" className="inline-flex items-center gap-2.5 mb-6">
-              <img
-                src="/assets/logo.png"
-                alt="Jyotish"
-                className="h-8 w-10 rounded-lg"
-              />
-              <span className="text-xl font-bold text-ink-900">JyotishAI</span>
-            </Link>
             <h1 className="text-2xl font-bold text-ink-900">
               Create your account
             </h1>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   Star,
   Calendar,
@@ -7,19 +6,12 @@ import {
   MapPin,
   User,
   Users,
-  Sparkles,
   Heart,
   ChevronRight,
-  Shield,
   CheckCircle,
   ArrowRight,
-  Globe,
-  Moon,
-  Sun,
   TrendingUp,
   Activity,
-  Home,
-  Briefcase,
   Baby,
   AlertCircle,
   Info,
@@ -63,48 +55,27 @@ export default function KundaliMatching() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Match Generator Form */}
       <MatchGenerator
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         matchGenerated={matchGenerated}
       />
-
-      {/* What is Kundali Matching */}
       <WhatIsKundaliMatching />
-
-      {/* Why is Matching Important */}
       <WhyMatchingImportant />
-
-      {/* How Does Matching Work */}
       <HowMatchingWorks />
-
-      {/* 8 Kootas Section */}
       <KootasSection />
-
-      {/* Mangal Dosha Section */}
       <MangalDoshaSection />
-
-      {/* Score Interpretation */}
       <ScoreInterpretation />
-
-      {/* Systems of Matching */}
       <SystemsOfMatching />
-
-      {/* Why Choose Us */}
       <WhyChooseMatching />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── HERO SECTION ──────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-accent-900/10 to-ink-50">
@@ -156,7 +127,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MATCH GENERATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── MATCH GENERATOR ──────────────────────── */
 interface MatchGeneratorProps {
   formData: {
     yourName: string;
@@ -210,7 +181,6 @@ function MatchGenerator({
                       Your Details
                     </h3>
                     <div className="space-y-4">
-                      {/* Your Name */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Name <span className="text-danger-500">*</span>
@@ -229,7 +199,6 @@ function MatchGenerator({
                         </div>
                       </div>
 
-                      {/* Your Gender */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Gender <span className="text-danger-500">*</span>
@@ -259,7 +228,6 @@ function MatchGenerator({
                         </div>
                       </div>
 
-                      {/* Your Birth Date */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Birth Date <span className="text-danger-500">*</span>
@@ -280,7 +248,6 @@ function MatchGenerator({
                         </p>
                       </div>
 
-                      {/* Your Birth Time */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Birth Time
@@ -300,7 +267,6 @@ function MatchGenerator({
                         </p>
                       </div>
 
-                      {/* Your Birth Place */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Birth Place <span className="text-danger-500">*</span>
@@ -328,7 +294,6 @@ function MatchGenerator({
                       Partner's Details
                     </h3>
                     <div className="space-y-4">
-                      {/* Partner Name */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Name <span className="text-danger-500">*</span>
@@ -347,7 +312,6 @@ function MatchGenerator({
                         </div>
                       </div>
 
-                      {/* Partner Gender */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Gender <span className="text-danger-500">*</span>
@@ -377,7 +341,6 @@ function MatchGenerator({
                         </div>
                       </div>
 
-                      {/* Partner Birth Date */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Birth Date <span className="text-danger-500">*</span>
@@ -398,7 +361,6 @@ function MatchGenerator({
                         </p>
                       </div>
 
-                      {/* Partner Birth Time */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Birth Time
@@ -418,7 +380,6 @@ function MatchGenerator({
                         </p>
                       </div>
 
-                      {/* Partner Birth Place */}
                       <div>
                         <label className="block text-sm font-medium text-ink-700 mb-1">
                           Birth Place <span className="text-danger-500">*</span>
@@ -459,7 +420,7 @@ function MatchGenerator({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS KUNDALI MATCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHAT IS KUNDALI MATCHING ──────────────────────── */
 function WhatIsKundaliMatching() {
   return (
     <section className="py-16 bg-ink-50">
@@ -485,14 +446,14 @@ function WhatIsKundaliMatching() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ Note:</span> The process
+                  <span className="font-semibold">💡 Note:</span> The process
                   involves matching planetary positions, Nakshatras, Moon signs,
                   and the Ashtakoota Guna Milan system out of 36 points.
                 </p>
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">âœ¨ In Vedic Astrology,</span>{" "}
+                  <span className="font-semibold">✨ In Vedic Astrology,</span>{" "}
                   marriage is more than just a social bond; it is a karmic
                   union. This is why checking compatibility goes beyond
                   attraction and focuses on areas like finances, children,
@@ -507,7 +468,7 @@ function WhatIsKundaliMatching() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY MATCHING IMPORTANT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHY MATCHING IMPORTANT ──────────────────────── */
 function WhyMatchingImportant() {
   const reasons = [
     {
@@ -593,7 +554,7 @@ function WhyMatchingImportant() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW MATCHING WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── HOW MATCHING WORKS ──────────────────────── */
 function HowMatchingWorks() {
   const steps = [
     {
@@ -668,7 +629,7 @@ function HowMatchingWorks() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ 8 KOOTAS SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── 8 KOOTAS SECTION ──────────────────────── */
 function KootasSection() {
   const kootas = [
     {
@@ -780,7 +741,7 @@ function KootasSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MANGAL DOSHA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── MANGAL DOSHA SECTION ──────────────────────── */
 function MangalDoshaSection() {
   return (
     <section className="py-16 bg-ink-50">
@@ -890,7 +851,7 @@ function MangalDoshaSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SCORE INTERPRETATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── SCORE INTERPRETATION ──────────────────────── */
 function ScoreInterpretation() {
   const scores = [
     {
@@ -989,7 +950,7 @@ function ScoreInterpretation() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SYSTEMS OF MATCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── SYSTEMS OF MATCHING ──────────────────────── */
 function SystemsOfMatching() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1090,7 +1051,7 @@ function SystemsOfMatching() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY CHOOSE MATCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHY CHOOSE MATCHING ──────────────────────── */
 function WhyChooseMatching() {
   const features = [
     {
@@ -1167,7 +1128,7 @@ function WhyChooseMatching() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── CTA SECTION ──────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

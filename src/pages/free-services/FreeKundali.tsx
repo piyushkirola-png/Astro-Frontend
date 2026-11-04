@@ -8,9 +8,6 @@ import {
   User,
   Users,
   Sparkles,
-  Moon,
-  Sun,
-  Globe,
   Heart,
   ChevronRight,
   Shield,
@@ -35,7 +32,6 @@ export default function FreeKundali() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle kundali generation logic here
     setKundaliGenerated(true);
   };
 
@@ -50,39 +46,24 @@ export default function FreeKundali() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Kundali Generator Form */}
       <KundaliGenerator
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         kundaliGenerated={kundaliGenerated}
       />
-
-      {/* What is Kundli Section */}
       <WhatIsKundli />
-
-      {/* Key Elements Section */}
       <KeyElements />
-
-      {/* Doshas Section */}
       <DoshasSection />
-
-      {/* Kundali Matching Section */}
       <KundaliMatchingSection />
-
-      {/* Why Choose Us Section */}
       <WhyChooseKundli />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── HERO SECTION ─────────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -106,24 +87,18 @@ function HeroSection() {
 
         <Reveal delay={0.2}>
           <p className="text-xl md:text-2xl font-semibold text-primary-600 mb-6">
-            Get an instant & accurate Janam Kundli
+            Get an instant &amp; accurate Janam Kundli
           </p>
         </Reveal>
 
         <Reveal delay={0.3}>
           <div className="max-w-3xl mx-auto">
             <p className="text-base text-ink-600 leading-relaxed">
-              <span className="font-semibold text-primary-600">
-                Jyotish AI's
-              </span>{" "}
+              <span className="font-semibold text-primary-600">Jyotish AI's</span>{" "}
               free online kundli tool will help you generate a detailed Janam
               Kundli instantly. Based on the principles of Vedic Astrology, this
-              tool provides accurate details of the Globeary positions, houses,
-              doshas, dashas, nakshatras, etc., in your birth chart. Our team of
-              expert astrologers has tested it rigorously to deliver the best
-              results. If you are curious about your future or want to work
-              through past traumas, this free kundali online tool is the right
-              choice for you.
+              tool provides accurate details of the planetary positions, houses,
+              doshas, dashas, nakshatras, etc., in your birth chart.
             </p>
           </div>
         </Reveal>
@@ -132,7 +107,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KUNDALI GENERATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── KUNDALI GENERATOR ─────────────────────────── */
 interface KundaliGeneratorProps {
   formData: {
     name: string;
@@ -158,7 +133,6 @@ function KundaliGenerator({
     <section className="py-12 bg-white">
       <div className="container-8xl">
         <div className="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {/* Main Form - Takes 2 columns */}
           <div className="lg:col-span-2">
             <Reveal>
               <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100">
@@ -177,7 +151,6 @@ function KundaliGenerator({
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Name */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
                       Name <span className="text-danger-500">*</span>
@@ -196,7 +169,6 @@ function KundaliGenerator({
                     </div>
                   </div>
 
-                  {/* Gender */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
                       Gender <span className="text-danger-500">*</span>
@@ -237,7 +209,6 @@ function KundaliGenerator({
                     </div>
                   </div>
 
-                  {/* Birth Date */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
                       Birth Date <span className="text-danger-500">*</span>
@@ -253,12 +224,8 @@ function KundaliGenerator({
                         required
                       />
                     </div>
-                    <p className="text-xs text-ink-500 mt-1">
-                      Select date, e.g. 15 Jul 1991
-                    </p>
                   </div>
 
-                  {/* Birth Time */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
                       Birth Time
@@ -273,12 +240,8 @@ function KundaliGenerator({
                         className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-ink-200 text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-colors text-sm"
                       />
                     </div>
-                    <p className="text-xs text-ink-500 mt-1">
-                      Defaults to 12:00 AM if not provided
-                    </p>
                   </div>
 
-                  {/* Birth Place */}
                   <div>
                     <label className="block text-sm font-medium text-ink-700 mb-1">
                       Birth Place <span className="text-danger-500">*</span>
@@ -312,7 +275,6 @@ function KundaliGenerator({
             </Reveal>
           </div>
 
-          {/* Saved Kundli Sidebar - Takes 1 column */}
           <div className="lg:col-span-1">
             <Reveal delay={0.2}>
               <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 border border-primary-100 h-full flex flex-col items-center justify-center text-center">
@@ -338,29 +300,22 @@ function KundaliGenerator({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS KUNDLI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── WHAT IS KUNDLI ─────────────────────────── */
 function WhatIsKundli() {
+  // 12 houses with zodiac symbols for visual flair
   const houses = [
-    { number: 1, name: "Lagna or Ascendant", title: "Personality and Self" },
-    { number: 2, name: "Dhan Bhava", title: "Wealth and Family" },
-    { number: 3, name: "Sahaj Bhava", title: "Courage and Communication" },
-    { number: 4, name: "Sukha Bhava", title: "Home and Comforts" },
-    {
-      number: 5,
-      name: "Trikona or Putra Bhava",
-      title: "Creativity and Children",
-    },
-    { number: 6, name: "Shatru Bhava", title: "Health and Challenges" },
-    { number: 7, name: "Yuvati Bhava", title: "Marriage and Partnerships" },
-    { number: 8, name: "Aayu Bhava", title: "Transformation and Secrets" },
-    { number: 9, name: "Bhagya or Dharma Bhava", title: "Fortune and Dharma" },
-    { number: 10, name: "Karma Bhava", title: "Career and Karma" },
-    { number: 11, name: "Labha Bhava", title: "Gains and Networking" },
-    {
-      number: 12,
-      name: "Vyaya Bhava",
-      title: "Spirituality and Foreign Connections",
-    },
+    { number: 1, symbol: "♈", name: "Lagna or Ascendant", title: "Personality and Self" },
+    { number: 2, symbol: "♉", name: "Dhan Bhava", title: "Wealth and Family" },
+    { number: 3, symbol: "♊", name: "Sahaj Bhava", title: "Courage and Communication" },
+    { number: 4, symbol: "♋", name: "Sukha Bhava", title: "Home and Comforts" },
+    { number: 5, symbol: "♌", name: "Trikona or Putra Bhava", title: "Creativity and Children" },
+    { number: 6, symbol: "♍", name: "Shatru Bhava", title: "Health and Challenges" },
+    { number: 7, symbol: "♎", name: "Yuvati Bhava", title: "Marriage and Partnerships" },
+    { number: 8, symbol: "♏", name: "Aayu Bhava", title: "Transformation and Secrets" },
+    { number: 9, symbol: "♐", name: "Bhagya or Dharma Bhava", title: "Fortune and Dharma" },
+    { number: 10, symbol: "♑", name: "Karma Bhava", title: "Career and Karma" },
+    { number: 11, symbol: "♒", name: "Labha Bhava", title: "Gains and Networking" },
+    { number: 12, symbol: "♓", name: "Vyaya Bhava", title: "Spirituality and Foreign Connections" },
   ];
 
   return (
@@ -379,20 +334,17 @@ function WhatIsKundli() {
             <div className="bg-white rounded-2xl p-8 border border-ink-100 mb-8 w-full">
               <p className="text-ink-700 leading-relaxed">
                 A Kundli is much more than just a chart. It is the precise
-                position of all the Globes and nakshatras in your horoscope at
+                position of all the planets and nakshatras in your horoscope at
                 the exact time of your birth. You can check the astrological
                 positions of the Sun, Moon, Rahu, Ketu, Saturn, Jupiter, Mars,
-                Mercury, and Venus across the 12 houses and 12 zodiac signs. It
-                helps you decode your personality and your past, present, and
-                future, as well as prominent life events.
+                Mercury, and Venus across the 12 houses and 12 zodiac signs.
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">âœ¨ Note:</span> Two people
+                  <span className="font-semibold">✨ Note:</span> Two people
                   born on the same day may have different Janam Kundlis because
                   even a few seconds' difference can shift the Lagna and other
-                  Globeary placements. This is why exact birth details matter
-                  while generating your Kundali online.
+                  planetary placements.
                 </p>
               </div>
             </div>
@@ -412,8 +364,8 @@ function WhatIsKundli() {
                   className="bg-white rounded-xl p-4 border border-ink-100 hover:border-accent-200 hover:shadow-md transition-all"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 text-white text-xs font-bold flex items-center justify-center">
-                      {house.number}
+                    <div className="shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white text-lg font-bold flex items-center justify-center shadow-md">
+                      <span className="leading-none">{house.symbol}</span>
                     </div>
                     <div>
                       <h4 className="font-semibold text-ink-900 text-sm">
@@ -432,54 +384,55 @@ function WhatIsKundli() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KEY ELEMENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── KEY ELEMENTS ─────────────────────────── */
 function KeyElements() {
-  const Globes = [
+  // Planet images from /public/planets/
+  const planets = [
     {
       name: "Sun",
       description: "authority, confidence, father figures, leadership",
-      icon: Sun,
+      image: "/planets/sun.png",
     },
     {
       name: "Moon",
       description: "emotions, mental peace, feminine energy, intuition",
-      icon: Moon,
+      image: "/planets/moon.png",
     },
     {
       name: "Mars",
       description: "aggression, courage, discipline, action",
-      icon: Globe,
+      image: "/planets/mars.png",
     },
     {
       name: "Mercury",
       description: "communication, intelligence, logic, business",
-      icon: Globe,
+      image: "/planets/mercury.png",
     },
     {
       name: "Jupiter",
       description: "wisdom, spirituality, wealth, teacher, expansion",
-      icon: Globe,
+      image: "/planets/jupiter.png",
     },
     {
       name: "Venus",
       description: "luxury, beauty, desires, relationship, romance",
-      icon: Globe,
+      image: "/planets/venus.png",
     },
     {
       name: "Saturn",
       description: "karma, delays, patience, responsibility",
-      icon: Globe,
+      image: "/planets/saturn.png",
     },
     {
       name: "Rahu",
       description:
         "ambition, obsession, foreign influence, unconventional success",
-      icon: Globe,
+      image: "/planets/rahu.png",
     },
     {
       name: "Ketu",
       description: "spirituality, detachment, past-life karmas, intuition",
-      icon: Globe,
+      image: "/planets/ketu.png",
     },
   ];
 
@@ -499,7 +452,7 @@ function KeyElements() {
           <Reveal delay={0.1}>
             <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100">
               <h3 className="text-xl font-bold text-ink-900 mb-2">
-                Lagna/Ascendant - The Foundation Of Your Chart
+                Lagna/Ascendant — The Foundation Of Your Chart
               </h3>
               <p className="text-ink-600 leading-relaxed">
                 Vedic astrologers consider Lagna more important than your Sun
@@ -511,33 +464,49 @@ function KeyElements() {
             </div>
           </Reveal>
 
-          {/* Navgrahas */}
+          {/* Navgrahas with planet images */}
           <Reveal delay={0.2}>
             <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100">
               <h3 className="text-xl font-bold text-ink-900 mb-4">
-                Navgrahas - The 9 Globes and Their Role
+                Navgrahas — The 9 Planets and Their Role
               </h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {Globes.map((Globe) => (
+                {planets.map((planet) => (
                   <div
-                    key={Globe.name}
-                    className="bg-white rounded-xl p-4 border border-ink-100"
+                    key={planet.name}
+                    className="bg-white rounded-xl p-4 border border-ink-100 flex items-center gap-3"
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      <Globe.icon className="h-4 w-4 text-primary-500" />
-                      <span className="font-semibold text-ink-900">
-                        {Globe.name}
-                      </span>
+                    <div className="shrink-0 w-10 h-10 rounded-full overflow-hidden bg-ink-50 flex items-center justify-center">
+                      <img
+                        src={planet.image}
+                        alt={planet.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback: hide broken image, show first letter
+                          (e.currentTarget as HTMLImageElement).style.display = "none";
+                          const parent = (e.currentTarget as HTMLImageElement).parentElement;
+                          if (parent) {
+                            parent.innerHTML = `<span class="text-sm font-bold text-primary-600">${planet.name[0]}</span>`;
+                          }
+                        }}
+                      />
                     </div>
-                    <p className="text-xs text-ink-500">{Globe.description}</p>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-ink-900 text-sm">
+                        {planet.name}
+                      </p>
+                      <p className="text-xs text-ink-500 leading-snug">
+                        {planet.description}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
               <div className="mt-4 p-3 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ FYI:</span> No Globe
-                  gives permanently negative results. Even Saturn and Rahu
-                  bestow success to a person when placed correctly in a chart.
+                  <span className="font-semibold">💡 FYI:</span> No planet gives
+                  permanently negative results. Even Saturn and Rahu bestow
+                  success to a person when placed correctly in a chart.
                 </p>
               </div>
             </div>
@@ -547,7 +516,7 @@ function KeyElements() {
           <Reveal delay={0.3}>
             <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100">
               <h3 className="text-xl font-bold text-ink-900 mb-2">
-                Nakshatras - Your Birth Star
+                Nakshatras — Your Birth Star
               </h3>
               <p className="text-ink-600 leading-relaxed">
                 The lunar constellation that the Moon occupies at your birth is
@@ -579,15 +548,15 @@ function KeyElements() {
           <Reveal delay={0.4}>
             <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100">
               <h3 className="text-xl font-bold text-ink-900 mb-2">
-                Dasha System - Your Life Timeline
+                Dasha System — Your Life Timeline
               </h3>
               <p className="text-ink-600 leading-relaxed">
                 According to Vimshottari Dasha, a human life is divided into
-                Globeary periods totalling 120 years. Each mahadasha activates
-                the theme of a particular Globe. Like, Jupiter Mahadasha results
-                in marriage, childbirth, education, and wisdom, while Saturn
-                Mahadasha brings more responsibility, career pressure, and
-                long-term growth for a native.
+                planetary periods totalling 120 years. Each mahadasha activates
+                the theme of a particular planet. Like, Jupiter Mahadasha
+                results in marriage, childbirth, education, and wisdom, while
+                Saturn Mahadasha brings more responsibility, career pressure,
+                and long-term growth for a native.
               </p>
             </div>
           </Reveal>
@@ -597,7 +566,7 @@ function KeyElements() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DOSHAS SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── DOSHAS ─────────────────────────── */
 function DoshasSection() {
   const doshas = [
     {
@@ -610,9 +579,9 @@ function DoshasSection() {
     {
       name: "Kaal Sarp Dosha",
       description:
-        "This dosha is formed when all the 7 Globes in a Janam Kundali fall between Rahu and Ketu. It forms a snake-like grip on life.",
+        "This dosha is formed when all the 7 planets in a Janam Kundali fall between Rahu and Ketu. It forms a snake-like grip on life.",
       remedy:
-        "The intensity of the effects depends on the house placement, Globeary strengths, and other dashas.",
+        "The intensity of the effects depends on the house placement, planetary strengths, and other dashas.",
     },
     {
       name: "Pitra Dosha",
@@ -637,7 +606,7 @@ function DoshasSection() {
           <SectionHeading
             badge="Important Doshas"
             title="Important Doshas In Kundali and Their Remedies"
-            subtitle="Understanding Globeary combinations and their solutions"
+            subtitle="Understanding planetary combinations and their solutions"
           />
         </Reveal>
 
@@ -653,7 +622,7 @@ function DoshasSection() {
                 </p>
                 <div className="p-3 bg-accent-50 rounded-xl border border-accent-200">
                   <p className="text-sm text-ink-700">
-                    <span className="font-semibold">ðŸ”® Remedy:</span>{" "}
+                    <span className="font-semibold">🔮 Remedy:</span>{" "}
                     {dosha.remedy}
                   </p>
                 </div>
@@ -666,7 +635,7 @@ function DoshasSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KUNDALI MATCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── KUNDALI MATCHING ─────────────────────────── */
 function KundaliMatchingSection() {
   return (
     <section className="py-16 bg-white">
@@ -758,7 +727,7 @@ function KundaliMatchingSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY CHOOSE KUNDLI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── WHY CHOOSE KUNDLI ─────────────────────────── */
 function WhyChooseKundli() {
   const features = [
     {
@@ -783,7 +752,7 @@ function WhyChooseKundli() {
       icon: Heart,
       title: "Comprehensive Analysis",
       description:
-        "Beyond basic PDFs - get detailed Globeary positions, houses, doshas, and dashas analysis.",
+        "Beyond basic PDFs — get detailed planetary positions, houses, doshas, and dashas analysis.",
     },
   ];
 
@@ -833,10 +802,10 @@ function WhyChooseKundli() {
                   Check your birth time from:
                 </h4>
                 <ul className="space-y-1 text-sm text-ink-500">
-                  <li>â€¢ Birth certificate</li>
-                  <li>â€¢ Family documentation</li>
-                  <li>â€¢ Hospital discharge records</li>
-                  <li>â€¢ Religious ceremony records</li>
+                  <li>• Birth certificate</li>
+                  <li>• Family documentation</li>
+                  <li>• Hospital discharge records</li>
+                  <li>• Religious ceremony records</li>
                 </ul>
               </div>
               <div className="bg-ink-50 rounded-xl p-4">
@@ -844,9 +813,9 @@ function WhyChooseKundli() {
                   Divisional charts for accuracy:
                 </h4>
                 <ul className="space-y-1 text-sm text-ink-500">
-                  <li>â€¢ Lagna Chart (D1): Overall Life</li>
-                  <li>â€¢ Navamsa (D9): Marriage and spiritual strength</li>
-                  <li>â€¢ Dashamsa (D10): Career and profession</li>
+                  <li>• Lagna Chart (D1): Overall Life</li>
+                  <li>• Navamsa (D9): Marriage and spiritual strength</li>
+                  <li>• Dashamsa (D10): Career and profession</li>
                 </ul>
               </div>
             </div>
@@ -857,7 +826,7 @@ function WhyChooseKundli() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── CTA ─────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

@@ -8,268 +8,37 @@ import {
   Users,
   Sparkles,
   Heart,
-  ChevronRight,
-  Shield,
   CheckCircle,
   ArrowRight,
-  Globe,
+  Briefcase,
+  Activity,
+  TrendingUp,
+  AlertTriangle,
+  Star,
+  Shield,
   Moon,
   Sun,
-  TrendingUp,
-  Activity,
-  Home,
-  Briefcase,
-  Baby,
-  AlertCircle,
-  Info,
-  Award,
-  Zap,
-  Calculator,
-  Star,
-  Compass,
-  Feather,
-  Handshake,
-  Target,
-  AlertTriangle,
-  Smile,
-  Frown,
-  Cloud,
-  CloudRain,
-  Sun as SunIcon,
-  Moon as MoonIcon,
-  ShieldAlert,
   Gem,
-  Music,
-  Coffee,
-  Diamond,
+  ShieldAlert,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// Types of Kaal Sarp Dosh
 const kaalSarpTypes = [
-  {
-    id: "anant",
-    name: "Anant Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 1,
-    ketuHouse: 7,
-    effects: [
-      "Lack of confidence",
-      "Strained relationships",
-      "Health fluctuations",
-      "Marriage issues",
-    ],
-    remedies: [
-      "Rudrabhishek puja",
-      'Chant "Om Namah Shivaya"',
-      "Visit Trimbakeshwar temple",
-    ],
-    color: "from-blue-400 to-cyan-500",
-  },
-  {
-    id: "kulik",
-    name: "Kulik Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 2,
-    ketuHouse: 8,
-    effects: [
-      "Financial instability",
-      "Family arguments",
-      "Income fluctuations",
-      "Money struggles",
-    ],
-    remedies: [
-      "Offer black sesame seeds",
-      "Light mustard oil diya",
-      "Feed birds",
-    ],
-    color: "from-purple-500 to-indigo-500",
-  },
-  {
-    id: "vasuki",
-    name: "Vasuki Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 3,
-    ketuHouse: 9,
-    effects: [
-      "Sibling tensions",
-      "Travel surprises",
-      "Belief system questions",
-      "Missed opportunities",
-    ],
-    remedies: [
-      "Chant Rahu mantras",
-      "Visit Rahu temples",
-      "Donate black clothes",
-    ],
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    id: "shankhpal",
-    name: "Shankhpal Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 4,
-    ketuHouse: 10,
-    effects: [
-      "Property clashes",
-      "Career stagnation",
-      "Distance from mother",
-      "Lack of peace at home",
-    ],
-    remedies: [
-      "Rudrabhishek on Mondays",
-      "Offer milk on Shivling",
-      'Chant "Om Namah Shivaya"',
-    ],
-    color: "from-orange-500 to-amber-500",
-  },
-  {
-    id: "padam",
-    name: "Padam Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 5,
-    ketuHouse: 11,
-    effects: [
-      "Academic blocks",
-      "Childbirth delays",
-      "Creative burnout",
-      "Effort without results",
-    ],
-    remedies: [
-      "Kaal Sarp Dosh Puja",
-      "Visit Kalahasti temple",
-      "Wear silver ShieldAlert ring",
-    ],
-    color: "from-pink-500 to-rose-500",
-  },
-  {
-    id: "mahapadma",
-    name: "Mahapadma Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 6,
-    ketuHouse: 12,
-    effects: [
-      "Persistent health issues",
-      "Unknown enemies",
-      "Court cases",
-      "Emotional defense",
-    ],
-    remedies: [
-      "Rudrabhishek puja",
-      "Visit Trimbakeshwar",
-      "Chant specific mantras",
-    ],
-    color: "from-red-500 to-orange-500",
-  },
-  {
-    id: "takshak",
-    name: "Takshak Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 7,
-    ketuHouse: 1,
-    effects: [
-      "Marriage tests",
-      "Business partnership issues",
-      "Reputation hits",
-      "Public image concerns",
-    ],
-    remedies: ["Feed birds", "Donate to needy", "Chant Ketu mantras"],
-    color: "from-yellow-500 to-amber-500",
-  },
-  {
-    id: "karkotak",
-    name: "Karkotak Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 8,
-    ketuHouse: 2,
-    effects: [
-      "Sudden shocks",
-      "Accidents",
-      "Loss of family assets",
-      "Unexplained fear",
-    ],
-    remedies: [
-      "Light mustard oil diya",
-      "Visit Saturn temples",
-      "Donate iron items",
-    ],
-    color: "from-gray-600 to-slate-700",
-  },
-  {
-    id: "shankhachur",
-    name: "Shankhachur Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 9,
-    ketuHouse: 3,
-    effects: [
-      "Shaken beliefs",
-      "Complicated father bond",
-      "Luck out of reach",
-      "Faith tested",
-    ],
-    remedies: [
-      'Chant "Om Namah Shivaya"',
-      "Rudrabhishek puja",
-      "Visit Shiva temples",
-    ],
-    color: "from-indigo-500 to-purple-500",
-  },
-  {
-    id: "ghatak",
-    name: "Ghatak Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 10,
-    ketuHouse: 4,
-    effects: [
-      "Career slowdown",
-      "Unresolved property issues",
-      "Emotional weight",
-      "Stagnation",
-    ],
-    remedies: [
-      "Kaal Sarp Dosh Puja",
-      "Wear gemstones",
-      "Donate black sesame seeds",
-    ],
-    color: "from-blue-600 to-indigo-600",
-  },
-  {
-    id: "vishdhar",
-    name: "Vishdhar Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 11,
-    ketuHouse: 5,
-    effects: [
-      "Unpredictable friendships",
-      "Income instability",
-      "Trust issues",
-      "Child progress concerns",
-    ],
-    remedies: ["Feed stray animals", "Chant Rahu mantras", "Offer black items"],
-    color: "from-green-600 to-teal-600",
-  },
-  {
-    id: "sheshnag",
-    name: "Sheshnag Kaal Sarp Dosh",
-    emoji: "ðŸ",
-    rahuHouse: 12,
-    ketuHouse: 6,
-    effects: [
-      "Rising expenses",
-      "Overseas troubles",
-      "Spiritual blocks",
-      "Feeling pulled back",
-    ],
-    remedies: [
-      "Rudrabhishek puja",
-      "Visit Trimbakeshwar",
-      "Chant mantras daily",
-    ],
-    color: "from-purple-600 to-pink-600",
-  },
+  { id: "anant", name: "Anant Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 1, ketuHouse: 7, effects: ["Lack of confidence", "Strained relationships", "Health fluctuations", "Marriage issues"], remedies: ["Rudrabhishek puja", 'Chant "Om Namah Shivaya"', "Visit Trimbakeshwar temple"], color: "from-blue-400 to-cyan-500" },
+  { id: "kulik", name: "Kulik Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 2, ketuHouse: 8, effects: ["Financial instability", "Family arguments", "Income fluctuations", "Money struggles"], remedies: ["Offer black sesame seeds", "Light mustard oil diya", "Feed birds"], color: "from-purple-500 to-indigo-500" },
+  { id: "vasuki", name: "Vasuki Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 3, ketuHouse: 9, effects: ["Sibling tensions", "Travel surprises", "Belief system questions", "Missed opportunities"], remedies: ["Chant Rahu mantras", "Visit Rahu temples", "Donate black clothes"], color: "from-green-500 to-emerald-500" },
+  { id: "shankhpal", name: "Shankhpal Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 4, ketuHouse: 10, effects: ["Property clashes", "Career stagnation", "Distance from mother", "Lack of peace at home"], remedies: ["Rudrabhishek on Mondays", "Offer milk on Shivling", 'Chant "Om Namah Shivaya"'], color: "from-orange-500 to-amber-500" },
+  { id: "padam", name: "Padam Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 5, ketuHouse: 11, effects: ["Academic blocks", "Childbirth delays", "Creative burnout", "Effort without results"], remedies: ["Kaal Sarp Dosh Puja", "Visit Kalahasti temple", "Wear silver ShieldAlert ring"], color: "from-pink-500 to-rose-500" },
+  { id: "mahapadma", name: "Mahapadma Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 6, ketuHouse: 12, effects: ["Persistent health issues", "Unknown enemies", "Court cases", "Emotional defense"], remedies: ["Rudrabhishek puja", "Visit Trimbakeshwar", "Chant specific mantras"], color: "from-red-500 to-orange-500" },
+  { id: "takshak", name: "Takshak Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 7, ketuHouse: 1, effects: ["Marriage tests", "Business partnership issues", "Reputation hits", "Public image concerns"], remedies: ["Feed birds", "Donate to needy", "Chant Ketu mantras"], color: "from-yellow-500 to-amber-500" },
+  { id: "karkotak", name: "Karkotak Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 8, ketuHouse: 2, effects: ["Sudden shocks", "Accidents", "Loss of family assets", "Unexplained fear"], remedies: ["Light mustard oil diya", "Visit Saturn temples", "Donate iron items"], color: "from-gray-600 to-slate-700" },
+  { id: "shankhachur", name: "Shankhachur Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 9, ketuHouse: 3, effects: ["Shaken beliefs", "Complicated father bond", "Luck out of reach", "Faith tested"], remedies: ['Chant "Om Namah Shivaya"', "Rudrabhishek puja", "Visit Shiva temples"], color: "from-indigo-500 to-purple-500" },
+  { id: "ghatak", name: "Ghatak Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 10, ketuHouse: 4, effects: ["Career slowdown", "Unresolved property issues", "Emotional weight", "Stagnation"], remedies: ["Kaal Sarp Dosh Puja", "Wear gemstones", "Donate black sesame seeds"], color: "from-blue-600 to-indigo-600" },
+  { id: "vishdhar", name: "Vishdhar Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 11, ketuHouse: 5, effects: ["Unpredictable friendships", "Income instability", "Trust issues", "Child progress concerns"], remedies: ["Feed stray animals", "Chant Rahu mantras", "Offer black items"], color: "from-green-600 to-teal-600" },
+  { id: "sheshnag", name: "Sheshnag Kaal Sarp Dosh", emoji: "🐍", rahuHouse: 12, ketuHouse: 6, effects: ["Rising expenses", "Overseas troubles", "Spiritual blocks", "Feeling pulled back"], remedies: ["Rudrabhishek puja", "Visit Trimbakeshwar", "Chant mantras daily"], color: "from-purple-600 to-pink-600" },
 ];
 
 export default function KaalSarpDosh() {
@@ -302,17 +71,11 @@ export default function KaalSarpDosh() {
   const calculateKaalSarpDosh = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // For demo purposes, we'll simulate a calculation
-    // In a real app, this would use actual birth chart calculations
     const randomIndex = Math.floor(Math.random() * kaalSarpTypes.length);
     const doshType = kaalSarpTypes[randomIndex];
-    const hasDosh = true; // Simulate having dosh
+    const hasDosh = true;
 
-    const severities: ("Mild" | "Moderate" | "Severe")[] = [
-      "Mild",
-      "Moderate",
-      "Severe",
-    ];
+    const severities: ("Mild" | "Moderate" | "Severe")[] = ["Mild", "Moderate", "Severe"];
     const severity = severities[Math.floor(Math.random() * 3)];
 
     const descriptions = [
@@ -327,8 +90,7 @@ export default function KaalSarpDosh() {
       hasDosh,
       doshType,
       severity,
-      description:
-        descriptions[Math.floor(Math.random() * descriptions.length)],
+      description: descriptions[Math.floor(Math.random() * descriptions.length)],
       effects: doshType.effects,
       remedies: doshType.remedies,
       advice: hasDosh
@@ -343,32 +105,20 @@ export default function KaalSarpDosh() {
   ) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
-      setFormData({
-        ...formData,
-        [name]: (e.target as HTMLInputElement).checked,
-      });
+      setFormData({ ...formData, [name]: (e.target as HTMLInputElement).checked });
     } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      setFormData({ ...formData, [name]: value });
     }
   };
 
   const handlePlaceSelect = (place: string) => {
-    setFormData({
-      ...formData,
-      birthPlace: place,
-    });
+    setFormData({ ...formData, birthPlace: place });
     setShowPlaceInput(false);
   };
 
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
-  const years = Array.from(
-    { length: 100 },
-    (_, i) => new Date().getFullYear() - i,
-  );
+  const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const minutes = Array.from({ length: 60 }, (_, i) => i);
   const seconds = Array.from({ length: 60 }, (_, i) => i);
@@ -383,10 +133,7 @@ export default function KaalSarpDosh() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Kaal Sarp Dosh Form */}
       <KaalSarpDoshForm
         formData={formData}
         handleChange={handleChange}
@@ -403,32 +150,18 @@ export default function KaalSarpDosh() {
         handlePlaceSelect={handlePlaceSelect}
         places={places}
       />
-
-      {/* What is Kaal Sarp Dosh */}
       <WhatIsKaalSarpDosh />
-
-      {/* How Does It Work */}
       <HowDoesItWork />
-
-      {/* Types of Kaal Sarp Dosh */}
       <TypesOfKaalSarpDosh />
-
-      {/* How Does It Affect You */}
       <HowDoesItAffectYou />
-
-      {/* Duration */}
       <Duration />
-
-      {/* Remedies */}
       <Remedies />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HERO SECTION ───────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -464,7 +197,7 @@ function HeroSection() {
               just this constant sense of heaviness? That's where a{" "}
               <span className="font-semibold text-primary-600">
                 Kaal Sarp Dosh Calculator
-              </span>
+              </span>{" "}
               can give you answers.
             </p>
           </div>
@@ -474,12 +207,10 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KAAL SARP DOSH FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── KAAL SARP DOSH FORM ──────────────────────── */
 interface KaalSarpDoshFormProps {
   formData: any;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
   result: any;
   days: number[];
@@ -531,7 +262,6 @@ function KaalSarpDoshForm({
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Name <span className="text-danger-500">*</span>
@@ -550,7 +280,6 @@ function KaalSarpDoshForm({
                   </div>
                 </div>
 
-                {/* Gender */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Gender <span className="text-danger-500">*</span>
@@ -572,7 +301,6 @@ function KaalSarpDoshForm({
                   </div>
                 </div>
 
-                {/* Date of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Date of Birth <span className="text-danger-500">*</span>
@@ -587,9 +315,7 @@ function KaalSarpDoshForm({
                     >
                       <option value="">Day</option>
                       {days.map((day) => (
-                        <option key={day} value={day}>
-                          {day}
-                        </option>
+                        <option key={day} value={day}>{day}</option>
                       ))}
                     </select>
                     <select
@@ -601,9 +327,7 @@ function KaalSarpDoshForm({
                     >
                       <option value="">Month</option>
                       {months.map((month) => (
-                        <option key={month} value={month}>
-                          {month}
-                        </option>
+                        <option key={month} value={month}>{month}</option>
                       ))}
                     </select>
                     <select
@@ -615,15 +339,12 @@ function KaalSarpDoshForm({
                     >
                       <option value="">Year</option>
                       {years.map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
+                        <option key={year} value={year}>{year}</option>
                       ))}
                     </select>
                   </div>
                 </div>
 
-                {/* Time of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Time of Birth
@@ -650,9 +371,7 @@ function KaalSarpDoshForm({
                       >
                         <option value="">Hour</option>
                         {hours.map((hour) => (
-                          <option key={hour} value={hour}>
-                            {String(hour).padStart(2, "0")}
-                          </option>
+                          <option key={hour} value={hour}>{String(hour).padStart(2, "0")}</option>
                         ))}
                       </select>
                       <select
@@ -663,9 +382,7 @@ function KaalSarpDoshForm({
                       >
                         <option value="">Minute</option>
                         {minutes.map((minute) => (
-                          <option key={minute} value={minute}>
-                            {String(minute).padStart(2, "0")}
-                          </option>
+                          <option key={minute} value={minute}>{String(minute).padStart(2, "0")}</option>
                         ))}
                       </select>
                       <select
@@ -676,16 +393,13 @@ function KaalSarpDoshForm({
                       >
                         <option value="">Second</option>
                         {seconds.map((second) => (
-                          <option key={second} value={second}>
-                            {String(second).padStart(2, "0")}
-                          </option>
+                          <option key={second} value={second}>{String(second).padStart(2, "0")}</option>
                         ))}
                       </select>
                     </div>
                   )}
                 </div>
 
-                {/* Place of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Place of Birth <span className="text-danger-500">*</span>
@@ -708,7 +422,7 @@ function KaalSarpDoshForm({
                           onClick={() => setShowPlaceInput(false)}
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600"
                         >
-                          âœ•
+                          ×
                         </button>
                       </div>
                     ) : (
@@ -718,11 +432,10 @@ function KaalSarpDoshForm({
                             key={place}
                             type="button"
                             onClick={() => handlePlaceSelect(place)}
-                            className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${
-                              formData.birthPlace === place
+                            className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${formData.birthPlace === place
                                 ? "border-primary-500 bg-primary-50 text-primary-700"
                                 : "border-ink-200 bg-white text-ink-600 hover:border-primary-300"
-                            }`}
+                              }`}
                           >
                             {place.split(",")[0]}
                           </button>
@@ -739,34 +452,31 @@ function KaalSarpDoshForm({
                   </div>
                 </div>
 
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                  type="submit"
-                >
+                <Button variant="primary" size="lg" className="w-full" type="submit">
                   <ShieldAlert className="h-4 w-4" />
                   Check Kaal Sarp Dosh
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </form>
 
-              {/* Results */}
               {result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-6 space-y-4"
                 >
-                  {/* Status */}
                   <div
-                    className={`rounded-xl p-4 text-center ${result.hasDosh ? "bg-amber-50 border border-amber-200" : "bg-green-50 border border-green-200"}`}
+                    className={`rounded-xl p-4 text-center ${result.hasDosh
+                        ? "bg-amber-50 border border-amber-200"
+                        : "bg-green-50 border border-green-200"
+                      }`}
                   >
                     <div className="text-2xl mb-1">
-                      {result.hasDosh ? "âš ï¸" : "âœ…"}
+                      {result.hasDosh ? "⚠️" : "✅"}
                     </div>
                     <div
-                      className={`text-sm font-bold ${result.hasDosh ? "text-amber-700" : "text-green-700"}`}
+                      className={`text-sm font-bold ${result.hasDosh ? "text-amber-700" : "text-green-700"
+                        }`}
                     >
                       {result.hasDosh
                         ? "Kaal Sarp Dosh Detected"
@@ -775,18 +485,15 @@ function KaalSarpDoshForm({
                     <p className="text-xs text-ink-600 mt-1">{result.advice}</p>
                   </div>
 
-                  {/* Dosh Type & Severity */}
                   {result.hasDosh && result.doshType && (
                     <div className="grid md:grid-cols-2 gap-4">
-                      <div
-                        className={`bg-gradient-to-br ${result.doshType.color} rounded-xl p-4 text-center text-white`}
-                      >
+                      <div className={`bg-gradient-to-br ${result.doshType.color} rounded-xl p-4 text-center text-white`}>
                         <div className="text-3xl">{result.doshType.emoji}</div>
                         <div className="text-lg font-bold mt-1">
                           {result.doshType.name}
                         </div>
                         <div className="text-xs opacity-90 mt-1">
-                          Rahu in House {result.doshType.rahuHouse} Â· Ketu in
+                          Rahu in House {result.doshType.rahuHouse} · Ketu in
                           House {result.doshType.ketuHouse}
                         </div>
                       </div>
@@ -794,9 +501,7 @@ function KaalSarpDoshForm({
                         <div className="text-sm font-semibold opacity-90">
                           Severity
                         </div>
-                        <div className="text-2xl font-bold">
-                          {result.severity}
-                        </div>
+                        <div className="text-2xl font-bold">{result.severity}</div>
                         <div className="text-xs opacity-90 mt-1">
                           Duration: {result.duration}
                         </div>
@@ -804,7 +509,6 @@ function KaalSarpDoshForm({
                     </div>
                   )}
 
-                  {/* Description */}
                   {result.hasDosh && (
                     <div className="bg-white rounded-xl p-4 border border-ink-100">
                       <p className="text-sm text-ink-600 leading-relaxed">
@@ -813,7 +517,6 @@ function KaalSarpDoshForm({
                     </div>
                   )}
 
-                  {/* Effects & Remedies */}
                   {result.hasDosh && result.doshType && (
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="bg-red-50 rounded-xl p-4 border border-red-200">
@@ -823,11 +526,8 @@ function KaalSarpDoshForm({
                         </h4>
                         <ul className="space-y-1">
                           {result.effects.map((effect: string, i: number) => (
-                            <li
-                              key={i}
-                              className="text-xs text-red-600 flex items-start gap-1"
-                            >
-                              <span className="text-red-400">â€¢</span>
+                            <li key={i} className="text-xs text-red-600 flex items-start gap-1">
+                              <span className="text-red-400">•</span>
                               {effect}
                             </li>
                           ))}
@@ -840,11 +540,8 @@ function KaalSarpDoshForm({
                         </h4>
                         <ul className="space-y-1">
                           {result.remedies.map((remedy: string, i: number) => (
-                            <li
-                              key={i}
-                              className="text-xs text-green-600 flex items-start gap-1"
-                            >
-                              <span className="text-green-400">â€¢</span>
+                            <li key={i} className="text-xs text-green-600 flex items-start gap-1">
+                              <span className="text-green-400">•</span>
                               {remedy}
                             </li>
                           ))}
@@ -855,8 +552,7 @@ function KaalSarpDoshForm({
 
                   <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-4 text-center text-white">
                     <p className="text-sm">
-                      Connect with an Astrologer for more personalised detailed
-                      predictions.
+                      Connect with an Astrologer for more personalised detailed predictions.
                     </p>
                     <div className="flex justify-center gap-3 mt-3">
                       <Button to="/consultations" variant="dark" size="sm">
@@ -874,7 +570,7 @@ function KaalSarpDoshForm({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS KAAL SARP DOSH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── WHAT IS KAAL SARP DOSH ──────────────────────── */
 function WhatIsKaalSarpDosh() {
   return (
     <section className="py-16 bg-ink-50">
@@ -902,7 +598,7 @@ function WhatIsKaalSarpDosh() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ The deeper truth:</span>{" "}
+                  <span className="font-semibold">💡 The deeper truth:</span>{" "}
                   It's not a curse. Many spiritual paths in India see it as a
                   soul-level challenge a sign that you're meant for deep growth,
                   even if it comes through difficulty.
@@ -910,9 +606,7 @@ function WhatIsKaalSarpDosh() {
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">
-                    âœ¨ With the right guidance,
-                  </span>{" "}
+                  <span className="font-semibold">✨ With the right guidance,</span>{" "}
                   rituals, and awareness, this intense energy can be turned into
                   fuel. Some of the most spiritually aware people have faced
                   Kala Sarpa Dosha and transformed it into strength.
@@ -926,30 +620,12 @@ function WhatIsKaalSarpDosh() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW DOES IT WORK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── HOW DOES IT WORK ──────────────────────── */
 function HowDoesItWork() {
   const steps = [
-    {
-      number: 1,
-      icon: Calendar,
-      title: "Enter Your Birth Details",
-      description:
-        "Provide your exact date, time, and place of birth for accurate results.",
-    },
-    {
-      number: 2,
-      icon: ShieldAlert,
-      title: "Chart Analysis",
-      description:
-        "The calculator maps your birth chart and checks if planets are caught between Rahu and Ketu.",
-    },
-    {
-      number: 3,
-      icon: Star,
-      title: "Get Your Results",
-      description:
-        "Discover your specific type of Kaal Sarp Dosh and its effects on your life.",
-    },
+    { number: 1, icon: Calendar, title: "Enter Your Birth Details", description: "Provide your exact date, time, and place of birth for accurate results." },
+    { number: 2, icon: ShieldAlert, title: "Chart Analysis", description: "The calculator maps your birth chart and checks if planets are caught between Rahu and Ketu." },
+    { number: 3, icon: Star, title: "Get Your Results", description: "Discover your specific type of Kaal Sarp Dosh and its effects on your life." },
   ];
 
   return (
@@ -967,13 +643,11 @@ function HowDoesItWork() {
           {steps.map((step, i) => (
             <Reveal key={step.number} delay={i * 0.1}>
               <div className="bg-ink-50 rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
-                <div className="relative">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white text-xl font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto -mt-10 mb-3">
-                    <step.icon className="h-5 w-5 text-white" />
-                  </div>
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
+                  <step.icon className="h-6 w-6 text-white" />
+                </div>
+                <div className="text-xs font-bold text-ink-400 mb-1">
+                  Step {step.number}
                 </div>
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
                   {step.title}
@@ -990,7 +664,7 @@ function HowDoesItWork() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TYPES OF KAAL SARP DOSH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── TYPES OF KAAL SARP DOSH ──────────────────────── */
 function TypesOfKaalSarpDosh() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1009,9 +683,7 @@ function TypesOfKaalSarpDosh() {
               <div className="bg-white rounded-2xl p-4 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl">{type.emoji}</span>
-                  <h4 className="text-sm font-bold text-ink-900">
-                    {type.name}
-                  </h4>
+                  <h4 className="text-sm font-bold text-ink-900">{type.name}</h4>
                 </div>
                 <div className="flex gap-2 mb-2">
                   <span className="text-xs bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full">
@@ -1022,7 +694,7 @@ function TypesOfKaalSarpDosh() {
                   </span>
                 </div>
                 <p className="text-xs text-ink-500">
-                  {type.effects.slice(0, 2).join(" Â· ")}
+                  {type.effects.slice(0, 2).join(" · ")}
                 </p>
               </div>
             </Reveal>
@@ -1033,33 +705,13 @@ function TypesOfKaalSarpDosh() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW DOES IT AFFECT YOU â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── HOW DOES IT AFFECT YOU ──────────────────────── */
 function HowDoesItAffectYou() {
   const effects = [
-    {
-      icon: Briefcase,
-      title: "Career Growth",
-      description:
-        "Career growth moving at a snail's pace. Delayed recognition and frequent job changes.",
-    },
-    {
-      icon: Heart,
-      title: "Relationships",
-      description:
-        "Struggles to find a compatible partner. Unexpected rough patches in good relationships.",
-    },
-    {
-      icon: Activity,
-      title: "Health",
-      description:
-        "Frequent unexplained health issues. Longer recovery times and persistent stress.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Finances",
-      description:
-        "Stability feels just out of reach. Unexpected expenses and debt growing faster than income.",
-    },
+    { icon: Briefcase, title: "Career Growth", description: "Career growth moving at a snail's pace. Delayed recognition and frequent job changes." },
+    { icon: Heart, title: "Relationships", description: "Struggles to find a compatible partner. Unexpected rough patches in good relationships." },
+    { icon: Activity, title: "Health", description: "Frequent unexplained health issues. Longer recovery times and persistent stress." },
+    { icon: TrendingUp, title: "Finances", description: "Stability feels just out of reach. Unexpected expenses and debt growing faster than income." },
   ];
 
   return (
@@ -1095,7 +747,7 @@ function HowDoesItAffectYou() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DURATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── DURATION ──────────────────────── */
 function Duration() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1113,35 +765,19 @@ function Duration() {
             <div className="bg-white rounded-2xl p-8 border border-ink-100 w-full">
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-ink-50 rounded-xl p-4 text-center">
-                  <div className="text-3xl font-bold text-primary-600">
-                    27-54
-                  </div>
-                  <div className="text-sm font-semibold text-ink-900">
-                    Years
-                  </div>
+                  <div className="text-3xl font-bold text-primary-600">27-54</div>
+                  <div className="text-sm font-semibold text-ink-900">Years</div>
                   <div className="text-xs text-ink-500">Typical Duration</div>
                 </div>
                 <div className="bg-ink-50 rounded-xl p-4 text-center">
-                  <div className="text-3xl font-bold text-accent-600">
-                    Variable
-                  </div>
-                  <div className="text-sm font-semibold text-ink-900">
-                    Intensity
-                  </div>
-                  <div className="text-xs text-ink-500">
-                    Depends on planetary periods
-                  </div>
+                  <div className="text-3xl font-bold text-accent-600">Variable</div>
+                  <div className="text-sm font-semibold text-ink-900">Intensity</div>
+                  <div className="text-xs text-ink-500">Depends on planetary periods</div>
                 </div>
                 <div className="bg-ink-50 rounded-xl p-4 text-center">
-                  <div className="text-3xl font-bold text-secondary-600">
-                    Karmic
-                  </div>
-                  <div className="text-sm font-semibold text-ink-900">
-                    Purpose
-                  </div>
-                  <div className="text-xs text-ink-500">
-                    Complete unresolved lessons
-                  </div>
+                  <div className="text-3xl font-bold text-secondary-600">Karmic</div>
+                  <div className="text-sm font-semibold text-ink-900">Purpose</div>
+                  <div className="text-xs text-ink-500">Complete unresolved lessons</div>
                 </div>
               </div>
             </div>
@@ -1152,45 +788,15 @@ function Duration() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ REMEDIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── REMEDIES ──────────────────────── */
 function Remedies() {
   const remedies = [
-    {
-      icon: MoonIcon,
-      title: "Rudrabhishek Puja",
-      description:
-        "Perform Rudrabhishek puja on Mondays, especially in the month of Shravan, for deep peace and divine protection.",
-    },
-    {
-      icon: ShieldAlert,
-      title: "Visit Temples",
-      description:
-        "Visit Rahu-Ketu temples during eclipses. Trimbakeshwar and Kalahasti temples are renowned for Kaal Sarp Dosh remedies.",
-    },
-    {
-      icon: Heart,
-      title: "Feed Animals",
-      description:
-        "Feed birds and stray animals. It clears karmic baggage fast and brings blessings.",
-    },
-    {
-      icon: Sparkles,
-      title: "Chant Mantras",
-      description:
-        'Chant "Om Namah Shivaya" 108 times daily. Also chant specific Rahu and Ketu mantras.',
-    },
-    {
-      icon: Gem,
-      title: "Wear Gemstones",
-      description:
-        "Wear silver or copper ShieldAlert rings on the correct fingers. Place energized Rahu-Ketu yantras at home.",
-    },
-    {
-      icon: Shield,
-      title: "Donate & Serve",
-      description:
-        "Donate black clothes and iron items on Saturdays. Feed the poor on weekends for blessings.",
-    },
+    { icon: Moon, title: "Rudrabhishek Puja", description: "Perform Rudrabhishek puja on Mondays, especially in the month of Shravan, for deep peace and divine protection." },
+    { icon: ShieldAlert, title: "Visit Temples", description: "Visit Rahu-Ketu temples during eclipses. Trimbakeshwar and Kalahasti temples are renowned for Kaal Sarp Dosh remedies." },
+    { icon: Heart, title: "Feed Animals", description: "Feed birds and stray animals. It clears karmic baggage fast and brings blessings." },
+    { icon: Sparkles, title: "Chant Mantras", description: 'Chant "Om Namah Shivaya" 108 times daily. Also chant specific Rahu and Ketu mantras.' },
+    { icon: Gem, title: "Wear Gemstones", description: "Wear silver or copper ShieldAlert rings on the correct fingers. Place energized Rahu-Ketu yantras at home." },
+    { icon: Shield, title: "Donate & Serve", description: "Donate black clothes and iron items on Saturdays. Feed the poor on weekends for blessings." },
   ];
 
   return (
@@ -1226,7 +832,7 @@ function Remedies() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── CTA SECTION ──────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

@@ -8,58 +8,42 @@ import {
   Users,
   Sparkles,
   Heart,
-  ChevronRight,
-  Shield,
   CheckCircle,
   ArrowRight,
-  Globe,
-  Moon,
-  Sun,
   TrendingUp,
   Activity,
   Home,
-  Briefcase,
-  Baby,
   AlertCircle,
-  Info,
-  Award,
-  Zap,
-  Calculator,
-  Star,
-  Compass,
-  Feather,
-  Handshake,
-  Target,
   AlertTriangle,
   Smile,
   Frown,
   Cloud,
   CloudRain,
-  Sun as SunIcon,
-  Moon as MoonIcon,
+  Sun,
+  Moon,
+  Star,
+  Target,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// Moon signs data
 const moonSigns = [
-  { value: "aries", label: "Aries (Mesha)", emoji: "â™ˆ" },
-  { value: "taurus", label: "Taurus (Vrishabha)", emoji: "â™‰" },
-  { value: "gemini", label: "Gemini (Mithuna)", emoji: "â™Š" },
-  { value: "cancer", label: "Cancer (Karka)", emoji: "â™‹" },
-  { value: "leo", label: "Leo (Simha)", emoji: "â™Œ" },
-  { value: "virgo", label: "Virgo (Kanya)", emoji: "â™" },
-  { value: "libra", label: "Libra (Tula)", emoji: "â™Ž" },
-  { value: "scorpio", label: "Scorpio (Vrishchika)", emoji: "â™" },
-  { value: "sagittarius", label: "Sagittarius (Dhanu)", emoji: "â™" },
-  { value: "capricorn", label: "Capricorn (Makara)", emoji: "â™‘" },
-  { value: "aquarius", label: "Aquarius (Kumbha)", emoji: "â™’" },
-  { value: "pisces", label: "Pisces (Meena)", emoji: "â™“" },
+  { value: "aries", label: "Aries (Mesha)", emoji: "♈" },
+  { value: "taurus", label: "Taurus (Vrishabha)", emoji: "♉" },
+  { value: "gemini", label: "Gemini (Mithuna)", emoji: "♊" },
+  { value: "cancer", label: "Cancer (Karka)", emoji: "♋" },
+  { value: "leo", label: "Leo (Simha)", emoji: "♌" },
+  { value: "virgo", label: "Virgo (Kanya)", emoji: "♍" },
+  { value: "libra", label: "Libra (Tula)", emoji: "♎" },
+  { value: "scorpio", label: "Scorpio (Vrishchika)", emoji: "♏" },
+  { value: "sagittarius", label: "Sagittarius (Dhanu)", emoji: "♐" },
+  { value: "capricorn", label: "Capricorn (Makara)", emoji: "♑" },
+  { value: "aquarius", label: "Aquarius (Kumbha)", emoji: "♒" },
+  { value: "pisces", label: "Pisces (Meena)", emoji: "♓" },
 ];
 
-// Sade Sati phases data
 const sadeSatiData: {
   [key: string]: {
     phase: string;
@@ -69,136 +53,22 @@ const sadeSatiData: {
     intensity: number;
   };
 } = {
-  aries: {
-    phase: "First Phase",
-    description: "Saturn is in Pisces, the sign before your Moon sign.",
-    challenges: [
-      "Emotional turbulence",
-      "Family conflicts",
-      "Career stagnation",
-    ],
-    opportunities: [
-      "Spiritual growth",
-      "Relationship clarity",
-      "Inner strength",
-    ],
-    intensity: 6,
-  },
-  taurus: {
-    phase: "Second Phase",
-    description: "Saturn is in Aries, the sign before your Moon sign.",
-    challenges: ["Financial instability", "Health issues", "Work pressure"],
-    opportunities: ["Financial discipline", "Health awareness", "Career focus"],
-    intensity: 7,
-  },
-  gemini: {
-    phase: "Third Phase",
-    description: "Saturn is in Taurus, the sign before your Moon sign.",
-    challenges: ["Communication issues", "Sibling conflicts", "Mental stress"],
-    opportunities: [
-      "Improved communication",
-      "Stronger bonds",
-      "Mental clarity",
-    ],
-    intensity: 5,
-  },
-  cancer: {
-    phase: "First Phase",
-    description: "Saturn is in Gemini, the sign before your Moon sign.",
-    challenges: ["Family responsibilities", "Emotional burden", "Home issues"],
-    opportunities: ["Family bonding", "Emotional maturity", "Home harmony"],
-    intensity: 7,
-  },
-  leo: {
-    phase: "Second Phase",
-    description: "Saturn is in Cancer, the sign before your Moon sign.",
-    challenges: ["Ego clashes", "Relationship strain", "Career challenges"],
-    opportunities: [
-      "Humble leadership",
-      "Stronger relationships",
-      "Career growth",
-    ],
-    intensity: 8,
-  },
-  virgo: {
-    phase: "Third Phase",
-    description: "Saturn is in Leo, the sign before your Moon sign.",
-    challenges: ["Health concerns", "Work stress", "Perfectionism"],
-    opportunities: ["Health improvements", "Work-life balance", "Acceptance"],
-    intensity: 6,
-  },
-  libra: {
-    phase: "First Phase",
-    description: "Saturn is in Virgo, the sign before your Moon sign.",
-    challenges: ["Partnership issues", "Legal matters", "Financial strain"],
-    opportunities: [
-      "Balanced partnerships",
-      "Legal clarity",
-      "Financial growth",
-    ],
-    intensity: 7,
-  },
-  scorpio: {
-    phase: "Second Phase",
-    description: "Saturn is in Libra, the sign before your Moon sign.",
-    challenges: ["Intense emotions", "Trust issues", "Power struggles"],
-    opportunities: ["Emotional healing", "Deep trust", "Personal power"],
-    intensity: 8,
-  },
-  sagittarius: {
-    phase: "Third Phase",
-    description: "Saturn is in Scorpio, the sign before your Moon sign.",
-    challenges: [
-      "Philosophical doubts",
-      "Travel restrictions",
-      "Learning blocks",
-    ],
-    opportunities: ["Deeper wisdom", "Meaningful travel", "Expanded learning"],
-    intensity: 5,
-  },
-  capricorn: {
-    phase: "First Phase",
-    description: "Saturn is in Sagittarius, the sign before your Moon sign.",
-    challenges: [
-      "Career pressure",
-      "Social status issues",
-      "Family expectations",
-    ],
-    opportunities: [
-      "Career advancement",
-      "Social recognition",
-      "Family support",
-    ],
-    intensity: 7,
-  },
-  aquarius: {
-    phase: "Second Phase",
-    description: "Saturn is in Capricorn, the sign before your Moon sign.",
-    challenges: ["Identity crisis", "Rebellion", "Isolation"],
-    opportunities: [
-      "Self-discovery",
-      "Authentic expression",
-      "Community building",
-    ],
-    intensity: 8,
-  },
-  pisces: {
-    phase: "Third Phase",
-    description: "Saturn is in Aquarius, the sign before your Moon sign.",
-    challenges: ["Confusion", "Escapism", "Boundary issues"],
-    opportunities: [
-      "Spiritual clarity",
-      "Healthy boundaries",
-      "Creative expression",
-    ],
-    intensity: 6,
-  },
+  aries: { phase: "First Phase", description: "Saturn is in Pisces, the sign before your Moon sign.", challenges: ["Emotional turbulence", "Family conflicts", "Career stagnation"], opportunities: ["Spiritual growth", "Relationship clarity", "Inner strength"], intensity: 6 },
+  taurus: { phase: "Second Phase", description: "Saturn is in Aries, the sign before your Moon sign.", challenges: ["Financial instability", "Health issues", "Work pressure"], opportunities: ["Financial discipline", "Health awareness", "Career focus"], intensity: 7 },
+  gemini: { phase: "Third Phase", description: "Saturn is in Taurus, the sign before your Moon sign.", challenges: ["Communication issues", "Sibling conflicts", "Mental stress"], opportunities: ["Improved communication", "Stronger bonds", "Mental clarity"], intensity: 5 },
+  cancer: { phase: "First Phase", description: "Saturn is in Gemini, the sign before your Moon sign.", challenges: ["Family responsibilities", "Emotional burden", "Home issues"], opportunities: ["Family bonding", "Emotional maturity", "Home harmony"], intensity: 7 },
+  leo: { phase: "Second Phase", description: "Saturn is in Cancer, the sign before your Moon sign.", challenges: ["Ego clashes", "Relationship strain", "Career challenges"], opportunities: ["Humble leadership", "Stronger relationships", "Career growth"], intensity: 8 },
+  virgo: { phase: "Third Phase", description: "Saturn is in Leo, the sign before your Moon sign.", challenges: ["Health concerns", "Work stress", "Perfectionism"], opportunities: ["Health improvements", "Work-life balance", "Acceptance"], intensity: 6 },
+  libra: { phase: "First Phase", description: "Saturn is in Virgo, the sign before your Moon sign.", challenges: ["Partnership issues", "Legal matters", "Financial strain"], opportunities: ["Balanced partnerships", "Legal clarity", "Financial growth"], intensity: 7 },
+  scorpio: { phase: "Second Phase", description: "Saturn is in Libra, the sign before your Moon sign.", challenges: ["Intense emotions", "Trust issues", "Power struggles"], opportunities: ["Emotional healing", "Deep trust", "Personal power"], intensity: 8 },
+  sagittarius: { phase: "Third Phase", description: "Saturn is in Scorpio, the sign before your Moon sign.", challenges: ["Philosophical doubts", "Travel restrictions", "Learning blocks"], opportunities: ["Deeper wisdom", "Meaningful travel", "Expanded learning"], intensity: 5 },
+  capricorn: { phase: "First Phase", description: "Saturn is in Sagittarius, the sign before your Moon sign.", challenges: ["Career pressure", "Social status issues", "Family expectations"], opportunities: ["Career advancement", "Social recognition", "Family support"], intensity: 7 },
+  aquarius: { phase: "Second Phase", description: "Saturn is in Capricorn, the sign before your Moon sign.", challenges: ["Identity crisis", "Rebellion", "Isolation"], opportunities: ["Self-discovery", "Authentic expression", "Community building"], intensity: 8 },
+  pisces: { phase: "Third Phase", description: "Saturn is in Aquarius, the sign before your Moon sign.", challenges: ["Confusion", "Escapism", "Boundary issues"], opportunities: ["Spiritual clarity", "Healthy boundaries", "Creative expression"], intensity: 6 },
 };
 
-// Current Saturn position (2025)
 const currentSaturnSign = "aquarius";
 
-// Get affected moon signs
 const getAffectedSigns = () => {
   const signs = ["capricorn", "aquarius", "pisces"];
   return moonSigns.filter((s) => signs.includes(s.value));
@@ -239,18 +109,12 @@ export default function SadeSati() {
 
   const calculateSadeSati = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // For demo purposes, we'll calculate based on moon sign selection
-    // In a real app, this would use actual birth chart calculations
-    const moonSign = "aquarius"; // Default for demo
-
+    const moonSign = "aquarius";
     const data = sadeSatiData[moonSign] || sadeSatiData["aries"];
     const isActive = ["capricorn", "aquarius", "pisces"].includes(moonSign);
-
-    // Calculate start and end dates (simplified for demo)
     const currentYear = new Date().getFullYear();
-    const startDate = `${currentYear - 4}å¹´`;
-    const endDate = `${currentYear + 4}å¹´`;
+    const startDate = `${currentYear - 4}年`;
+    const endDate = `${currentYear + 4}年`;
 
     const remedies = [
       'Chant "Om Sham Shanicharaya Namah" 108 times daily',
@@ -281,8 +145,7 @@ export default function SadeSati() {
 
     setResult({
       moonSign: moonSign.charAt(0).toUpperCase() + moonSign.slice(1),
-      moonSignEmoji:
-        moonSigns.find((s) => s.value === moonSign)?.emoji || "â™ˆ",
+      moonSignEmoji: moonSigns.find((s) => s.value === moonSign)?.emoji || "♈",
       phase: data.phase,
       description: data.description,
       challenges: data.challenges,
@@ -300,49 +163,31 @@ export default function SadeSati() {
     });
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
-      setFormData({
-        ...formData,
-        [name]: (e.target as HTMLInputElement).checked,
-      });
+      setFormData({ ...formData, [name]: (e.target as HTMLInputElement).checked });
     } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      setFormData({ ...formData, [name]: value });
     }
   };
 
   const handlePlaceSelect = (place: string) => {
-    setFormData({
-      ...formData,
-      birthPlace: place,
-    });
+    setFormData({ ...formData, birthPlace: place });
     setShowPlaceInput(false);
   };
 
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
-  const years = Array.from(
-    { length: 100 },
-    (_, i) => new Date().getFullYear() - i,
-  );
+  const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const minutes = Array.from({ length: 60 }, (_, i) => i);
   const seconds = Array.from({ length: 60 }, (_, i) => i);
-
   const affectedSigns = getAffectedSigns();
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Sade Sati Form */}
       <SadeSatiForm
         formData={formData}
         handleChange={handleChange}
@@ -358,35 +203,19 @@ export default function SadeSati() {
         setShowPlaceInput={setShowPlaceInput}
         handlePlaceSelect={handlePlaceSelect}
       />
-
-      {/* What is Sade Sati */}
       <WhatIsSadeSati />
-
-      {/* Why 7.5 Years */}
       <WhySevenPointFiveYears />
-
-      {/* Phases of Sade Sati */}
       <PhasesOfSadeSati />
-
-      {/* Effects of Sade Sati */}
       <EffectsOfSadeSati />
-
-      {/* Rashis Affected */}
       <RashisAffected affectedSigns={affectedSigns} />
-
-      {/* Remedies */}
       <Remedies />
-
-      {/* Do's and Don'ts */}
       <DosAndDonts />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── HERO SECTION ────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -397,7 +226,7 @@ function HeroSection() {
       <div className="relative container-8xl text-center">
         <Reveal>
           <Badge className="mb-4">
-            <MoonIcon className="h-3 w-3" />
+            <Moon className="h-3 w-3" />
             Free Online Tool
           </Badge>
         </Reveal>
@@ -419,10 +248,7 @@ function HeroSection() {
             <p className="text-base text-ink-600 leading-relaxed">
               If you've been wondering why certain years feel heavier like
               nothing goes your way,
-              <span className="font-semibold text-primary-600">
-                {" "}
-                Sade Sati
-              </span>{" "}
+              <span className="font-semibold text-primary-600"> Sade Sati</span>{" "}
               might be the reason! This 7.5-year cycle, where Saturn moves
               through your moon sign and its neighboring signs, can bring deep
               lessons, delays, and emotional growth.
@@ -434,12 +260,10 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SADE SATI FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── SADE SATI FORM ────────────────────── */
 interface SadeSatiFormProps {
   formData: any;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
   result: any;
   days: number[];
@@ -485,7 +309,7 @@ function SadeSatiForm({
             <div className="bg-ink-50 rounded-2xl p-6 md:p-8 border border-ink-100">
               <div className="flex items-center gap-3 mb-5">
                 <div className="p-2 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500">
-                  <MoonIcon className="h-4 w-4 text-white" />
+                  <Moon className="h-4 w-4 text-white" />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-ink-900">
@@ -498,7 +322,6 @@ function SadeSatiForm({
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Name <span className="text-danger-500">*</span>
@@ -517,7 +340,6 @@ function SadeSatiForm({
                   </div>
                 </div>
 
-                {/* Gender */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Gender <span className="text-danger-500">*</span>
@@ -539,7 +361,6 @@ function SadeSatiForm({
                   </div>
                 </div>
 
-                {/* Date of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Date of Birth <span className="text-danger-500">*</span>
@@ -554,9 +375,7 @@ function SadeSatiForm({
                     >
                       <option value="">Day</option>
                       {days.map((day) => (
-                        <option key={day} value={day}>
-                          {day}
-                        </option>
+                        <option key={day} value={day}>{day}</option>
                       ))}
                     </select>
                     <select
@@ -568,9 +387,7 @@ function SadeSatiForm({
                     >
                       <option value="">Month</option>
                       {months.map((month) => (
-                        <option key={month} value={month}>
-                          {month}
-                        </option>
+                        <option key={month} value={month}>{month}</option>
                       ))}
                     </select>
                     <select
@@ -582,15 +399,12 @@ function SadeSatiForm({
                     >
                       <option value="">Year</option>
                       {years.map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
+                        <option key={year} value={year}>{year}</option>
                       ))}
                     </select>
                   </div>
                 </div>
 
-                {/* Time of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Time of Birth
@@ -617,9 +431,7 @@ function SadeSatiForm({
                       >
                         <option value="">Hour</option>
                         {hours.map((hour) => (
-                          <option key={hour} value={hour}>
-                            {String(hour).padStart(2, "0")}
-                          </option>
+                          <option key={hour} value={hour}>{String(hour).padStart(2, "0")}</option>
                         ))}
                       </select>
                       <select
@@ -630,9 +442,7 @@ function SadeSatiForm({
                       >
                         <option value="">Minute</option>
                         {minutes.map((minute) => (
-                          <option key={minute} value={minute}>
-                            {String(minute).padStart(2, "0")}
-                          </option>
+                          <option key={minute} value={minute}>{String(minute).padStart(2, "0")}</option>
                         ))}
                       </select>
                       <select
@@ -643,16 +453,13 @@ function SadeSatiForm({
                       >
                         <option value="">Second</option>
                         {seconds.map((second) => (
-                          <option key={second} value={second}>
-                            {String(second).padStart(2, "0")}
-                          </option>
+                          <option key={second} value={second}>{String(second).padStart(2, "0")}</option>
                         ))}
                       </select>
                     </div>
                   )}
                 </div>
 
-                {/* Place of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-1">
                     Place of Birth <span className="text-danger-500">*</span>
@@ -675,7 +482,7 @@ function SadeSatiForm({
                           onClick={() => setShowPlaceInput(false)}
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600"
                         >
-                          âœ•
+                          ×
                         </button>
                       </div>
                     ) : (
@@ -706,35 +513,22 @@ function SadeSatiForm({
                   </div>
                 </div>
 
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                  type="submit"
-                >
-                  <MoonIcon className="h-4 w-4" />
+                <Button variant="primary" size="lg" className="w-full" type="submit">
+                  <Moon className="h-4 w-4" />
                   Check Sade Sati
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </form>
 
-              {/* Results */}
               {result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-6 space-y-4"
                 >
-                  {/* Status */}
-                  <div
-                    className={`rounded-xl p-4 text-center ${result.isActive ? "bg-amber-50 border border-amber-200" : "bg-green-50 border border-green-200"}`}
-                  >
-                    <div className="text-2xl mb-1">
-                      {result.isActive ? "âš ï¸" : "âœ…"}
-                    </div>
-                    <div
-                      className={`text-sm font-bold ${result.isActive ? "text-amber-700" : "text-green-700"}`}
-                    >
+                  <div className={`rounded-xl p-4 text-center ${result.isActive ? "bg-amber-50 border border-amber-200" : "bg-green-50 border border-green-200"}`}>
+                    <div className="text-2xl mb-1">{result.isActive ? "⚠️" : "✅"}</div>
+                    <div className={`text-sm font-bold ${result.isActive ? "text-amber-700" : "text-green-700"}`}>
                       {result.isActive
                         ? "You are currently in your Sade Sati period"
                         : "You are not currently in Sade Sati"}
@@ -742,37 +536,23 @@ function SadeSatiForm({
                     <p className="text-xs text-ink-600 mt-1">{result.advice}</p>
                   </div>
 
-                  {/* Moon Sign & Phase */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-4 text-center text-white">
-                      <div className="text-xs font-semibold opacity-90">
-                        Your Moon Sign
-                      </div>
-                      <div className="text-3xl mt-1">
-                        {result.moonSignEmoji}
-                      </div>
+                      <div className="text-xs font-semibold opacity-90">Your Moon Sign</div>
+                      <div className="text-3xl mt-1">{result.moonSignEmoji}</div>
                       <div className="text-lg font-bold">{result.moonSign}</div>
                     </div>
                     <div className="bg-gradient-to-br from-secondary-600 to-secondary-500 rounded-xl p-4 text-center text-white">
-                      <div className="text-xs font-semibold opacity-90">
-                        Current Phase
-                      </div>
+                      <div className="text-xs font-semibold opacity-90">Current Phase</div>
                       <div className="text-lg font-bold">{result.phase}</div>
-                      <div className="text-xs opacity-90 mt-1">
-                        {result.description}
-                      </div>
+                      <div className="text-xs opacity-90 mt-1">{result.description}</div>
                     </div>
                   </div>
 
-                  {/* Intensity */}
                   <div className="bg-white rounded-xl p-4 border border-ink-100">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-semibold text-ink-900">
-                        Intensity Level
-                      </span>
-                      <span className="text-sm font-bold text-ink-900">
-                        {result.intensity}/10
-                      </span>
+                      <span className="text-sm font-semibold text-ink-900">Intensity Level</span>
+                      <span className="text-sm font-bold text-ink-900">{result.intensity}/10</span>
                     </div>
                     <div className="w-full h-2 bg-ink-100 rounded-full overflow-hidden">
                       <div
@@ -782,7 +562,6 @@ function SadeSatiForm({
                     </div>
                   </div>
 
-                  {/* Challenges & Opportunities */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-red-50 rounded-xl p-4 border border-red-200">
                       <h4 className="text-sm font-bold text-red-700 mb-2 flex items-center gap-2">
@@ -790,17 +569,12 @@ function SadeSatiForm({
                         Challenges
                       </h4>
                       <ul className="space-y-1">
-                        {result.challenges.map(
-                          (challenge: string, i: number) => (
-                            <li
-                              key={i}
-                              className="text-xs text-red-600 flex items-start gap-1"
-                            >
-                              <span className="text-red-400">â€¢</span>
-                              {challenge}
-                            </li>
-                          ),
-                        )}
+                        {result.challenges.map((challenge: string, i: number) => (
+                          <li key={i} className="text-xs text-red-600 flex items-start gap-1">
+                            <span className="text-red-400">•</span>
+                            {challenge}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                     <div className="bg-green-50 rounded-xl p-4 border border-green-200">
@@ -809,22 +583,16 @@ function SadeSatiForm({
                         Opportunities
                       </h4>
                       <ul className="space-y-1">
-                        {result.opportunities.map(
-                          (opportunity: string, i: number) => (
-                            <li
-                              key={i}
-                              className="text-xs text-green-600 flex items-start gap-1"
-                            >
-                              <span className="text-green-400">â€¢</span>
-                              {opportunity}
-                            </li>
-                          ),
-                        )}
+                        {result.opportunities.map((opportunity: string, i: number) => (
+                          <li key={i} className="text-xs text-green-600 flex items-start gap-1">
+                            <span className="text-green-400">•</span>
+                            {opportunity}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
 
-                  {/* Date Range */}
                   <div className="bg-ink-50 rounded-xl p-4 border border-ink-100 text-center">
                     <div className="text-xs text-ink-500">Sade Sati Period</div>
                     <div className="text-sm font-semibold text-ink-900">
@@ -833,14 +601,9 @@ function SadeSatiForm({
                   </div>
 
                   <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-4 text-center text-white">
-                    <p className="text-sm">
-                      Connect with an Astrologer for more personalised detailed
-                      predictions.
-                    </p>
+                    <p className="text-sm">Connect with an Astrologer for more personalised detailed predictions.</p>
                     <div className="flex justify-center gap-3 mt-3">
-                      <Button to="/consultations" variant="dark" size="sm">
-                        Talk to Astrologer
-                      </Button>
+                      <Button to="/consultations" variant="dark" size="sm">Talk to Astrologer</Button>
                     </div>
                   </div>
                 </motion.div>
@@ -853,7 +616,7 @@ function SadeSatiForm({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS SADE SATI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHAT IS SADE SATI ────────────────────── */
 function WhatIsSadeSati() {
   return (
     <section className="py-16 bg-ink-50">
@@ -877,14 +640,12 @@ function WhatIsSadeSati() {
                 only tough times.{" "}
                 <span className="font-semibold text-primary-600">
                   Saturn acts like a strict but wise teacher
-                </span>
+                </span>{" "}
                 who's there to help you grow.
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">
-                    ðŸ’¡ Despite its reputation,
-                  </span>{" "}
+                  <span className="font-semibold">💡 Despite its reputation,</span>{" "}
                   Sade Sati isn't a curse. It's more like the universe's way of
                   pushing you toward growth, resilience, and realigning with
                   your true purpose.
@@ -892,9 +653,7 @@ function WhatIsSadeSati() {
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">
-                    âœ¨ Everyone's experience is unique
-                  </span>{" "}
+                  <span className="font-semibold">✨ Everyone's experience is unique</span>{" "}
                   because everyone's birth chart is unique. How this period
                   plays out depends on your own cosmic blueprint.
                 </p>
@@ -907,7 +666,7 @@ function WhatIsSadeSati() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHY 7.5 YEARS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHY 7.5 YEARS ────────────────────── */
 function WhySevenPointFiveYears() {
   return (
     <section className="py-16 bg-white">
@@ -929,38 +688,24 @@ function WhySevenPointFiveYears() {
                 in each sign. When it comes to Sade Sati, Saturn moves through
                 the sign before your Moon sign, your Moon sign itself, and the
                 one after, making it a{" "}
-                <span className="font-semibold text-primary-600">
-                  7.5-year period
-                </span>
+                <span className="font-semibold text-primary-600">7.5-year period</span>{" "}
                 that's all about deep transformation.
               </p>
               <div className="mt-4 grid md:grid-cols-3 gap-4">
                 <div className="bg-white rounded-xl p-4 border border-ink-100 text-center">
                   <div className="text-2xl font-bold text-primary-600">2.5</div>
-                  <div className="text-xs text-ink-500">
-                    Years in First Phase
-                  </div>
-                  <div className="text-xs text-ink-400 mt-1">
-                    Sign before Moon
-                  </div>
+                  <div className="text-xs text-ink-500">Years in First Phase</div>
+                  <div className="text-xs text-ink-400 mt-1">Sign before Moon</div>
                 </div>
                 <div className="bg-white rounded-xl p-4 border border-ink-100 text-center">
                   <div className="text-2xl font-bold text-accent-600">2.5</div>
-                  <div className="text-xs text-ink-500">
-                    Years in Second Phase
-                  </div>
+                  <div className="text-xs text-ink-500">Years in Second Phase</div>
                   <div className="text-xs text-ink-400 mt-1">Moon Sign</div>
                 </div>
                 <div className="bg-white rounded-xl p-4 border border-ink-100 text-center">
-                  <div className="text-2xl font-bold text-secondary-600">
-                    2.5
-                  </div>
-                  <div className="text-xs text-ink-500">
-                    Years in Third Phase
-                  </div>
-                  <div className="text-xs text-ink-400 mt-1">
-                    Sign after Moon
-                  </div>
+                  <div className="text-2xl font-bold text-secondary-600">2.5</div>
+                  <div className="text-xs text-ink-500">Years in Third Phase</div>
+                  <div className="text-xs text-ink-400 mt-1">Sign after Moon</div>
                 </div>
               </div>
             </div>
@@ -971,30 +716,12 @@ function WhySevenPointFiveYears() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ PHASES OF SADE SATI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── PHASES OF SADE SATI ────────────────────── */
 function PhasesOfSadeSati() {
   const phases = [
-    {
-      title: "First Phase",
-      icon: Home,
-      description: "Saturn moves into the sign just before your Moon sign.",
-      focus: "Relationships, family, emotional foundations",
-      color: "from-blue-400 to-cyan-500",
-    },
-    {
-      title: "Second Phase",
-      icon: Target,
-      description: "Saturn steps into your Moon sign.",
-      focus: "Emotions, mindset, identity, inner self",
-      color: "from-purple-500 to-indigo-500",
-    },
-    {
-      title: "Third Phase",
-      icon: TrendingUp,
-      description: "Saturn moves into the sign right after your Moon sign.",
-      focus: "Career, reputation, long-term ambitions",
-      color: "from-green-500 to-emerald-500",
-    },
+    { title: "First Phase", icon: Home, description: "Saturn moves into the sign just before your Moon sign.", focus: "Relationships, family, emotional foundations", color: "from-blue-400 to-cyan-500" },
+    { title: "Second Phase", icon: Target, description: "Saturn steps into your Moon sign.", focus: "Emotions, mindset, identity, inner self", color: "from-purple-500 to-indigo-500" },
+    { title: "Third Phase", icon: TrendingUp, description: "Saturn moves into the sign right after your Moon sign.", focus: "Career, reputation, long-term ambitions", color: "from-green-500 to-emerald-500" },
   ];
 
   return (
@@ -1012,14 +739,10 @@ function PhasesOfSadeSati() {
           {phases.map((phase, i) => (
             <Reveal key={phase.title} delay={i * 0.1}>
               <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all">
-                <div
-                  className={`p-3 rounded-xl bg-gradient-to-br ${phase.color} w-fit mb-4`}
-                >
+                <div className={`p-3 rounded-xl bg-gradient-to-br ${phase.color} w-fit mb-4`}>
                   <phase.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-ink-900 mb-2">
-                  {phase.title}
-                </h3>
+                <h3 className="text-xl font-bold text-ink-900 mb-2">{phase.title}</h3>
                 <p className="text-sm text-ink-500">{phase.description}</p>
                 <div className="mt-3 p-3 bg-ink-50 rounded-lg">
                   <p className="text-xs font-semibold text-ink-700">Focus:</p>
@@ -1034,7 +757,7 @@ function PhasesOfSadeSati() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ EFFECTS OF SADE SATI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── EFFECTS OF SADE SATI ────────────────────── */
 function EffectsOfSadeSati() {
   return (
     <section className="py-16 bg-white">
@@ -1052,40 +775,24 @@ function EffectsOfSadeSati() {
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
               <div className="flex items-center gap-2 mb-3">
                 <Smile className="h-6 w-6 text-green-600" />
-                <h3 className="text-lg font-bold text-ink-900">
-                  Positive Effects
-                </h3>
+                <h3 className="text-lg font-bold text-ink-900">Positive Effects</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Career Growth:</span>{" "}
-                    Rewards hard work with solid, long-term success
-                  </span>
+                  <span><span className="font-semibold">Career Growth:</span> Rewards hard work with solid, long-term success</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Spiritual Awakening:</span>{" "}
-                    Draws you towards meditation and self-reflection
-                  </span>
+                  <span><span className="font-semibold">Spiritual Awakening:</span> Draws you towards meditation and self-reflection</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">
-                      Meaningful Connections:
-                    </span>{" "}
-                    Shallow friendships fade, genuine ones survive
-                  </span>
+                  <span><span className="font-semibold">Meaningful Connections:</span> Shallow friendships fade, genuine ones survive</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Inner Strength:</span>{" "}
-                    Builds resilience and emotional maturity
-                  </span>
+                  <span><span className="font-semibold">Inner Strength:</span> Builds resilience and emotional maturity</span>
                 </li>
               </ul>
             </div>
@@ -1095,38 +802,24 @@ function EffectsOfSadeSati() {
             <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-6 border border-red-200">
               <div className="flex items-center gap-2 mb-3">
                 <CloudRain className="h-6 w-6 text-red-600" />
-                <h3 className="text-lg font-bold text-ink-900">
-                  Challenging Effects
-                </h3>
+                <h3 className="text-lg font-bold text-ink-900">Challenging Effects</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <AlertCircle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Financial Strain:</span>{" "}
-                    Money worries and delayed payments
-                  </span>
+                  <span><span className="font-semibold">Financial Strain:</span> Money worries and delayed payments</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <AlertCircle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Health Issues:</span>{" "}
-                    Stress-related health concerns
-                  </span>
+                  <span><span className="font-semibold">Health Issues:</span> Stress-related health concerns</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <AlertCircle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Emotional Turmoil:</span>{" "}
-                    Mood swings, anxiety, and restlessness
-                  </span>
+                  <span><span className="font-semibold">Emotional Turmoil:</span> Mood swings, anxiety, and restlessness</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
                   <AlertCircle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
-                  <span>
-                    <span className="font-semibold">Career Hurdles:</span>{" "}
-                    Delays in promotions and project approvals
-                  </span>
+                  <span><span className="font-semibold">Career Hurdles:</span> Delays in promotions and project approvals</span>
                 </li>
               </ul>
             </div>
@@ -1137,7 +830,7 @@ function EffectsOfSadeSati() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ RASHIS AFFECTED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── RASHIS AFFECTED ────────────────────── */
 function RashisAffected({ affectedSigns }: { affectedSigns: any[] }) {
   return (
     <section className="py-16 bg-ink-50">
@@ -1155,16 +848,10 @@ function RashisAffected({ affectedSigns }: { affectedSigns: any[] }) {
             <Reveal key={sign.value} delay={i * 0.1}>
               <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
                 <div className="text-4xl">{sign.emoji}</div>
-                <h3 className="text-lg font-bold text-ink-900 mt-2">
-                  {sign.label}
-                </h3>
+                <h3 className="text-lg font-bold text-ink-900 mt-2">{sign.label}</h3>
                 <div className="mt-2 p-2 bg-amber-50 rounded-lg border border-amber-200">
-                  <p className="text-xs font-semibold text-amber-700">
-                    Currently in Sade Sati
-                  </p>
-                  <p className="text-xs text-amber-600 mt-1">
-                    Saturn in Aquarius
-                  </p>
+                  <p className="text-xs font-semibold text-amber-700">Currently in Sade Sati</p>
+                  <p className="text-xs text-amber-600 mt-1">Saturn in Aquarius</p>
                 </div>
               </div>
             </Reveal>
@@ -1175,7 +862,7 @@ function RashisAffected({ affectedSigns }: { affectedSigns: any[] }) {
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-accent-50 rounded-2xl p-6 border border-accent-200 text-center">
               <p className="text-sm text-ink-700">
-                <span className="font-semibold">ðŸ’¡ Note:</span> If your Moon
+                <span className="font-semibold">💡 Note:</span> If your Moon
                 sign is Capricorn, Aquarius, or Pisces, you're right in the
                 middle of this important phase.
               </p>
@@ -1187,45 +874,15 @@ function RashisAffected({ affectedSigns }: { affectedSigns: any[] }) {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ REMEDIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── REMEDIES ────────────────────── */
 function Remedies() {
   const remedies = [
-    {
-      icon: MoonIcon,
-      title: "Chant Mantras",
-      description:
-        'Chant "Om Sham Shanicharaya Namah" 108 times daily for peace and calm.',
-    },
-    {
-      icon: Star,
-      title: "Wear Gemstones",
-      description:
-        "Wear a blue sapphire (Neelam) after consulting a trusted astrologer.",
-    },
-    {
-      icon: Heart,
-      title: "Help Others",
-      description:
-        "Help the elderly, disabled, or those in need to lighten your karmic load.",
-    },
-    {
-      icon: Calendar,
-      title: "Visit Temples",
-      description:
-        "Visit Saturn temples on Saturdays and light sesame oil lamps.",
-    },
-    {
-      icon: Activity,
-      title: "Practice Discipline",
-      description:
-        "Keep a steady routine with regular sleep, balanced meals, and exercise.",
-    },
-    {
-      icon: Sparkles,
-      title: "Meditation & Yoga",
-      description:
-        "Practice meditation and yoga to keep your mind calm and grounded.",
-    },
+    { icon: Moon, title: "Chant Mantras", description: 'Chant "Om Sham Shanicharaya Namah" 108 times daily for peace and calm.' },
+    { icon: Star, title: "Wear Gemstones", description: "Wear a blue sapphire (Neelam) after consulting a trusted astrologer." },
+    { icon: Heart, title: "Help Others", description: "Help the elderly, disabled, or those in need to lighten your karmic load." },
+    { icon: Calendar, title: "Visit Temples", description: "Visit Saturn temples on Saturdays and light sesame oil lamps." },
+    { icon: Activity, title: "Practice Discipline", description: "Keep a steady routine with regular sleep, balanced meals, and exercise." },
+    { icon: Sparkles, title: "Meditation & Yoga", description: "Practice meditation and yoga to keep your mind calm and grounded." },
   ];
 
   return (
@@ -1246,12 +903,8 @@ function Remedies() {
                 <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mb-4">
                   <remedy.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-ink-900 mb-2">
-                  {remedy.title}
-                </h3>
-                <p className="text-sm text-ink-500 leading-relaxed">
-                  {remedy.description}
-                </p>
+                <h3 className="text-lg font-bold text-ink-900 mb-2">{remedy.title}</h3>
+                <p className="text-sm text-ink-500 leading-relaxed">{remedy.description}</p>
               </div>
             </Reveal>
           ))}
@@ -1261,7 +914,7 @@ function Remedies() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DO'S AND DON'TS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── DO'S AND DON'TS ────────────────────── */
 function DosAndDonts() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1283,50 +936,28 @@ function DosAndDonts() {
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-green-500">âœ“</span>
-                  <span>
-                    <span className="font-semibold">Reflect inward:</span> Use
-                    this time for self-discovery through meditation
-                  </span>
+                  <span className="text-green-500">✓</span>
+                  <span><span className="font-semibold">Reflect inward:</span> Use this time for self-discovery through meditation</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-green-500">âœ“</span>
-                  <span>
-                    <span className="font-semibold">
-                      Strengthen spirituality:
-                    </span>{" "}
-                    Connect with mindfulness and traditional practices
-                  </span>
+                  <span className="text-green-500">✓</span>
+                  <span><span className="font-semibold">Strengthen spirituality:</span> Connect with mindfulness and traditional practices</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-green-500">âœ“</span>
-                  <span>
-                    <span className="font-semibold">Build skills:</span> Learn
-                    something new and commit to disciplined routines
-                  </span>
+                  <span className="text-green-500">✓</span>
+                  <span><span className="font-semibold">Build skills:</span> Learn something new and commit to disciplined routines</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-green-500">âœ“</span>
-                  <span>
-                    <span className="font-semibold">
-                      Nurture relationships:
-                    </span>{" "}
-                    Lean on family, friends, and mentors
-                  </span>
+                  <span className="text-green-500">✓</span>
+                  <span><span className="font-semibold">Nurture relationships:</span> Lean on family, friends, and mentors</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-green-500">âœ“</span>
-                  <span>
-                    <span className="font-semibold">Practice patience:</span>{" "}
-                    Progress may be slow, but it leads to long-term rewards
-                  </span>
+                  <span className="text-green-500">✓</span>
+                  <span><span className="font-semibold">Practice patience:</span> Progress may be slow, but it leads to long-term rewards</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-green-500">âœ“</span>
-                  <span>
-                    <span className="font-semibold">Give back:</span> Do seva or
-                    charitable acts for others
-                  </span>
+                  <span className="text-green-500">✓</span>
+                  <span><span className="font-semibold">Give back:</span> Do seva or charitable acts for others</span>
                 </li>
               </ul>
             </div>
@@ -1340,41 +971,24 @@ function DosAndDonts() {
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-red-500">âœ—</span>
-                  <span>
-                    <span className="font-semibold">Avoid big decisions:</span>{" "}
-                    Pause before marriage, job changes, or investments
-                  </span>
+                  <span className="text-red-500">✗</span>
+                  <span><span className="font-semibold">Avoid big decisions:</span> Pause before marriage, job changes, or investments</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-red-500">âœ—</span>
-                  <span>
-                    <span className="font-semibold">
-                      Don't start new ventures:
-                    </span>{" "}
-                    Wait for the third phase for new beginnings
-                  </span>
+                  <span className="text-red-500">✗</span>
+                  <span><span className="font-semibold">Don't start new ventures:</span> Wait for the third phase for new beginnings</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-red-500">âœ—</span>
-                  <span>
-                    <span className="font-semibold">Don't ignore health:</span>{" "}
-                    Rest, eat well, and manage stress
-                  </span>
+                  <span className="text-red-500">✗</span>
+                  <span><span className="font-semibold">Don't ignore health:</span> Rest, eat well, and manage stress</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-red-500">âœ—</span>
-                  <span>
-                    <span className="font-semibold">Stay hopeful:</span> Don't
-                    let negative thoughts take over
-                  </span>
+                  <span className="text-red-500">✗</span>
+                  <span><span className="font-semibold">Stay hopeful:</span> Don't let negative thoughts take over</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-ink-600">
-                  <span className="text-red-500">âœ—</span>
-                  <span>
-                    <span className="font-semibold">Stay connected:</span> Don't
-                    isolate yourself from loved ones
-                  </span>
+                  <span className="text-red-500">✗</span>
+                  <span><span className="font-semibold">Stay connected:</span> Don't isolate yourself from loved ones</span>
                 </li>
               </ul>
             </div>
@@ -1385,7 +999,7 @@ function DosAndDonts() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── CTA SECTION ────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">
@@ -1395,7 +1009,7 @@ function CTASection() {
       <div className="relative container-8xl text-center">
         <Reveal>
           <Badge variant="dark">
-            <MoonIcon className="h-3 w-3" />
+            <Moon className="h-3 w-3" />
             Check Your Sade Sati
           </Badge>
         </Reveal>
@@ -1417,7 +1031,7 @@ function CTASection() {
         <Reveal delay={0.3}>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button to="/sade-sati" variant="primary" size="lg">
-              <MoonIcon className="h-4 w-4" />
+              <Moon className="h-4 w-4" />
               Check Now
               <ArrowRight className="h-4 w-4" />
             </Button>

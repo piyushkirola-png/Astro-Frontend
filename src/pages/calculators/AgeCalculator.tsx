@@ -2,40 +2,19 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
   User,
   Users,
   Sparkles,
-  Heart,
-  ChevronRight,
-  Shield,
-  CheckCircle,
   ArrowRight,
-  Globe,
-  Moon,
-  Sun,
-  TrendingUp,
-  Activity,
-  Home,
-  Briefcase,
-  Baby,
-  AlertCircle,
-  Info,
-  Award,
-  Zap,
   Calculator,
   Star,
-  Compass,
-  Feather,
-  Handshake,
-  Target,
+  Moon,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 
-// Months data
 const months = [
   { value: 1, label: "January" },
   { value: 2, label: "February" },
@@ -51,14 +30,12 @@ const months = [
   { value: 12, label: "December" },
 ];
 
-// Generate days
 const getDays = (month?: number, year?: number) => {
   if (!month || !year) return Array.from({ length: 31 }, (_, i) => i + 1);
   const daysInMonth = new Date(year, month, 0).getDate();
   return Array.from({ length: daysInMonth }, (_, i) => i + 1);
 };
 
-// Generate years
 const getYears = () => {
   const currentYear = new Date().getFullYear();
   return Array.from({ length: 120 }, (_, i) => currentYear - i);
@@ -114,7 +91,6 @@ export default function AgeCalculator() {
       return;
     }
 
-    // Calculate age
     let years = currentDate.getFullYear() - birthDate.getFullYear();
     let months = currentDate.getMonth() - birthDate.getMonth();
     let days = currentDate.getDate() - birthDate.getDate();
@@ -134,7 +110,6 @@ export default function AgeCalculator() {
       months += 12;
     }
 
-    // Calculate total days
     const totalDays = Math.floor(
       (currentDate.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24),
     );
@@ -143,7 +118,6 @@ export default function AgeCalculator() {
     const totalHours = totalDays * 24;
     const totalMinutes = totalHours * 60;
 
-    // Calculate next birthday
     const nextBirthday = new Date(
       currentDate.getFullYear(),
       birthDate.getMonth(),
@@ -156,7 +130,6 @@ export default function AgeCalculator() {
       (nextBirthday.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24),
     );
 
-    // Life stage
     let lifeStage = "";
     let description = "";
     if (years < 13) {
@@ -193,7 +166,6 @@ export default function AgeCalculator() {
         "A celebration of a life well-lived, with wisdom and peace.";
     }
 
-    // Astrological insight based on age
     const astrologicalInsights = [
       "Your Jupiter cycle suggests a period of growth and wisdom ahead.",
       "This is a time of karmic alignment and spiritual awakening.",
@@ -247,10 +219,7 @@ export default function AgeCalculator() {
 
   return (
     <>
-      {/* Hero Section */}
       <HeroSection />
-
-      {/* Age Calculator Form */}
       <AgeCalculatorForm
         formData={formData}
         handleChange={handleChange}
@@ -261,35 +230,19 @@ export default function AgeCalculator() {
         years={years}
         months={months}
       />
-
-      {/* What is Age Calculator */}
       <WhatIsAgeCalculator />
-
-      {/* How Does It Work */}
       <HowDoesItWork />
-
-      {/* What Do Results Mean */}
       <WhatDoResultsMean />
-
-      {/* Time Zone Role */}
       <TimeZoneRole />
-
-      {/* Shortcuts */}
       <Shortcuts />
-
-      {/* Cultural Methods */}
       <CulturalMethods />
-
-      {/* Where Can You Use */}
       <WhereCanYouUse />
-
-      {/* CTA Section */}
       <CTASection />
     </>
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────────── HERO SECTION ───────────────────────── */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -325,7 +278,7 @@ function HeroSection() {
               age gap between you and your partner? That's where an{" "}
               <span className="font-semibold text-primary-600">
                 age calculator
-              </span>
+              </span>{" "}
               comes in. It's not just about numbers, it's about knowing you
               better.
             </p>
@@ -336,7 +289,7 @@ function HeroSection() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ AGE CALCULATOR FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────────────── AGE CALCULATOR FORM ───────────────────── */
 interface AgeCalculatorFormProps {
   formData: {
     birthDay: string;
@@ -400,7 +353,6 @@ function AgeCalculatorForm({
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Date of Birth */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-2">
                     Date of Birth <span className="text-danger-500">*</span>
@@ -457,7 +409,6 @@ function AgeCalculatorForm({
                   </div>
                 </div>
 
-                {/* Current Age or Age as of */}
                 <div>
                   <label className="block text-sm font-medium text-ink-700 mb-2">
                     Current Age or Age as of{" "}
@@ -527,14 +478,12 @@ function AgeCalculatorForm({
                 </Button>
               </form>
 
-              {/* Results */}
               {result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-6 space-y-4"
                 >
-                  {/* Main Age */}
                   <div className="bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl p-6 text-center text-white">
                     <div className="text-sm font-semibold opacity-90">
                       Your Exact Age
@@ -545,7 +494,6 @@ function AgeCalculatorForm({
                     </div>
                   </div>
 
-                  {/* Detailed Stats */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div className="bg-white rounded-xl p-3 text-center border border-ink-100">
                       <div className="text-xs text-ink-500">Total Days</div>
@@ -573,7 +521,6 @@ function AgeCalculatorForm({
                     </div>
                   </div>
 
-                  {/* Next Birthday */}
                   <div className="bg-ink-50 rounded-xl p-4 border border-ink-100">
                     <div className="flex items-center justify-between">
                       <div>
@@ -593,7 +540,6 @@ function AgeCalculatorForm({
                     </div>
                   </div>
 
-                  {/* Life Stage */}
                   <div className="bg-gradient-to-br from-accent-50 to-primary-50 rounded-xl p-4 border border-accent-200">
                     <div className="flex items-center gap-2 mb-1">
                       <Star className="h-4 w-4 text-accent-500" />
@@ -604,7 +550,6 @@ function AgeCalculatorForm({
                     <p className="text-sm text-ink-600">{result.description}</p>
                   </div>
 
-                  {/* Astrological Insight */}
                   <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-4 border border-purple-200">
                     <div className="flex items-center gap-2 mb-1">
                       <Moon className="h-4 w-4 text-purple-500" />
@@ -638,7 +583,7 @@ function AgeCalculatorForm({
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT IS AGE CALCULATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHAT IS AGE CALCULATOR ────────────────────── */
 function WhatIsAgeCalculator() {
   return (
     <section className="py-16 bg-ink-50">
@@ -663,7 +608,7 @@ function WhatIsAgeCalculator() {
               </p>
               <div className="mt-4 p-4 bg-accent-50 rounded-xl border border-accent-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">ðŸ’¡ This tool</span> isn't
+                  <span className="font-semibold">💡 This tool</span> isn't
                   just doing basic math. It smartly factors in leap years,
                   different month lengths, and even presents your age in various
                   formats, be it days, weeks, months, or years.
@@ -671,7 +616,7 @@ function WhatIsAgeCalculator() {
               </div>
               <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200">
                 <p className="text-sm text-ink-700">
-                  <span className="font-semibold">âœ¨ Designed for India,</span>{" "}
+                  <span className="font-semibold">✨ Designed for India,</span>{" "}
                   taking into account cultural nuances like Indian Standard Time
                   and traditional muhurats.
                 </p>
@@ -684,7 +629,7 @@ function WhatIsAgeCalculator() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HOW DOES IT WORK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── HOW DOES IT WORK ─────────────────────── */
 function HowDoesItWork() {
   return (
     <section className="py-16 bg-white">
@@ -723,10 +668,10 @@ function HowDoesItWork() {
                     Advanced Features
                   </h4>
                   <ul className="space-y-1 text-sm text-ink-600">
-                    <li>â€¢ Accounts for leap years</li>
-                    <li>â€¢ Considers time zones</li>
-                    <li>â€¢ Handles daylight saving changes</li>
-                    <li>â€¢ Allows birth time input for accuracy</li>
+                    <li>• Accounts for leap years</li>
+                    <li>• Considers time zones</li>
+                    <li>• Handles daylight saving changes</li>
+                    <li>• Allows birth time input for accuracy</li>
                   </ul>
                 </div>
               </div>
@@ -738,7 +683,7 @@ function HowDoesItWork() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHAT DO RESULTS MEAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────────────── WHAT DO RESULTS MEAN ────────────────────── */
 function WhatDoResultsMean() {
   return (
     <section className="py-16 bg-ink-50">
@@ -792,7 +737,7 @@ function WhatDoResultsMean() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TIME ZONE ROLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── TIME ZONE ROLE ─────────────────────── */
 function TimeZoneRole() {
   return (
     <section className="py-16 bg-white">
@@ -820,7 +765,7 @@ function TimeZoneRole() {
                     Astrological Importance
                   </h4>
                   <p className="text-sm text-ink-600">
-                    Your entire birth chartâ€”your lagna (ascendant), rashi
+                    Your entire birth chart — your lagna (ascendant), rashi
                     (moon sign), and predictions can shift with just an hour's
                     difference. That's why astrologers always ask for your exact
                     time and place of birth.
@@ -845,7 +790,7 @@ function TimeZoneRole() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SHORTCUTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────── SHORTCUTS ─────────────────────────── */
 function Shortcuts() {
   return (
     <section className="py-16 bg-ink-50">
@@ -893,7 +838,7 @@ function Shortcuts() {
           <Reveal delay={0.3}>
             <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:shadow-lg transition-all">
               <div className="p-3 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 w-fit mb-4">
-                <TrendingUp className="h-6 w-6 text-white" />
+                <Star className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-lg font-bold text-ink-900 mb-2">
                 Decade Method
@@ -910,7 +855,7 @@ function Shortcuts() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CULTURAL METHODS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── CULTURAL METHODS ─────────────────────── */
 function CulturalMethods() {
   return (
     <section className="py-16 bg-white">
@@ -1001,7 +946,7 @@ function CulturalMethods() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ WHERE CAN YOU USE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────── WHERE CAN YOU USE ─────────────────────── */
 function WhereCanYouUse() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1018,7 +963,7 @@ function WhereCanYouUse() {
           <Reveal delay={0.1}>
             <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
               <div className="p-3 rounded-xl bg-gradient-to-br from-primary-600 to-accent-500 w-fit mx-auto mb-4">
-                <Briefcase className="h-6 w-6 text-white" />
+                <User className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-sm font-bold text-ink-900">
                 Career Planning
@@ -1032,7 +977,7 @@ function WhereCanYouUse() {
           <Reveal delay={0.2}>
             <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
               <div className="p-3 rounded-xl bg-gradient-to-br from-accent-600 to-secondary-600 w-fit mx-auto mb-4">
-                <Heart className="h-6 w-6 text-white" />
+                <Users className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-sm font-bold text-ink-900">
                 Relationship Compatibility
@@ -1046,7 +991,7 @@ function WhereCanYouUse() {
           <Reveal delay={0.3}>
             <div className="bg-white rounded-2xl p-6 border border-ink-100 hover:border-accent-200 hover:shadow-lg transition-all text-center">
               <div className="p-3 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 w-fit mx-auto mb-4">
-                <Baby className="h-6 w-6 text-white" />
+                <Sparkles className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-sm font-bold text-ink-900">
                 Family Planning
@@ -1076,7 +1021,7 @@ function WhereCanYouUse() {
   );
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CTA SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────────────── CTA SECTION ──────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

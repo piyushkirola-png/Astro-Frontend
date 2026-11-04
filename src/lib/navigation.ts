@@ -91,7 +91,7 @@ export const services: ServiceItem[] = [
     icon: MessageCircle,
     title: "Chat Consultation",
     description:
-      "Connect with expert astrologers via real-time chat for instant guidance.",
+      "Chat with our AI astrologer 24×7 for instant, personalized Vedic guidance.",
     href: "/chat-with-astrologer",
   },
   {
@@ -140,10 +140,10 @@ export interface StatItem {
 }
 
 export const stats: StatItem[] = [
-  { value: 500, suffix: "+", label: "Expert Astrologers" },
-  { value: 100000, suffix: "+", label: "Happy Clients" },
-  { value: 99.5, suffix: "%", label: "Accuracy Rate" },
-  { value: 24, suffix: "/7", label: "Support Available" },
+  { value: 1, suffix: "", label: "AI Astrologer" },
+  { value: 24, suffix: "/7", label: "Always Available" },
+  { value: 36, suffix: "", label: "Guna Matching" },
+  { value: 12, suffix: "", label: "Zodiac Signs" },
 ];
 
 // Features for astrology platform
@@ -158,13 +158,13 @@ export const features: FeatureItem[] = [
     icon: Sparkles,
     title: "Vedic Astrology Expertise",
     description:
-      "Consult certified astrologers with deep knowledge of Vedic scriptures.",
+      "Ask our AI astrologer — trained on classical Vedic scriptures and planetary principles.",
   },
   {
     icon: MessageCircle,
-    title: "Multiple Consultation Modes",
+    title: "Always-On AI Consultation",
     description:
-      "Chat, call, or video consult with astrologers anytime, anywhere.",
+      "Chat with your AI astrologer 24×7 — no appointments, no waiting, no per-minute billing.",
   },
   {
     icon: Star,
@@ -214,13 +214,13 @@ export const specializations: AstrologerSpecialization[] = [
   {
     icon: Heart,
     title: "Love & Relationship",
-    description: "Expert guidance on matters of the heart and relationships.",
+    description:
+      "AI-powered guidance on matters of the heart and relationships.",
   },
   {
     icon: Users,
     title: "Career & Business",
-    description:
-      "Professional guidance for career growth and business success.",
+    description: "AI-powered guidance for career growth and business success.",
   },
   {
     icon: Clock,
@@ -246,7 +246,7 @@ export interface TestimonialItem {
 export const testimonials: TestimonialItem[] = [
   {
     quote:
-      "The astrologer helped me understand my career path clearly. The predictions were spot on!",
+      "The AI astrologer helped me understand my career path clearly. The reading felt surprisingly on point.",
     author: "Priya Sharma",
     role: "Software Engineer",
   },
@@ -274,7 +274,7 @@ export const faqs: FaqItem[] = [
   {
     question: "How do I start a consultation?",
     answer:
-      "Simply select an astrologer, choose your preferred mode (chat/call/video), and start your consultation instantly.",
+      "Just open the chat — your AI astrologer is available 24×7. Sign in, add your birth details once, and start asking questions instantly.",
   },
   {
     question: "Is my birth details secure?",
@@ -289,7 +289,7 @@ export const faqs: FaqItem[] = [
   {
     question: "How accurate are the predictions?",
     answer:
-      "Our predictions are based on authentic Vedic astrology principles. We have expert astrologers with decades of experience.",
+      "Our AI astrologer is trained on authentic Vedic astrology principles — planetary positions, dashas, nakshatras and classical texts. Predictions are guidance, not certainty.",
   },
   {
     question: "What is Muhurat?",

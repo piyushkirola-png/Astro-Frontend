@@ -28,6 +28,12 @@ const AVAILABLE_GATEWAYS: GatewayOption[] = [
     logo: "/partners/payu.png",
     description: "UPI",
   },
+  {
+    code: "RAZORPAY",
+    name: "Razorpay",
+    logo: "/partners/razorpay.png",
+    description: "UPI",
+  },
 ];
 
 interface Props {
@@ -94,8 +100,8 @@ export default function GatewayPickerModal({
               key={gw.code}
               onClick={() => setSelected(gw.code)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition text-left ${selected === gw.code
-                  ? "border-primary-500 bg-primary-50/50"
-                  : "border-ink-100 hover:border-primary-200 hover:bg-ink-50/50"
+                ? "border-primary-500 bg-primary-50/50"
+                : "border-ink-100 hover:border-primary-200 hover:bg-ink-50/50"
                 }`}
             >
               <div className="h-10 w-14 shrink-0 rounded-lg bg-white border border-ink-100 flex items-center justify-center overflow-hidden">
@@ -126,8 +132,8 @@ export default function GatewayPickerModal({
               </div>
               <div
                 className={`h-5 w-5 rounded-full border-2 flex items-center justify-center shrink-0 ${selected === gw.code
-                    ? "border-primary-500 bg-primary-500"
-                    : "border-ink-300"
+                  ? "border-primary-500 bg-primary-500"
+                  : "border-ink-300"
                   }`}
               >
                 {selected === gw.code && (
