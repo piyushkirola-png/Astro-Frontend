@@ -2,13 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
-  MapPin,
   User,
   Users,
   Sparkles,
   Heart,
-  CheckCircle,
   ArrowRight,
   Briefcase,
   Activity,
@@ -17,7 +14,6 @@ import {
   Star,
   Shield,
   Moon,
-  Sun,
   Gem,
   ShieldAlert,
 } from "lucide-react";
@@ -405,7 +401,6 @@ function KaalSarpDoshForm({
                     Place of Birth <span className="text-danger-500">*</span>
                   </label>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400" />
                     {showPlaceInput ? (
                       <div className="relative">
                         <input

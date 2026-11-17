@@ -1,17 +1,8 @@
 import {
-  Sparkles,
   Calendar,
-  Sun,
-  Moon,
   TrendingUp,
   TrendingDown,
   Minus,
-  Heart,
-  Briefcase,
-  Activity,
-  ShieldPlus,
-  Wallet,
-  Plane,
   ArrowRight,
   Loader2,
   AlertCircle,
@@ -98,7 +89,7 @@ export default function UserDashboard() {
   const avatarSrc = userService.absoluteAvatarUrl(me?.avatarUrl);
   const travelTip = getTravelTip(data.readingDate);
   
-  // Get the zodiac image path, fallback to lowercase
+  // Zodiac image path
   const zodiacImg = `/zodiac/${data.zodiacSign?.toLowerCase()}.png`;
 
   return (
@@ -155,15 +146,12 @@ export default function UserDashboard() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-2xl font-bold">{data.zodiacSign}</span>
-              
-              {/* Zodiac Image replacing the text symbol */}
               <div className="h-10 w-10 shrink-0">
                 <img 
                   src={zodiacImg} 
                   alt={data.zodiacSign}
                   className="h-full w-full object-contain drop-shadow-md"
                   onError={(e) => {
-                    // Fallback to symbol if image doesn't load
                     (e.target as HTMLImageElement).style.display = "none";
                     (e.target as HTMLImageElement).parentElement!.innerHTML = 
                       `<span class="text-4xl opacity-95">${data.zodiacSymbol}</span>`;
@@ -235,8 +223,16 @@ export default function UserDashboard() {
             to="/user/horoscope"
             className="group bg-gradient-to-br from-orange-50 to-amber-100 rounded-2xl p-6 min-h-[140px] border border-orange-200 hover:border-orange-400 hover:shadow-lg transition-all flex items-center gap-4"
           >
-            <div className="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 shrink-0 group-hover:scale-110 transition-transform">
-              <Sun className="h-6 w-6 text-white" />
+            <div className="p-3 rounded-xl bg-ink-50 border border-orange-200 shrink-0 group-hover:scale-110 transition-transform overflow-hidden shadow-sm">
+              <img 
+                src="/general/time.png" 
+                alt="Daily Horoscope"
+                className="h-6 w-6 object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-orange-500"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>';
+                }}
+              />
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-base font-bold text-ink-900">
@@ -254,8 +250,16 @@ export default function UserDashboard() {
             to="/user/kundali"
             className="group bg-gradient-to-br from-indigo-50 to-purple-100 rounded-2xl p-6 min-h-[140px] border border-indigo-200 hover:border-indigo-400 hover:shadow-lg transition-all flex items-center gap-4"
           >
-            <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shrink-0 group-hover:scale-110 transition-transform">
-              <Moon className="h-6 w-6 text-white" />
+            <div className="p-3 rounded-xl bg-ink-50 border border-indigo-200 shrink-0 group-hover:scale-110 transition-transform overflow-hidden shadow-sm">
+              <img 
+                src="/general/birth.png" 
+                alt="Birth Chart"
+                className="h-6 w-6 object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-indigo-500"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>';
+                }}
+              />
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-base font-bold text-ink-900">
@@ -273,8 +277,16 @@ export default function UserDashboard() {
             to="/user/chat"
             className="group bg-gradient-to-br from-amber-50 to-yellow-100 rounded-2xl p-6 min-h-[140px] border border-amber-200 hover:border-amber-400 hover:shadow-lg transition-all flex items-center gap-4"
           >
-            <div className="p-3 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-500 shrink-0 group-hover:scale-110 transition-transform">
-              <Sparkles className="h-6 w-6 text-white" />
+            <div className="p-3 rounded-xl bg-ink-50 border border-amber-200 shrink-0 group-hover:scale-110 transition-transform overflow-hidden shadow-sm">
+              <img 
+                src="/general/ai.png" 
+                alt="Ask AI"
+                className="h-6 w-6 object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>';
+                }}
+              />
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-base font-bold text-ink-900">
@@ -321,8 +333,16 @@ export default function UserDashboard() {
           <div className="space-y-4">
             {/* Love */}
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 shrink-0">
-                <Heart className="h-6 w-6 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-ink-50 border border-pink-100 shrink-0 overflow-hidden shadow-sm">
+                <img 
+                  src="/general/love.png" 
+                  alt="Love"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-pink-500 to-rose-500 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div>';
+                  }}
+                />
               </div>
               <div className="min-w-0">
                 <div className="text-base font-bold text-ink-900 mb-1">
@@ -336,8 +356,16 @@ export default function UserDashboard() {
 
             {/* Career */}
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 shrink-0">
-                <Briefcase className="h-6 w-6 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-ink-50 border border-blue-100 shrink-0 overflow-hidden shadow-sm">
+                <img 
+                  src="/general/career.png" 
+                  alt="Career"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-blue-500 to-cyan-500 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>';
+                  }}
+                />
               </div>
               <div className="min-w-0">
                 <div className="text-base font-bold text-ink-900 mb-1">
@@ -351,8 +379,16 @@ export default function UserDashboard() {
 
             {/* Health */}
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 shrink-0">
-                <ShieldPlus className="h-6 w-6 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-ink-50 border border-teal-100 shrink-0 overflow-hidden shadow-sm">
+                <img 
+                  src="/general/health.png" 
+                  alt="Health"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-teal-500 to-emerald-500 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M10 10h4"></path></svg></div>';
+                  }}
+                />
               </div>
               <div className="min-w-0">
                 <div className="text-base font-bold text-ink-900 mb-1">
@@ -366,8 +402,16 @@ export default function UserDashboard() {
 
             {/* Finance */}
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-yellow-500 to-amber-600 shrink-0">
-                <Wallet className="h-6 w-6 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-ink-50 border border-yellow-100 shrink-0 overflow-hidden shadow-sm">
+                <img 
+                  src="/general/finance.png" 
+                  alt="Finance"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-yellow-500 to-amber-600 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></div>';
+                  }}
+                />
               </div>
               <div className="min-w-0">
                 <div className="text-base font-bold text-ink-900 mb-1">
@@ -381,8 +425,16 @@ export default function UserDashboard() {
 
             {/* Travel */}
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 shrink-0">
-                <Plane className="h-6 w-6 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-ink-50 border border-sky-100 shrink-0 overflow-hidden shadow-sm">
+                <img 
+                  src="/general/travel.png" 
+                  alt="Travel"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-sky-500 to-blue-600 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></div>';
+                  }}
+                />
               </div>
               <div className="min-w-0">
                 <div className="text-base font-bold text-ink-900 mb-1">
@@ -396,8 +448,16 @@ export default function UserDashboard() {
 
             {/* Wellness */}
             <div className="flex items-start gap-3.5">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-green-500 to-lime-500 shrink-0">
-                <Activity className="h-6 w-6 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-ink-50 border border-green-100 shrink-0 overflow-hidden shadow-sm">
+                <img 
+                  src="/general/wellness.png" 
+                  alt="Wellness"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-green-500 to-lime-500 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg></div>';
+                  }}
+                />
               </div>
               <div className="min-w-0">
                 <div className="text-base font-bold text-ink-900 mb-1">

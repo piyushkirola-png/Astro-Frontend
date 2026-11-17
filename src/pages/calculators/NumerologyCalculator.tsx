@@ -37,10 +37,10 @@ const numberMeanings: {
   1: { title: "Sun", traits: ["Bold", "Independent", "Courageous", "Ambitious"], planet: "Sun", color: "from-orange-500 to-yellow-500" },
   2: { title: "Moon", traits: ["Caring", "Sensitive", "Emotional", "Intuitive"], planet: "Moon", color: "from-blue-400 to-cyan-500" },
   3: { title: "Jupiter", traits: ["Creative", "Communicator", "Storyteller", "Enthusiastic"], planet: "Jupiter", color: "from-yellow-500 to-amber-500" },
-  4: { title: "Uranus", traits: ["Disciplined", "Responsible", "Trustworthy", "Hardworking"], planet: "Uranus", color: "from-indigo-500 to-purple-500" },
+  4: { title: "Rahu", traits: ["Disciplined", "Responsible", "Trustworthy", "Hardworking"], planet: "Rahu", color: "from-indigo-500 to-purple-500" },
   5: { title: "Mercury", traits: ["Witty", "Adventurous", "Communicator", "Quick Thinker", "Adaptable"], planet: "Mercury", color: "from-green-500 to-emerald-500" },
   6: { title: "Venus", traits: ["Artistic", "Magnetic", "Charming", "Creative", "Caring"], planet: "Venus", color: "from-pink-500 to-rose-500" },
-  7: { title: "Neptune", traits: ["Intuitive", "Mysterious", "Philosophical", "Introspective"], planet: "Neptune", color: "from-purple-500 to-indigo-500" },
+  7: { title: "Ketu", traits: ["Intuitive", "Mysterious", "Philosophical", "Introspective"], planet: "Ketu", color: "from-purple-500 to-indigo-500" },
   8: { title: "Saturn", traits: ["Ambitious", "Hardworking", "Authoritative", "Resilient"], planet: "Saturn", color: "from-gray-600 to-slate-700" },
   9: { title: "Mars", traits: ["Energetic", "Brave", "Independent", "Impulsive"], planet: "Mars", color: "from-red-500 to-orange-500" },
 };
@@ -57,6 +57,18 @@ const compatibilityMap: {
   7: { favorable: [2, 4, 6, 7], unfavorable: [1, 8] },
   8: { favorable: [5], unfavorable: [3] },
   9: { favorable: [1, 3, 6, 9], unfavorable: [4, 8] },
+};
+
+const PLANET_IMAGES: Record<string, string> = {
+  Sun: "/planets/sun.png",
+  Moon: "/planets/moon.png",
+  Mars: "/planets/mars.png",
+  Mercury: "/planets/mercury.png",
+  Jupiter: "/planets/jupiter.png",
+  Venus: "/planets/venus.png",
+  Saturn: "/planets/saturn.png",
+  Rahu: "/planets/rahu.png",
+  Ketu: "/planets/ketu.png",
 };
 
 export default function NumerologyCalculator() {
@@ -596,15 +608,15 @@ function SystemDifference() {
 /* ────────────────────── NUMBER SIGNIFICANCE ────────────────────── */
 function NumberSignificance() {
   const numbers = [
-    { num: 1, title: "Sun", traits: "Bold, Independent, Courageous, Ambitious", color: "from-orange-500 to-yellow-500" },
-    { num: 2, title: "Moon", traits: "Caring, Sensitive, Emotional, Intuitive", color: "from-blue-400 to-cyan-500" },
-    { num: 3, title: "Jupiter", traits: "Creative, Communicator, Storyteller, Enthusiastic", color: "from-yellow-500 to-amber-500" },
-    { num: 4, title: "Uranus", traits: "Disciplined, Responsible, Trustworthy, Hardworking", color: "from-indigo-500 to-purple-500" },
-    { num: 5, title: "Mercury", traits: "Witty, Adventurous, Communicator, Quick Thinker, Adaptable", color: "from-green-500 to-emerald-500" },
-    { num: 6, title: "Venus", traits: "Artistic, Magnetic, Charming, Creative, Caring", color: "from-pink-500 to-rose-500" },
-    { num: 7, title: "Neptune", traits: "Intuitive, Mysterious, Philosophical, Introspective", color: "from-purple-500 to-indigo-500" },
-    { num: 8, title: "Saturn", traits: "Ambitious, Hardworking, Authoritative, Resilient", color: "from-gray-600 to-slate-700" },
-    { num: 9, title: "Mars", traits: "Energetic, Brave, Independent, Impulsive", color: "from-red-500 to-orange-500" },
+    { num: 1, title: "Sun", traits: "Bold, Independent, Courageous, Ambitious" },
+    { num: 2, title: "Moon", traits: "Caring, Sensitive, Emotional, Intuitive" },
+    { num: 3, title: "Jupiter", traits: "Creative, Communicator, Storyteller, Enthusiastic" },
+    { num: 4, title: "Rahu", traits: "Disciplined, Responsible, Trustworthy, Hardworking" },
+    { num: 5, title: "Mercury", traits: "Witty, Adventurous, Communicator, Quick Thinker, Adaptable" },
+    { num: 6, title: "Venus", traits: "Artistic, Magnetic, Charming, Creative, Caring" },
+    { num: 7, title: "Ketu", traits: "Intuitive, Mysterious, Philosophical, Introspective" },
+    { num: 8, title: "Saturn", traits: "Ambitious, Hardworking, Authoritative, Resilient" },
+    { num: 9, title: "Mars", traits: "Energetic, Brave, Independent, Impulsive" },
   ];
 
   return (
@@ -619,19 +631,38 @@ function NumberSignificance() {
         </Reveal>
 
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-          {numbers.map((item, i) => (
-            <Reveal key={item.num} delay={i * 0.05}>
-              <div className="bg-white rounded-2xl p-4 border border-ink-100 hover:shadow-lg transition-all">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center text-white font-bold text-lg`}>
-                    {item.num}
+          {numbers.map((item, i) => {
+            const imgSrc = PLANET_IMAGES[item.title];
+
+            return (
+              <Reveal key={item.num} delay={i * 0.05}>
+                <div className="bg-white rounded-2xl p-4 border border-ink-100 hover:shadow-lg transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-full bg-ink-50 border border-ink-100 flex items-center justify-center overflow-hidden shadow-sm shrink-0">
+                      {imgSrc ? (
+                        <img
+                          src={imgSrc}
+                          alt={item.title}
+                          className="w-8 h-8 object-contain"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = "none";
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = 
+                              `<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-primary-600 to-accent-500 text-white font-bold text-lg">${item.num}</div>`;
+                          }}
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-primary-600 to-accent-500 text-white font-bold text-lg">
+                          {item.num}
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-sm font-bold text-ink-900">{item.title}</div>
                   </div>
-                  <div className="text-sm font-bold text-ink-900">{item.title}</div>
+                  <p className="text-xs text-ink-500">{item.traits}</p>
                 </div>
-                <p className="text-xs text-ink-500">{item.traits}</p>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

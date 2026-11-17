@@ -620,8 +620,8 @@ function WhyChooseLoveCalculator() {
 /* ──────────────────────── OTHER LOVE TOOLS ──────────────────────── */
 function OtherLoveTools() {
   const tools = [
-    { icon: Flame, title: "Flames Calculator", description: "Interested to know if there exists a profound spiritual bond between you and your partner? Try out the Flames Calculator.", link: "/flames-calculator" },
-    { icon: Crown, title: "Kundli Matching", description: "If you are planning to get married, then Kundli Matching is the ideal solution for you based on Vedic Astrology.", link: "/kundali-matching" },
+    { icon: Flame, title: "Flames Calculator", description: "Interested to know if there exists a profound spiritual bond between you and your partner? Try out the Flames Calculator."},
+    { icon: Crown, title: "Kundli Matching", description: "If you are planning to get married, then Kundli Matching is the ideal solution for you based on Vedic Astrology." },
   ];
 
   return (
@@ -650,10 +650,6 @@ function OtherLoveTools() {
                     <p className="text-sm text-ink-500 leading-relaxed">
                       {tool.description}
                     </p>
-                    <Button to={tool.link} variant="outline" size="sm" className="mt-3">
-                      Try Now
-                      <ArrowRight className="h-3 w-3" />
-                    </Button>
                   </div>
                 </div>
               </div>

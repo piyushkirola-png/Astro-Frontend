@@ -1,6 +1,5 @@
 import {
   Mail,
-  Phone,
   MapPin,
   MessageSquare,
   Star,
@@ -10,8 +9,6 @@ import {
   Paperclip,
   X,
   Sparkles,
-  Heart,
-  Compass,
 } from "lucide-react";
 import { useState, useRef } from "react";
 import PageHero from "../components/ui/PageHero";
@@ -29,7 +26,7 @@ export default function Contact() {
   const [fileName, setFileName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -114,7 +111,7 @@ export default function Contact() {
             Connect with <span className="gradient-text">Cosmic Wisdom</span>
           </>
         }
-        subtitle="Whether you need guidance, have questions, or want to consult an astrologer â€” our team is here to help."
+        subtitle="Whether you need guidance, have questions, or want to consult an astrologer our team is here to help."
       />
 
       <section className="section-pad bg-white">

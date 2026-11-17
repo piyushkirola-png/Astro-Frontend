@@ -24,6 +24,14 @@ const COLOR_HEX: Record<string, string> = {
   Maroon: "#7f1d1d",
 };
 
+// Section image mapping
+const SECTION_IMAGES: Record<string, string> = {
+  Love: "/general/love.png",
+  Career: "/general/career.png",
+  Health: "/general/health.png",
+  Money: "/general/money.png",
+};
+
 interface Props {
   period: HoroscopePeriod;
 }
@@ -107,25 +115,29 @@ export default function HoroscopeContent({ period }: Props) {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <SectionCard
-          icon={<Heart className="h-5 w-5 text-white" />}
+          image={SECTION_IMAGES["Love"]}
+          fallbackIcon={<Heart className="h-5 w-5 text-white" />}
           iconBg="from-pink-500 to-rose-500"
           title="Love"
           text={data.loveText}
         />
         <SectionCard
-          icon={<Briefcase className="h-5 w-5 text-white" />}
+          image={SECTION_IMAGES["Career"]}
+          fallbackIcon={<Briefcase className="h-5 w-5 text-white" />}
           iconBg="from-blue-500 to-cyan-500"
           title="Career"
           text={data.careerText}
         />
         <SectionCard
-          icon={<ShieldPlus className="h-5 w-5 text-white" />}
+          image={SECTION_IMAGES["Health"]}
+          fallbackIcon={<ShieldPlus className="h-5 w-5 text-white" />}
           iconBg="from-teal-500 to-emerald-500"
           title="Health"
           text={data.healthText}
         />
         <SectionCard
-          icon={<Wallet className="h-5 w-5 text-white" />}
+          image={SECTION_IMAGES["Money"]}
+          fallbackIcon={<Wallet className="h-5 w-5 text-white" />}
           iconBg="from-yellow-500 to-amber-600"
           title="Money"
           text={data.moneyText}
@@ -136,12 +148,14 @@ export default function HoroscopeContent({ period }: Props) {
 }
 
 function SectionCard({
-  icon,
+  image,
+  fallbackIcon,
   iconBg,
   title,
   text,
 }: {
-  icon: React.ReactNode;
+  image?: string;
+  fallbackIcon: React.ReactNode;
   iconBg: string;
   title: string;
   text: string | null;
@@ -150,9 +164,43 @@ function SectionCard({
     <div className="bg-white rounded-2xl border border-ink-100 p-5">
       <div className="flex items-center gap-3 mb-3">
         <div
-          className={`h-10 w-10 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center shrink-0`}
+          className={`h-10 w-10 rounded-xl bg-ink-50 border border-ink-100 flex items-center justify-center shrink-0 overflow-hidden shadow-sm`}
         >
-          {icon}
+          {image ? (
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                // Fallback if image fails to load
+                (e.target as HTMLImageElement).style.display = "none";
+                const parent = (e.target as HTMLImageElement).parentElement;
+                if (parent) {
+                  parent.className = `h-10 w-10 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center shrink-0`;
+                  parent.innerHTML = "";
+                  parent.appendChild(
+                    // Create a temporary div to safely parse the React node to HTML
+                    // Note: This fallback relies on the innerHTML of the provided icon's container
+                    (() => {
+                      const div = document.createElement("div");
+                      // Since we can't render a ReactNode easily in raw JS, we do a hardcoded SVG fallback based on title
+                      if (title === "Love") div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>';
+                      else if (title === "Career") div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>';
+                      else if (title === "Health") div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M10 10h4"></path></svg>';
+                      else if (title === "Money") div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg>';
+                      return div;
+                    })(),
+                  );
+                }
+              }}
+            />
+          ) : (
+            <div
+              className={`h-full w-full bg-gradient-to-br ${iconBg} flex items-center justify-center`}
+            >
+              {fallbackIcon}
+            </div>
+          )}
         </div>
         <h3 className="text-base font-bold text-ink-900">{title}</h3>
       </div>

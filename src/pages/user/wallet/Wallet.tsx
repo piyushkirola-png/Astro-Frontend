@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import {
-  Wallet as WalletIcon,
   Clock,
   Plus,
   ArrowRight,
   Loader2,
-  AlertCircle,
   CreditCard,
 } from "lucide-react";
 import {
@@ -31,12 +29,32 @@ export default function Wallet() {
         </p>
       </div>
 
+      {/* BALANCE CARD */}
       <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 rounded-3xl p-6 lg:p-8 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+
+        {/* Optional: Large background wallet watermark */}
+        <div className="absolute top-1/2 right-4 -translate-y-1/2 opacity-10 pointer-events-none">
+          <img src="/general/wallet.png" alt="" className="w-48 h-48 object-contain" />
+        </div>
+
         <div className="relative">
           <div className="flex items-center gap-3 mb-6">
-            <div className="h-11 w-11 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <WalletIcon className="h-5 w-5" />
+            <div className="h-12 w-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center p-2 overflow-hidden border border-white/20">
+              <img
+                src="/general/wallet.png"
+                alt="Wallet"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  // Fallback to Lucide icon
+                  (e.target as HTMLImageElement).style.display = "none";
+                  const parent = (e.target as HTMLImageElement).parentElement;
+                  if (parent) {
+                    parent.innerHTML =
+                      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg>';
+                  }
+                }}
+              />
             </div>
             <div>
               <div className="text-xs uppercase tracking-wider text-white/70 font-semibold">
@@ -74,6 +92,7 @@ export default function Wallet() {
         </div>
       </div>
 
+      {/* RECHARGE HISTORY */}
       <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-ink-100">
           <div className="flex items-center gap-2">
@@ -120,8 +139,22 @@ export default function Wallet() {
                 className="flex items-center justify-between px-5 py-4 hover:bg-ink-50/40 transition"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white shrink-0">
-                    <Plus className="h-4 w-4" />
+                  {/* Replaced Plus icon with UPI PNG */}
+                  <div className="h-10 w-10 rounded-xl bg-ink-50 border border-ink-100 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+                    <img
+                      src="/general/upi.png"
+                      alt="UPI Recharge"
+                      className="w-7 h-7 object-contain"
+                      onError={(e) => {
+                        // Fallback to Plus icon if image fails to load
+                        (e.target as HTMLImageElement).style.display = "none";
+                        const parent = (e.target as HTMLImageElement).parentElement;
+                        if (parent) {
+                          parent.innerHTML =
+                            '<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-green-500 to-emerald-500 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></div>';
+                        }
+                      }}
+                    />
                   </div>
                   <div className="min-w-0">
                     <div className="text-sm font-semibold text-ink-900 truncate">

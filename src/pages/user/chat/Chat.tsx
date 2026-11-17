@@ -19,7 +19,7 @@ import PaywallOverlay from "../../../components/chat/PaywallOverlay";
 import type { ChatMessage, ChatSessionSummary } from "../../../types/chat";
 
 export default function Chat() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const queryClient = useQueryClient();
 
   const [activeId, setActiveId] = useState<number | null>(null);
