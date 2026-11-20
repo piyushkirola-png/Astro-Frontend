@@ -146,9 +146,7 @@ export default function UserProfile() {
   );
 }
 
-// ============================================================
 // VIEW MODE
-// ============================================================
 function ViewMode({ profile }: { profile: UserProfile }) {
   const avatarSrc = userService.absoluteAvatarUrl(profile.avatarUrl);
   const [imgFailed, setImgFailed] = useState(false);
@@ -239,9 +237,7 @@ function ViewMode({ profile }: { profile: UserProfile }) {
   );
 }
 
-// ============================================================
 // EDIT MODAL — with portal
-// ============================================================
 function EditProfileModal({
   open,
   profile,
@@ -638,7 +634,7 @@ function EditProfileModal({
         document.body,
       )}
 
-      {/* Confirm — PORTAL */}
+      {/* Confirm */}
       {createPortal(
         <ConfirmDialog
           open={confirmOpen}

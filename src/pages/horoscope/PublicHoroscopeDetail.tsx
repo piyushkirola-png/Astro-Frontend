@@ -242,7 +242,7 @@ export default function PublicHoroscopeDetail({
   );
 }
 
-// SUB-COMPONENTS
+{/* SUB-COMPONENTS */}
 
 function LuckyCard({
   icon,

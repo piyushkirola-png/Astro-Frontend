@@ -114,9 +114,6 @@ export default function AdminProfile() {
   );
 }
 
-// ============================================================
-// VIEW MODE
-// ============================================================
 function ViewMode({ profile }: { profile: UserProfile }) {
   const avatarSrc = userService.absoluteAvatarUrl(profile.avatarUrl);
   const [imgFailed, setImgFailed] = useState(false);
@@ -185,9 +182,6 @@ function ViewMode({ profile }: { profile: UserProfile }) {
   );
 }
 
-// ============================================================
-// EDIT MODAL — with portal
-// ============================================================
 function EditAdminModal({
   open,
   profile,
@@ -225,7 +219,7 @@ function EditAdminModal({
     }
   }, [open, profile]);
 
-  // Hide header while modal open (kept from your original — harmless)
+  // Hide header while modal open
   useEffect(() => {
     const header = document.querySelector("header");
     if (!header) return;
@@ -393,7 +387,7 @@ function EditAdminModal({
                     />
                   </div>
 
-                  {/* Email — readonly */}
+                  {/* Email */}
                   <div>
                     <label className="block text-xs font-medium text-ink-700 mb-1">
                       Email

@@ -36,9 +36,6 @@ export function useDeleteSession() {
   });
 }
 
-// ============================================================
-// useRenameSession — PATCH /chat/sessions/{id}
-// ============================================================
 export function useRenameSession() {
   const queryClient = useQueryClient();
   return useMutation({

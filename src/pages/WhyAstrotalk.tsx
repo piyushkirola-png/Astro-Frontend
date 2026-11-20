@@ -1,10 +1,7 @@
 import {
-  Zap,
   ShieldCheck,
-  ArrowLeftRight,
   Globe,
   Users,
-  Code2,
   TrendingUp,
   Clock,
   Headphones,

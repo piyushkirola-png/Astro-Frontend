@@ -27,7 +27,6 @@ export default function ProtectedRoute({
   }
 
   if (roles && !roles.includes(user.role)) {
-    // Wrong role → redirect to their own dashboard
     return (
       <Navigate
         to={user.role === "ADMIN" ? "/admin/dashboard" : "/user/dashboard"}

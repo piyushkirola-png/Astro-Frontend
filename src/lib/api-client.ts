@@ -1,7 +1,6 @@
 import axios from "axios";
 import { getToken, clearSession } from "./token-storage";
 
-// Axios instance
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api",
   headers: {
@@ -10,7 +9,6 @@ export const apiClient = axios.create({
   timeout: 15000,
 });
 
-// REQUEST interceptor — auto-attach token
 apiClient.interceptors.request.use(
   (config) => {
     const token = getToken();
@@ -23,13 +21,11 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// RESPONSE interceptor — handle 401
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       clearSession();
-      // Notify AuthContext to reset in-memory state
       window.dispatchEvent(new Event("auth:unauthorized"));
     }
     return Promise.reject(error);

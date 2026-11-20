@@ -7,16 +7,10 @@ import {
   Sparkles,
   Calendar,
   Moon,
-  Sun,
   Heart,
-  Briefcase,
   Gem,
-  Shield,
-  Wallet,
   Headphones,
-  Home,
   Stars,
-  Clock,
 } from "lucide-react";
 
 interface Message {

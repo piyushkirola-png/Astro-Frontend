@@ -340,7 +340,7 @@ export default function DestinyNumber() {
   );
 }
 
-/* ───────────────────────── HERO SECTION ───────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -387,7 +387,7 @@ function HeroSection() {
   );
 }
 
-/* ────────────────────────── DESTINY FORM ────────────────────────── */
+/* DESTINY FORM */
 interface DestinyFormProps {
   formData: { name: string; day: string; month: string; year: string };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -658,7 +658,7 @@ function DestinyForm({ formData, handleChange, handleSubmit, result }: DestinyFo
   );
 }
 
-/* ────────────────────── WHAT IS DESTINY NUMBER ────────────────────── */
+/* WHAT IS DESTINY NUMBER */
 function WhatIsDestinyNumber() {
   return (
     <section className="py-16 bg-ink-50">
@@ -707,7 +707,7 @@ function WhatIsDestinyNumber() {
   );
 }
 
-/* ───────────────────────── HOW TO CALCULATE ───────────────────────── */
+/* HOW TO CALCULATE */
 function HowToCalculate() {
   return (
     <section className="py-16 bg-white">
@@ -795,7 +795,7 @@ function HowToCalculate() {
   );
 }
 
-/* ────────────────────── WHAT IS DESTINY CALCULATOR ────────────────────── */
+/* WHAT IS DESTINY CALCULATOR */
 function WhatIsDestinyCalculator() {
   return (
     <section className="py-16 bg-ink-50">
@@ -849,7 +849,7 @@ function WhatIsDestinyCalculator() {
   );
 }
 
-/* ─────────────────────── HOW DOES IT WORK ─────────────────────── */
+/* HOW DOES IT WORK */
 function HowDoesItWork() {
   const steps = [
     {
@@ -908,7 +908,7 @@ function HowDoesItWork() {
   );
 }
 
-/* ─────────────────────── MEANINGS OF EACH NUMBER ─────────────────────── */
+/* MEANINGS OF EACH NUMBER */
 function MeaningOfEachDestinyNumber() {
   const numbers = [
     { num: 1, title: "The Leader", emoji: "🌱", desc: "Born to lead, take charge, and try new things. Often become business owners, inventors, or bold thinkers." },
@@ -957,7 +957,7 @@ function MeaningOfEachDestinyNumber() {
   );
 }
 
-/* ─────────────────────────── BENEFITS ─────────────────────────── */
+/* BENEFITS */
 function Benefits() {
   const benefits = [
     { icon: Calculator, title: "Career Guidance", description: "You may realize why past jobs didn't feel right and what kind of work suits you best. Shows the best time for job changes and big work decisions." },
@@ -1001,7 +1001,7 @@ function Benefits() {
   );
 }
 
-/* ────────────────────── DIFFERENCE BETWEEN NUMBERS ────────────────────── */
+/* DIFFERENCE BETWEEN NUMBERS */
 function DifferenceBetweenDestinyAndLifePath() {
   return (
     <section className="py-16 bg-ink-50">

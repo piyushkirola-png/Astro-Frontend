@@ -33,7 +33,7 @@ export default function Wallet() {
       <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 rounded-3xl p-6 lg:p-8 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
-        {/* Optional: Large background wallet watermark */}
+        {/* Large background wallet watermark */}
         <div className="absolute top-1/2 right-4 -translate-y-1/2 opacity-10 pointer-events-none">
           <img src="/general/wallet.png" alt="" className="w-48 h-48 object-contain" />
         </div>
@@ -46,7 +46,6 @@ export default function Wallet() {
                 alt="Wallet"
                 className="w-full h-full object-contain"
                 onError={(e) => {
-                  // Fallback to Lucide icon
                   (e.target as HTMLImageElement).style.display = "none";
                   const parent = (e.target as HTMLImageElement).parentElement;
                   if (parent) {

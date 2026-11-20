@@ -193,7 +193,7 @@ export default function FriendshipCalculator() {
   );
 }
 
-/* ───────────────────────── HERO SECTION ───────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -239,7 +239,7 @@ function HeroSection() {
   );
 }
 
-/* ────────────────────────── FRIENDSHIP FORM ────────────────────────── */
+/* FRIENDSHIP FORM */
 interface FriendshipFormProps {
   formData: { yourName: string; partnerName: string };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -405,7 +405,7 @@ function FriendshipForm({ formData, handleChange, handleSubmit, result }: Friend
   );
 }
 
-/* ───────────────────────── WHAT IS FRIENDSHIP ───────────────────────── */
+/* WHAT IS FRIENDSHIP */
 function WhatIsFriendship() {
   return (
     <section className="py-16 bg-ink-50">
@@ -456,7 +456,7 @@ function WhatIsFriendship() {
   );
 }
 
-/* ────────────────────── WHAT IS FRIENDSHIP CALCULATOR ────────────────────── */
+/* WHAT IS FRIENDSHIP CALCULATOR */
 function WhatIsFriendshipCalculator() {
   return (
     <section className="py-16 bg-white">
@@ -498,7 +498,7 @@ function WhatIsFriendshipCalculator() {
   );
 }
 
-/* ─────────────────────── HOW IT WORKS ─────────────────────── */
+/* HOW IT WORKS */
 function HowItWorks() {
   const steps = [
     { number: 1, icon: User, title: "Enter Your Name", description: "Type your full name to begin the friendship compatibility check." },
@@ -554,7 +554,7 @@ function HowItWorks() {
   );
 }
 
-/* ─────────────────────── FRIENDSHIP TYPES ─────────────────────── */
+/* FRIENDSHIP TYPES */
 function FriendshipTypes() {
   return (
     <section className="py-16 bg-white">
@@ -589,7 +589,7 @@ function FriendshipTypes() {
   );
 }
 
-/* ─────────────────── PLANETS AFFECTING FRIENDSHIPS ─────────────────── */
+/* PLANETS AFFECTING FRIENDSHIPS */
 function PlanetsAffectingFriendships() {
   return (
     <section className="py-16 bg-ink-50">
@@ -632,7 +632,7 @@ function PlanetsAffectingFriendships() {
   );
 }
 
-/* ─────────────────────── HOUSE OF FRIENDSHIP ─────────────────────── */
+/* HOUSE OF FRIENDSHIP */
 function HouseOfFriendship() {
   return (
     <section className="py-16 bg-white">
@@ -707,7 +707,7 @@ function HouseOfFriendship() {
   );
 }
 
-/* ─────────────────────────── BENEFITS ─────────────────────────── */
+/* BENEFITS */
 function Benefits() {
   const benefits = [
     { icon: Star, title: "Self-Awareness", description: "Reflect on your behavior patterns and understand your strengths and limitations in friendships." },
@@ -763,7 +763,7 @@ function Benefits() {
   );
 }
 
-/* ─────────────────────── WHY CHOOSE FRIENDSHIP ─────────────────────── */
+/* WHY CHOOSE FRIENDSHIP */
 function WhyChooseFriendship() {
   const features = [
     { icon: Award, title: "Accurate Analysis", description: "Based on ancient numerology and Vedic astrology principles for precise compatibility assessment." },
@@ -821,7 +821,7 @@ function WhyChooseFriendship() {
   );
 }
 
-/* ─────────────────────────── CTA ─────────────────────────── */
+/* CTA */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

@@ -13,7 +13,6 @@ import {
   Compass,
   Shield,
   Crown,
-  TrendingUp,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
@@ -173,7 +172,7 @@ export default function Calculators() {
   );
 }
 
-/* ─────────────────────────── HERO ─────────────────────────── */
+/* HERO */
 function HeroSection() {
   return (
     <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-ink-50 pt-20">
@@ -262,7 +261,7 @@ function HeroSection() {
   );
 }
 
-/* ────────────────────────── FEATURED ────────────────────────── */
+/* FEATURED */
 function FeaturedSection() {
   return (
     <section className="section-pad bg-white">
@@ -307,7 +306,7 @@ function FeaturedSection() {
   );
 }
 
-/* ─────────────────────────── STATS ─────────────────────────── */
+/* STATS */
 function StatsSection() {
   return (
     <section className="py-20 bg-primary-900 relative overflow-hidden">
@@ -338,7 +337,7 @@ function StatsSection() {
   );
 }
 
-/* ─────────────────────── ALL CALCULATORS ─────────────────────── */
+/* ALL CALCULATORS */
 function AllCalculatorsSection() {
   return (
     <section id="all-calculators" className="section-pad bg-ink-50">
@@ -383,7 +382,7 @@ function AllCalculatorsSection() {
   );
 }
 
-/* ────────────────────────── BENEFITS ────────────────────────── */
+/* BENEFITS */
 function BenefitsSection() {
   const benefits = [
     {
@@ -437,7 +436,7 @@ function BenefitsSection() {
   );
 }
 
-/* ──────────────────────────── CTA ──────────────────────────── */
+/* CTA */
 function CTASection() {
   return (
     <section className="py-20 lg:py-28 bg-ink-950 relative overflow-hidden">

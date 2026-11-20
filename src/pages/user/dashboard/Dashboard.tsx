@@ -132,7 +132,7 @@ export default function UserDashboard() {
         </div>
       </div>
 
-      {/* ======================= ROW 2: DAILY READING ======================= */}
+      {/* DAILY READING */}
       <div className="bg-white rounded-2xl border border-ink-100 p-5">
         <h2 className="text-base font-bold text-ink-900 mb-4">
           Your Daily Reading
@@ -212,7 +212,7 @@ export default function UserDashboard() {
         </div>
       </div>
 
-      {/* ======================= ROW 3: QUICK INSIGHTS ======================= */}
+      {/* ROW 3: QUICK INSIGHTS */}
       <div>
         <h2 className="text-base font-bold text-ink-900 mb-3">
           Quick Insights
@@ -301,7 +301,7 @@ export default function UserDashboard() {
         </div>
       </div>
 
-      {/* ======================= ROW 4: 60:40 ======================= */}
+      {/* ROW 4: 60:40 */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
         {/* Today's Cosmic Forecast (60%) */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-ink-100 p-6 min-h-[460px] relative overflow-hidden">

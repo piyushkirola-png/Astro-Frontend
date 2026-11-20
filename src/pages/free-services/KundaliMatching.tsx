@@ -216,11 +216,10 @@ function MatchGenerator({
                                   },
                                 } as any)
                               }
-                              className={`py-2 px-3 rounded-xl border-2 font-medium transition-all text-sm ${
-                                formData.yourGender === gender.toLowerCase()
+                              className={`py-2 px-3 rounded-xl border-2 font-medium transition-all text-sm ${formData.yourGender === gender.toLowerCase()
                                   ? "border-primary-500 bg-primary-50 text-primary-700"
                                   : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
-                              }`}
+                                }`}
                             >
                               {gender}
                             </button>
@@ -329,11 +328,10 @@ function MatchGenerator({
                                   },
                                 } as any)
                               }
-                              className={`py-2 px-3 rounded-xl border-2 font-medium transition-all text-sm ${
-                                formData.partnerGender === gender.toLowerCase()
+                              className={`py-2 px-3 rounded-xl border-2 font-medium transition-all text-sm ${formData.partnerGender === gender.toLowerCase()
                                   ? "border-primary-500 bg-primary-50 text-primary-700"
                                   : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
-                              }`}
+                                }`}
                             >
                               {gender}
                             </button>
@@ -895,30 +893,28 @@ function ScoreInterpretation() {
           {scores.map((score, i) => (
             <Reveal key={score.range} delay={i * 0.1}>
               <div
-                className={`rounded-2xl p-6 border ${
-                  i === 0
+                className={`rounded-2xl p-6 border ${i === 0
                     ? "bg-red-50 border-red-200"
                     : i === 1
                       ? "bg-yellow-50 border-yellow-200"
                       : i === 2
                         ? "bg-green-50 border-green-200"
                         : "bg-emerald-50 border-emerald-200"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-lg font-bold text-ink-900">
                     {score.range}
                   </h3>
                   <span
-                    className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                      i === 0
+                    className={`text-xs font-semibold px-3 py-1 rounded-full ${i === 0
                         ? "bg-red-200 text-red-700"
                         : i === 1
                           ? "bg-yellow-200 text-yellow-700"
                           : i === 2
                             ? "bg-green-200 text-green-700"
                             : "bg-emerald-200 text-emerald-700"
-                    }`}
+                      }`}
                   >
                     {score.label}
                   </span>
@@ -1128,7 +1124,7 @@ function WhyChooseMatching() {
   );
 }
 
-/* ──────────────────────── CTA SECTION ──────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

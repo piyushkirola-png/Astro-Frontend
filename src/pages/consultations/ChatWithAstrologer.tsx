@@ -15,7 +15,7 @@ import SectionHeading from "../../components/ui/SectionHeading";
 import Reveal from "../../components/animations/Reveal";
 import Button from "../../components/ui/Button";
 
-/* ---------- UPI methods ---------- */
+/* UPI methods */
 const upiMethods = [
   {
     icon: Smartphone,
@@ -43,7 +43,7 @@ const upiMethods = [
   },
 ];
 
-/* ---------- Why UPI on our gateway ---------- */
+/* Why UPI on our gateway */
 const benefits = [
   {
     icon: Layers,
@@ -67,7 +67,7 @@ const benefits = [
   },
 ];
 
-/* ---------- Feature checklist ---------- */
+/* Feature checklist */
 const features = [
   "Drop-in UPI checkout for web and mobile",
   "Server-to-server API for fully custom flows",
@@ -79,7 +79,7 @@ const features = [
   "Real-time payment status via webhooks",
 ];
 
-/* ---------- How it works ---------- */
+/* How it works */
 const steps = [
   {
     icon: Zap,
@@ -112,7 +112,7 @@ export default function PaymentGateway() {
         subtitle="One integration to UPI Intent, Collect, QR, and AutoPay. Smart routing across multiple gateway partners ensures the highest success rates — without you connecting each one separately."
       />
 
-      {/* ---------- UPI Methods ---------- */}
+      {/* UPI Methods */}
       <section className="section-pad bg-white">
         <div className="container-8xl">
           <Reveal>
@@ -144,7 +144,7 @@ export default function PaymentGateway() {
         </div>
       </section>
 
-      {/* ---------- Benefits ---------- */}
+      {/* Benefits */}
       <section className="section-pad bg-ink-50">
         <div className="container-8xl">
           <Reveal>
@@ -174,7 +174,7 @@ export default function PaymentGateway() {
         </div>
       </section>
 
-      {/* ---------- Features + API mock ---------- */}
+      {/* Features + API mock */}
       <section className="section-pad bg-white">
         <div className="container-8xl grid lg:grid-cols-2 gap-12 items-center">
           <Reveal>
@@ -252,7 +252,7 @@ export default function PaymentGateway() {
         </div>
       </section>
 
-      {/* ---------- How it works ---------- */}
+      {/* How it works */}
       <section className="section-pad bg-ink-50">
         <div className="container-8xl">
           <Reveal>
@@ -282,7 +282,7 @@ export default function PaymentGateway() {
         </div>
       </section>
 
-      {/* ---------- Final CTA ---------- */}
+      {/* Final CTA */}
       <section className="py-20 bg-ink-950 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg-dark opacity-30" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent-500/10 blur-[120px] rounded-full" />

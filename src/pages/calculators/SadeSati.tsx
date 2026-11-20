@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
   MapPin,
   User,
   Users,
@@ -16,10 +15,7 @@ import {
   AlertCircle,
   AlertTriangle,
   Smile,
-  Frown,
-  Cloud,
   CloudRain,
-  Sun,
   Moon,
   Star,
   Target,
@@ -215,7 +211,7 @@ export default function SadeSati() {
   );
 }
 
-/* ────────────────────── HERO SECTION ────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -260,7 +256,7 @@ function HeroSection() {
   );
 }
 
-/* ────────────────────── SADE SATI FORM ────────────────────── */
+/* SADE SATI FORM */
 interface SadeSatiFormProps {
   formData: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -616,7 +612,7 @@ function SadeSatiForm({
   );
 }
 
-/* ────────────────────── WHAT IS SADE SATI ────────────────────── */
+/* WHAT IS SADE SATI */
 function WhatIsSadeSati() {
   return (
     <section className="py-16 bg-ink-50">
@@ -666,7 +662,7 @@ function WhatIsSadeSati() {
   );
 }
 
-/* ────────────────────── WHY 7.5 YEARS ────────────────────── */
+/* WHY 7.5 YEARS */
 function WhySevenPointFiveYears() {
   return (
     <section className="py-16 bg-white">
@@ -716,7 +712,7 @@ function WhySevenPointFiveYears() {
   );
 }
 
-/* ────────────────────── PHASES OF SADE SATI ────────────────────── */
+/* PHASES OF SADE SATI */
 function PhasesOfSadeSati() {
   const phases = [
     { title: "First Phase", icon: Home, description: "Saturn moves into the sign just before your Moon sign.", focus: "Relationships, family, emotional foundations", color: "from-blue-400 to-cyan-500" },
@@ -757,7 +753,7 @@ function PhasesOfSadeSati() {
   );
 }
 
-/* ────────────────────── EFFECTS OF SADE SATI ────────────────────── */
+/* EFFECTS OF SADE SATI */
 function EffectsOfSadeSati() {
   return (
     <section className="py-16 bg-white">
@@ -830,7 +826,7 @@ function EffectsOfSadeSati() {
   );
 }
 
-/* ────────────────────── RASHIS AFFECTED ────────────────────── */
+/* RASHIS AFFECTED */
 function RashisAffected({ affectedSigns }: { affectedSigns: any[] }) {
   return (
     <section className="py-16 bg-ink-50">
@@ -874,7 +870,7 @@ function RashisAffected({ affectedSigns }: { affectedSigns: any[] }) {
   );
 }
 
-/* ────────────────────── REMEDIES ────────────────────── */
+/* REMEDIES */
 function Remedies() {
   const remedies = [
     { icon: Moon, title: "Chant Mantras", description: 'Chant "Om Sham Shanicharaya Namah" 108 times daily for peace and calm.' },
@@ -914,7 +910,7 @@ function Remedies() {
   );
 }
 
-/* ────────────────────── DO'S AND DON'TS ────────────────────── */
+/* DO'S AND DON'TS */
 function DosAndDonts() {
   return (
     <section className="py-16 bg-ink-50">
@@ -999,7 +995,7 @@ function DosAndDonts() {
   );
 }
 
-/* ────────────────────── CTA SECTION ────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

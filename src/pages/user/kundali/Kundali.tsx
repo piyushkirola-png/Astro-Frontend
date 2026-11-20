@@ -415,7 +415,6 @@ function DashaTab() {
 }
 
 function DashaCard({ period }: { period: DashaPeriod }) {
-  // Look up the image path. Defaults to a fallback icon if somehow missing.
   const imageSrc = PLANET_IMAGES[period.planet.toUpperCase()];
 
   return (
@@ -428,7 +427,6 @@ function DashaCard({ period }: { period: DashaPeriod }) {
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3 min-w-0">
-          {/* Replaced the text abbreviation with the actual image */}
           <div className="h-12 w-12 rounded-xl bg-ink-50 border border-ink-100 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
             {imageSrc ? (
               <img

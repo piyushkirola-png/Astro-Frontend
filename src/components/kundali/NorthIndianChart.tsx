@@ -5,9 +5,6 @@ interface Props {
   title?: string;
 }
 
-// North Indian chart layout — house positions
-// The chart is a square with two diagonals and a central diamond.
-// House positions (approximate label center in a 300x300 viewBox):
 const HOUSE_CENTERS: { x: number; y: number }[] = [
   { x: 150, y: 45 }, // 1  (top center)
   { x: 60, y: 45 }, // 2  (top left)
@@ -66,7 +63,7 @@ export default function NorthIndianChart({ houses, title }: Props) {
             strokeWidth="1"
           />
 
-          {/* Inner diamond (connects midpoints of sides) */}
+          {/* Inner diamond */}
           <polygon
             points="150,5 295,150 150,295 5,150"
             fill="none"
@@ -74,7 +71,7 @@ export default function NorthIndianChart({ houses, title }: Props) {
             strokeWidth="1"
           />
 
-          {/* House number labels (small, at corners of each house) */}
+          {/* House number labels */}
           {HOUSE_CENTERS.map((c, i) => {
             const planets = parseHouses(houses[i]);
             return (
@@ -119,7 +116,7 @@ export default function NorthIndianChart({ houses, title }: Props) {
 function parseHouses(h: string | undefined): string[] {
   if (!h) return [];
   return h
-    .split(/[,|]/) // supports both "Su,Mo" and "Su|Mo"
+    .split(/[,|]/)
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
 }

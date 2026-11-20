@@ -63,7 +63,7 @@ export default function FreeKundali() {
   );
 }
 
-/* ─────────────────────────── HERO SECTION ─────────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -181,11 +181,10 @@ function KundaliGenerator({
                             target: { name: "gender", value: "male" },
                           } as any)
                         }
-                        className={`py-2.5 px-4 rounded-xl border-2 font-medium transition-all text-sm ${
-                          formData.gender === "male"
+                        className={`py-2.5 px-4 rounded-xl border-2 font-medium transition-all text-sm ${formData.gender === "male"
                             ? "border-primary-500 bg-primary-50 text-primary-700"
                             : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
-                        }`}
+                          }`}
                       >
                         <Users className="h-4 w-4 inline-block mr-2" />
                         Male
@@ -197,11 +196,10 @@ function KundaliGenerator({
                             target: { name: "gender", value: "female" },
                           } as any)
                         }
-                        className={`py-2.5 px-4 rounded-xl border-2 font-medium transition-all text-sm ${
-                          formData.gender === "female"
+                        className={`py-2.5 px-4 rounded-xl border-2 font-medium transition-all text-sm ${formData.gender === "female"
                             ? "border-primary-500 bg-primary-50 text-primary-700"
                             : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
-                        }`}
+                          }`}
                       >
                         <Users className="h-4 w-4 inline-block mr-2" />
                         Female

@@ -8,7 +8,6 @@ export function useUpdateProfile() {
     mutationFn: (payload: UpdateProfileRequest) =>
       userService.updateMe(payload),
     onSuccess: (data) => {
-      // refresh cached "me"
       queryClient.setQueryData(["me"], data);
     },
   });

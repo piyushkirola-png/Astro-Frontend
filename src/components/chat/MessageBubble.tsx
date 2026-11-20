@@ -21,7 +21,6 @@ export default function MessageBubble({ message }: Props) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // silent fail
     }
   };
 

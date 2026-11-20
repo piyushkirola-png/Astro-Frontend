@@ -593,7 +593,7 @@ function CompatibilityTips() {
   );
 }
 
-/* ──────────────────────── CTA SECTION ──────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

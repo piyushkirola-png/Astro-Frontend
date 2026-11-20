@@ -4,7 +4,6 @@ import type { ApiResponse } from "../../types/auth";
 import type { UserProfile } from "../../types/user";
 import type { AdminStats } from "../../types/admin";
 
-// useAdminUsers — GET /api/users (admin only)
 export function useAdminUsers() {
   return useQuery({
     queryKey: ["admin", "users"],
@@ -16,7 +15,6 @@ export function useAdminUsers() {
   });
 }
 
-// useAdminStats — GET /api/admin/stats (admin only)
 export function useAdminStats() {
   return useQuery({
     queryKey: ["admin", "stats"],

@@ -120,7 +120,7 @@ export default function LoveCalculator() {
   );
 }
 
-/* ───────────────────────── HERO SECTION ───────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-accent-900/10 to-ink-50">
@@ -253,8 +253,8 @@ function LoveCalculatorForm({
                               } as any)
                             }
                             className={`py-1.5 px-3 rounded-xl border-2 font-medium transition-all text-xs ${formData.yourGender === gender.toLowerCase()
-                                ? "border-primary-500 bg-primary-50 text-primary-700"
-                                : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
+                              ? "border-primary-500 bg-primary-50 text-primary-700"
+                              : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
                               }`}
                           >
                             {gender}
@@ -313,8 +313,8 @@ function LoveCalculatorForm({
                               } as any)
                             }
                             className={`py-1.5 px-3 rounded-xl border-2 font-medium transition-all text-xs ${formData.partnerGender === gender.toLowerCase()
-                                ? "border-primary-500 bg-primary-50 text-primary-700"
-                                : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
+                              ? "border-primary-500 bg-primary-50 text-primary-700"
+                              : "border-ink-200 bg-white text-ink-600 hover:border-ink-300"
                               }`}
                           >
                             {gender}
@@ -524,12 +524,12 @@ function LovePercentageGuide() {
             <Reveal key={range.range} delay={i * 0.1}>
               <div
                 className={`bg-white rounded-2xl p-6 border ${i === 0
-                    ? "border-accent-200"
-                    : i === 1
-                      ? "border-primary-200"
-                      : i === 2
-                        ? "border-blue-200"
-                        : "border-gray-200"
+                  ? "border-accent-200"
+                  : i === 1
+                    ? "border-primary-200"
+                    : i === 2
+                      ? "border-blue-200"
+                      : "border-gray-200"
                   } hover:shadow-lg transition-all`}
               >
                 <div className="flex items-center gap-3 mb-3">
@@ -620,7 +620,7 @@ function WhyChooseLoveCalculator() {
 /* ──────────────────────── OTHER LOVE TOOLS ──────────────────────── */
 function OtherLoveTools() {
   const tools = [
-    { icon: Flame, title: "Flames Calculator", description: "Interested to know if there exists a profound spiritual bond between you and your partner? Try out the Flames Calculator."},
+    { icon: Flame, title: "Flames Calculator", description: "Interested to know if there exists a profound spiritual bond between you and your partner? Try out the Flames Calculator." },
     { icon: Crown, title: "Kundli Matching", description: "If you are planning to get married, then Kundli Matching is the ideal solution for you based on Vedic Astrology." },
   ];
 
@@ -674,7 +674,7 @@ function OtherLoveTools() {
   );
 }
 
-/* ──────────────────────── CTA SECTION ──────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

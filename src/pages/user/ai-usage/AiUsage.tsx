@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   Activity,
   Loader2,
@@ -7,18 +7,15 @@ import {
   MessageSquare,
   IndianRupee,
   RefreshCw,
-  Search,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../../../lib/api-client";
 import type { ApiResponse } from "../../../types/auth";
-import type { AiUsageLog } from "../../../types/aiUsage";
 import { useAiUsage } from "../../../api/queries/useAiUsage";
 import type { ChatSessionSummary } from "../../../types/chat";
 
 export default function AiUsage() {
   const { data, isLoading, isError, refetch, isRefetching } = useAiUsage();
-  const [search, setSearch] = useState("");
 
   const sessionsQuery = useQuery({
     queryKey: ["chat", "sessions"],
@@ -37,16 +34,6 @@ export default function AiUsage() {
     (sessionsQuery.data ?? []).forEach((s) => m.set(s.id, s.title));
     return m;
   }, [sessionsQuery.data]);
-
-  const filtered = useMemo(() => {
-    if (!data) return [];
-    const q = search.trim().toLowerCase();
-    if (!q) return data;
-    return data.filter((log) => {
-      const title = sessionMap.get(log.sessionId) ?? "";
-      return title.toLowerCase().includes(q) || log.usageDate.includes(q);
-    });
-  }, [data, search, sessionMap]);
 
   const totals = useMemo(() => {
     if (!data) return { seconds: 0, rupees: 0, messages: 0 };
@@ -139,71 +126,45 @@ export default function AiUsage() {
           </p>
         </div>
       ) : (
-        <>
-          <div className="bg-white rounded-2xl border border-ink-100 p-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-400" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by session title or date..."
-                className="w-full rounded-xl border border-ink-200 pl-10 pr-3 py-2.5 text-sm text-ink-900 placeholder-ink-400 focus:outline-none focus:border-primary-400"
-              />
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[760px] text-sm">
-                <thead>
-                  <tr className="bg-ink-50/70 text-left text-[11px] uppercase tracking-wider text-ink-500 font-semibold">
-                    <th className="px-4 py-3">Date</th>
-                    <th className="px-4 py-3">Session</th>
-                    <th className="px-4 py-3 text-right">Messages</th>
-                    <th className="px-4 py-3 text-right">Time Used</th>
-                    <th className="px-4 py-3 text-right">₹ Deducted</th>
+        <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] text-sm">
+              <thead>
+                <tr className="bg-ink-50/70 text-left text-[11px] uppercase tracking-wider text-ink-500 font-semibold">
+                  <th className="px-4 py-3">Date</th>
+                  <th className="px-4 py-3">Session</th>
+                  <th className="px-4 py-3 text-right">Messages</th>
+                  <th className="px-4 py-3 text-right">Time Used</th>
+                  <th className="px-4 py-3 text-right">₹ Deducted</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((log) => (
+                  <tr
+                    key={log.id}
+                    className="border-t border-ink-100 hover:bg-ink-50/40 transition"
+                  >
+                    <td className="px-4 py-3 text-ink-700 whitespace-nowrap text-xs">
+                      {formatDate(log.usageDate)}
+                    </td>
+                    <td className="px-4 py-3 text-ink-900 whitespace-nowrap">
+                      {sessionMap.get(log.sessionId) ?? "Deleted session"}
+                    </td>
+                    <td className="px-4 py-3 text-ink-700 whitespace-nowrap text-right font-mono text-xs">
+                      {log.messageCount ?? 0}
+                    </td>
+                    <td className="px-4 py-3 text-ink-700 whitespace-nowrap text-right font-mono text-xs">
+                      {formatSeconds(log.secondsUsed ?? 0)}
+                    </td>
+                    <td className="px-4 py-3 text-ink-900 whitespace-nowrap text-right font-semibold">
+                      ₹{Number(log.rupeesDeducted ?? 0).toFixed(2)}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {filtered.length === 0 ? (
-                    <tr>
-                      <td
-                        colSpan={5}
-                        className="px-4 py-10 text-center text-sm text-ink-500"
-                      >
-                        No logs match "{search}"
-                      </td>
-                    </tr>
-                  ) : (
-                    filtered.map((log) => (
-                      <tr
-                        key={log.id}
-                        className="border-t border-ink-100 hover:bg-ink-50/40 transition"
-                      >
-                        <td className="px-4 py-3 text-ink-700 whitespace-nowrap text-xs">
-                          {formatDate(log.usageDate)}
-                        </td>
-                        <td className="px-4 py-3 text-ink-900 whitespace-nowrap">
-                          {sessionMap.get(log.sessionId) ?? "Deleted session"}
-                        </td>
-                        <td className="px-4 py-3 text-ink-700 whitespace-nowrap text-right font-mono text-xs">
-                          {log.messageCount ?? 0}
-                        </td>
-                        <td className="px-4 py-3 text-ink-700 whitespace-nowrap text-right font-mono text-xs">
-                          {formatSeconds(log.secondsUsed ?? 0)}
-                        </td>
-                        <td className="px-4 py-3 text-ink-900 whitespace-nowrap text-right font-semibold">
-                          ₹{Number(log.rupeesDeducted ?? 0).toFixed(2)}
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

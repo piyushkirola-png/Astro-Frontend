@@ -4,22 +4,17 @@ import {
   MessageCircle,
   Phone,
   Video,
-  Calendar,
   Clock,
   Sparkles,
   Heart,
   Award,
   Shield,
-  CheckCircle,
   ArrowRight,
-  User,
   TrendingUp,
   Activity,
   Home,
   Briefcase,
   Baby,
-  Moon,
-  Sun,
 } from "lucide-react";
 import PageHero from "../../components/ui/PageHero";
 import SectionHeading from "../../components/ui/SectionHeading";

@@ -11,28 +11,16 @@ export interface GatewayOption {
 
 const AVAILABLE_GATEWAYS: GatewayOption[] = [
   {
-    code: "CASHFREE",
-    name: "Cashfree",
-    logo: "/partners/cashfree.png",
-    description: "UPI",
+    code: "PAYKARO",
+    name: "Paykaro",
+    logo: "/partners/paykaro.png",
+    description: "UPI/CARD",
   },
   {
-    code: "SABPAISA",
-    name: "SabPaisa",
-    logo: "/partners/sabpaisa.png",
-    description: "UPI",
-  },
-  {
-    code: "PAYU",
-    name: "PayU",
-    logo: "/partners/payu.png",
-    description: "UPI",
-  },
-  {
-    code: "RAZORPAY",
-    name: "Razorpay",
-    logo: "/partners/razorpay.png",
-    description: "UPI",
+    code: "RUPIYO",
+    name: "Rupiyo",
+    logo: "/partners/rupiyo.png",
+    description: "UPI/CARD",
   },
 ];
 

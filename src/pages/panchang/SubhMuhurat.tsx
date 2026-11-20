@@ -128,7 +128,7 @@ export default function ShubhMuhurat() {
   );
 }
 
-/* ─────────────────────────── HERO SECTION ─────────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -717,7 +717,7 @@ function MythologicalSignificance() {
   );
 }
 
-/* ──────────────────────────── CTA SECTION ──────────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

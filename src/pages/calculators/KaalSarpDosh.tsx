@@ -157,7 +157,7 @@ export default function KaalSarpDosh() {
   );
 }
 
-/* ───────────────────────── HERO SECTION ───────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -203,7 +203,7 @@ function HeroSection() {
   );
 }
 
-/* ──────────────────────── KAAL SARP DOSH FORM ──────────────────────── */
+/* KAAL SARP DOSH FORM */
 interface KaalSarpDoshFormProps {
   formData: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -428,8 +428,8 @@ function KaalSarpDoshForm({
                             type="button"
                             onClick={() => handlePlaceSelect(place)}
                             className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${formData.birthPlace === place
-                                ? "border-primary-500 bg-primary-50 text-primary-700"
-                                : "border-ink-200 bg-white text-ink-600 hover:border-primary-300"
+                              ? "border-primary-500 bg-primary-50 text-primary-700"
+                              : "border-ink-200 bg-white text-ink-600 hover:border-primary-300"
                               }`}
                           >
                             {place.split(",")[0]}
@@ -462,8 +462,8 @@ function KaalSarpDoshForm({
                 >
                   <div
                     className={`rounded-xl p-4 text-center ${result.hasDosh
-                        ? "bg-amber-50 border border-amber-200"
-                        : "bg-green-50 border border-green-200"
+                      ? "bg-amber-50 border border-amber-200"
+                      : "bg-green-50 border border-green-200"
                       }`}
                   >
                     <div className="text-2xl mb-1">
@@ -565,7 +565,7 @@ function KaalSarpDoshForm({
   );
 }
 
-/* ──────────────────────── WHAT IS KAAL SARP DOSH ──────────────────────── */
+/* WHAT IS KAAL SARP DOSH */
 function WhatIsKaalSarpDosh() {
   return (
     <section className="py-16 bg-ink-50">
@@ -615,7 +615,7 @@ function WhatIsKaalSarpDosh() {
   );
 }
 
-/* ──────────────────────── HOW DOES IT WORK ──────────────────────── */
+/* HOW DOES IT WORK */
 function HowDoesItWork() {
   const steps = [
     { number: 1, icon: Calendar, title: "Enter Your Birth Details", description: "Provide your exact date, time, and place of birth for accurate results." },
@@ -659,7 +659,7 @@ function HowDoesItWork() {
   );
 }
 
-/* ──────────────────────── TYPES OF KAAL SARP DOSH ──────────────────────── */
+/* TYPES OF KAAL SARP DOSH */
 function TypesOfKaalSarpDosh() {
   return (
     <section className="py-16 bg-ink-50">
@@ -700,7 +700,7 @@ function TypesOfKaalSarpDosh() {
   );
 }
 
-/* ──────────────────────── HOW DOES IT AFFECT YOU ──────────────────────── */
+/* HOW DOES IT AFFECT YOU */
 function HowDoesItAffectYou() {
   const effects = [
     { icon: Briefcase, title: "Career Growth", description: "Career growth moving at a snail's pace. Delayed recognition and frequent job changes." },
@@ -742,7 +742,7 @@ function HowDoesItAffectYou() {
   );
 }
 
-/* ──────────────────────── DURATION ──────────────────────── */
+/* DURATION */
 function Duration() {
   return (
     <section className="py-16 bg-ink-50">
@@ -783,7 +783,7 @@ function Duration() {
   );
 }
 
-/* ──────────────────────── REMEDIES ──────────────────────── */
+/* REMEDIES */
 function Remedies() {
   const remedies = [
     { icon: Moon, title: "Rudrabhishek Puja", description: "Perform Rudrabhishek puja on Mondays, especially in the month of Shravan, for deep peace and divine protection." },
@@ -827,7 +827,7 @@ function Remedies() {
   );
 }
 
-/* ──────────────────────── CTA SECTION ──────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">

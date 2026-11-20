@@ -242,7 +242,7 @@ export default function AgeCalculator() {
   );
 }
 
-/* ───────────────────────── HERO SECTION ───────────────────────── */
+/* HERO SECTION */
 function HeroSection() {
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-primary-900/10 to-ink-50">
@@ -289,7 +289,7 @@ function HeroSection() {
   );
 }
 
-/* ───────────────────── AGE CALCULATOR FORM ───────────────────── */
+/* AGE CALCULATOR FORM */
 interface AgeCalculatorFormProps {
   formData: {
     birthDay: string;
@@ -583,7 +583,7 @@ function AgeCalculatorForm({
   );
 }
 
-/* ────────────────────── WHAT IS AGE CALCULATOR ────────────────────── */
+/* WHAT IS AGE CALCULATOR */
 function WhatIsAgeCalculator() {
   return (
     <section className="py-16 bg-ink-50">
@@ -629,7 +629,7 @@ function WhatIsAgeCalculator() {
   );
 }
 
-/* ─────────────────────── HOW DOES IT WORK ─────────────────────── */
+/* HOW DOES IT WORK */
 function HowDoesItWork() {
   return (
     <section className="py-16 bg-white">
@@ -683,7 +683,7 @@ function HowDoesItWork() {
   );
 }
 
-/* ────────────────────── WHAT DO RESULTS MEAN ────────────────────── */
+/* WHAT DO RESULTS MEAN */
 function WhatDoResultsMean() {
   return (
     <section className="py-16 bg-ink-50">
@@ -737,7 +737,7 @@ function WhatDoResultsMean() {
   );
 }
 
-/* ─────────────────────── TIME ZONE ROLE ─────────────────────── */
+/* TIME ZONE ROLE */
 function TimeZoneRole() {
   return (
     <section className="py-16 bg-white">
@@ -790,7 +790,7 @@ function TimeZoneRole() {
   );
 }
 
-/* ─────────────────────────── SHORTCUTS ─────────────────────────── */
+/* SHORTCUTS */
 function Shortcuts() {
   return (
     <section className="py-16 bg-ink-50">
@@ -855,7 +855,7 @@ function Shortcuts() {
   );
 }
 
-/* ─────────────────────── CULTURAL METHODS ─────────────────────── */
+/* CULTURAL METHODS */
 function CulturalMethods() {
   return (
     <section className="py-16 bg-white">
@@ -946,7 +946,7 @@ function CulturalMethods() {
   );
 }
 
-/* ─────────────────────── WHERE CAN YOU USE ─────────────────────── */
+/* WHERE CAN YOU USE */
 function WhereCanYouUse() {
   return (
     <section className="py-16 bg-ink-50">
@@ -1021,7 +1021,7 @@ function WhereCanYouUse() {
   );
 }
 
-/* ──────────────────────── CTA SECTION ──────────────────────── */
+/* CTA SECTION */
 function CTASection() {
   return (
     <section className="py-20 bg-ink-950 relative overflow-hidden">
